@@ -9,6 +9,10 @@ package org.qme.main;
  */
 public abstract class QObject {
 	
+	public QObject(QApplication app) {
+		app.objects.add(this);
+	}
+	
 	abstract void update(QApplication app);
 
 }
