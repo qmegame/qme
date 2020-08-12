@@ -11,6 +11,7 @@ import org.qme.main.QObject;
  * This represents where objects get drawn onto
  * the screen. Owned by QApplication.
  * @author adamhutchings
+ * @since pre0
  * @see org.qme.main.QApplication
  */
 @SuppressWarnings("serial")
