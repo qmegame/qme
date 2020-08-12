@@ -10,6 +10,11 @@ import java.awt.Graphics;
  */
 public interface QRenderable {
 	
+	/**
+	 * Is called every reload cycle to display the object.
+	 * @param g - the Graphics object for the QRenderScreen instance.
+	 * @see org.qme.vis.QRenderScreen
+	 */
 	abstract void render(Graphics g);
 
 }

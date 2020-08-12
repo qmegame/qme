@@ -17,16 +17,31 @@ import org.qme.main.QObject;
 @SuppressWarnings("serial")
 public class QRenderScreen extends JPanel {
 	
+	/**
+	 * The "owner" of this object.
+	 */
 	QApplication app;
 	
+	/**
+	 * This constructor really only sets an instance variable.
+	 * @author adamhutchings
+	 * @since pre0
+	 * @param a - the QApplication instance to set app to.
+	 */
 	public QRenderScreen(QApplication a) {
 		app = a;
 	}
 	
+	/**
+	 * This method is invoked automatically by QApplication's
+	 * reload method. It simply paints every object in the screen.
+	 * @author adamhutchings
+	 * @since pre0
+	 * @see org.qme.main.QApplication
+	 */
 	@Override
 	public void paint(Graphics g) {
 		
-		// Just render every object if it can be
 		for (QObject qr : app.objects) {
 			if (qr instanceof QRenderable) {
 				((QRenderable) qr).render(g);
