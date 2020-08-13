@@ -19,6 +19,7 @@ public class WorldGen {
 	 */
 	
 	/**
+	 * this is a utility function that checks if there are any ungenerated tiles left.
 	 * @see org.qme.world.TileType
 	 * @param world - the map to be evaluated.
 	 * @param xSize - how wide the map is.
@@ -36,11 +37,12 @@ public class WorldGen {
 		return true;
 	}
 	/**
+	 * this fills out the map with the biomes by generating sparce, random seeds, and then spreading them to neighboring tules
 	 * @param xSize - how wide the map is.
 	 * @param ySize - how tall the map is.
 	 */
 	public static TileType[][] newWorldMap(int xSize, int ySize) {
-		// Come on, actual code here!
+		// Come on, figurative code here!
 		TileType[][] world = new TileType[xSize][ySize];
 		// Generates seeds
 		for (int i = 0; i < xSize; i++) {
