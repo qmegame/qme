@@ -5,6 +5,7 @@ import java.util.Random;
  * Code for world generation.
  * @author jrpicks
  * @author S-Mackenzie1678
+ * @since pre0
  */
 public class WorldGen {
 	
@@ -17,6 +18,13 @@ public class WorldGen {
 	 * @return the array of tile types that can be fed in to a constructor later
 	 */
 	
+	/**
+	 * @see org.qme.world.TileType
+	 * @param world - the map to be evaluated.
+	 * @param xSize - how wide the map is.
+	 * @param ySize - how tall the map is.
+	 * @return whether or not the map is filled out
+	 */
 	public static boolean filledWorld(TileType[][] world, int xSize, int ySize) {
 		for (int i = 0; i < xSize; i++) {
 			for (int j = 0; j < ySize; j++) {
@@ -27,11 +35,11 @@ public class WorldGen {
 		}
 		return true;
 	}
-	
+	/**
+	 * @param xSize - how wide the map is.
+	 * @param ySize - how tall the map is.
+	 */
 	public static TileType[][] newWorldMap(int xSize, int ySize) {
-		/**
-		 * @parameter xSize, ySize
-		 */
 		// Come on, actual code here!
 		TileType[][] world = new TileType[xSize][ySize];
 		// Generates seeds
@@ -85,7 +93,7 @@ public class WorldGen {
 				}
 			}
 		}
-		return null;
+		return world;
 	}
 
 }
