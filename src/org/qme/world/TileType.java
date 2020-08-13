@@ -10,6 +10,7 @@ package org.qme.world;
  */
 public enum TileType {
 
+	UNGENERATED,
 	OCEAN,
 	SEA,
 	PLAINS,
