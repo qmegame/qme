@@ -5,11 +5,13 @@ package org.qme.world;
  * Should be extendible (depends on how
  * world gen is set up)
  * @author adamhutchings
+ * @author S-Mackenzie1678
  * @since pre0
  * @see org.qme.world.Tile
  */
 public enum TileType {
 
+	UNGENERATED,
 	OCEAN,
 	SEA,
 	PLAINS,
