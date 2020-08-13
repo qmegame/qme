@@ -11,3 +11,7 @@ preferably JakeRoggenbuck (@vc_cypher, GitHub lead).
 
 The code can only be built with Eclipse for now. If you need a new release, contact a programmer
 running the same OS as you to build it, or check the "Releases" tab.
+
+The Javadoc folder has been removed, because every tiny change in the code requires a massive amount
+of new git adds. To generate it, go into Eclipse, select Project > Generate Javadoc, and select all
+folders in `src` with a check mark. Or, ask a programmer.
