@@ -40,6 +40,7 @@ public class WorldGen {
 	 * this fills out the map with the biomes by generating sparce, random seeds, and then spreading them to neighboring tules
 	 * @param xSize - how wide the map is.
 	 * @param ySize - how tall the map is.
+	 * @return a map of tile types
 	 */
 	public static TileType[][] newWorldMap(int xSize, int ySize) {
 		// Come on, figurative code here!
