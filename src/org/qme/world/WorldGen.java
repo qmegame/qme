@@ -37,7 +37,7 @@ public class WorldGen {
 		return true;
 	}
 	/**
-	 * this fills out the map with the biomes by generating sparce, random seeds, and then spreading them to neighboring tules
+	 * this fills out the map with the biomes by generating sparse, random seeds, and then spreading them to neighboring tiles
 	 * @param xSize - how wide the map is.
 	 * @param ySize - how tall the map is.
 	 * @return a map of tile types
