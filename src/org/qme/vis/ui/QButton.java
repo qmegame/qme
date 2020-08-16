@@ -72,6 +72,7 @@ public abstract class QButton implements UIComponent {
 	 * @param x the x-coordinate of the button
 	 * @param y the y-coordinate of the button
 	 * @param str the text displayed on the button
+	 * @author adamhutchings
 	 */
 	public QButton(int x, int y, String str) {
 		
