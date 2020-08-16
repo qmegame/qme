@@ -28,6 +28,6 @@ public abstract class QObject {
 	 * @param app - a handle to update other objects, if need be
 	 * @see org.qme.main.QApplication.reload
 	 */
-	abstract void update(QApplication app);
+	public abstract void update(QApplication app);
 
 }
