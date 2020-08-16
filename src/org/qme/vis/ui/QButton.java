@@ -101,7 +101,7 @@ public abstract class QButton extends QObject implements UIComponent {
 	 */
 	public void render(Graphics g) {
 		
-		Rectangle backgroundRect = new Rectangle(centerX - (width / 2), centerY - (height / 2), BUTTON_WIDTH, BUTTON_HEIGHT);
+		Rectangle backgroundRect = new Rectangle(centerX - (width / 2), centerY - (height / 2), width, height);
 		
 		// Draw the rectangle
 		g.setColor(BACKGROUND_COLOR);
