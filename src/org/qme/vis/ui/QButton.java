@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import org.qme.main.QApplication;
+import org.qme.main.QObject;
+
 /**
  * A basic part of the user interface system. It registers clicks in the area
  * outlined by its rectangle. Any created QButton objects must have inline
@@ -12,7 +15,7 @@ import java.awt.Rectangle;
  * @since pre0
  * @see UIComponent
  */
-public abstract class QButton implements UIComponent {
+public abstract class QButton extends QObject implements UIComponent {
 	
 	/**
 	 * The background color of all buttons. May change to be
@@ -74,7 +77,11 @@ public abstract class QButton implements UIComponent {
 	 * @param str the text displayed on the button
 	 * @author adamhutchings
 	 */
-	public QButton(int x, int y, String str) {
+	public QButton(QApplication a, int x, int y, String str) {
+		
+		super(a);
+		
+		a.objects.add(this);
 		
 		// Member setting
 		centerX = x;
@@ -105,6 +112,14 @@ public abstract class QButton implements UIComponent {
 		// Draw the text
 		g.setColor(TEXT_COLOR);
 		UIUtils.drawCenteredString(g, text, backgroundRect, UIUtils.QME_FONT);
+		
+	}
+	
+	@Override
+	/**
+	 * Does nothing for now
+	 */
+	public void update(QApplication app) {
 		
 	}
 
