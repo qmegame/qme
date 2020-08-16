@@ -52,6 +52,7 @@ public class QInputScreen extends JFrame implements MouseListener {
 		setVisible(true);
 		pack();
 		super.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		addMouseListener(this);
 	}
 
 	@Override
