@@ -81,8 +81,6 @@ public abstract class QButton extends QObject implements UIComponent {
 		
 		super(a);
 		
-		a.objects.add(this);
-		
 		// Member setting
 		centerX = x;
 		centerY = y;
