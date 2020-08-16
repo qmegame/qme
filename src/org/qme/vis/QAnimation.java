@@ -19,12 +19,14 @@ public abstract class QAnimation extends QObject {
 	private QObject modified;
 	
 	/**
-	 * How long this object has been alive for
+	 * How long this object has been alive for, in
+	 * frames (refresh cycles)
 	 */
 	private int count;
 	
 	/**
-	 * How long this object can be alive
+	 * How long this object can be alive, in
+	 * frames (refresh cycles)
 	 */
 	private int lifetime;
 	
@@ -58,7 +60,7 @@ public abstract class QAnimation extends QObject {
 	 */
 	public void update(QApplication app) {
 		
-		if (!(count < lifetime)) {
+		if (count >= lifetime) {
 			
 			// I hope this is the only reference necessary to remove.
 			app.objects.remove(this);
