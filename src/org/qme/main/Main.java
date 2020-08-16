@@ -2,6 +2,8 @@ package org.qme.main;
 
 import java.util.concurrent.TimeUnit;
 
+import org.qme.vis.ui.QButton;
+
 /**
  * Holds the main method and the FRAMERATE constant.
  * FRAMERATE may be moved to a different place later.
@@ -29,6 +31,14 @@ public class Main {
 	public static void main(String[] args) throws InterruptedException {
 		
 		QApplication app = new QApplication();
+		
+		// Button test
+		new QButton(app, 400, 300, "test") {
+			@Override
+			public void mouseClickOff() {
+				System.out.println("test");
+			}
+		};
 		
 		// Main loop time
 		while (true) {
