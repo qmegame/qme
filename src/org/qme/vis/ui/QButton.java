@@ -105,7 +105,7 @@ public abstract class QButton extends QObject implements UIComponent {
 		
 		// Draw the rectangle
 		g.setColor(BACKGROUND_COLOR);
-		g.drawRect(backgroundRect.x, backgroundRect.y, backgroundRect.width, backgroundRect.height);
+		g.fillRect(backgroundRect.x, backgroundRect.y, backgroundRect.width, backgroundRect.height);
 		
 		// Draw the text
 		g.setColor(TEXT_COLOR);
