@@ -33,7 +33,7 @@ public class Main {
 		QApplication app = new QApplication();
 		
 		// The world
-		new World(app, 25, 25);
+		new World(app, 25, 25, true);
 		
 		// Main loop time
 		while (true) {
