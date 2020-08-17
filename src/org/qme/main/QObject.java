@@ -9,6 +9,8 @@ package org.qme.main;
  */
 public abstract class QObject {
 	
+	public QApplication application;
+	
 	/**
 	 * Adds the object to the objects list in the specified application.
 	 * @author adamhutchings
@@ -18,6 +20,7 @@ public abstract class QObject {
 	 */
 	public QObject(QApplication app) {
 		app.objects.add(this);
+		application = app;
 	}
 	
 	/**

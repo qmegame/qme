@@ -2,7 +2,7 @@ package org.qme.main;
 
 import java.util.concurrent.TimeUnit;
 
-import org.qme.vis.ui.QButton;
+import org.qme.world.World;
 
 /**
  * Holds the main method and the FRAMERATE constant.
@@ -32,13 +32,8 @@ public class Main {
 		
 		QApplication app = new QApplication();
 		
-		// Button test
-		new QButton(app, 400, 300, "test") {
-			@Override
-			public void mouseClickOff() {
-				System.out.println("test");
-			}
-		};
+		// The world
+		new World(app, 25, 25, true);
 		
 		// Main loop time
 		while (true) {
@@ -47,6 +42,7 @@ public class Main {
 			TimeUnit.MILLISECONDS.sleep(1000 / FRAMERATE);
 			
 			app.reload();
+			
 		}
 		
 	}
