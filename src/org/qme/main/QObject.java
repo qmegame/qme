@@ -9,7 +9,7 @@ package org.qme.main;
  */
 public abstract class QObject {
 	
-	QApplication a;
+	public QApplication application;
 	
 	/**
 	 * Adds the object to the objects list in the specified application.
@@ -20,7 +20,7 @@ public abstract class QObject {
 	 */
 	public QObject(QApplication app) {
 		app.objects.add(this);
-		a = app;
+		application = app;
 	}
 	
 	/**
