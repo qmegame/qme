@@ -40,9 +40,9 @@ public class WorldGen {
 	 * this fills out the map with the biomes by generating sparse, random seeds, and then spreading them to neighboring tiles
 	 * @param xSize - how wide the map is.
 	 * @param ySize - how tall the map is.
-	 * @return a map of tile types
+	 * @return a blobby map of tile types
 	 */
-	public static TileType[][] newWorldMap(int xSize, int ySize) {
+	public static TileType[][] newWorldMapSeeded(int xSize, int ySize) {
 		// Come on, figurative code here!
 		TileType[][] world = new TileType[xSize][ySize];
 		// Generates seeds
@@ -51,24 +51,7 @@ public class WorldGen {
 				world[i][j] = TileType.UNGENERATED;
 				Random rand = new Random();	// God I hate that all is class
 				if(rand.nextInt(25) == 0) {	// One in 25 chance
-					int seedType = rand.nextInt(8);
-					if(seedType == 0) {
-						world[i][j] = TileType.OCEAN;
-					} else if(seedType == 1) {
-						world[i][j] = TileType.SEA;
-					} else if(seedType == 2) {
-						world[i][j] = TileType.PLAINS;
-					} else if(seedType == 3) {
-						world[i][j] = TileType.DESERT;
-					} else if(seedType == 4) {
-						world[i][j] = TileType.FOREST;
-					} else if(seedType == 5) {
-						world[i][j] = TileType.MOUNTAIN;
-					} else if(seedType == 6) {
-						world[i][j] = TileType.HIGH_MOUNTAIN;
-					} else if(seedType == 7) {
-						world[i][j] = TileType.FERTILE_PLAINS;
-					}
+					world[i][j] = assignRandom();
 				}
 			}
 		}
@@ -97,6 +80,66 @@ public class WorldGen {
 			}
 		}
 		return world;
+	}
+	
+	/**
+	 * this fills out a world with more random elements
+	 * @author S-Mackenzie1678
+	 * @param xSize
+	 * @param ySize
+	 * @return a random TileType map
+	 */
+	public static TileType[][] newWorldMapRandom(int xSize, int ySize) {
+		TileType[][] world = new TileType[xSize][ySize];
+		world = newWorldMapSeeded(xSize, ySize);
+		Random rand = new Random();
+		
+		for (int i = 1; i < (xSize - 1); i++) {
+			for (int j = 1; j < (ySize - 1); j++) {
+				if(rand.nextInt(13) == 0) {	// Results in about 2 randoms per blob
+					world[i][j] = assignRandom();
+					int additional = rand.nextInt(5);	// Whether or not an additional tile will be randomized
+					if(additional >= 1) {
+						world[i + 1][j] = world [i][j];
+					}
+					if(additional >= 2) {
+						world[i][j + 1] = world[i][j];
+					}
+					if(additional >= 3) {
+						world[i - 1][j] = world[i][j];
+					}
+					if(additional >= 4) {
+						world[i][j - 1] = world[i][j];
+					}
+					
+				}
+			}
+		}
+		return world;
+	}
+	
+	private static TileType assignRandom() {
+		TileType a = TileType.HIGH_MOUNTAIN;
+		Random rand = new Random();
+		int randomType = rand.nextInt(8);
+		if(randomType == 0) {
+			a = TileType.OCEAN;
+		} else if(randomType == 1) {
+			a = TileType.SEA;
+		} else if(randomType == 2) {
+			a = TileType.PLAINS;
+		} else if(randomType == 3) {
+			a = TileType.DESERT;
+		} else if(randomType == 4) {
+			a = TileType.FOREST;
+		} else if(randomType == 5) {
+			a = TileType.MOUNTAIN;
+		} else if(randomType == 6) {
+			a = TileType.HIGH_MOUNTAIN;
+		} else if(randomType == 7) {
+			return TileType.FERTILE_PLAINS;
+		}
+		return a;
 	}
 
 }
