@@ -2,8 +2,7 @@ package org.qme.main;
 
 import java.util.concurrent.TimeUnit;
 
-import org.qme.world.Tile;
-import org.qme.world.TileType;
+import org.qme.world.World;
 
 /**
  * Holds the main method and the FRAMERATE constant.
@@ -33,9 +32,8 @@ public class Main {
 		
 		QApplication app = new QApplication();
 		
-		// Test tile
-		Tile tile = new Tile(app, 0, 0);
-		tile.setType(TileType.UNGENERATED);
+		// The world
+		new World(app, 25, 25);
 		
 		// Main loop time
 		while (true) {
@@ -44,6 +42,7 @@ public class Main {
 			TimeUnit.MILLISECONDS.sleep(1000 / FRAMERATE);
 			
 			app.reload();
+			
 		}
 		
 	}
