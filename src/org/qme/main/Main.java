@@ -2,7 +2,8 @@ package org.qme.main;
 
 import java.util.concurrent.TimeUnit;
 
-import org.qme.vis.ui.QButton;
+import org.qme.world.Tile;
+import org.qme.world.TileType;
 
 /**
  * Holds the main method and the FRAMERATE constant.
@@ -31,6 +32,10 @@ public class Main {
 	public static void main(String[] args) throws InterruptedException {
 		
 		QApplication app = new QApplication();
+		
+		// Test tile
+		Tile tile = new Tile(app, 0, 0);
+		tile.setType(TileType.UNGENERATED);
 		
 		// Main loop time
 		while (true) {
