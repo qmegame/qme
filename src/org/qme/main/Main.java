@@ -32,14 +32,6 @@ public class Main {
 		
 		QApplication app = new QApplication();
 		
-		// Button test
-		new QButton(app, 400, 300, "test") {
-			@Override
-			public void mouseClickOff() {
-				System.out.println("test");
-			}
-		};
-		
 		// Main loop time
 		while (true) {
 			
