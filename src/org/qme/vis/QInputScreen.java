@@ -1,6 +1,8 @@
 package org.qme.vis;
 
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -18,7 +20,12 @@ import org.qme.vis.ui.UIComponent;
  * @see org.qme.vis.QRenderScreen
  */
 @SuppressWarnings("serial")
-public class QInputScreen extends JFrame implements MouseListener {
+public class QInputScreen extends JFrame implements KeyListener, MouseListener {
+	
+	/**
+	 * How fast the user "scrolls".
+	 */
+	public static final int SCROLL_SPEED = 20;
 	
 	/**
 	 * The default width of the screen generated.
@@ -38,6 +45,16 @@ public class QInputScreen extends JFrame implements MouseListener {
 	 * The app that this "belongs" to
 	 */
 	QApplication a;
+	
+	/**
+	 * How far the window has been scrolled
+	 */
+	public int xOffset;
+	
+	/**
+	 * How far the window has been scrolled
+	 */
+	public int yOffset;
 
 	/**
 	 * Creates the window, and sets appropriate settings.
@@ -53,6 +70,8 @@ public class QInputScreen extends JFrame implements MouseListener {
 		pack();
 		super.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		addMouseListener(this);
+		xOffset = 0;
+		yOffset = 0;
 	}
 
 	@Override
@@ -104,6 +123,36 @@ public class QInputScreen extends JFrame implements MouseListener {
 		}
 		
 	}
+
+	@Override
+	/**
+	 * This method is called on a key press.
+	 * Currently just moves the screen up and down.
+	 * @author adamhutchings
+	 */
+	public void keyPressed(KeyEvent e) {
+		
+		switch (e.getKeyCode()) {
+		
+		case KeyEvent.VK_A:
+			xOffset -= SCROLL_SPEED;
+			break;
+			
+		case KeyEvent.VK_D:
+			xOffset += SCROLL_SPEED;
+			break;
+			
+		case KeyEvent.VK_W:
+			yOffset -= SCROLL_SPEED;
+			break;
+			
+		case KeyEvent.VK_S:
+			yOffset += SCROLL_SPEED;
+			break;
+			
+		}
+		
+	}
 	
 	// Useless stub methods
 
@@ -115,5 +164,11 @@ public class QInputScreen extends JFrame implements MouseListener {
 
 	@Override
 	public void mouseExited(MouseEvent e) {}
+
+	@Override
+	public void keyTyped(KeyEvent e) {}
+
+	@Override
+	public void keyReleased(KeyEvent e) {}
 
 }
