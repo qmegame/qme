@@ -31,12 +31,18 @@ public class World {
 	 * @param x the x size of the world
 	 * @param y the y size of the world
 	 */
-	public World(QApplication a, int x, int y) {
+	public World(QApplication a, int x, int y, boolean random) {
 		
 		xDimension = x;
 		yDimension = y;
 		
-		TileType[][] map = WorldGen.newWorldMap(x, y);
+		TileType[][] map;
+		
+		if (random) {
+			map = WorldGen.newWorldMapRandom(x, y);
+		} else {
+			map = WorldGen.newWorldMapSeeded(x, y);
+		}
 		
 		tiles = new Tile[x][y];
 		
