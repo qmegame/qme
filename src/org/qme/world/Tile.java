@@ -102,10 +102,10 @@ public class Tile extends QObject implements QRenderable {
 		}
 		
 		// Now, let's draw.
-		g.drawRect(
-			(x * Perspective.TILE_SIZE) - application.qiscreen.xOffset,
-			(y * Perspective.TILE_SIZE) - application.qiscreen.yOffset,
-			Perspective.TILE_SIZE, Perspective.TILE_SIZE
+		g.fillRect(
+			(x * Perspective.TILE_SIZE) + 10 - application.qiscreen.xOffset,
+			(y * Perspective.TILE_SIZE) + 10 - application.qiscreen.yOffset,
+			Perspective.TILE_SIZE - 10, Perspective.TILE_SIZE - 10
 		);
 		
 	}
