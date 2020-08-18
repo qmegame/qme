@@ -2,6 +2,8 @@ package org.qme.main;
 
 import java.util.concurrent.TimeUnit;
 
+import org.qme.vis.QInputScreen;
+import org.qme.vis.ui.QButton;
 import org.qme.world.World;
 
 /**
@@ -32,8 +34,17 @@ public class Main {
 		
 		QApplication app = new QApplication();
 		
-		// The world
-		new World(app, 25, 25, true);
+		// New world time
+		new QButton(app, QInputScreen.SCREEN_WIDTH / 2, QInputScreen.SCREEN_HEIGHT / 2, "New World") {
+
+			@Override
+			public void mouseClickOff() {
+				// Make a new world
+				new World(app, 25, 25, true);
+				this.active = false;
+			}
+			
+		};
 		
 		// Main loop time
 		while (true) {
