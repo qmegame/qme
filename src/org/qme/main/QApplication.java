@@ -59,7 +59,7 @@ public class QApplication {
 		}
 		
 		// Render everything
-		qrscreen.repaint();
+		qiscreen.repaint();
 		
 	}
 
