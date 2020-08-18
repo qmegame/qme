@@ -1,5 +1,6 @@
 package org.qme.world;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
@@ -121,6 +122,12 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 			rect.x, rect.y, rect.width, rect.height
 		);
 		
+		// (Maybe) draw the outline
+		if (hoveredOver) {
+			g.setColor(Color.BLACK);
+			g.drawRect(rect.x, rect.y, rect.width, rect.height);
+		}
+		
 	}
 	
 	@Override
@@ -160,7 +167,7 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 	 * Returns whether said click is inside the tile.
 	 */
 	public boolean clickIsIn(int x, int y) {
-		return getRect().contains(x, y);
+		return getRect().contains(x, y - Perspective.TILE_SIZE / 2);
 	}
 
 }
