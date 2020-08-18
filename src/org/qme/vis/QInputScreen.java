@@ -1,6 +1,7 @@
 package org.qme.vis;
 
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -122,6 +123,50 @@ public class QInputScreen extends JFrame implements KeyListener, MouseListener {
 					
 					if (uc.clickIsIn(e.getX(), e.getY())) {
 						uc.mouseClickOff();
+					}
+					
+				}
+			}
+			
+		} catch (ConcurrentModificationException cme) {}
+		
+	}
+	
+	/**
+	 * This method dispatches hovers to all the
+	 * UIComponent objects.
+	 * @author adamhutchings
+	 * @since pre1
+	 */
+	public void updateHovers(Point mouseLoc) {
+		
+		UIComponent uc; // For internal use
+		
+		try {
+			
+			for (QObject qo : a.objects) {
+				if (qo instanceof UIComponent && qo.active) {
+					
+					uc = (UIComponent) qo;
+					
+					if (uc.clickIsIn(mouseLoc.x, mouseLoc.y)) {
+						
+						if (!(qo.hoveredOver)) {
+							
+							uc.mouseHoverOn();
+							qo.hoveredOver = true;
+							
+						}
+						
+					} else {
+						
+						if (qo.hoveredOver) {
+							
+							uc.mouseHoverOff();
+							qo.hoveredOver = false;
+							
+						}
+						
 					}
 					
 				}
