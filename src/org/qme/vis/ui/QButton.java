@@ -101,7 +101,7 @@ public abstract class QButton extends QObject implements UIComponent {
 	 */
 	public void render(Graphics g) {
 		
-		Rectangle backgroundRect = new Rectangle(centerX - (width / 2), centerY - (height / 2), width, height);
+		Rectangle backgroundRect = getRect();
 		
 		// Draw the rectangle
 		g.setColor(BACKGROUND_COLOR);
@@ -120,6 +120,14 @@ public abstract class QButton extends QObject implements UIComponent {
 	public void update(QApplication app) {
 		
 	}
+	
+	/**
+	 * Returns a rectangle representing the button.
+	 * @since pre0
+	 */
+	public Rectangle getRect() {
+		return new Rectangle(centerX - (width / 2), centerY - (height / 2), width, height);
+	}
 
 	@Override
 	public void mouseClickOn() {
@@ -134,7 +142,7 @@ public abstract class QButton extends QObject implements UIComponent {
 	@Override
 	public boolean clickIsIn(int x, int y) {
 		// This code is duplicated, might change it later
-		return new Rectangle(centerX - (width / 2), centerY - (height / 2), width, height).contains(x, y);
+		return getRect().contains(x, y);
 	}
 
 }
