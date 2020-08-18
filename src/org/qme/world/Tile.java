@@ -141,6 +141,22 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 	
 	@Override
 	/**
+	 * Does nothing
+	 */
+	public void mouseHoverOn() {
+		
+	}
+	
+	@Override
+	/**
+	 * Does nothing
+	 */
+	public void mouseHoverOff() {
+		
+	}
+	
+	@Override
+	/**
 	 * Returns whether said click is inside the tile.
 	 */
 	public boolean clickIsIn(int x, int y) {
