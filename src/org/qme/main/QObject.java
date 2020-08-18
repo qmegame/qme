@@ -11,6 +11,8 @@ public abstract class QObject {
 	
 	public QApplication application;
 	
+	public boolean active;
+	
 	/**
 	 * Adds the object to the objects list in the specified application.
 	 * @author adamhutchings
@@ -21,6 +23,7 @@ public abstract class QObject {
 	public QObject(QApplication app) {
 		app.objects.add(this);
 		application = app;
+		active = true;
 	}
 	
 	/**
