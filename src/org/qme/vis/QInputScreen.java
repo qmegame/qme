@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ConcurrentModificationException;
 
 import javax.swing.JFrame;
 
@@ -112,17 +113,21 @@ public class QInputScreen extends JFrame implements KeyListener, MouseListener {
 		
 		UIComponent uc; // For internal use
 		
-		for (QObject qo : a.objects) {
-			if (qo instanceof UIComponent && qo.active) {
-				
-				uc = (UIComponent) qo;
-				
-				if (uc.clickIsIn(e.getX(), e.getY())) {
-					uc.mouseClickOff();
+		try {
+			
+			for (QObject qo : a.objects) {
+				if (qo instanceof UIComponent && qo.active) {
+					
+					uc = (UIComponent) qo;
+					
+					if (uc.clickIsIn(e.getX(), e.getY())) {
+						uc.mouseClickOff();
+					}
+					
 				}
-				
 			}
-		}
+			
+		} catch (ConcurrentModificationException cme) {}
 		
 	}
 
