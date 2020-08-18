@@ -1,5 +1,6 @@
 package org.qme.vis;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
@@ -41,6 +42,10 @@ public class QRenderScreen extends JPanel {
 	 */
 	@Override
 	public void paint(Graphics g) {
+		
+		// Clear the screen
+		g.setColor(Color.WHITE);
+		g.drawRect(0, 0, QInputScreen.SCREEN_WIDTH, QInputScreen.SCREEN_HEIGHT);
 		
 		for (QObject qr : app.objects) {
 			if (qr instanceof QRenderable) {
