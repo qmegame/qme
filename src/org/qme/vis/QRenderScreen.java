@@ -48,7 +48,7 @@ public class QRenderScreen extends JPanel {
 		g.fillRect(0, 0, QInputScreen.SCREEN_WIDTH, QInputScreen.SCREEN_HEIGHT);
 		
 		for (QObject qr : app.objects) {
-			if (qr instanceof QRenderable) {
+			if (qr instanceof QRenderable && qr.active) {
 				((QRenderable) qr).render(g);
 			}
 		}
