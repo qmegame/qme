@@ -141,7 +141,7 @@ public abstract class QButton extends QObject implements UIComponent {
 	 */
 	@Override
 	public boolean clickIsIn(int x, int y) {
-		return getRect().contains(x, y);
+		return getRect().contains(x, y - (height / 2));
 	}
 
 }
