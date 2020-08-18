@@ -136,12 +136,12 @@ public abstract class QButton extends QObject implements UIComponent {
 	
 	@Override
 	public void mouseHoverOn() {
-		// Not going to do anything for now (later expand the rectangle)
+		System.out.println("Hover on");
 	}
 	
 	@Override
 	public void mouseHoverOff() {
-		// Not going to do anything for now (later expand the rectangle)
+		System.out.println("Hover off");
 	}
 
 	/**
