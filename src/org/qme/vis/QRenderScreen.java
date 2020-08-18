@@ -45,7 +45,7 @@ public class QRenderScreen extends JPanel {
 		
 		// Clear the screen
 		g.setColor(Color.WHITE);
-		g.drawRect(0, 0, QInputScreen.SCREEN_WIDTH, QInputScreen.SCREEN_HEIGHT);
+		g.fillRect(0, 0, QInputScreen.SCREEN_WIDTH, QInputScreen.SCREEN_HEIGHT);
 		
 		for (QObject qr : app.objects) {
 			if (qr instanceof QRenderable) {
