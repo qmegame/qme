@@ -13,14 +13,23 @@ import org.qme.world.World;
  */
 public final class GameState {
 	World world;
-	ArrayList<Player> civilizations = new ArrayList<Player>();
+	ArrayList<Player> civilizations;
 	int playerTurn;
 	int turn;
 	
 	GameState(World world, ArrayList<Player> civilizations, int playerTurn, int turn) {
 		this.world = world;
+		this.civilizations = new ArrayList<Player>();
 		this.civilizations = civilizations;
 		this.playerTurn = playerTurn;
 		this.turn = turn;
+	}
+	
+	public void turnEnded() {
+		this.playerTurn++;
+		this.playerTurn %= this.civilizations.size();
+		if (this.playerTurn == 0) {
+			this.turn++;
+		}
 	}
 }
