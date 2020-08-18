@@ -73,6 +73,7 @@ public class QInputScreen extends JFrame implements KeyListener, MouseListener {
 		addKeyListener(this);
 		xOffset = 0;
 		yOffset = 0;
+		setResizable(false);
 	}
 
 	@Override
