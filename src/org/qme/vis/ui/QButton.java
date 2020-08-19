@@ -133,6 +133,16 @@ public abstract class QButton extends QObject implements UIComponent {
 	public void mouseClickOn() {
 		// Not going to do anything for now (later expand the rectangle)
 	}
+	
+	@Override
+	public void mouseHoverOn() {
+		
+	}
+	
+	@Override
+	public void mouseHoverOff() {
+		
+	}
 
 	/**
 	 * Finds if the point is inside the rectangle.

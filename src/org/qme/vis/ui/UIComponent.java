@@ -12,6 +12,7 @@ import org.qme.vis.QRenderable;
  * @see org.qme.vis.QInputScreen
  */
 public interface UIComponent extends QRenderable {
+	
 	/**
 	 * This method will be invoked if the mouse is pressed down
 	 * over this component.
@@ -24,6 +25,19 @@ public interface UIComponent extends QRenderable {
 	 * @see clickIsIn
 	 */
 	public abstract void mouseClickOff();
+	
+	/**
+	 * This method will be invoked if the mouse hovers onto
+	 * over this component.
+	 * @see clickIsIn
+	 */
+	public abstract void mouseHoverOn();
+	/**
+	 * This method will be invoked if the mouse hovers off of
+	 * over this component.
+	 * @see clickIsIn
+	 */
+	public abstract void mouseHoverOff();
 	
 	/**
 	 * The mouse handling methods will only be invoked if clickIsIn

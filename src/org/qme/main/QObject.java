@@ -13,6 +13,14 @@ public abstract class QObject {
 	
 	public boolean active;
 	
+
+	
+	/**
+	 * If the mouse is over this object or not.
+	 * Can be used, or not.
+	 */
+	public boolean hoveredOver;
+	
 	/**
 	 * Adds the object to the objects list in the specified application.
 	 * @author adamhutchings
@@ -24,6 +32,7 @@ public abstract class QObject {
 		app.objects.add(this);
 		application = app;
 		active = true;
+		hoveredOver = false;
 	}
 	
 	/**

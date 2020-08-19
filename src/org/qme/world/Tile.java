@@ -1,11 +1,14 @@
 package org.qme.world;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
 import org.qme.vis.Perspective;
 import org.qme.vis.QRenderable;
+import org.qme.vis.ui.UIComponent;
 
 /**
  * A tile in the world. For now, just has a type
@@ -14,7 +17,7 @@ import org.qme.vis.QRenderable;
  * @since pre0
  * @see org.qme.world.TileType
  */
-public class Tile extends QObject implements QRenderable {
+public class Tile extends QObject implements QRenderable, UIComponent {
 	
 	// Location
 	int x, y;
@@ -52,7 +55,18 @@ public class Tile extends QObject implements QRenderable {
 	/**
 	 * Nothing for now
 	 */
-	public void update(QApplication app) {}
+	public void update(QApplication app) {
+		
+	}
+	
+	/**
+	 * Get the bounding rectangle
+	 */
+	public Rectangle getRect() {
+		return new Rectangle((x * Perspective.TILE_SIZE) + 10 - application.qiscreen.xOffset,
+				(y * Perspective.TILE_SIZE) + 10 - application.qiscreen.yOffset,
+				Perspective.TILE_SIZE - 10, Perspective.TILE_SIZE - 10);
+	}
 	
 	@Override
 	/**
@@ -101,13 +115,59 @@ public class Tile extends QObject implements QRenderable {
 		
 		}
 		
+		Rectangle rect = getRect();
+		
 		// Now, let's draw.
 		g.fillRect(
-			(x * Perspective.TILE_SIZE) + 10 - application.qiscreen.xOffset,
-			(y * Perspective.TILE_SIZE) + 10 - application.qiscreen.yOffset,
-			Perspective.TILE_SIZE - 10, Perspective.TILE_SIZE - 10
+			rect.x, rect.y, rect.width, rect.height
 		);
 		
+		// (Maybe) draw the outline
+		if (hoveredOver) {
+			g.setColor(Color.BLACK);
+			g.drawRect(rect.x, rect.y, rect.width, rect.height);
+		}
+		
+	}
+	
+	@Override
+	/**
+	 * Does nothing
+	 */
+	public void mouseClickOff() {
+		
+	}
+	
+	@Override
+	/**
+	 * Does nothing
+	 */
+	public void mouseClickOn() {
+		
+	}
+	
+	@Override
+	/**
+	 * Does nothing
+	 */
+	public void mouseHoverOn() {
+		
+	}
+	
+	@Override
+	/**
+	 * Does nothing
+	 */
+	public void mouseHoverOff() {
+		
+	}
+	
+	@Override
+	/**
+	 * Returns whether said click is inside the tile.
+	 */
+	public boolean clickIsIn(int x, int y) {
+		return getRect().contains(x, y - Perspective.TILE_SIZE / 2);
 	}
 
 }
