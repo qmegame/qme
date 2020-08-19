@@ -119,26 +119,10 @@ public class WorldGen {
 	}
 	
 	private static TileType assignRandom() {
-		TileType a = TileType.HIGH_MOUNTAIN;
+		TileType a;
 		Random rand = new Random();
-		int randomType = rand.nextInt(8);
-		if(randomType == 0) {
-			a = TileType.OCEAN;
-		} else if(randomType == 1) {
-			a = TileType.SEA;
-		} else if(randomType == 2) {
-			a = TileType.PLAINS;
-		} else if(randomType == 3) {
-			a = TileType.DESERT;
-		} else if(randomType == 4) {
-			a = TileType.FOREST;
-		} else if(randomType == 5) {
-			a = TileType.MOUNTAIN;
-		} else if(randomType == 6) {
-			a = TileType.HIGH_MOUNTAIN;
-		} else if(randomType == 7) {
-			return TileType.FERTILE_PLAINS;
-		}
+		int randomType = rand.nextInt(TileType.values().length);
+		a = TileType.values()[randomType];
 		return a;
 	}
 
