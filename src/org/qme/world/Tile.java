@@ -2,7 +2,6 @@ package org.qme.world;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.MouseInfo;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
@@ -167,8 +166,8 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 			}};
 			
 			new Tooltip(this,
-				MouseInfo.getPointerInfo().getLocation().x,
-				MouseInfo.getPointerInfo().getLocation().y - 50,
+				application.qrscreen.getMousePosition().x,
+				application.qrscreen.getMousePosition().y,
 				application, info
 			);
 			
@@ -197,7 +196,7 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 	 * Returns whether said click is inside the tile.
 	 */
 	public boolean clickIsIn(int x, int y) {
-		return getRect().contains(x, y - 45);
+		return getRect().contains(x, y);
 	}
 
 }

@@ -103,7 +103,7 @@ public class Tooltip extends QObject implements UIComponent {
 
 	@Override
 	public boolean clickIsIn(int x, int y) {
-		return getBoundingBox().contains(x, y - 45);
+		return getBoundingBox().contains(x, y);
 	}
 
 	@Override
