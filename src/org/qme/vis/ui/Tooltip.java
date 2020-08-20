@@ -12,7 +12,7 @@ import org.qme.main.QObject;
 
 public class Tooltip extends QObject implements UIComponent {
 	
-	public static final Font TOOLTIP_FONT = new Font("TimesRoman", Font.BOLD, 8);
+	public static final Font TOOLTIP_FONT = new Font("TimesRoman", Font.BOLD, 12);
 	
 	private static final int TOOLTIP_WIDTH_BUFFER = 10;
 	private static final int TOOLTIP_HEIGHT_BUFFER = 40;
@@ -23,51 +23,25 @@ public class Tooltip extends QObject implements UIComponent {
 	protected ArrayList<String> texts;
 
 	/**
-	 * Super constructor.
+	 * Super constructor and texts.
 	 * @param app the application instance
 	 */
-	public Tooltip(QApplication app, ArrayList<String> t) {
+	public Tooltip(int xLoc, int yLoc, QApplication app, ArrayList<String> t) {
 		
 		super(app);
+		
+		texts = t;
+		
+		xLocation = xLoc;
+		yLocation = yLoc;
 		
 	}
 
 	@Override
 	public void render(Graphics g) {
 		
-		Rectangle rect = new Rectangle();
-		
-		// Find the scale of the rectangle
-		FontMetrics metrics = g.getFontMetrics(TOOLTIP_FONT);
-		
-		// The height we need is the height of all the fonts
-		// The width we need is the widest one.
-		
-		int finalWidth = 0, finalHeight = 0;
-		
-		int tempW;
-		
-		for (String text : texts) {
-			
-			// Increase the height
-			finalHeight += metrics.getHeight();
-			
-			// See if more width is needed
-			if ((tempW = metrics.stringWidth(text)) > finalWidth) {
-				finalWidth = tempW;
-			}
-			
-			// Add a buffer on the sides
-			finalHeight += TOOLTIP_HEIGHT_BUFFER;
-			finalWidth  += TOOLTIP_WIDTH_BUFFER;
-			
-		}
-		
-		rect.x = xLocation - (finalWidth / 2);
-		rect.width = finalWidth;
-		
-		rect.y = yLocation - (finalHeight / 2);
-		rect.height = finalHeight;
+		Rectangle rect = getBoundingBox();
+		FontMetrics metrics = application.qiscreen.getGraphics().getFontMetrics(TOOLTIP_FONT);
 		
 		// Render the rectangle
 		g.setColor(Color.WHITE);
@@ -75,6 +49,8 @@ public class Tooltip extends QObject implements UIComponent {
 		
 		// The height to start at
 		int height = rect.y +  TOOLTIP_HEIGHT_BUFFER / 2;
+		
+		g.setColor(Color.BLACK);
 		
 		// Render the text
 		for (String text : texts) {
@@ -111,12 +87,55 @@ public class Tooltip extends QObject implements UIComponent {
 
 	@Override
 	public boolean clickIsIn(int x, int y) {
-		return false;
+		return getBoundingBox().contains(x, y - (getBoundingBox().height / 2));
 	}
 
 	@Override
 	public void update(QApplication app) {
 		// I don't think we need anything here	
+	}
+	
+	/**
+	 * Just for use internally
+	 */
+	public Rectangle getBoundingBox() {
+		
+		Rectangle rect = new Rectangle();
+		
+		// Find the scale of the rectangle
+		FontMetrics metrics = application.qiscreen.getGraphics().getFontMetrics(TOOLTIP_FONT);
+		
+		// The height we need is the height of all the fonts
+		// The width we need is the widest one.
+		
+		int finalWidth = 0, finalHeight = 0;
+		
+		int tempW;
+		
+		for (String text : texts) {
+			
+			// Increase the height
+			finalHeight += metrics.getHeight();
+			
+			// See if more width is needed
+			if ((tempW = metrics.stringWidth(text)) > finalWidth) {
+				finalWidth = tempW;
+			}
+			
+			// Add a buffer on the sides
+			finalHeight += TOOLTIP_HEIGHT_BUFFER;
+			finalWidth  += TOOLTIP_WIDTH_BUFFER;
+			
+		}
+		
+		rect.x = xLocation - (finalWidth / 2);
+		rect.width = finalWidth;
+		
+		rect.y = yLocation - (finalHeight / 2);
+		rect.height = finalHeight;
+		
+		return rect;
+		
 	}
 
 }
