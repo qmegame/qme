@@ -1,13 +1,15 @@
-package org.qme.world;
+package org.qme.world.gen;
 
 import java.util.Random;
+
+import org.qme.world.TileType;
 /**
  * Code for world generation.
  * @author jrpicks
  * @author S-Mackenzie1678
  * @since pre0
  */
-public class WorldGen {
+public class WorldGenBlob {
 	
 	// Other stuff can of course go here
 	
