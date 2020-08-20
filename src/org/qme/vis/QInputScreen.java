@@ -192,27 +192,36 @@ public class QInputScreen extends JFrame implements KeyListener, MouseListener {
 	@Override
 	/**
 	 * This method is called on a key press.
-	 * Currently just moves the screen up and down.
+	 * Currently just moves the screen up and down and left and right.
 	 * @author adamhutchings
+	 * @author S-Mackenzie1678
 	 */
 	public void keyPressed(KeyEvent e) {
 		
 		switch (e.getKeyCode()) {
 		
 		case KeyEvent.VK_A:
-			xOffset -= SCROLL_SPEED;
+			if(!(xOffset < -Perspective.TILE_SIZE * 4.5)) {	// You start 5.5 tiles from the left
+				xOffset -= SCROLL_SPEED;
+			}
 			break;
 			
 		case KeyEvent.VK_D:
-			xOffset += SCROLL_SPEED;
+			if(!(xOffset > Perspective.TILE_SIZE * (app.world.xDimension - 4.5))) {
+				xOffset += SCROLL_SPEED;
+			}
 			break;
 			
 		case KeyEvent.VK_W:
-			yOffset -= SCROLL_SPEED;
+			if(!(yOffset < -Perspective.TILE_SIZE * 3)) {	// Because you start 4 tiles from the top
+				yOffset -= SCROLL_SPEED;
+			}
 			break;
 			
 		case KeyEvent.VK_S:
-			yOffset += SCROLL_SPEED;
+			if(!(yOffset > +Perspective.TILE_SIZE * (app.world.yDimension - 3))) {
+				yOffset += SCROLL_SPEED;
+			}
 			break;
 			
 		}

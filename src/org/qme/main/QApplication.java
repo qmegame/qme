@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.qme.vis.QInputScreen;
 import org.qme.vis.QRenderScreen;
+import org.qme.world.World;
 
 /**
  * This class represents an instance of QME.
@@ -30,6 +31,10 @@ public class QApplication {
 	 * the object to this list.
 	 */
 	public ArrayList<QObject> objects;
+	/**
+	 * Actually a variable for the world lol.
+	 */
+	public World world;
 	
 	/**
 	 * Initializes the elements appropriately.
