@@ -3,11 +3,13 @@ package org.qme.world;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
 import org.qme.vis.Perspective;
 import org.qme.vis.QRenderable;
+import org.qme.vis.ui.Tooltip;
 import org.qme.vis.ui.UIComponent;
 
 /**
@@ -140,9 +142,23 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 	
 	@Override
 	/**
-	 * Does nothing
+	 * Makes a tooltip
+	 * @author adamhutchings
 	 */
 	public void mouseClickOn() {
+		
+		if (!tooltip) {
+		
+			Rectangle rect = getRect();
+			
+			@SuppressWarnings("serial")
+			ArrayList<String> info = new ArrayList<String>() {{
+				add("Tile type");
+			}};
+			
+			new Tooltip(this, rect.x + (rect.width / 2), rect.y + (rect.height / 2), application, info);
+			
+		}
 		
 	}
 	
