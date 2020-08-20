@@ -172,6 +172,9 @@ public class WorldGenNeo {
 		if(xSize < 22 || ySize < 22) {
 			return world;	// This algorithm doesn't work below this size
 		}
+		// Force at least 1 continent to spawn
+		world = continent(world, xSize, ySize, Math.round(xSize / 2), Math.round(ySize / 2), 10, 10);
+		// Randomly generate more continents
 		for (int i = 11; i < (xSize - 12); i++) {
 			for (int j = 11; j < (ySize - 12); j++) {
 				Random rand = new Random();
