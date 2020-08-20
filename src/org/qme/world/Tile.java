@@ -152,7 +152,18 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 			
 			@SuppressWarnings("serial")
 			ArrayList<String> info = new ArrayList<String>() {{
-				add("Tile type");
+				add(
+						(type == TileType.UNGENERATED)    ? "ungenerated"    :
+						(type == TileType.OCEAN)          ? "ocean"          :
+						(type == TileType.SEA)            ? "sea"            :
+						(type == TileType.PLAINS)         ? "plains"         :
+						(type == TileType.DESERT)         ? "desert"         :
+						(type == TileType.FOREST)         ? "forest"         :
+						(type == TileType.MOUNTAIN)       ? "mountain"       :
+						(type == TileType.HIGH_MOUNTAIN)  ? "high mountain"  :
+						(type == TileType.FERTILE_PLAINS) ? "fertile plains" :
+						"error"
+				);
 			}};
 			
 			new Tooltip(this,
