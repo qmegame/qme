@@ -1,6 +1,5 @@
 package org.qme.main;
 
-import java.awt.MouseInfo;
 import java.util.ArrayList;
 
 import org.qme.vis.QInputScreen;
