@@ -55,7 +55,7 @@ public class QApplication {
 	public void reload() {
 		
 		// Check for mouse positions (hovering)
-		qiscreen.updateHovers(MouseInfo.getPointerInfo().getLocation());
+		qiscreen.updateHovers(qrscreen.getMousePosition());
 		
 		// Update everything
 		for (QObject qo : objects) {
