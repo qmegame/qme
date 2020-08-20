@@ -89,17 +89,20 @@ public class QInputScreen extends JFrame implements KeyListener, MouseListener {
 		
 		UIComponent uc; // For internal use
 		
-		for (QObject qo : a.objects) {
-			if (qo instanceof UIComponent && qo.active) {
-				
-				uc = (UIComponent) qo;
-				
-				if (uc.clickIsIn(e.getX(), e.getY())) {
-					uc.mouseClickOn();
+		try {
+		
+			for (QObject qo : a.objects) {
+				if (qo instanceof UIComponent && qo.active) {
+					
+					uc = (UIComponent) qo;
+					
+					if (uc.clickIsIn(e.getX(), e.getY())) {
+						uc.mouseClickOn();
+					}
+					
 				}
-				
 			}
-		}
+		} catch (ConcurrentModificationException cme) {}
 		
 	}
 
