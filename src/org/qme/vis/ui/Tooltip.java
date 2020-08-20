@@ -71,6 +71,11 @@ public class Tooltip extends QObject implements UIComponent {
 			height += metrics.getHeight();
 		}
 		
+		// Draw outline (or not)
+		if (hoveredOver) {
+			g.drawRect(rect.x, rect.y, rect.width, rect.height);
+		}
+		
 	}
 
 	@Override
@@ -98,7 +103,7 @@ public class Tooltip extends QObject implements UIComponent {
 
 	@Override
 	public boolean clickIsIn(int x, int y) {
-		return getBoundingBox().contains(x, y - (getBoundingBox().height / 2));
+		return getBoundingBox().contains(x, y - 45);
 	}
 
 	@Override
