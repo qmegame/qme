@@ -12,6 +12,11 @@ import org.qme.main.QObject;
 
 public class Tooltip extends QObject implements UIComponent {
 	
+	/**
+	 * So things don't get made more than once
+	 */
+	QObject owner;
+	
 	public static final Font TOOLTIP_FONT = new Font("TimesRoman", Font.BOLD, 12);
 	
 	private static final int TOOLTIP_WIDTH_BUFFER = 10;
@@ -26,14 +31,18 @@ public class Tooltip extends QObject implements UIComponent {
 	 * Super constructor and texts.
 	 * @param app the application instance
 	 */
-	public Tooltip(int xLoc, int yLoc, QApplication app, ArrayList<String> t) {
+	public Tooltip(QObject uc, int xLoc, int yLoc, QApplication app, ArrayList<String> t) {
 		
 		super(app);
+		
+		owner = uc;
 		
 		texts = t;
 		
 		xLocation = xLoc;
 		yLocation = yLoc;
+		
+		owner.tooltip = true;
 		
 	}
 
@@ -83,6 +92,8 @@ public class Tooltip extends QObject implements UIComponent {
 	public void mouseHoverOff() {
 		// Delete the object
 		application.objects.remove(this);
+		// Make onwer not have a tooltip
+		owner.tooltip = false;
 	}
 
 	@Override
