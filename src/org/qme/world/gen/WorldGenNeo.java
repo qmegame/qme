@@ -38,7 +38,7 @@ public class WorldGenNeo {
 		if (tile == 5) {
 			return TileType.FERTILE_PLAINS;
 		}
-		return TileType.UNGENERATED;
+		return TileType.FERTILE_PLAINS;
 	}
 	/**
 	 * This checks to see if a bit of a world is filled
@@ -112,7 +112,7 @@ public class WorldGenNeo {
 			}
 		}
 		// Expand seeds
-		while (!filledBit(futureWorld, xCenter - xRadius, yCenter - yRadius, yCenter + yRadius, xCenter + xRadius)) {
+		for (int jj = 0; jj < 1000; jj++) {
 			for (int k = 0; k < xDiam; k++) {
 				for (int l = 0; l < yDiam; l++) {
 					int xIndex = xCenter - xRadius + k;
@@ -163,6 +163,22 @@ public class WorldGenNeo {
 				futureWorld[xCenter - xRadius + p][yCenter + yRadius - 1] = TileType.SEA;
 			}
 		}
+		// Replace any ocean tiles with sea tiles
+		for (int p = 0; p < xDiam; p++) {
+			for (int q = 0; q < yDiam; q++) {
+				if(futureWorld[xCenter - xRadius + p][yCenter - yRadius + q] == TileType.OCEAN) {
+					futureWorld[xCenter - yRadius + p][yCenter - yRadius + q] = TileType.SEA;
+				}
+			}
+		}
+		// Add random tiles to appease Adam's fear of realistic terrain
+		for (int r = 0; r < xDiam; r++) {
+			for (int s = 0; s < yDiam; s++) {
+				if(rand.nextInt(2) == 0) {
+					futureWorld[xCenter - xRadius + r][yCenter - yRadius + s] = randomNonOceanTile();
+				}
+			}
+		}
 		return futureWorld;
 	}
 	
@@ -172,6 +188,9 @@ public class WorldGenNeo {
 		if(xSize < 22 || ySize < 22) {
 			return world;	// This algorithm doesn't work below this size
 		}
+		// Force at least 1 continent to spawn
+		world = continent(world, xSize, ySize, Math.round(xSize / 2), Math.round(ySize / 2), 10, 10);
+		// Randomly generate more continents
 		for (int i = 11; i < (xSize - 12); i++) {
 			for (int j = 11; j < (ySize - 12); j++) {
 				Random rand = new Random();
