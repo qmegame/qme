@@ -1,7 +1,7 @@
 package org.qme.world;
 
 import org.qme.main.QApplication;
-import org.qme.world.gen.WorldGenBlob;
+import org.qme.world.gen.WorldGenNeo;
 
 /**
  * Represents a 2D array of tiles
@@ -32,18 +32,14 @@ public class World {
 	 * @param x the x size of the world
 	 * @param y the y size of the world
 	 */
-	public World(QApplication a, int x, int y, boolean random) {
+	public World(QApplication a, int x, int y) {
 		
 		xDimension = x;
 		yDimension = y;
 		
 		TileType[][] map;
 		
-		if (random) {
-			map = WorldGenBlob.newWorldMapRandom(x, y);
-		} else {
-			map = WorldGenBlob.newWorldMapSeeded(x, y);
-		}
+		map = WorldGenNeo.newWorldMap(x, y);
 		
 		tiles = new Tile[x][y];
 		

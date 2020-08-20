@@ -40,7 +40,7 @@ public class Main {
 			@Override
 			public void mouseClickOff() {
 				// Make a new world
-				new World(app, 25, 25, true);
+				new World(app, 25, 25);
 				this.active = false;
 			}
 			
