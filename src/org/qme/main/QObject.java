@@ -13,7 +13,10 @@ public abstract class QObject {
 	
 	public boolean active;
 	
-
+	/**
+	 * So multiple tooltips don't pop up
+	 */
+	public boolean tooltip;
 	
 	/**
 	 * If the mouse is over this object or not.
@@ -33,6 +36,7 @@ public abstract class QObject {
 		application = app;
 		active = true;
 		hoveredOver = false;
+		tooltip = false;
 	}
 	
 	/**

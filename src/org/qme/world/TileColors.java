@@ -32,7 +32,7 @@ public class TileColors {
 	/**
 	 * Color for desert - light yellow
 	 */
-	public static final Color DESERT_COLOR = new Color(200, 250, 100);
+	public static final Color DESERT_COLOR = new Color(250, 250, 100);
 	
 	/**
 	 * Color for forest - dark green

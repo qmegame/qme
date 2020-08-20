@@ -111,6 +111,12 @@ public abstract class QButton extends QObject implements UIComponent {
 		g.setColor(TEXT_COLOR);
 		UIUtils.drawCenteredString(g, text, backgroundRect, UIUtils.QME_FONT);
 		
+		// Draw highlight
+		if (hoveredOver) {
+			g.setColor(Color.BLACK);
+			g.drawRect(backgroundRect.x, backgroundRect.y, backgroundRect.width, backgroundRect.height);
+		}
+		
 	}
 	
 	@Override
@@ -151,7 +157,7 @@ public abstract class QButton extends QObject implements UIComponent {
 	 */
 	@Override
 	public boolean clickIsIn(int x, int y) {
-		return getRect().contains(x, y - (height / 2));
+		return getRect().contains(x, y);
 	}
 
 }

@@ -11,7 +11,7 @@ import org.qme.util.QDimension;
  */
 public class Perspective {
 	
-	public static final int TILE_SIZE = 100;
+	public static final int TILE_SIZE = 150;
 	
 	/**
 	 * An angle of 45 would just be straight overhead - let's say 30.

@@ -1,6 +1,5 @@
 package org.qme.main;
 
-import java.awt.MouseInfo;
 import java.util.ArrayList;
 
 import org.qme.vis.QInputScreen;
@@ -55,7 +54,7 @@ public class QApplication {
 	public void reload() {
 		
 		// Check for mouse positions (hovering)
-		qiscreen.updateHovers(MouseInfo.getPointerInfo().getLocation());
+		qiscreen.updateHovers(qrscreen.getMousePosition());
 		
 		// Update everything
 		for (QObject qo : objects) {

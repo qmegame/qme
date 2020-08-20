@@ -3,11 +3,13 @@ package org.qme.world;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
 import org.qme.vis.Perspective;
 import org.qme.vis.QRenderable;
+import org.qme.vis.ui.Tooltip;
 import org.qme.vis.ui.UIComponent;
 
 /**
@@ -140,9 +142,36 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 	
 	@Override
 	/**
-	 * Does nothing
+	 * Makes a tooltip
+	 * @author adamhutchings
 	 */
 	public void mouseClickOn() {
+		
+		if (!tooltip) {
+			
+			@SuppressWarnings("serial")
+			ArrayList<String> info = new ArrayList<String>() {{
+				add(
+						(type == TileType.UNGENERATED)    ? "ungenerated"    :
+						(type == TileType.OCEAN)          ? "ocean"          :
+						(type == TileType.SEA)            ? "sea"            :
+						(type == TileType.PLAINS)         ? "plains"         :
+						(type == TileType.DESERT)         ? "desert"         :
+						(type == TileType.FOREST)         ? "forest"         :
+						(type == TileType.MOUNTAIN)       ? "mountain"       :
+						(type == TileType.HIGH_MOUNTAIN)  ? "high mountain"  :
+						(type == TileType.FERTILE_PLAINS) ? "fertile plains" :
+						"error"
+				);
+			}};
+			
+			new Tooltip(this,
+				application.qrscreen.getMousePosition().x,
+				application.qrscreen.getMousePosition().y,
+				application, info
+			);
+			
+		}
 		
 	}
 	
@@ -167,7 +196,7 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 	 * Returns whether said click is inside the tile.
 	 */
 	public boolean clickIsIn(int x, int y) {
-		return getRect().contains(x, y - Perspective.TILE_SIZE / 2);
+		return getRect().contains(x, y);
 	}
 
 }
