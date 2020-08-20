@@ -166,7 +166,7 @@ public class WorldGenNeo {
 		return futureWorld;
 	}
 	
-	static private TileType[][] newWorldMap(int xSize, int ySize) {
+	public static TileType[][] newWorldMap(int xSize, int ySize) {
 		TileType[][] world = new TileType[xSize][ySize];
 		world = ocean(xSize, ySize);
 		if(xSize < 22 || ySize < 22) {
