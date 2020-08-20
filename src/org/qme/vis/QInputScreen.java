@@ -24,6 +24,8 @@ import org.qme.vis.ui.UIComponent;
 @SuppressWarnings("serial")
 public class QInputScreen extends JFrame implements KeyListener, MouseListener {
 	
+	QApplication app;
+	
 	/**
 	 * How fast the user "scrolls".
 	 */
@@ -76,6 +78,7 @@ public class QInputScreen extends JFrame implements KeyListener, MouseListener {
 		xOffset = 0;
 		yOffset = 0;
 		setResizable(false);
+		app = qa;
 	}
 
 	@Override
@@ -96,7 +99,10 @@ public class QInputScreen extends JFrame implements KeyListener, MouseListener {
 					
 					uc = (UIComponent) qo;
 					
-					if (uc.clickIsIn(e.getX(), e.getY())) {
+					if (uc.clickIsIn(
+						app.qrscreen.getMousePosition().x,
+						app.qrscreen.getMousePosition().y
+					)) {
 						uc.mouseClickOn();
 					}
 					
@@ -124,9 +130,12 @@ public class QInputScreen extends JFrame implements KeyListener, MouseListener {
 					
 					uc = (UIComponent) qo;
 					
-					if (uc.clickIsIn(e.getX(), e.getY())) {
-						uc.mouseClickOff();
-					}
+					if (uc.clickIsIn(
+							app.qrscreen.getMousePosition().x,
+							app.qrscreen.getMousePosition().y
+						)) {
+							uc.mouseClickOff();
+						}
 					
 				}
 			}
@@ -176,6 +185,7 @@ public class QInputScreen extends JFrame implements KeyListener, MouseListener {
 			}
 			
 		} catch (ConcurrentModificationException cme) {}
+		catch ( NullPointerException npe) {}
 		
 	}
 
