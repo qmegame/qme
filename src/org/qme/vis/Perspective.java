@@ -1,6 +1,7 @@
 package org.qme.vis;
 
 import org.qme.util.QDimension;
+import org.qme.util.QMatrix2;
 
 /**
  * This class provides static utilities for converting the
@@ -23,7 +24,20 @@ public class Perspective {
 	 * a set of coordinates in the world.
 	 */
 	public static QDimension<Float> screenToWorld(QDimension<Float> screen) {
-		return new QDimension<Float>(0.0f, 0.0f);
+		
+		QDimension<Float> result = new QDimension<>(0.0f, 0.0f);
+		
+		result.x += (float) (screen.x * Math.cos(PERSPECTIVE_ANGLE));
+		result.y += (float) (screen.x * Math.sin(PERSPECTIVE_ANGLE));
+		
+		result.x += (float) (screen.y * Math.cos(PERSPECTIVE_ANGLE));
+		result.y -= (float) (screen.y * Math.sin(PERSPECTIVE_ANGLE));
+		
+		result.x *= TILE_SIZE;
+		result.y *= TILE_SIZE;
+		
+		return result;
+		
 	}
 	
 	/**
@@ -31,7 +45,29 @@ public class Perspective {
 	 * into a set of coordinates on the screen.
 	 */
 	public static QDimension<Float> worldToScreen(QDimension<Float> world) {
-		return new QDimension<Float>(0.0f, 0.0f);
+		
+		double alpha = PERSPECTIVE_ANGLE * 360 / (2 * Math.PI);
+		double beta  = PERSPECTIVE_ANGLE * 360 / (2 * Math.PI);
+		
+		QMatrix2 matrix = new QMatrix2(
+			
+			(float) - Math.sin (beta)       ,
+			(float) - Math.cos (beta)       ,
+			(float) - Math.cos(alpha)       ,
+			(float)   Math.sin(alpha)
+				
+		);
+		
+		QDimension<Float> result = matrix.multiply(world);
+		
+		result.x /= (float) (- Math.sin(alpha + beta));
+		result.y /= (float) (- Math.sin(alpha + beta));
+		
+		result.x /= TILE_SIZE;
+		result.y /= TILE_SIZE;
+		
+		return result;
+		
 	}
 
 }
