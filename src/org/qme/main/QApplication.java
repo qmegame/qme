@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.qme.vis.QInputScreen;
 import org.qme.vis.QRenderScreen;
+import org.qme.vis.ui.UIComponent;
 import org.qme.world.World;
 
 /**
@@ -56,7 +57,8 @@ public class QApplication {
 		qiscreen.add(qrscreen);
 		
 		objects = new ArrayList<>();
-		state = GlobalState.MAIN_MENU;
+		
+		setState(GlobalState.MAIN_MENU);
 		
 	}
 	
@@ -87,9 +89,29 @@ public class QApplication {
 		return state;
 	}
 	
+	/**
+	 * Makes things visible if need be.
+	 * @author adamhutchings
+	 * @since pre1
+	 * @param s the state to make
+	 */
 	public void setState(GlobalState s) {
 		
 		state = s;
+		
+		for (QObject object : objects) {
+			
+			if (object instanceof UIComponent) {
+				
+				if (((UIComponent) object).getActiveState() == state) {
+					object.active = true;
+				} else {
+					object.active = false;
+				}
+				
+			}
+			
+		}
 		
 	}
 
