@@ -87,6 +87,10 @@ public class QApplication {
 		return state;
 	}
 	
-	
+	public void setState(GlobalState s) {
+		
+		state = s;
+		
+	}
 
 }
