@@ -13,6 +13,8 @@ import org.qme.main.QObject;
 
 public class Tooltip extends QObject implements UIComponent {
 	
+	private GlobalState activeState;
+	
 	/**
 	 * So things don't get made more than once
 	 */
@@ -44,6 +46,12 @@ public class Tooltip extends QObject implements UIComponent {
 		yLocation = yLoc;
 		
 		owner.tooltip = true;
+		
+		if (owner instanceof UIComponent) {
+			activeState = ((UIComponent) owner).getActiveState();
+		} else {
+			activeState = GlobalState.DEFAULT;
+		}
 		
 	}
 
@@ -157,7 +165,7 @@ public class Tooltip extends QObject implements UIComponent {
 
 	@Override
 	public GlobalState getActiveState() {
-		return GlobalState.GLOBAL_STATE_ALL;
+		return this.activeState;
 	}
 
 }
