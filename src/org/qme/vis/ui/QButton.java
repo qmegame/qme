@@ -18,10 +18,9 @@ import org.qme.main.QObject;
 public abstract class QButton extends QObject implements UIComponent {
 	
 	/**
-	 * The background color of all buttons. May change to be
-	 * a member variable in the future.
+	 * The background color of a button.
 	 */
-	private static final Color BACKGROUND_COLOR = new Color(100, 100, 100);
+	public Color backgroundColor;
 	
 	/**
 	 * The font color of all buttons. May change to be
@@ -81,6 +80,8 @@ public abstract class QButton extends QObject implements UIComponent {
 		
 		super(a);
 		
+		backgroundColor = new Color(225, 225, 225);
+		
 		// Member setting
 		centerX = x;
 		centerY = y;
@@ -104,7 +105,7 @@ public abstract class QButton extends QObject implements UIComponent {
 		Rectangle backgroundRect = getRect();
 		
 		// Draw the rectangle
-		g.setColor(BACKGROUND_COLOR);
+		g.setColor(backgroundColor);
 		g.fillRect(backgroundRect.x, backgroundRect.y, backgroundRect.width, backgroundRect.height);
 		
 		// Draw the text
