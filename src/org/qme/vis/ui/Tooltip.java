@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import org.qme.main.GlobalState;
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
 
@@ -152,6 +153,11 @@ public class Tooltip extends QObject implements UIComponent {
 		
 		return rect;
 		
+	}
+
+	@Override
+	public GlobalState getActiveState() {
+		return GlobalState.GLOBAL_STATE_ALL;
 	}
 
 }

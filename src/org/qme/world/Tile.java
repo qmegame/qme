@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import org.qme.main.GlobalState;
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
 import org.qme.vis.Perspective;
@@ -197,6 +198,11 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 	 */
 	public boolean clickIsIn(int x, int y) {
 		return getRect().contains(x, y);
+	}
+
+	@Override
+	public GlobalState getActiveState() {
+		return GlobalState.MAIN_GAME;
 	}
 
 }
