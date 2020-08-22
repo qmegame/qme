@@ -12,13 +12,39 @@ import org.qme.main.QObject;
  */
 public abstract class QMenu extends QObject {
 	
-	public ArrayList<UIComponent> components;
+	public ArrayList<QObject> components;
 	
-	public QMenu(QApplication app, ArrayList<UIComponent> c) {
+	public QMenu(QApplication app, ArrayList<QObject> c) {
 		
 		super(app);
 		components = c;
 		
+	}
+	
+	/**
+	 * Hides everything.
+	 * @author adamhutchings
+	 * @since pre1
+	 */
+	public void deactivate() {
+		
+		for (QObject component : components) {
+			component.active = false;
+		}
+		
+	}
+	
+	/**
+	 * Shows everything.
+	 * @author adamhutchings
+	 * @since pre1
+	 */
+	public void reactivate() {
+		
+		for (QObject component : components) {
+			component.active = true;
+		}
+			
 	}
 
 }
