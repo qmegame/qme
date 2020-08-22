@@ -138,17 +138,17 @@ public abstract class QButton extends QObject implements UIComponent {
 
 	@Override
 	public void mouseClickOn() {
-		// Not going to do anything for now (later expand the rectangle)
+		backgroundColor = new Color(100, 100, 100);
 	}
 	
 	@Override
 	public void mouseHoverOn() {
-		
+		backgroundColor = new Color(175, 175, 175);
 	}
 	
 	@Override
 	public void mouseHoverOff() {
-		
+		backgroundColor = new Color(225, 225, 225);
 	}
 
 	/**
