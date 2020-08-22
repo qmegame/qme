@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import org.qme.main.GlobalState;
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
 
@@ -160,11 +159,6 @@ public abstract class QButton extends QObject implements UIComponent {
 	@Override
 	public boolean clickIsIn(int x, int y) {
 		return getRect().contains(x, y);
-	}
-	
-	@Override
-	public GlobalState getActiveState() {
-		return GlobalState.GLOBAL_STATE_ALL;
 	}
 
 }
