@@ -41,7 +41,12 @@ public class Main {
 			public void mouseClickOff() {
 				// Make a new world
 				app.world = new World(app, 25, 25);
-				this.active = false;
+				app.setState(GlobalState.MAIN_GAME);
+			}
+			
+			@Override
+			public GlobalState getActiveState() {
+				return GlobalState.MAIN_MENU;
 			}
 			
 		};
