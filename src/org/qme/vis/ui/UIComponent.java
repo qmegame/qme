@@ -1,5 +1,6 @@
 package org.qme.vis.ui;
 
+import org.qme.main.GlobalState;
 import org.qme.vis.QRenderable;
 
 /**
@@ -12,6 +13,11 @@ import org.qme.vis.QRenderable;
  * @see org.qme.vis.QInputScreen
  */
 public interface UIComponent extends QRenderable {
+	
+	/**
+	 * To determine what state this belongs to.
+	 */
+	public abstract GlobalState getActiveState();
 	
 	/**
 	 * This method will be invoked if the mouse is pressed down
