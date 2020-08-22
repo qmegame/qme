@@ -14,6 +14,13 @@ import org.qme.world.World;
 public class QApplication {
 	
 	/**
+	 * What state the app is in. Used
+	 * for toggling menus.
+	 * @since pre1
+	 */
+	private GlobalState state;
+	
+	/**
 	 * Represents the component of the screen that
 	 * responds to key and mouse press events.
 	 * @since pre0
@@ -42,10 +49,15 @@ public class QApplication {
 	 * @since pre0
 	 */
 	public QApplication() {
+		
 		qiscreen = new QInputScreen(this);
 		qrscreen = new QRenderScreen(this);
+		
 		qiscreen.add(qrscreen);
+		
 		objects = new ArrayList<>();
+		state = GlobalState.MAIN_MENU;
+		
 	}
 	
 	/**
@@ -70,5 +82,11 @@ public class QApplication {
 		qiscreen.repaint();
 		
 	}
+	
+	public GlobalState getState() {
+		return state;
+	}
+	
+	
 
 }
