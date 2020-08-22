@@ -53,6 +53,8 @@ public class Tooltip extends QObject implements UIComponent {
 			activeState = GlobalState.DEFAULT;
 		}
 		
+		active = (activeState == app.getState());
+		
 	}
 
 	@Override
