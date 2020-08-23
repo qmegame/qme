@@ -62,10 +62,31 @@ public class Main {
 			
 			@Override
 			public GlobalState getActiveState() {
+				
 				return GlobalState.MAIN_MENU;
+				
 			}
 			
 		};
+		
+		// New player time
+		new QButton(app, QInputScreen.SCREEN_WIDTH / 2, (QInputScreen.SCREEN_HEIGHT / 2) - 100, "New Player") {
+			
+			@Override
+			public void mouseClickOff() {
+				
+			}
+			
+			@Override
+			public GlobalState getActiveState() {
+				
+				return GlobalState.GAME_SELECTION;
+				
+			}
+			
+		};
+		
+		// New player time
 		
 		// Main loop time
 		while (true) {
