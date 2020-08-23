@@ -1,5 +1,6 @@
 package org.qme.main;
 
+import java.awt.event.WindowEvent;
 import java.util.concurrent.TimeUnit;
 
 import org.qme.vis.QInputScreen;
@@ -35,13 +36,33 @@ public class Main {
 		QApplication app = new QApplication();
 		
 		// New world time
-		new QButton(app, QInputScreen.SCREEN_WIDTH / 2, QInputScreen.SCREEN_HEIGHT / 2, "New World") {
+		new QButton(app, QInputScreen.SCREEN_WIDTH / 2, (QInputScreen.SCREEN_HEIGHT / 2) - 100, "New World") {
 
 			@Override
 			public void mouseClickOff() {
 				// Make a new world
 				app.world = new World(app, 25, 25);
-				this.active = false;
+				app.setState(GlobalState.MAIN_GAME);
+			}
+			
+			@Override
+			public GlobalState getActiveState() {
+				return GlobalState.MAIN_MENU;
+			}
+			
+		};
+		
+		// Quit time
+		new QButton(app, QInputScreen.SCREEN_WIDTH / 2, (QInputScreen.SCREEN_HEIGHT / 2) + 100, "Quit") {
+
+			@Override
+			public void mouseClickOff() {
+				app.qiscreen.dispatchEvent(new WindowEvent(app.qiscreen, WindowEvent.WINDOW_CLOSING));
+			}
+			
+			@Override
+			public GlobalState getActiveState() {
+				return GlobalState.MAIN_MENU;
 			}
 			
 		};

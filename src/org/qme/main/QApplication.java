@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.qme.vis.QInputScreen;
 import org.qme.vis.QRenderScreen;
+import org.qme.vis.ui.UIComponent;
 import org.qme.world.World;
 
 /**
@@ -12,6 +13,13 @@ import org.qme.world.World;
  * @since pre0
  */
 public class QApplication {
+	
+	/**
+	 * What state the app is in. Used
+	 * for toggling menus.
+	 * @since pre1
+	 */
+	private GlobalState state;
 	
 	/**
 	 * Represents the component of the screen that
@@ -42,10 +50,16 @@ public class QApplication {
 	 * @since pre0
 	 */
 	public QApplication() {
+		
 		qiscreen = new QInputScreen(this);
 		qrscreen = new QRenderScreen(this);
+		
 		qiscreen.add(qrscreen);
+		
 		objects = new ArrayList<>();
+		
+		setState(GlobalState.MAIN_MENU);
+		
 	}
 	
 	/**
@@ -68,6 +82,36 @@ public class QApplication {
 		
 		// Render everything
 		qiscreen.repaint();
+		
+	}
+	
+	public GlobalState getState() {
+		return state;
+	}
+	
+	/**
+	 * Makes things visible if need be.
+	 * @author adamhutchings
+	 * @since pre1
+	 * @param s the state to make
+	 */
+	public void setState(GlobalState s) {
+		
+		state = s;
+		
+		for (QObject object : objects) {
+			
+			if (object instanceof UIComponent) {
+				
+				if (((UIComponent) object).getActiveState() == state) {
+					object.active = true;
+				} else {
+					object.active = false;
+				}
+				
+			}
+			
+		}
 		
 	}
 
