@@ -27,22 +27,30 @@ public class QApplication {
 	 * @since pre0
 	 */
 	public QInputScreen qiscreen;
+	
 	/**
 	 * Represents the component of the screen that
 	 * renders graphical objects.
 	 * @see org.qme.vis.QRenderable
 	 */
 	public QRenderScreen qrscreen;
+	
 	/**
 	 * Every object that needs to be updated in the reload
 	 * method. The QObject constructor automatically adds
 	 * the object to this list.
 	 */
 	public ArrayList<QObject> objects;
+	
 	/**
 	 * Actually a variable for the world lol.
 	 */
 	public World world;
+	
+	/**
+	 * The game that gets looped through and stuff.
+	 */
+	public GameState game;
 	
 	/**
 	 * Initializes the elements appropriately.
