@@ -35,14 +35,12 @@ public class Main {
 		
 		QApplication app = new QApplication();
 		
-		// New world time
-		new QButton(app, QInputScreen.SCREEN_WIDTH / 2, (QInputScreen.SCREEN_HEIGHT / 2) - 100, "New World") {
+		// New game time
+		new QButton(app, QInputScreen.SCREEN_WIDTH / 2, (QInputScreen.SCREEN_HEIGHT / 2) - 100, "New Game") {
 
 			@Override
 			public void mouseClickOff() {
-				// Make a new world
-				app.world = new World(app, 25, 25);
-				app.setState(GlobalState.MAIN_GAME);
+				app.setState(GlobalState.GAME_SELECTION);
 			}
 			
 			@Override
@@ -62,9 +60,7 @@ public class Main {
 			
 			@Override
 			public GlobalState getActiveState() {
-				
-				return GlobalState.MAIN_MENU;
-				
+				return GlobalState.MAIN_MENU;				
 			}
 			
 		};
@@ -86,7 +82,21 @@ public class Main {
 			
 		};
 		
-		// New player time
+		// Start game time
+		new QButton(app, QInputScreen.SCREEN_WIDTH / 2, (QInputScreen.SCREEN_HEIGHT / 2) + 100, "Start Game") {
+
+			@Override
+			public void mouseClickOff() {
+				app.world = new World(app, 25, 25);
+				app.setState(GlobalState.MAIN_GAME);
+			}
+			
+			@Override
+			public GlobalState getActiveState() {
+				return GlobalState.GAME_SELECTION;
+			}
+			
+		};
 		
 		// Main loop time
 		while (true) {
