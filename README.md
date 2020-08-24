@@ -19,3 +19,5 @@ Changelog for pre0:
   - Made the game
   - Added scrolling
   - Added buttons
+  
+ pre1 expected to be released on August 25!
