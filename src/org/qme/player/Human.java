@@ -7,7 +7,7 @@ package org.qme.player;
  * @since pre1
  */
 public class Human extends Player {
-	Human() {
-		super(true);
+	public Human(String name) {
+		super(true, name);
 	}
 }

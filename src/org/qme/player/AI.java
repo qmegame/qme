@@ -6,7 +6,7 @@ package org.qme.player;
  * @since pre1
  */
 public class AI extends Player {
-	AI() {
-		super(false);
+	public AI(String name) {
+		super(false, name);
 	}
 }

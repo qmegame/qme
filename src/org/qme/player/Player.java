@@ -12,10 +12,12 @@ import org.qme.world.Tile;
 abstract public class Player {
 	boolean currentTurn = false;
 	boolean human;
+	public String name;
 	ArrayList<Tile> territory = new ArrayList<Tile>();
 	// A list of variables like money and resources to come
 	
-	Player(boolean human) {
+	protected Player(boolean human, String name) {
 		this.human = human;
+		this.name = name;
 	}
 }
