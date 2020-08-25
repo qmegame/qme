@@ -4,8 +4,6 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ConcurrentModificationException;
 
 import javax.swing.JFrame;
@@ -22,7 +20,7 @@ import org.qme.vis.ui.UIComponent;
  * @see org.qme.vis.QRenderScreen
  */
 @SuppressWarnings("serial")
-public class QInputScreen extends JFrame implements KeyListener, MouseListener {
+public class QInputScreen extends JFrame implements KeyListener {
 	
 	QApplication app;
 	
@@ -73,78 +71,11 @@ public class QInputScreen extends JFrame implements KeyListener, MouseListener {
 		setVisible(true);
 		pack();
 		super.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		addMouseListener(this);
 		addKeyListener(this);
 		xOffset = 0;
 		yOffset = 0;
 		setResizable(false);
 		app = qa;
-	}
-
-	@Override
-	/**
-	 * This method dispatches click events to all the
-	 * UIComponent objects.
-	 * @author adamhutchings
-	 * @since pre0
-	 */
-	public void mousePressed(MouseEvent e) {
-		
-		UIComponent uc; // For internal use
-		Point p; // same as above
-		
-		try {
-		
-			for (QObject qo : a.objects) {
-				if (qo instanceof UIComponent && qo.active) {
-					
-					uc = (UIComponent) qo;
-					
-					p = app.qrscreen.getMousePosition();
-					
-					if (uc.clickIsIn(
-						p.x, p.y
-					)) {
-						qo.clicked = true;
-						uc.mouseClickOn();
-					}
-					
-				}
-			}
-		} catch (ConcurrentModificationException cme) {}
-		
-	}
-
-	@Override
-	/**
-	 * This method dispatches click events to all the
-	 * UIComponent objects.
-	 * @author adamhutchings
-	 * @since pre0
-	 */
-	public void mouseReleased(MouseEvent e) {
-		
-		UIComponent uc; // For internal use
-		
-		try {
-			
-			for (QObject qo : a.objects) {
-				if (qo instanceof UIComponent && qo.active) {
-					
-					uc = (UIComponent) qo;
-					
-					if (qo.clicked) {
-						qo.clicked = false;
-						uc.mouseClickOff();
-					}
-					
-				}
-			}
-			
-		} catch (ConcurrentModificationException cme) {
-			
-		}
-		
 	}
 	
 	/**
@@ -232,15 +163,6 @@ public class QInputScreen extends JFrame implements KeyListener, MouseListener {
 	}
 	
 	// Useless stub methods
-
-	@Override
-	public void mouseClicked(MouseEvent e) {}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {}
-
-	@Override
-	public void mouseExited(MouseEvent e) {}
 
 	@Override
 	public void keyTyped(KeyEvent e) {}
