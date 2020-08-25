@@ -13,7 +13,7 @@ import org.qme.player.Player;
 public final class GameState {
 	public QApplication owner;
 	public ArrayList<Player> civilizations;
-	private int playerTurn;
+	public int playerTurn;
 	public int turn;
 	
 	GameState(QApplication app) {
