@@ -3,7 +3,6 @@ package org.qme.main;
 import java.util.ArrayList;
 
 import org.qme.player.Player;
-import org.qme.world.World;
 
 /**
  * This is the class that will be written to saves eventually
@@ -12,17 +11,16 @@ import org.qme.world.World;
  * @since pre1
  */
 public final class GameState {
-	World world;
-	ArrayList<Player> civilizations;
-	int playerTurn;
-	int turn;
+	public QApplication owner;
+	public ArrayList<Player> civilizations;
+	public int playerTurn;
+	public int turn;
 	
-	GameState(World world, ArrayList<Player> civilizations, int playerTurn, int turn) {
-		this.world = world;
+	GameState(QApplication app) {
+		this.owner = app;
 		this.civilizations = new ArrayList<Player>();
-		this.civilizations = civilizations;
-		this.playerTurn = playerTurn;
-		this.turn = turn;
+		this.playerTurn = 0;
+		this.turn = 0;
 	}
 	
 	public void turnEnded() {
