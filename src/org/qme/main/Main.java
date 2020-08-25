@@ -3,6 +3,7 @@ package org.qme.main;
 import java.awt.event.WindowEvent;
 import java.util.concurrent.TimeUnit;
 
+import org.qme.player.Human;
 import org.qme.vis.QInputScreen;
 import org.qme.vis.ui.QButton;
 import org.qme.world.World;
@@ -41,6 +42,7 @@ public class Main {
 			@Override
 			public void mouseClickOff() {
 				app.setState(GlobalState.GAME_SELECTION);
+				app.game = new GameState(app);
 			}
 			
 			@Override
@@ -70,7 +72,7 @@ public class Main {
 			
 			@Override
 			public void mouseClickOff() {
-				
+				app.game.civilizations.add(new Human("Human Player " + app.game.civilizations.size()));
 			}
 			
 			@Override
