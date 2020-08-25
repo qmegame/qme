@@ -20,4 +20,13 @@ Changelog for pre0:
   - Added scrolling
   - Added buttons
   
- pre1 expected to be released on August 25!
+Changelog for pre1:
+  - Fixed mouse clicks
+  - Added game selection menu and next player button
+  - Added a game state system and improved world gen
+  - Added tile tooltips
+  - Added button and tile highlights upon hovering
+  
+Notes for pre1:
+  - 2072 lines of code! Yay!
+  - There is currently no way to see the list of players or the turn count. Coming soon ...
