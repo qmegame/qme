@@ -51,7 +51,7 @@ public class WorldGenNeo {
 	 * @return whether or not the world bit is filled
 	 * @since pre1
 	 */
-	static private boolean filledBit(TileType[][] world, int topLeftX, int topLeftY, int bottomLeftY, int topRightX) {
+	public static boolean filledBit(TileType[][] world, int topLeftX, int topLeftY, int bottomLeftY, int topRightX) {
 		int chunkWidth = topRightX - topLeftX + 1;
 		int chunkHeight = bottomLeftY - topLeftY + 1;
 		for (int i = 0; i < chunkWidth; i++) {
