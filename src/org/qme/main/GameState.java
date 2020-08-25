@@ -16,11 +16,11 @@ public final class GameState {
 	private int playerTurn;
 	public int turn;
 	
-	GameState(QApplication app, int playerTurn, int turn) {
+	GameState(QApplication app) {
 		this.owner = app;
 		this.civilizations = new ArrayList<Player>();
-		this.playerTurn = playerTurn;
-		this.turn = turn;
+		this.playerTurn = 0;
+		this.turn = 0;
 	}
 	
 	public void turnEnded() {
