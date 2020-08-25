@@ -75,9 +75,7 @@ public class Main {
 			
 			@Override
 			public GlobalState getActiveState() {
-				
 				return GlobalState.GAME_SELECTION;
-				
 			}
 			
 		};
