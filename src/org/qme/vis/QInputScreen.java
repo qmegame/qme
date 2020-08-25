@@ -91,6 +91,7 @@ public class QInputScreen extends JFrame implements KeyListener, MouseListener {
 	public void mousePressed(MouseEvent e) {
 		
 		UIComponent uc; // For internal use
+		Point p; // same as above
 		
 		try {
 		
@@ -99,9 +100,10 @@ public class QInputScreen extends JFrame implements KeyListener, MouseListener {
 					
 					uc = (UIComponent) qo;
 					
+					p = app.qrscreen.getMousePosition();
+					
 					if (uc.clickIsIn(
-						app.qrscreen.getMousePosition().x,
-						app.qrscreen.getMousePosition().y
+						p.x, p.y
 					)) {
 						qo.clicked = true;
 						uc.mouseClickOn();
