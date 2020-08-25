@@ -88,6 +88,23 @@ public class Main {
 			@Override
 			public void mouseClickOff() {
 				app.world = new World(app, 25, 25);
+				
+				// Next turn time
+				// Belongs here until I get layering to work
+				new QButton(app, QInputScreen.SCREEN_WIDTH / 2, (QInputScreen.SCREEN_HEIGHT) - 100, "Next turn") {
+
+					@Override
+					public void mouseClickOff() {
+						app.game.turnEnded();
+					}
+					
+					@Override
+					public GlobalState getActiveState() {
+						return GlobalState.MAIN_GAME;
+					}
+					
+				};
+				
 				app.setState(GlobalState.MAIN_GAME);
 			}
 			
