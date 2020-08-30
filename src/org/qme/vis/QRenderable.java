@@ -10,6 +10,8 @@ import java.awt.Graphics;
  */
 public interface QRenderable {
 	
+	abstract QLayer getLayer();
+	
 	/**
 	 * Is called every reload cycle to display the object.
 	 * @param g - the Graphics object for the QRenderScreen instance.
