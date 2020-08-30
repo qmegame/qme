@@ -9,6 +9,7 @@ import org.qme.main.GlobalState;
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
 import org.qme.vis.Perspective;
+import org.qme.vis.QLayer;
 import org.qme.vis.QRenderable;
 import org.qme.vis.ui.Tooltip;
 import org.qme.vis.ui.UIComponent;
@@ -37,6 +38,11 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 		super(app);
 		this.x = x;
 		this.y = y;
+	}
+	
+	@Override
+	public QLayer getLayer() {
+		return QLayer.TILE_LAYER;
 	}
 
 	/**
