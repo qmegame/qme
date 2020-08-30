@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import org.qme.main.GlobalState;
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
+import org.qme.vis.QLayer;
 
 public class Tooltip extends QObject implements UIComponent {
 	
@@ -87,6 +88,11 @@ public class Tooltip extends QObject implements UIComponent {
 			g.drawRect(rect.x, rect.y, rect.width, rect.height);
 		}
 		
+	}
+	
+	@Override
+	public QLayer getLayer() {
+		return QLayer.EFFECT_LAYER;
 	}
 
 	@Override

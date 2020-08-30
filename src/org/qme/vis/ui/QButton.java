@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
+import org.qme.vis.QLayer;
 
 /**
  * A basic part of the user interface system. It registers clicks in the area
@@ -67,6 +68,11 @@ public abstract class QButton extends QObject implements UIComponent {
 	 * @since pre0
 	 */
 	public String text;
+	
+	@Override
+	public QLayer getLayer() {
+		return QLayer.UI_LAYER;
+	}
 	
 	/**
 	 * A simple member-setting constructor, also makes the

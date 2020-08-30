@@ -52,10 +52,19 @@ public class QRenderScreen extends JPanel implements MouseListener {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, QInputScreen.SCREEN_WIDTH, QInputScreen.SCREEN_HEIGHT);
 		
-		for (QObject qr : app.objects) {
-			if (qr instanceof QRenderable && qr.active) {
-				((QRenderable) qr).render(g);
+		// For internal usage
+		QLayer layer;
+		
+		for (int i = 0; i < QLayer.values().length; i++) {
+			
+			layer = QLayer.values()[i];
+		
+			for (QObject qr : app.objects) {
+				if (qr instanceof QRenderable && qr.active && (((QRenderable) qr).getLayer() == layer)) {
+					((QRenderable) qr).render(g);
+				}
 			}
+		
 		}
 		
 	}
