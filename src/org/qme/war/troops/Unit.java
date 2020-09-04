@@ -1,6 +1,7 @@
 package org.qme.war.troops;
 
 import java.lang.Math;
+import org.qme.main.QApplication;
 import org.qme.main.QObject;
 import org.qme.vis.QRenderable;
 import org.qme.vis.ui.UIComponent;
@@ -12,6 +13,10 @@ import org.qme.world.Tile;
  * @since pre2
  */
 public abstract class Unit extends QObject implements QRenderable, UIComponent {
+	public Unit(QApplication app) {	// I don't know and this makes an error go away.
+		super(app);
+	}
+	
 	private boolean actionable = true;	// Whether or not a unit can do stuff (aka it's dead)
 	
 	public Tile tileOn;
@@ -37,7 +42,11 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	public double currentMovement() { return this.currentMovement; }
 	
 	public double attack(Unit defender) {
-		return (2.5 * this.currentAttack() * (this.currentHealth() / this.getHealth())) / defender.currentDefense();
+		if(this.actionable) { 
+			double returN = ((2.5 * this.currentAttack() * (this.currentHealth() / this.getHealth())) / defender.currentDefense());
+			return returN;
+		}
+		return 0;
 	}
 	
 	public void takeDamage(int damage) {
@@ -62,7 +71,7 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	}
 	
 	public void voluntaryMove(Tile target) {
-		if(this.movementCalculate(target) <= this.currentMovement()) {
+		if(this.actionable && this.movementCalculate(target) <= this.currentMovement()) {
 			this.tileOn = target;
 		}
 	}
