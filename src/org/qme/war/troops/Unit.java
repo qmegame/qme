@@ -20,6 +20,7 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	private boolean actionable = true;	// Whether or not a unit can do stuff (aka it's dead)
 	
 	public Tile tileOn;
+	public int morale = 0;
 	
 	private double attack;
 	private double defense;
@@ -40,6 +41,35 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	public double currentDefense() { return this.currentDefense; }
 	public double currentHealth() { return this.currentHealth; }
 	public double currentMovement() { return this.currentMovement; }
+	
+	/**
+	 * Call this when morale changes (only deals with movement by 1)
+	 * @param up
+	 */
+	private void moraleEffects(boolean up) {
+		if(up && this.morale >= 0) {
+			this.health *= 1.1;
+			this.defense *= 1.1;
+			this.attack *= 1.1;
+		} else if(up && this.morale < 0) {
+			this.health *= 1.15;
+			this.defense *= 1.15;
+			this.attack *= 1.15;
+		} else if(!up && this.morale > 0) {
+			this.health /= 1.1;
+			this.defense /= 1.1;
+			this.attack /= 1.1;
+		} else {
+			this.health /= 1.15;
+			this.defense /= 1.15;
+			this.attack /= 1.15;
+		}
+		if(up) {
+			this.morale++;
+		} else {
+			this.morale--;
+		}
+	}
 	
 	public double attack(Unit defender) {
 		if(this.actionable) { 
@@ -74,5 +104,9 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 		if(this.actionable && this.movementCalculate(target) <= this.currentMovement()) {
 			this.tileOn = target;
 		}
+	}
+	
+	public void involuntaryMove(Tile target) {
+		this.tileOn = target;
 	}
 }
