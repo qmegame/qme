@@ -15,9 +15,14 @@ public class Perspective {
 	public static final int TILE_SIZE = 150;
 	
 	/**
-	 * An angle of 45 would just be straight overhead - let's say 30.
+	 * It appears this merely rotates.
 	 */
-	public static final int PERSPECTIVE_ANGLE = 30;
+	public static final int PERSPECTIVE_ANGLE = 45;
+	
+	/**
+	 * For how flat the final result should look.
+	 */
+	public static final float SQUASH_FACTOR = 1.5f;
 	
 	/**
 	 * This converts a 2D position on the screen into
@@ -27,11 +32,11 @@ public class Perspective {
 		
 		QDimension<Float> result = new QDimension<>(0.0f, 0.0f);
 		
-		result.x += (float) (screen.x * Math.cos(PERSPECTIVE_ANGLE));
-		result.y += (float) (screen.x * Math.sin(PERSPECTIVE_ANGLE));
+		result.x += (float) (screen.x * Math.cos(PERSPECTIVE_ANGLE * (2 * Math.PI) / 360));
+		result.y += (float) (screen.x * Math.sin(PERSPECTIVE_ANGLE * (2 * Math.PI) / 360));
 		
-		result.x += (float) (screen.y * Math.cos(PERSPECTIVE_ANGLE));
-		result.y -= (float) (screen.y * Math.sin(PERSPECTIVE_ANGLE));
+		result.x += (float) (screen.y * Math.cos(PERSPECTIVE_ANGLE * (2 * Math.PI) / 360));
+		result.y -= (float) (screen.y * Math.sin(PERSPECTIVE_ANGLE * (2 * Math.PI) / 360));
 		
 		result.x *= TILE_SIZE;
 		result.y *= TILE_SIZE;
@@ -46,8 +51,8 @@ public class Perspective {
 	 */
 	public static QDimension<Float> worldToScreen(QDimension<Float> world) {
 		
-		double alpha = PERSPECTIVE_ANGLE * 360 / (2 * Math.PI);
-		double beta  = PERSPECTIVE_ANGLE * 360 / (2 * Math.PI);
+		double alpha = PERSPECTIVE_ANGLE * (2 * Math.PI) / 360;
+		double beta  = PERSPECTIVE_ANGLE * (2 * Math.PI) / 360;
 		
 		QMatrix2 matrix = new QMatrix2(
 			
@@ -63,8 +68,10 @@ public class Perspective {
 		result.x /= (float) (- Math.sin(alpha + beta));
 		result.y /= (float) (- Math.sin(alpha + beta));
 		
-		result.x /= TILE_SIZE;
-		result.y /= TILE_SIZE;
+		result.x *= TILE_SIZE;
+		result.y *= TILE_SIZE;
+		
+		result.y /= SQUASH_FACTOR;
 		
 		return result;
 		
