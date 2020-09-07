@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.qme.main.GlobalState;
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
+import org.qme.util.QDimension;
 import org.qme.vis.Perspective;
 import org.qme.vis.QLayer;
 import org.qme.vis.QRenderable;
@@ -72,9 +73,12 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 	 * Get the bounding rectangle
 	 */
 	public Rectangle getRect() {
-		return new Rectangle((x * Perspective.TILE_SIZE) + 10 - application.qiscreen.xOffset,
-				(y * Perspective.TILE_SIZE) + 10 - application.qiscreen.yOffset,
-				Perspective.TILE_SIZE - 10, Perspective.TILE_SIZE - 10);
+		
+		QDimension<Float> screenCoords = Perspective.worldToScreen(new QDimension<Float>((float) x, (float) y));
+		
+		return new Rectangle(Math.round((screenCoords.x)) + 10 - application.qiscreen.xOffset,
+				Math.round((screenCoords.y)) + 10 - application.qiscreen.yOffset,
+				10, 10);
 	}
 	
 	@Override
