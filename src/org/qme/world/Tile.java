@@ -174,6 +174,7 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 						(type == TileType.FERTILE_PLAINS) ? "fertile plains" :
 						"error"
 				);
+				add(x + ", " + y);
 			}};
 			
 			new Tooltip(this,
