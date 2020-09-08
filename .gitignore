@@ -1,3 +1,4 @@
 bin/
 doc/
+.qdata/
 .DS_STORE
