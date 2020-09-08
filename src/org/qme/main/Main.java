@@ -1,6 +1,9 @@
 package org.qme.main;
 
 import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.concurrent.TimeUnit;
 
 import org.qme.player.Human;
@@ -17,6 +20,11 @@ import org.qme.world.World;
 public class Main {
 	
 	/**
+	 * Where errors are logged
+	 */
+	public static final String ERROR_LOG = ".qdata/error_log.txt";
+	
+	/**
 	 * This represents how often the screen is reloaded.
 	 * Only in this class temporarily - may be moved.
 	 * @author adamhutchings
@@ -26,6 +34,7 @@ public class Main {
 	
 	/**
 	 * Creates a new QApplication instance and reloads it.
+	 * Also does error logging.
 	 * @author adamhutchings
 	 * @since pre0
 	 * @see org.qme.main.QApplication
@@ -33,6 +42,14 @@ public class Main {
 	 * @throws InterruptedException - from the sleep call
 	 */
 	public static void main(String[] args) throws InterruptedException {
+		
+		// Set the place where all errors go.
+		try {
+			System.setErr(new PrintStream(new FileOutputStream(ERROR_LOG)));
+		} catch (FileNotFoundException e) {
+			System.out.println("Error: file \"" + ERROR_LOG + "\" not found. Ending ...");
+			return;
+		}
 		
 		QApplication app = new QApplication();
 		
@@ -123,7 +140,7 @@ public class Main {
 			app.reload();
 			
 		}
-		
+			
 	}
 
 }
