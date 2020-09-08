@@ -13,8 +13,8 @@ import org.qme.world.Tile;
  * @since pre2
  */
 public abstract class Unit extends QObject implements QRenderable, UIComponent {
-	private static final double aboveMorale = 1.1;
-	private static final double belowMorale = 1.15;
+	private static final float aboveMorale = 1.1f;
+	private static final float belowMorale = 1.15f;
 	
 	public Unit(QApplication app) {	// I don't know and this makes an error go away.
 		super(app);
