@@ -8,11 +8,14 @@ import org.qme.vis.ui.UIComponent;
 import org.qme.world.Tile;
 
 /**
- * The Unit class is troops and stuff
+ * The Unit class is for all units, land or sea.
  * @author santiago
  * @since pre2
  */
 public abstract class Unit extends QObject implements QRenderable, UIComponent {
+	private static final double aboveMorale = 1.1;
+	private static final double belowMorale = 1.15;
+	
 	public Unit(QApplication app) {	// I don't know and this makes an error go away.
 		super(app);
 	}
@@ -48,21 +51,21 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	 */
 	private void moraleEffects(boolean up) {
 		if(up && this.morale >= 0) {
-			this.health *= 1.1;
-			this.defense *= 1.1;
-			this.attack *= 1.1;
+			this.health *= aboveMorale;
+			this.defense *= aboveMorale;
+			this.attack *= aboveMorale;
 		} else if(up && this.morale < 0) {
-			this.health *= 1.15;
-			this.defense *= 1.15;
-			this.attack *= 1.15;
+			this.health *= belowMorale;
+			this.defense *= belowMorale;
+			this.attack *= belowMorale;
 		} else if(!up && this.morale > 0) {
-			this.health /= 1.1;
-			this.defense /= 1.1;
-			this.attack /= 1.1;
+			this.health /= aboveMorale;
+			this.defense /= aboveMorale;
+			this.attack /= aboveMorale;
 		} else {
-			this.health /= 1.15;
-			this.defense /= 1.15;
-			this.attack /= 1.15;
+			this.health /= belowMorale;
+			this.defense /= belowMorale;
+			this.attack /= belowMorale;
 		}
 		if(up) {
 			this.morale++;
