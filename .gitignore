@@ -1,4 +1,3 @@
 bin/
 doc/
-.qdata/
-.DS_STORE
+*.DS_STORE*
