@@ -1,9 +1,6 @@
 package org.qme.main;
 
 import java.awt.event.WindowEvent;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
 import java.util.concurrent.TimeUnit;
 
 import org.qme.player.Human;
@@ -42,15 +39,6 @@ public class Main {
 	 * @throws InterruptedException - from the sleep call
 	 */
 	public static void main(String[] args) throws InterruptedException {
-		
-		// Set the place where all errors go.
-		try {
-			System.setErr(new PrintStream(new FileOutputStream(ERROR_LOG)));
-		} catch (FileNotFoundException e) {
-			System.out.println("Error: file \"" + ERROR_LOG + "\" not found. Ending ...");
-			return;
-		}
-		
 		QApplication app = new QApplication();
 		
 		// New game time
