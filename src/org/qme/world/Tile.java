@@ -25,7 +25,7 @@ import org.qme.vis.ui.UIComponent;
 public class Tile extends QObject implements QRenderable, UIComponent {
 	
 	// Location
-	int x, y;
+	public int x, y;
 	
 	// Type
 	private TileType type;
