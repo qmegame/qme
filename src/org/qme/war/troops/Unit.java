@@ -13,8 +13,8 @@ import org.qme.world.Tile;
  * @since pre2
  */
 public abstract class Unit extends QObject implements QRenderable, UIComponent {
-	private static final float aboveMorale = 1.1f;
-	private static final float belowMorale = 1.15f;
+	private static final float ABOVE_MORALE = 1.1f;
+	private static final float BELOW_MORALE = 1.15f;
 	
 	public Unit(QApplication app) {	// I don't know and this makes an error go away.
 		super(app);
@@ -51,21 +51,21 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	 */
 	private void moraleEffects(boolean up) {
 		if(up && this.morale >= 0) {
-			this.health *= aboveMorale;
-			this.defense *= aboveMorale;
-			this.attack *= aboveMorale;
+			this.health *= ABOVE_MORALE;
+			this.defense *= ABOVE_MORALE;
+			this.attack *= ABOVE_MORALE;
 		} else if(up && this.morale < 0) {
-			this.health *= belowMorale;
-			this.defense *= belowMorale;
-			this.attack *= belowMorale;
+			this.health *= BELOW_MORALE;
+			this.defense *= BELOW_MORALE;
+			this.attack *= BELOW_MORALE;
 		} else if(!up && this.morale > 0) {
-			this.health /= aboveMorale;
-			this.defense /= aboveMorale;
-			this.attack /= aboveMorale;
+			this.health /= ABOVE_MORALE;
+			this.defense /= ABOVE_MORALE;
+			this.attack /= ABOVE_MORALE;
 		} else {
-			this.health /= belowMorale;
-			this.defense /= belowMorale;
-			this.attack /= belowMorale;
+			this.health /= BELOW_MORALE;
+			this.defense /= BELOW_MORALE;
+			this.attack /= BELOW_MORALE;
 		}
 		if(up) {
 			this.morale++;
