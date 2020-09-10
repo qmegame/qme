@@ -212,12 +212,12 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 		
 		// Left, top, right, bottom
 		int[] xPoints = {
-				renderX - (Perspective.TILE_SIZE / 2), renderX,
-				renderX + (Perspective.TILE_SIZE / 2), renderX
+				(int) (renderX - (Perspective.TILE_SIZE / Perspective.TILE_GAP_FACTOR)), renderX,
+				(int) (renderX + (Perspective.TILE_SIZE / Perspective.TILE_GAP_FACTOR)), renderX
 		};
 		int[] yPoints = {
-				renderY, (int) (renderY - (Perspective.TILE_SIZE / (2 *  Perspective.SQUASH_FACTOR))),
-				renderY, (int) (renderY + (Perspective.TILE_SIZE / (2 *  Perspective.SQUASH_FACTOR)))
+				renderY, (int) (renderY - (Perspective.TILE_SIZE / (Perspective.TILE_GAP_FACTOR * Perspective.SQUASH_FACTOR))),
+				renderY, (int) (renderY + (Perspective.TILE_SIZE / (Perspective.TILE_GAP_FACTOR * Perspective.SQUASH_FACTOR)))
 		};
 		
 		return new Polygon(xPoints, yPoints, 4);
