@@ -2,7 +2,7 @@ package org.qme.world;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.Polygon;
 import java.util.ArrayList;
 
 import org.qme.main.GlobalState;
@@ -69,18 +69,6 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 		
 	}
 	
-	/**
-	 * Get the bounding rectangle
-	 */
-	public Rectangle getRect() {
-		
-		QDimension<Float> screenCoords = Perspective.worldToScreen(new QDimension<Float>((float) x, (float) y));
-		
-		return new Rectangle(Math.round((screenCoords.x)) + 10 - application.qiscreen.xOffset,
-				Math.round((screenCoords.y)) + 10 - application.qiscreen.yOffset,
-				10, 10);
-	}
-	
 	@Override
 	/**
 	 * Draws a square representing the tile.
@@ -128,17 +116,14 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 		
 		}
 		
-		Rectangle rect = getRect();
+		Polygon poly = getPolygon();
 		
-		// Now, let's draw.
-		g.fillRect(
-			rect.x, rect.y, rect.width, rect.height
-		);
+		g.fillPolygon(poly);
 		
 		// (Maybe) draw the outline
 		if (hoveredOver) {
 			g.setColor(Color.BLACK);
-			g.drawRect(rect.x, rect.y, rect.width, rect.height);
+			g.drawPolygon(poly);
 		}
 		
 	}
@@ -208,7 +193,35 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 	 * Returns whether said click is inside the tile.
 	 */
 	public boolean clickIsIn(int x, int y) {
-		return getRect().contains(x, y);
+		
+		return getPolygon().contains(x, y);
+		
+	}
+	
+	/**
+	 * Gives the bounding polygon.
+	 * @author adamhutchings
+	 * @since pre2
+	 */
+	public Polygon getPolygon() {
+		
+QDimension<Float> screenCoords = Perspective.worldToScreen(new QDimension<Float>((float) x, (float) y));
+		
+		int renderX = Math.round(screenCoords.x) - application.qiscreen.xOffset;
+		int renderY = Math.round(screenCoords.y) - application.qiscreen.yOffset;
+		
+		// Left, top, right, bottom
+		int[] xPoints = {
+				renderX - (Perspective.TILE_SIZE / 2), renderX,
+				renderX + (Perspective.TILE_SIZE / 2), renderX
+		};
+		int[] yPoints = {
+				renderY, (int) (renderY - (Perspective.TILE_SIZE / (2 *  Perspective.SQUASH_FACTOR))),
+				renderY, (int) (renderY + (Perspective.TILE_SIZE / (2 *  Perspective.SQUASH_FACTOR)))
+		};
+		
+		return new Polygon(xPoints, yPoints, 4);
+		
 	}
 
 	@Override
