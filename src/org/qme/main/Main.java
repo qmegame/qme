@@ -17,11 +17,6 @@ import org.qme.world.World;
 public class Main {
 	
 	/**
-	 * Where errors are logged
-	 */
-	public static final String ERROR_LOG = ".qdata/error_log.txt";
-	
-	/**
 	 * This represents how often the screen is reloaded.
 	 * Only in this class temporarily - may be moved.
 	 * @author adamhutchings
@@ -31,7 +26,6 @@ public class Main {
 	
 	/**
 	 * Creates a new QApplication instance and reloads it.
-	 * Also does error logging.
 	 * @author adamhutchings
 	 * @since pre0
 	 * @see org.qme.main.QApplication
@@ -39,6 +33,7 @@ public class Main {
 	 * @throws InterruptedException - from the sleep call
 	 */
 	public static void main(String[] args) throws InterruptedException {
+		
 		QApplication app = new QApplication();
 		
 		// New game time
