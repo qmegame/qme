@@ -205,7 +205,7 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 	 */
 	public Polygon getPolygon() {
 		
-QDimension<Float> screenCoords = Perspective.worldToScreen(new QDimension<Float>((float) x, (float) y));
+		QDimension<Float> screenCoords = Perspective.worldToScreen(new QDimension<Float>((float) x, (float) y));
 		
 		int renderX = Math.round(screenCoords.x) - application.qiscreen.xOffset;
 		int renderY = Math.round(screenCoords.y) - application.qiscreen.yOffset;
