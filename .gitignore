@@ -1,4 +1,4 @@
 bin/
 doc/
-.DS_STORE
+*.DS_STORE*
 qdata/
