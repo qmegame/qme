@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.JOptionPane;
+
 import org.qme.player.Human;
 import org.qme.vis.QInputScreen;
 import org.qme.vis.ui.QButton;
@@ -28,6 +30,8 @@ public class Main {
 	 */
 	public static final int FRAMERATE = 30;
 	
+	public static final String ERROR_LOG = "qdata/error_logs.txt";
+	
 	/**
 	 * Creates a new QApplication instance and reloads it.
 	 * @author adamhutchings
@@ -44,14 +48,15 @@ public class Main {
 		 * @see org.qme.main.ErrorFileWatcher
 		 */
 		try {
-			FileOutputStream errors = new FileOutputStream("qdata/error_logs.txt");
+			FileOutputStream errors = new FileOutputStream(ERROR_LOG);
 			System.setErr(new PrintStream(errors));
 		} catch(IOException e) {
+			JOptionPane.showMessageDialog(null, "The file " + ERROR_LOG + "does not exist. Please create it.");
 			System.exit(0);
 		}
 		
 		try {
-			ErrorFileWatcher alert = new ErrorFileWatcher(new File("qdata/error_logs.txt"));
+			ErrorFileWatcher alert = new ErrorFileWatcher(new File(ERROR_LOG));
 			
 			QApplication app = new QApplication();
 			
@@ -145,9 +150,7 @@ public class Main {
 
 			
 			
-		} catch(Exception e) {
-			System.exit(0);
-		}
+		} catch(Exception e) {}
   
   }
 
