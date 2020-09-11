@@ -2,10 +2,9 @@ package org.qme.main;
 
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime;
+import java.io.PrintStream;
 import java.util.concurrent.TimeUnit;
 
 import org.qme.player.Human;
@@ -39,14 +38,21 @@ public class Main {
 	 * @throws InterruptedException - from the sleep call
 	 */
 	public static void main(String[] args) throws InterruptedException {
+		/**
+		 * @author S-Mackenzie1678
+		 * @since pre2
+		 * @see org.qme.main.ErrorFileWatcher
+		 */
 		try {
-			File errors = new File("qdata/error_log.txt");
-			errors.createNewFile();
+			FileOutputStream errors = new FileOutputStream("qdata/error_logs.txt");
+			System.setErr(new PrintStream(errors));
 		} catch(IOException e) {
 			System.exit(0);
 		}
 		
 		try {
+			ErrorFileWatcher alert = new ErrorFileWatcher(new File("qdata/error_logs.txt"));
+			
 			QApplication app = new QApplication();
 			
 			// New game time
@@ -134,24 +140,13 @@ public class Main {
 				
 				app.reload();
 				
+				alert.check();
 			}
 
 			
 			
 		} catch(Exception e) {
-			try {
-				FileWriter errorWrite = new FileWriter("qdata/error_log.txt");
-				errorWrite.write(e.getMessage());
-				errorWrite.write(" - ");
-				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-				LocalDateTime time = LocalDateTime.now();
-				errorWrite.write(dtf.format(time));
-				errorWrite.write("\n");
-				errorWrite.close();
-				System.exit(0);
-			} catch(IOException f) {
-				System.exit(0);
-			}
+			System.exit(0);
 		}
   
   }
