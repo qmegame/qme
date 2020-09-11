@@ -2,6 +2,10 @@ package org.qme.main;
 
 import java.io.File;
 
+/**
+ * @author S-Mackenzie1678
+ * @since pre2
+ */
 public class ErrorFileWatcher {
 	
 	private long lastTime;

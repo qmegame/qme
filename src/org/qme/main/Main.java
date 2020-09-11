@@ -38,6 +38,11 @@ public class Main {
 	 * @throws InterruptedException - from the sleep call
 	 */
 	public static void main(String[] args) throws InterruptedException {
+		/**
+		 * @author S-Mackenzie1678
+		 * @since pre2
+		 * @see org.qme.main.ErrorFileWatcher
+		 */
 		try {
 			FileOutputStream errors = new FileOutputStream("qdata/error_logs.txt");
 			System.setErr(new PrintStream(errors));
