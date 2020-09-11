@@ -141,7 +141,7 @@ public class Main {
 		} catch(Exception e) {
 			try {
 				FileWriter errorWrite = new FileWriter("qdata/error_log.txt");
-				errorWrite.write(e.toString());
+				errorWrite.write(e.getMessage());
 				errorWrite.write(" - ");
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 				LocalDateTime time = LocalDateTime.now();
