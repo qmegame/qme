@@ -61,7 +61,7 @@ public class Main {
 			QApplication app = new QApplication();
 			
 			// New game time
-			new QButton(app, QInputScreen.SCREEN_WIDTH / 2, (QInputScreen.SCREEN_HEIGHT / 2) - 100, "New Game") {
+			new QButton(app, QInputScreen.SCREEN_WIDTH / 2, QInputScreen.SCREEN_HEIGHT / 2, "New Game") {
 	
 				@Override
 				public void mouseClickOff() {
@@ -86,7 +86,22 @@ public class Main {
 				
 				@Override
 				public GlobalState getActiveState() {
-					return GlobalState.MAIN_MENU;				
+					return GlobalState.ESCAPE_MENU;				
+				}
+				
+			};
+			
+			// Return to game
+			new QButton(app, QInputScreen.SCREEN_WIDTH / 2, (QInputScreen.SCREEN_HEIGHT / 2) - 100, "Return to game") {
+	
+				@Override
+				public void mouseClickOff() {
+					app.setState(GlobalState.MAIN_GAME);
+				}
+				
+				@Override
+				public GlobalState getActiveState() {
+					return GlobalState.ESCAPE_MENU;				
 				}
 				
 			};

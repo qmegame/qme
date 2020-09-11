@@ -8,6 +8,7 @@ import java.util.ConcurrentModificationException;
 
 import javax.swing.JFrame;
 
+import org.qme.main.GlobalState;
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
 import org.qme.vis.ui.UIComponent;
@@ -149,6 +150,9 @@ public class QInputScreen extends JFrame implements KeyListener {
 		case KeyEvent.VK_W:
 			yOffset -= SCROLL_SPEED;
 			break;
+			
+		case KeyEvent.VK_ESCAPE:
+			app.setState(GlobalState.ESCAPE_MENU);
 			
 		}
 		
