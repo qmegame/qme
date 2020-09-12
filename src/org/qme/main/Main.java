@@ -188,9 +188,18 @@ public class Main {
 	
 				@Override
 				public void mouseClickOff() {
-					app.world = new World(app, 25, 25);
 					
-					app.setState(GlobalState.MAIN_GAME);
+					if (app.game.civilizations.size() > 0) {
+					
+						app.world = new World(app, 25, 25);
+					
+						app.setState(GlobalState.MAIN_GAME);
+					
+					} else {
+						
+						JOptionPane.showMessageDialog(null, "You need to have at least some players. Seriously.");
+						
+					}
 				}
 				
 				@Override
