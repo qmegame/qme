@@ -50,7 +50,7 @@ public class Tech {
 	public static final Tech SMELTING_TECH         = new Tech(HORSEBACK_RIDING_TECH);
 	public static final Tech CURRENCY_TECH         = new Tech(FERMENTATION_TECH);
 	public static final Tech EDUCATION_TECH        = new Tech(MATHEMATICS_TECH);
-	public static final Tech QUADRIREME_TECH         = new Tech(TRIREME_TECH);
+	public static final Tech QUADRIREME_TECH       = new Tech(TRIREME_TECH);
 	public static final Tech PULLEY_TECH           = new Tech(MINING_TECH);
 	public static final Tech IRON_WORKING_TECH     = new Tech(SMELTING_TECH);
 	public static final Tech SCYTHE_TECH           = new Tech(CURRENCY_TECH);
