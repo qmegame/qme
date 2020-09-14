@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import org.qme.player.AI;
 import org.qme.player.Human;
+import org.qme.vis.QDebug;
 import org.qme.player.Player;
 import org.qme.vis.QInputScreen;
 import org.qme.vis.ui.QButton;
@@ -208,6 +209,11 @@ public class Main {
 				}
 				
 			};
+			
+			new QDebug(app, QInputScreen.SCREEN_WIDTH / 2, QInputScreen.SCREEN_HEIGHT / 15) {
+			
+			};
+		
 			// Main loop time
 			while (true) {
 				
