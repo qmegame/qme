@@ -9,8 +9,10 @@ import java.util.concurrent.TimeUnit;
 
 import javax.swing.JOptionPane;
 
+import org.qme.player.AI;
 import org.qme.player.Human;
 import org.qme.vis.QDebug;
+import org.qme.player.Player;
 import org.qme.vis.QInputScreen;
 import org.qme.vis.ui.QButton;
 import org.qme.world.World;
@@ -112,7 +114,52 @@ public class Main {
 				
 				@Override
 				public void mouseClickOff() {
-					app.game.civilizations.add(new Human("Human Player " + app.game.civilizations.size()));
+					
+					Object[] playerTypes = {"Human", "AI"};
+					int response = JOptionPane.showOptionDialog(
+						app.qiscreen,
+						"Choose the type of player:",
+						"Player selection (TM)",
+						JOptionPane.YES_NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE,
+						null,
+						playerTypes,
+						1
+					);
+					if (response == 0) {
+						
+						String playerName = (String) JOptionPane.showInputDialog(
+								
+							app.qiscreen,
+							"Please choose a name:",
+							"Player Selection (TM)",
+							JOptionPane.PLAIN_MESSAGE,
+							null,
+							null,
+							""
+								
+						);
+						
+						if ((playerName != null) && (playerName.length() > 0)) {
+							boolean duplicate = false;
+							for (Player player : app.game.civilizations) {
+								if (player.name.equals(playerName)) {
+									duplicate = true;
+								}
+							}
+							if (duplicate) {
+								JOptionPane.showMessageDialog(null, "Please choose a non-duplicate name.");
+							} else {
+								app.game.civilizations.add(new Human(playerName));
+							}
+						} else {
+							JOptionPane.showMessageDialog(null, "Oops! No name was selected. Try again, failure.");
+						}
+						
+					} else {
+						app.game.civilizations.add(new AI());
+					}
+					
 				}
 				
 				@Override
@@ -142,9 +189,18 @@ public class Main {
 	
 				@Override
 				public void mouseClickOff() {
-					app.world = new World(app, 25, 25);
 					
-					app.setState(GlobalState.MAIN_GAME);
+					if (app.game.civilizations.size() > 0) {
+					
+						app.world = new World(app, 25, 25);
+					
+						app.setState(GlobalState.MAIN_GAME);
+					
+					} else {
+						
+						JOptionPane.showMessageDialog(null, "You need to have at least some players. Seriously.");
+						
+					}
 				}
 				
 				@Override
