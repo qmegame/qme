@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
 
 import org.qme.player.Human;
+import org.qme.vis.QDebug;
 import org.qme.vis.QInputScreen;
 import org.qme.vis.ui.QButton;
 import org.qme.world.World;
@@ -152,6 +153,11 @@ public class Main {
 				}
 				
 			};
+			
+			new QDebug(app, QInputScreen.SCREEN_WIDTH / 2, QInputScreen.SCREEN_HEIGHT / 15) {
+			
+			};
+		
 			// Main loop time
 			while (true) {
 				

@@ -154,6 +154,9 @@ public class QInputScreen extends JFrame implements KeyListener {
 		case KeyEvent.VK_ESCAPE:
 			app.setState(GlobalState.ESCAPE_MENU);
 			
+		case KeyEvent.VK_Q:
+			QDebug.toggleDebug();
+			
 		}
 		
 	}
