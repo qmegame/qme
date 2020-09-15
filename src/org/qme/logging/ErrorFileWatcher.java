@@ -1,8 +1,10 @@
-package org.qme.main;
+package org.qme.logging;
 
 import java.io.File;
 
 import javax.swing.JOptionPane;
+
+import org.qme.main.Main;
 
 /**
  * @author S-Mackenzie1678

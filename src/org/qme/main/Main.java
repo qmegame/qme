@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.swing.JOptionPane;
 
+import org.qme.logging.ErrorFileWatcher;
 import org.qme.player.AI;
 import org.qme.player.Human;
 import org.qme.vis.QDebug;
