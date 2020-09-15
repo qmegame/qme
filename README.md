@@ -30,3 +30,20 @@ Changelog for pre1:
 Notes for pre1:
   - 2072 lines of code! Yay!
   - There is currently no way to see the list of players or the turn count. Coming soon ...
+
+Changelog for pre2:
+  - Added random AI names
+  - Added rendering layers
+  - Added some unit backend for later
+  - Changed rendering from "flat" to 3/4 perspective
+  - Added tile coordinates to tooltip display
+  - Added escape menu (press the escape key to access)
+  - Added UI for creating players (human / AI, names)
+  - Added tech backend for later
+  - Added debug screen (press q to toggle in main game)
+  - Added game info display (for player name / turn, currently untogglable)
+  
+Notes for pre2:
+  - 2683 lines of code (wow)
+  - You need a file for error logging (if you don't have one, you will be prompted to fix it)
+  - Next release on October 5!
