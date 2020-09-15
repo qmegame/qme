@@ -55,7 +55,7 @@ public class Main {
 			FileOutputStream errors = new FileOutputStream(ERROR_LOG);
 			System.setErr(new PrintStream(errors));
 		} catch(IOException e) {
-			JOptionPane.showMessageDialog(null, "The file " + System.getProperty("user.dir") + "/" + ERROR_LOG + " does not exist. Please create it.");
+			JOptionPane.showMessageDialog(null, "The file " + System.getProperty("user.dir") + System.getProperty("file.separator") + ERROR_LOG + " does not exist. Please create it.");
 			System.exit(0);
 		}
 		
