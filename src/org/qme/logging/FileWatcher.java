@@ -25,7 +25,7 @@ public class FileWatcher {
 	public void check() {
 		long actualLastTime = this.watched.lastModified();
 		if(actualLastTime != this.lastTime) {
-			displayError("An error has occurred. Please find your " + System.getProperty("user.dir") + FS + ERROR_LOG + " file and send the error message to a dev.", false);
+			displayError("An error has occurred. Please find your " + System.getProperty("user.dir") + FS + ERROR_LOG + " file and send the error message to a dev.", true);
 			System.exit(0);
 		}
 	}
