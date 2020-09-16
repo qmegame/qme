@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import org.qme.logging.FileWatcher;
 import static org.qme.logging.FileWatcher.ERROR_LOG;
+import org.qme.logging.PreferencesFile;
 import org.qme.player.AI;
 import org.qme.player.Human;
 import org.qme.vis.QDebug;
@@ -53,9 +54,10 @@ public class Main {
 	 * @since pre0
 	 * @see org.qme.main.QApplication
 	 * @param args - command line arguments: unused for now
-	 * @throws InterruptedException - from the sleep call
+	 * @throws Exception 
 	 */
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) {
+		
 		/**
 		 * @author S-Mackenzie1678
 		 * @since pre2
@@ -67,6 +69,14 @@ public class Main {
 		} catch(IOException e) {
 			displayError("The file " + System.getProperty("user.dir") + System.getProperty("file.separator") + ERROR_LOG + " does not exist. Please create it.");
 			System.exit(0);
+		}
+		
+		PreferencesFile.setup();
+		try {
+			System.out.println(PreferencesFile.getPreference("tooltips"));
+			PreferencesFile.setPreference("squash", "1.5");
+		} catch (Exception e) {
+			System.out.println("Exception");
 		}
 		
 		try {
