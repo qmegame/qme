@@ -42,9 +42,11 @@ public class Main {
 	 * @author adamhutchings
 	 * @since pre3
 	 */
-	public final static void displayError(String status) {
+	public final static void displayError(String status, boolean exit) {
 		JOptionPane.showMessageDialog(null, status);
-		System.exit(-1);
+		if (exit) {
+			System.exit(-1);
+		}
 	}
 	
 	/**
@@ -67,7 +69,7 @@ public class Main {
 			FileOutputStream errors = new FileOutputStream(ERROR_LOG);
 			System.setErr(new PrintStream(errors));
 		} catch(IOException e) {
-			displayError("The file " + System.getProperty("user.dir") + System.getProperty("file.separator") + ERROR_LOG + " does not exist. Please create it.");
+			displayError("The file " + System.getProperty("user.dir") + System.getProperty("file.separator") + ERROR_LOG + " does not exist. Please create it.", true);
 			System.exit(0);
 		}
 		
@@ -170,12 +172,12 @@ public class Main {
 								}
 							}
 							if (duplicate) {
-								displayError("Please choose a non-duplicate name.");
+								displayError("Please choose a non-duplicate name.", false);
 							} else {
 								app.game.civilizations.add(new Human(playerName));
 							}
 						} else {
-							displayError("Oops! No name was selected. Try again, failure.");
+							displayError("Oops! No name was selected. Try again, you failure.", false);
 						}
 						
 					} else {
@@ -220,7 +222,7 @@ public class Main {
 					
 					} else {
 						
-						displayError("You need to have at least some players. Seriously.");
+						displayError("You need to have at least some players. Seriously.", false);
 						
 					}
 				}

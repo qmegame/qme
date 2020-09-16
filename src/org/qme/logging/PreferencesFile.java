@@ -65,15 +65,15 @@ public final class PreferencesFile {
 					try {
 						prefsStream.close();
 					} catch (IOException e) {
-						displayError("Error closing preferences file. Please contact a dev.");
+						displayError("Error closing preferences file. Please contact a dev.", true);
 					}
 					
 				} catch (IOException e) {
-					displayError("Error with writing to file " + PREFS_FILE + ". Please contact a dev.");
+					displayError("Error with writing to file " + PREFS_FILE + ". Please contact a dev.", true);
 				}
 				
 			} catch (IOException e) {
-				displayError("Error creating file " + PREFS_FILE + ". Make sure you have the necessary permissions.");
+				displayError("Error creating file " + PREFS_FILE + ". Make sure you have the necessary permissions.", true);
 			}
 		}
 		
@@ -105,7 +105,7 @@ public final class PreferencesFile {
 			bufferedReader.close();
 			
 		} catch (IOException e) {
-			displayError("For some reason, we made a preferences file and now can't read it. Huh?!");
+			displayError("For some reason, we made a preferences file and now can't read it. Huh?!", true);
 		}
 		
 		return total.split("\n");
