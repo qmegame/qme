@@ -100,7 +100,7 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 		this.actionable = false;
 	}
 	
-	private double movementCalculate(Tile target) {
+	protected double movementCalculate(Tile target) {
 		int xDistance = Math.abs(this.tileOn.x - target.x);
 		int yDistance = Math.abs(this.tileOn.x - target.x);
 		
