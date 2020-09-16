@@ -7,6 +7,10 @@ import org.qme.main.QApplication;
 import org.qme.vis.QLayer;
 import org.qme.world.Tile;
 
+/**
+ * @author santiago
+ *@since pre3
+ */
 public class Scout extends Unit {
 
     public Scout(QApplication app) {
