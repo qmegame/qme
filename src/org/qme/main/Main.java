@@ -43,6 +43,7 @@ public class Main {
 	 */
 	public final static void displayError(String status) {
 		JOptionPane.showMessageDialog(null, status);
+		System.exit(-1);
 	}
 	
 	/**
