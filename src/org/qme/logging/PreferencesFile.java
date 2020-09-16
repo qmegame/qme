@@ -32,6 +32,8 @@ public final class PreferencesFile {
 	
 	/**
 	 * Default values for everything.
+	 * @author adamhutchings
+	 * @since pre3
 	 */
 	@SuppressWarnings("serial")
 	private static HashMap<String, String> DEFAULT_PREFS = new HashMap<>() {{
