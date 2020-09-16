@@ -9,6 +9,9 @@ import java.util.concurrent.TimeUnit;
 
 import javax.swing.JOptionPane;
 
+import org.qme.logging.FileWatcher;
+import static org.qme.logging.FileWatcher.ERROR_LOG;
+import org.qme.logging.PreferencesFile;
 import org.qme.player.AI;
 import org.qme.player.Human;
 import org.qme.vis.QDebug;
@@ -34,7 +37,15 @@ public class Main {
 	 */
 	public static final int FRAMERATE = 30;
 	
-	public static final String ERROR_LOG = "qdata/error_logs.txt";
+	/**
+	 * We'll put this somewhere else later. Hopefully. Maybe.
+	 * @author adamhutchings
+	 * @since pre3
+	 */
+	public final static void displayError(String status) {
+		JOptionPane.showMessageDialog(null, status);
+		System.exit(-1);
+	}
 	
 	/**
 	 * Creates a new QApplication instance and reloads it.
@@ -43,9 +54,10 @@ public class Main {
 	 * @since pre0
 	 * @see org.qme.main.QApplication
 	 * @param args - command line arguments: unused for now
-	 * @throws InterruptedException - from the sleep call
+	 * @throws Exception 
 	 */
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) {
+		
 		/**
 		 * @author S-Mackenzie1678
 		 * @since pre2
@@ -55,12 +67,21 @@ public class Main {
 			FileOutputStream errors = new FileOutputStream(ERROR_LOG);
 			System.setErr(new PrintStream(errors));
 		} catch(IOException e) {
-			JOptionPane.showMessageDialog(null, "The file " + System.getProperty("user.dir") + System.getProperty("file.separator") + ERROR_LOG + " does not exist. Please create it.");
+			displayError("The file " + System.getProperty("user.dir") + System.getProperty("file.separator") + ERROR_LOG + " does not exist. Please create it.");
 			System.exit(0);
 		}
 		
+		PreferencesFile.setup();
 		try {
-			ErrorFileWatcher alert = new ErrorFileWatcher(new File(ERROR_LOG));
+			System.out.println(PreferencesFile.getPreference("tooltips"));
+			PreferencesFile.setPreference("squash", "1.5");
+		} catch (Exception e) {
+			System.out.println("Exception");
+		}
+		
+		try {
+			
+			FileWatcher alert = new FileWatcher(new File(ERROR_LOG));
 			
 			QApplication app = new QApplication();
 			
@@ -149,12 +170,12 @@ public class Main {
 								}
 							}
 							if (duplicate) {
-								JOptionPane.showMessageDialog(null, "Please choose a non-duplicate name.");
+								displayError("Please choose a non-duplicate name.");
 							} else {
 								app.game.civilizations.add(new Human(playerName));
 							}
 						} else {
-							JOptionPane.showMessageDialog(null, "Oops! No name was selected. Try again, failure.");
+							displayError("Oops! No name was selected. Try again, failure.");
 						}
 						
 					} else {
@@ -199,7 +220,7 @@ public class Main {
 					
 					} else {
 						
-						JOptionPane.showMessageDialog(null, "You need to have at least some players. Seriously.");
+						displayError("You need to have at least some players. Seriously.");
 						
 					}
 				}
