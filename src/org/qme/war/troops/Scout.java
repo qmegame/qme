@@ -13,8 +13,8 @@ import org.qme.world.Tile;
  */
 public class Scout extends Unit {
 
-    public Scout(QApplication app) {
-        super(app);
+    public Scout(QApplication app, Tile tile) {
+        super(app, tile);
     }
 
     public Tile tileOn;

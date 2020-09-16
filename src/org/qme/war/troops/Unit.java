@@ -16,7 +16,7 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	private static final float ABOVE_MORALE = 1.1f;
 	private static final float BELOW_MORALE = 1.15f;
 	
-	public Unit(QApplication app) {	// Again, idk and this kills errors
+	public Unit(QApplication app, Tile tile) {	// Again, idk and this kills errors
 		super(app);
 		
 		this.currentAttack = this.attack;
