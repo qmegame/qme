@@ -6,9 +6,11 @@ import static org.qme.main.Main.displayError;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 
 /**
  * This gives an API for writing in and out
@@ -28,15 +30,46 @@ public final class PreferencesFile {
 	
 	private static File PREFS;
 	
+	/**
+	 * Default values for everything.
+	 */
+	@SuppressWarnings("serial")
+	private static HashMap<String, String> DEFAULT_PREFS = new HashMap<>() {{
+		put("squash", "2.0");
+		put("tooltips", "true");
+	}};
+	
 	// Do this always, because ... yeah
-	static {
+	public static void setup() {
 		
 		PREFS = new File(PREFS_FILE);
 		
 		// Make the prefs file if it doesn't exist
 		if (!(PREFS.exists())) {
 			try {
+				
 				PREFS.createNewFile();
+				
+				FileOutputStream prefsStream;
+				
+				// Write default preferences
+				try {
+					
+					prefsStream = new FileOutputStream(PREFS_FILE);
+					for (String key : DEFAULT_PREFS.keySet()) {
+						prefsStream.write((key + ": " + DEFAULT_PREFS.get(key) + "\n").getBytes());
+					}
+					
+					try {
+						prefsStream.close();
+					} catch (IOException e) {
+						displayError("Error closing preferences file. Please contact a dev.");
+					}
+					
+				} catch (IOException e) {
+					displayError("Error with writing to file " + PREFS_FILE + ". Please contact a dev.");
+				}
+				
 			} catch (IOException e) {
 				displayError("Error creating file " + PREFS_FILE + ". Make sure you have the necessary permissions.");
 			}
@@ -88,10 +121,10 @@ public final class PreferencesFile {
 		for (String line : getPreferences()) {
 			
 			// 3 characters: [preference]: 0   , for example
-			if (line.length() > key.length() + 3) {
+			if (line.length() > key.length() + 1) {
 				
 				if (line.startsWith(key) && line.charAt(key.length()) == ':') {
-					return line.substring(key.length() + 3);
+					return line.substring(key.length() + 2);
 				}
 				
 			}
@@ -108,7 +141,7 @@ public final class PreferencesFile {
 	 * @since pre3
 	 * @throws Exception
 	 */
-	public void setPreference(String key, String value) throws Exception {
+	public static void setPreference(String key, String value) throws Exception {
 		
 		// We can just rewrite the entire file. There aren't many
 		// preferences and we're not rewriting preferences 1000
@@ -116,14 +149,19 @@ public final class PreferencesFile {
 		
 		String[] prefsCopy = getPreferences();
 		
+		// For internal use
+		String preference = "";
+		
 		boolean matchFound = false;
 		
-		for (String preference : prefsCopy) {
+		for (int i = 0; i < prefsCopy.length; i++) {
+			
+			preference = prefsCopy[i];
 			
 			if (preference.length() > key.length() + 3) {
 			
 				if (preference.startsWith(key) && preference.charAt(key.length()) == ':') {
-					preference = preference.substring(0, key.length()) + ": " + value;
+					prefsCopy[i] = preference.substring(0, key.length()) + ": " + value;
 					matchFound = true;
 					break;
 				}
@@ -138,8 +176,8 @@ public final class PreferencesFile {
 		
 		// Rewrite entire file
 		String fileOut = "";
-		for (String preference : prefsCopy) {
-			fileOut += (preference + "\n");
+		for (String pref : prefsCopy) {
+			fileOut += (pref + "\n");
 		}
 		
 		FileWriter fileWriter = new FileWriter(PREFS, false);
