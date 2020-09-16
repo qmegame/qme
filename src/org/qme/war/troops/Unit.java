@@ -16,8 +16,14 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	private static final float ABOVE_MORALE = 1.1f;
 	private static final float BELOW_MORALE = 1.15f;
 	
-	public Unit(QApplication app) {	// I don't know and this makes an error go away.
+	public Unit(QApplication app) {	// Again, idk and this kills errors
 		super(app);
+		
+		this.currentAttack = this.attack;
+		this.currentDefense = this.defense;
+		this.currentHealth = this.health;
+		this.currentMovement = this.movement;
+		this.currentAttacks = this.attacks;
 	}
 	
 	private boolean actionable = true;	// Whether or not a unit can do stuff (aka it's dead)
@@ -29,21 +35,25 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	private double defense;
 	private double health;
 	private double movement;
+	private int attacks;
 	
 	public double getAttack() { return this.attack; }
 	public double getDefense() { return this.defense; }
 	public double getHealth() { return this.health; }
 	public double getMovement() { return this.movement; }
+	public int getAttacks() { return this.attacks; }
 	
 	public double currentAttack;
 	public double currentDefense;
 	public double currentHealth;
 	public double currentMovement;
+	public int currentAttacks;
 	
 	public double currentAttack() { return this.currentAttack; }
 	public double currentDefense() { return this.currentDefense; }
 	public double currentHealth() { return this.currentHealth; }
 	public double currentMovement() { return this.currentMovement; }
+	public int currentAttacks() { return this.currentAttacks; }
 	
 	/**
 	 * Call this when morale changes (only deals with movement by 1)
