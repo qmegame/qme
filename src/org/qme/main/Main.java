@@ -50,6 +50,27 @@ public class Main {
 	}
 	
 	/**
+	 * "on" or "off"
+	 * @author adamhutchings
+	 * @since pre3
+	 */
+	public static String tooltipString() {
+		try {
+			return (PreferencesFile.getPreference("tooltips").equals("true") ? "on" : "off");
+		} catch (Exception e) {
+			displayError("oh no", true);
+		}
+		// dead line
+		return "";
+	}
+	
+	
+	/**
+	 * Whether tooltips are on.
+	 */
+	public static boolean TOOLTIPS = true;
+	
+	/**
 	 * Creates a new QApplication instance and reloads it.
 	 * @author adamhutchings
 	 * @author S-Mackenzie1678
@@ -58,7 +79,7 @@ public class Main {
 	 * @param args - command line arguments: unused for now
 	 * @throws Exception 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
 		/**
 		 * @author S-Mackenzie1678
@@ -74,6 +95,13 @@ public class Main {
 		}
 		
 		PreferencesFile.setup();
+		
+		// Set up preferences
+		try {
+			TOOLTIPS = (PreferencesFile.getPreference("tooltips").equals("true"));
+		} catch (Exception e1) {
+			displayError("Oops", true);
+		}
 		
 		try {
 			
@@ -185,6 +213,64 @@ public class Main {
 					return GlobalState.GAME_SELECTION;
 				}
 				
+			};
+			
+			// Get to settings
+			new QButton(app, QInputScreen.SCREEN_WIDTH - 75, 25, "Settings") {
+	
+				@Override
+				public void mouseClickOff() {
+					app.setState(GlobalState.SETTINGS_MENU);
+				}
+				
+				@Override
+				public GlobalState getActiveState() {
+					return GlobalState.ESCAPE_MENU;				
+				}
+				
+			};
+			
+			// Get back from settings
+			new QButton(app, QInputScreen.SCREEN_WIDTH / 2, QInputScreen.SCREEN_HEIGHT - 100, "Back") {
+	
+				@Override
+				public void mouseClickOff() {
+					app.setState(GlobalState.ESCAPE_MENU);
+				}
+				
+				@Override
+				public GlobalState getActiveState() {
+					return GlobalState.SETTINGS_MENU;				
+				}
+				
+			};
+			
+			// Toggle tooltips
+			new QButton(app, QInputScreen.SCREEN_WIDTH / 2, 100, "Tooltips: " + tooltipString()) {
+	
+				@Override
+				public void mouseClickOff() {
+					try {
+						if (PreferencesFile.getPreference("tooltips").equals("true")) {
+							TOOLTIPS = false;
+							PreferencesFile.setPreference("tooltips", "false");
+							// update the text
+							text = "Tooltips: " + tooltipString();
+						} else {
+							TOOLTIPS = true;
+							PreferencesFile.setPreference("tooltips", "true");
+							// update the text
+							text = "Tooltips: " + tooltipString();
+						}
+					} catch (Exception e) {
+						displayError("oh, no, not exception e", true);
+					}
+				}
+				
+				@Override
+				public GlobalState getActiveState() {
+					return GlobalState.SETTINGS_MENU;
+				}
 			};
 			
 			// Next turn time
