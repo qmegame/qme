@@ -74,12 +74,6 @@ public class Main {
 		}
 		
 		PreferencesFile.setup();
-		try {
-			System.out.println(PreferencesFile.getPreference("tooltips"));
-			PreferencesFile.setPreference("squash", "1.5");
-		} catch (Exception e) {
-			System.out.println("Exception");
-		}
 		
 		try {
 			
