@@ -7,7 +7,8 @@ import java.awt.Rectangle;
 import org.qme.main.GlobalState;
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
-import org.qme.vis.QInputScreen;
+import static org.qme.util.GlobalConstants.SCREEN_HEIGHT;
+import static org.qme.util.GlobalConstants.SCREEN_WIDTH;
 import org.qme.vis.ui.UIUtils;
 
 /**
@@ -19,7 +20,7 @@ import org.qme.vis.ui.UIUtils;
 public class QGameInfo extends QObject implements QRenderable {
 	
 	private static final Rectangle GAME_INFO_RENDER_RECT = new Rectangle(
-			QInputScreen.SCREEN_WIDTH / 2, QInputScreen.SCREEN_HEIGHT - 200, 0, 0
+			SCREEN_WIDTH / 2, SCREEN_HEIGHT - 200, 0, 0
 	);
 
 	public QGameInfo(QApplication app) {

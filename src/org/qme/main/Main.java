@@ -17,10 +17,11 @@ import org.qme.menus.SelectionMenu;
 import org.qme.menus.SettingsMenu;
 import org.qme.menus.StartMenu;
 import static org.qme.util.GlobalConstants.FRAMERATE;
+import static org.qme.util.GlobalConstants.SCREEN_HEIGHT;
+import static org.qme.util.GlobalConstants.SCREEN_WIDTH;
 import static org.qme.util.GlobalConstants.TOOLTIPS;
 import org.qme.vis.QDebug;
 import org.qme.vis.QGameInfo;
-import org.qme.vis.QInputScreen;
 
 /**
  * Holds the main method and the FRAMERATE constant.
@@ -102,7 +103,7 @@ public class Main {
 			SettingsMenu.makeMenu(app);
 			GameMenu.makeMenu(app);
 			
-			new QDebug(app, QInputScreen.SCREEN_WIDTH / 2, QInputScreen.SCREEN_HEIGHT / 15);
+			new QDebug(app, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 15);
 			
 			new QGameInfo(app);
 		
