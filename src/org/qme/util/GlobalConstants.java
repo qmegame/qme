@@ -21,5 +21,15 @@ public class GlobalConstants {
 	 * @since pre3
 	 */
 	public static boolean TOOLTIPS = true;
+	
+	/**
+	 * For how flat the final result should look.
+	 */
+	public static final float SQUASH_FACTOR = 2f;
+	
+	/**
+	 * The size that each tile is rendered as. Kind of.
+	 */
+	public static final int TILE_SIZE = 150;
 
 }
