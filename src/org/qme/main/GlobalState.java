@@ -6,6 +6,7 @@ public enum GlobalState {
 	GAME_SELECTION,
 	MAIN_GAME,
 	ESCAPE_MENU,
+	SETTINGS_MENU,
 	DEFAULT
 
 }

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import org.qme.main.GlobalState;
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
+import static org.qme.util.GlobalConstants.SQUASH_FACTOR;
+import static org.qme.util.GlobalConstants.TILE_SIZE;
+import static org.qme.util.GlobalConstants.TOOLTIPS;
 import org.qme.util.QDimension;
 import org.qme.vis.Perspective;
 import org.qme.vis.QLayer;
@@ -143,7 +146,7 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 	 */
 	public void mouseClickOn() {
 		
-		if (!tooltip) {
+		if ((!tooltip) && TOOLTIPS) {
 			
 			@SuppressWarnings("serial")
 			ArrayList<String> info = new ArrayList<String>() {{
@@ -212,12 +215,12 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 		
 		// Left, top, right, bottom
 		int[] xPoints = {
-				(int) (renderX - (Perspective.TILE_SIZE / Perspective.TILE_GAP_FACTOR)), renderX,
-				(int) (renderX + (Perspective.TILE_SIZE / Perspective.TILE_GAP_FACTOR)), renderX
+				(int) (renderX - (TILE_SIZE / Perspective.TILE_GAP_FACTOR)), renderX,
+				(int) (renderX + (TILE_SIZE / Perspective.TILE_GAP_FACTOR)), renderX
 		};
 		int[] yPoints = {
-				renderY, (int) (renderY - (Perspective.TILE_SIZE / (Perspective.TILE_GAP_FACTOR * Perspective.SQUASH_FACTOR))),
-				renderY, (int) (renderY + (Perspective.TILE_SIZE / (Perspective.TILE_GAP_FACTOR * Perspective.SQUASH_FACTOR)))
+				renderY, (int) (renderY - (TILE_SIZE / (Perspective.TILE_GAP_FACTOR * SQUASH_FACTOR))),
+				renderY, (int) (renderY + (TILE_SIZE / (Perspective.TILE_GAP_FACTOR * SQUASH_FACTOR)))
 		};
 		
 		return new Polygon(xPoints, yPoints, 4);

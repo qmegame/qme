@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
+import static org.qme.util.GlobalConstants.SCREEN_HEIGHT;
+import static org.qme.util.GlobalConstants.SCREEN_WIDTH;
 import org.qme.vis.ui.UIComponent;
 
 /**
@@ -50,7 +52,7 @@ public class QRenderScreen extends JPanel implements MouseListener {
 		
 		// Clear the screen
 		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, QInputScreen.SCREEN_WIDTH, QInputScreen.SCREEN_HEIGHT);
+		g.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 		
 		// For internal usage
 		QLayer layer;
