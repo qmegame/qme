@@ -16,10 +16,11 @@ import org.qme.menus.GameMenu;
 import org.qme.menus.SelectionMenu;
 import org.qme.menus.SettingsMenu;
 import org.qme.menus.StartMenu;
+import static org.qme.util.GlobalConstants.FRAMERATE;
+import static org.qme.util.GlobalConstants.TOOLTIPS;
 import org.qme.vis.QDebug;
 import org.qme.vis.QGameInfo;
 import org.qme.vis.QInputScreen;
-import org.qme.vis.ui.QButton;
 
 /**
  * Holds the main method and the FRAMERATE constant.
@@ -28,14 +29,6 @@ import org.qme.vis.ui.QButton;
  * @since pre0
  */
 public class Main {
-	
-	/**
-	 * This represents how often the screen is reloaded.
-	 * Only in this class temporarily - may be moved.
-	 * @author adamhutchings
-	 * @since pre0
-	 */
-	public static final int FRAMERATE = 30;
 	
 	/**
 	 * We'll put this somewhere else later. Hopefully. Maybe.
@@ -63,12 +56,6 @@ public class Main {
 		// dead line
 		return "";
 	}
-	
-	
-	/**
-	 * Whether tooltips are on.
-	 */
-	public static boolean TOOLTIPS = true;
 	
 	/**
 	 * Creates a new QApplication instance and reloads it.
