@@ -5,8 +5,9 @@ import org.qme.main.GlobalState;
 import static org.qme.main.Main.displayError;
 import static org.qme.main.Main.tooltipString;
 import org.qme.main.QApplication;
+import static org.qme.util.GlobalConstants.SCREEN_HEIGHT;
+import static org.qme.util.GlobalConstants.SCREEN_WIDTH;
 import static org.qme.util.GlobalConstants.TOOLTIPS;
-import org.qme.vis.QInputScreen;
 import org.qme.vis.ui.QButton;
 
 public class SettingsMenu {
@@ -14,7 +15,7 @@ public class SettingsMenu {
 	public static void makeMenu(QApplication app) {
 		
 		// Get back from settings
-		new QButton(app, QInputScreen.SCREEN_WIDTH / 2, QInputScreen.SCREEN_HEIGHT - 100, "Back") {
+		new QButton(app, SCREEN_WIDTH / 2, SCREEN_HEIGHT - 100, "Back") {
 
 			@Override
 			public void mouseClickOff() {
@@ -29,7 +30,7 @@ public class SettingsMenu {
 		};
 		
 		// Toggle tooltips
-		new QButton(app, QInputScreen.SCREEN_WIDTH / 2, 100, "Tooltips: " + tooltipString()) {
+		new QButton(app, SCREEN_WIDTH / 2, 100, "Tooltips: " + tooltipString()) {
 
 			@Override
 			public void mouseClickOff() {

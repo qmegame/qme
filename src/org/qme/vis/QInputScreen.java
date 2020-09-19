@@ -11,6 +11,9 @@ import javax.swing.JFrame;
 import org.qme.main.GlobalState;
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
+import static org.qme.util.GlobalConstants.SCREEN_WIDTH;
+import static org.qme.util.GlobalConstants.SCREEN_HEIGHT;
+import static org.qme.util.GlobalConstants.SCROLL_SPEED;
 import org.qme.vis.ui.UIComponent;
 
 /**
@@ -24,25 +27,6 @@ import org.qme.vis.ui.UIComponent;
 public class QInputScreen extends JFrame implements KeyListener {
 	
 	QApplication app;
-	
-	/**
-	 * How fast the user "scrolls".
-	 */
-	public static final int SCROLL_SPEED = 20;
-	
-	/**
-	 * The default width of the screen generated.
-	 * @author adamhutchings
-	 * @since pre0
-	 */
-	public static final int SCREEN_WIDTH  = 800;
-	
-	/**
-	 * The default height of the screen generated.
-	 * @author adamhutchings
-	 * @since pre0
-	 */
-	public static final int SCREEN_HEIGHT = 600;
 	
 	/**
 	 * The app that this "belongs" to

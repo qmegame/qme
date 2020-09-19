@@ -8,7 +8,8 @@ import org.qme.main.QApplication;
 import org.qme.player.AI;
 import org.qme.player.Human;
 import org.qme.player.Player;
-import org.qme.vis.QInputScreen;
+import static org.qme.util.GlobalConstants.SCREEN_HEIGHT;
+import static org.qme.util.GlobalConstants.SCREEN_WIDTH;
 import org.qme.vis.ui.QButton;
 import org.qme.world.World;
 
@@ -17,7 +18,7 @@ public class SelectionMenu {
 	public static void makeMenu(QApplication app) {
 		
 		// New player time
-		new QButton(app, QInputScreen.SCREEN_WIDTH / 2, (QInputScreen.SCREEN_HEIGHT / 2) - 100, "New Player") {
+		new QButton(app, SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) - 100, "New Player") {
 			
 			@Override
 			public void mouseClickOff() {
@@ -77,7 +78,7 @@ public class SelectionMenu {
 		};	
 		
 		// Start game time
-		new QButton(app, QInputScreen.SCREEN_WIDTH / 2, (QInputScreen.SCREEN_HEIGHT / 2) + 100, "Start Game") {
+		new QButton(app, SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) + 100, "Start Game") {
 
 			@Override
 			public void mouseClickOff() {
