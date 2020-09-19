@@ -5,16 +5,22 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import org.qme.main.GlobalState;
-import org.qme.main.Main;
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
+import static org.qme.util.GlobalConstants.FRAMERATE;
 import org.qme.vis.ui.UIComponent;
 import org.qme.vis.ui.UIUtils;
 
+/**
+ * Framerate display, toggled with the q key
+ * @author Edwin
+ * @since pre2
+ */
 public class QDebug extends QObject implements UIComponent {
 	
 	/* 
 	 * A static boolean for whether the debug screen is on or off.
+	 * Is a constant used in passing, not a global variable.
 	 */
 	static Boolean isDebugOn = false;
 	
@@ -61,7 +67,7 @@ public class QDebug extends QObject implements UIComponent {
 	public void render(Graphics g) {
 		
 		// Make the strings for the different stuff in the debug screen
-		String fpsText = "FPS: " + Main.FRAMERATE;
+		String fpsText = "FPS: " + FRAMERATE;
 		String globalStateText = "GlobalState: " + this.application.getState();
 		
 		// Put all the strings together
