@@ -4,8 +4,8 @@ import org.qme.logging.PreferencesFile;
 import org.qme.main.GlobalState;
 import static org.qme.main.Main.displayError;
 import static org.qme.main.Main.tooltipString;
-import static org.qme.main.Main.TOOLTIPS;
 import org.qme.main.QApplication;
+import static org.qme.util.GlobalConstants.TOOLTIPS;
 import org.qme.vis.QInputScreen;
 import org.qme.vis.ui.QButton;
 
