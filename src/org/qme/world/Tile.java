@@ -6,6 +6,7 @@ import java.awt.Polygon;
 import java.util.ArrayList;
 
 import org.qme.main.GlobalState;
+import org.qme.main.Main;
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
 import org.qme.util.QDimension;
@@ -143,7 +144,7 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 	 */
 	public void mouseClickOn() {
 		
-		if (!tooltip) {
+		if ((!tooltip) && Main.TOOLTIPS) {
 			
 			@SuppressWarnings("serial")
 			ArrayList<String> info = new ArrayList<String>() {{
