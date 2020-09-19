@@ -11,10 +11,16 @@ import static org.qme.util.GlobalConstants.FRAMERATE;
 import org.qme.vis.ui.UIComponent;
 import org.qme.vis.ui.UIUtils;
 
+/**
+ * Framerate display, toggled with the q key
+ * @author Edwin
+ * @since pre2
+ */
 public class QDebug extends QObject implements UIComponent {
 	
 	/* 
 	 * A static boolean for whether the debug screen is on or off.
+	 * Is a constant used in passing, not a global variable.
 	 */
 	static Boolean isDebugOn = false;
 	
