@@ -31,5 +31,24 @@ public class GlobalConstants {
 	 * The size that each tile is rendered as. Kind of.
 	 */
 	public static final int TILE_SIZE = 150;
+	
+	/**
+	 * How fast the user "scrolls".
+	 */
+	public static final int SCROLL_SPEED = 20;
+	
+	/**
+	 * The default width of the screen generated.
+	 * @author adamhutchings
+	 * @since pre0
+	 */
+	public static final int SCREEN_WIDTH  = 800;
+	
+	/**
+	 * The default height of the screen generated.
+	 * @author adamhutchings
+	 * @since pre0
+	 */
+	public static final int SCREEN_HEIGHT = 600;
 
 }
