@@ -16,7 +16,7 @@ public final class GameState {
 	public int playerTurn;
 	public int turn;
 	
-	GameState(QApplication app) {
+	public GameState(QApplication app) {
 		this.owner = app;
 		this.civilizations = new ArrayList<Player>();
 		this.playerTurn = 0;
