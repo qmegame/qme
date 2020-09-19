@@ -1,5 +1,7 @@
 package org.qme.vis;
 
+import static org.qme.util.GlobalConstants.SQUASH_FACTOR;
+import static org.qme.util.GlobalConstants.TILE_SIZE;
 import org.qme.util.QDimension;
 import org.qme.util.QMatrix2;
 
@@ -13,11 +15,6 @@ import org.qme.util.QMatrix2;
 public class Perspective {
 	
 	/**
-	 * The size that each tile is rendered as. Kind of.
-	 */
-	public static final int TILE_SIZE = 150;
-	
-	/**
 	 * sqrt(2) is no gap, apparently.
 	 */
 	public static final float TILE_GAP_FACTOR = 1.5f;
@@ -26,11 +23,6 @@ public class Perspective {
 	 * It appears this merely rotates.
 	 */
 	public static final int PERSPECTIVE_ANGLE = 45;
-	
-	/**
-	 * For how flat the final result should look.
-	 */
-	public static final float SQUASH_FACTOR = 2f;
 	
 	/**
 	 * This converts a 2D position on the screen into
