@@ -36,6 +36,7 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 	
 	//
 	public Unit occupier;
+	public boolean occupied;
 	
 	/**
 	 * Simple generation with coordinates.

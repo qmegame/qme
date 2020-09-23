@@ -118,7 +118,10 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	
 	public void voluntaryMove(Tile target) {
 		if(this.actionable && this.movementCalculate(target) <= this.currentMovement()) {
+			this.tileOn.occupied = false;
 			this.tileOn = target;
+			this.tileOn.occupier = this;
+			this.tileOn.occupied = true;
 		}
 	}
 	
