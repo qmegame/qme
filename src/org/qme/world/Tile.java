@@ -17,6 +17,7 @@ import org.qme.vis.QLayer;
 import org.qme.vis.QRenderable;
 import org.qme.vis.ui.Tooltip;
 import org.qme.vis.ui.UIComponent;
+import org.qme.war.troops.Unit;
 
 /**
  * A tile in the world. For now, just has a type
@@ -32,6 +33,9 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 	
 	// Type
 	private TileType type;
+	
+	//
+	public Unit occupier;
 	
 	/**
 	 * Simple generation with coordinates.

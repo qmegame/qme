@@ -5,6 +5,7 @@ import org.qme.main.QApplication;
 import org.qme.main.QObject;
 import org.qme.vis.QRenderable;
 import org.qme.vis.ui.UIComponent;
+import org.qme.war.troops.UnitType;
 import org.qme.world.Tile;
 
 /**
@@ -19,6 +20,7 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	public Unit(QApplication app, Tile tile) {	// Again, idk and this kills errors
 		super(app);
 		
+		
 		this.currentAttack = this.attack;
 		this.currentDefense = this.defense;
 		this.currentHealth = this.health;
@@ -30,6 +32,7 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	
 	public Tile tileOn;
 	public int morale = 0;
+	public UnitType type;
 	
 	private double attack;
 	private double defense;

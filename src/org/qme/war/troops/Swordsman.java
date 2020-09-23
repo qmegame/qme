@@ -18,6 +18,7 @@ public class Swordsman extends Unit {
     }
 
     public Tile tileOn;
+    public UnitType type = UnitType.SWORDSMAN;
 
     private double attack = 2;
     private double defense = 3;
