@@ -41,7 +41,7 @@ public class Scout extends Unit {
     @Override
     public QLayer getLayer() {
         // TODO Auto-generated method stub
-        return null;
+        return QLayer.TROOP_LAYER;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class Scout extends Unit {
     @Override
     public GlobalState getActiveState() {
         // TODO Auto-generated method stub
-        return null;
+    	return GlobalState.MAIN_GAME;
     }
 
     @Override
