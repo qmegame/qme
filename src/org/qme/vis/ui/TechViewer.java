@@ -85,7 +85,10 @@ public class TechViewer extends QObject implements QRenderable, UIComponent {
 		// Draw the outline (THICC)
 		if (this.hoveredOver) {
 			g.setColor(Color.BLACK);
-			((Graphics2D) g).setStroke(new BasicStroke(10));
+			Graphics2D gCopy = (Graphics2D) g.create();
+			gCopy.setStroke(new BasicStroke(5));
+			gCopy.drawRect(backgroundRect.x, backgroundRect.y, backgroundRect.width, backgroundRect.height);
+			gCopy.dispose();
 		}
 		
 		// Write the name of the tech
