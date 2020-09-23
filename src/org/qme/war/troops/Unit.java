@@ -1,8 +1,12 @@
 package org.qme.war.troops;
 
+import java.awt.Graphics;
 import java.lang.Math;
+
+import org.qme.main.GlobalState;
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
+import org.qme.vis.QLayer;
 import org.qme.vis.QRenderable;
 import org.qme.vis.ui.UIComponent;
 import org.qme.war.troops.UnitType;
@@ -152,4 +156,34 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	    // TODO Auto-generated method stub
 	
 	}
+    @Override
+    public void render(Graphics g) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public QLayer getLayer() {
+        // TODO Auto-generated method stub
+    	return QLayer.TROOP_LAYER;
+    }
+
+
+    @Override
+    public GlobalState getActiveState() {
+        // TODO Auto-generated method stub
+    	return GlobalState.MAIN_GAME;
+    }
+
+    @Override
+    public boolean clickIsIn(int x, int y) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public void update(QApplication app) {
+        // TODO Auto-generated method stub
+
+    }
 }

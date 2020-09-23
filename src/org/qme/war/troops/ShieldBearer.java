@@ -53,34 +53,4 @@ public class ShieldBearer extends Unit {
     	
     	return this.currentDefense + bonus;
     }
-
-    @Override
-    public QLayer getLayer() {
-        // TODO Auto-generated method stub
-    	return QLayer.TROOP_LAYER;
-    }
-
-    @Override
-    public void render(Graphics g) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public GlobalState getActiveState() {
-        // TODO Auto-generated method stub
-    	return GlobalState.MAIN_GAME;
-    }
-
-    @Override
-    public boolean clickIsIn(int x, int y) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public void update(QApplication app) {
-        // TODO Auto-generated method stub
-
-    }
 }
