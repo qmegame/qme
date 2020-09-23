@@ -1,4 +1,4 @@
-package org.qme.war.troops;
+package org.qme.troops;
 
 public enum UnitType {
 	SCOUT,

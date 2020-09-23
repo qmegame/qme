@@ -1,4 +1,4 @@
-package org.qme.war.troops;
+package org.qme.troops;
 
 import org.qme.main.QApplication;
 import org.qme.world.Tile;
@@ -18,22 +18,22 @@ public class ShieldBearer extends Unit {
     public double currentDefense() {
     	int bonus = 0;
     	if(this.tileOn.x != 0) {
-    		if(this.application.world.tiles[this.tileOn.x - 1][this.tileOn.y].occupied) {
+    		if(this.application.world.tiles[this.tileOn.x - 1][this.tileOn.y].occupier != null) {
     			bonus++;
     		}
     	}
     	if(this.tileOn.x != (this.application.world.xDimension - 1)) {
-    		if(this.application.world.tiles[this.tileOn.x + 1][this.tileOn.y].occupied) {
+    		if(this.application.world.tiles[this.tileOn.x + 1][this.tileOn.y].occupier != null) {
     			bonus++;
     		}
     	}
     	if(this.tileOn.y != 0) {
-    		if(this.application.world.tiles[this.tileOn.x][this.tileOn.y - 1].occupied) {
+    		if(this.application.world.tiles[this.tileOn.x][this.tileOn.y - 1].occupier != null) {
     			bonus++;
     		}
     	}
     	if(this.tileOn.y != (this.application.world.yDimension - 1)) {
-    		if(this.application.world.tiles[this.tileOn.x][this.tileOn.y + 1].occupied) {
+    		if(this.application.world.tiles[this.tileOn.x][this.tileOn.y + 1].occupier != null) {
     			bonus++;
     		}
     	}

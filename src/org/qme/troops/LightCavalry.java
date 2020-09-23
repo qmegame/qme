@@ -1,4 +1,4 @@
-package org.qme.war.troops;
+package org.qme.troops;
 
 import org.qme.main.QApplication;
 import org.qme.world.Tile;
@@ -22,5 +22,18 @@ public class LightCavalry extends Unit {
     		m = 0.75;
     	}
     	return currentMovement * m;
+    }
+    
+    @Override
+    public double attack(Unit defender) {
+    	double m = 1;
+    	if(defender.type == UnitType.SPEARMAN) {
+    		m = 1.25;
+    	}
+    	if(this.actionable()) { 
+  			double returN = ((2.5 * this.currentAttack() * (this.currentHealth() / this.getHealth())) / (defender.currentDefense() * m));
+  			return returN;
+  		}
+  		return 0;
     }
 }

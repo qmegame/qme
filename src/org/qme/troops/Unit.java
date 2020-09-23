@@ -1,4 +1,4 @@
-package org.qme.war.troops;
+package org.qme.troops;
 
 import java.awt.Graphics;
 import java.lang.Math;
@@ -9,7 +9,6 @@ import org.qme.main.QObject;
 import org.qme.vis.QLayer;
 import org.qme.vis.QRenderable;
 import org.qme.vis.ui.UIComponent;
-import org.qme.war.troops.UnitType;
 import org.qme.world.Tile;
 
 /**
@@ -68,6 +67,12 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	public double currentHealth() { return this.currentHealth; }
 	public double currentMovement() { return this.currentMovement; }
 	public int currentAttacks() { return this.currentAttacks; }
+	
+	/**
+	 * Call this to check if this can do things
+	 * @return Whether or not the unit can act
+	 */
+	public boolean actionable() { return this.actionable; }
 	
 	/**
 	 * Call this when morale changes (only deals with movement by 1)
@@ -129,15 +134,16 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	
 	public void voluntaryMove(Tile target) {
 		if(this.actionable && this.movementCalculate(target) <= this.currentMovement()) {
-			this.tileOn.occupied = false;
+			this.tileOn.occupier = null;
 			this.tileOn = target;
 			this.tileOn.occupier = this;
-			this.tileOn.occupied = true;
 		}
 	}
 	
 	public void involuntaryMove(Tile target) {
+		this.tileOn.occupier = null;
 		this.tileOn = target;
+		this.tileOn.occupier = this;
 	}
 
 	@Override
