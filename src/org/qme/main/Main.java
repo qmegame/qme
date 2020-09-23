@@ -16,6 +16,8 @@ import org.qme.menus.GameMenu;
 import org.qme.menus.SelectionMenu;
 import org.qme.menus.SettingsMenu;
 import org.qme.menus.StartMenu;
+import org.qme.menus.TechViewMenu;
+
 import static org.qme.util.GlobalConstants.FRAMERATE;
 import static org.qme.util.GlobalConstants.SCREEN_HEIGHT;
 import static org.qme.util.GlobalConstants.SCREEN_WIDTH;
@@ -102,6 +104,7 @@ public class Main {
 			EscapeMenu.makeMenu(app);
 			SettingsMenu.makeMenu(app);
 			GameMenu.makeMenu(app);
+			TechViewMenu.makeMenu(app);
 			
 			new QDebug(app, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 15);
 			
