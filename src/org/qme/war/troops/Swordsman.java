@@ -45,30 +45,6 @@ public class Swordsman extends Unit {
     }
 
     @Override
-    public void mouseClickOn() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void mouseClickOff() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void mouseHoverOn() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void mouseHoverOff() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public boolean clickIsIn(int x, int y) {
         // TODO Auto-generated method stub
         return false;

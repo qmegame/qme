@@ -128,4 +128,28 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	public void involuntaryMove(Tile target) {
 		this.tileOn = target;
 	}
+
+	@Override
+	public void mouseClickOn() {
+	    // TODO Auto-generated method stub
+	
+	}
+	
+	@Override
+	public void mouseClickOff() {
+	    // TODO Auto-generated method stub
+	
+	}
+	
+	@Override
+	public void mouseHoverOn() {
+	    // TODO Auto-generated method stub
+	
+	}
+	
+	@Override
+	public void mouseHoverOff() {
+	    // TODO Auto-generated method stub
+	
+	}
 }
