@@ -6,11 +6,13 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 import org.qme.main.GlobalState;
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
 import org.qme.tech.Tech;
+import org.qme.util.GlobalConstants;
 import org.qme.vis.QLayer;
 import org.qme.vis.QRenderable;
 
@@ -48,7 +50,18 @@ public class TechViewer extends QObject implements QRenderable, UIComponent {
 
 	@Override
 	public void mouseClickOn() {
-		// Nothing
+		if (GlobalConstants.TOOLTIPS) {
+			@SuppressWarnings("serial")
+			ArrayList<String> info = new ArrayList<>() {{
+				this.add("Prerequisite: " + tech.parent.getName());
+			}};
+			new Tooltip(this,
+				backgroundRect.x + TECH_VIEW_WIDTH  / 2,
+				backgroundRect.y + TECH_VIEW_HEIGHT / 2,
+				application,
+				info
+			);
+		}
 	}
 
 	@Override
