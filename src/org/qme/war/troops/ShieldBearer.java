@@ -1,10 +1,6 @@
 package org.qme.war.troops;
 
-import java.awt.Graphics;
-
-import org.qme.main.GlobalState;
 import org.qme.main.QApplication;
-import org.qme.vis.QLayer;
 import org.qme.world.Tile;
 
 /**
@@ -14,18 +10,9 @@ import org.qme.world.Tile;
 public class ShieldBearer extends Unit {
 
     public ShieldBearer(QApplication app, Tile tile) {
-        super(app, tile);
+        super(app, tile, 0, 2, 15, 2, 0);
+        type = UnitType.SHIELD_BEARER;
     }
-
-    public Tile tileOn;
-    
-    public UnitType type = UnitType.SHIELD_BEARER;
-
-    private double attack = 0;
-    private double defense = 2;
-    private double health = 15;
-    private double movement = 2;
-    private int attacks = 0;
     
     @Override
     public double currentDefense() {

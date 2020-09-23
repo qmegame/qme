@@ -1,10 +1,6 @@
 package org.qme.war.troops;
 
-import java.awt.Graphics;
-
-import org.qme.main.GlobalState;
 import org.qme.main.QApplication;
-import org.qme.vis.QLayer;
 import org.qme.world.Tile;
 
 /**
@@ -14,16 +10,8 @@ import org.qme.world.Tile;
 public class Swordsman extends Unit {
 
     public Swordsman(QApplication app, Tile tile) {
-        super(app, tile);
+        super(app, tile, 2, 3, 15, 2, 2);
+        type = UnitType.SWORDSMAN;
     }
-
-    public Tile tileOn;
-    public UnitType type = UnitType.SWORDSMAN;
-
-    private double attack = 2;
-    private double defense = 3;
-    private double health = 15;
-    private double movement = 2;
-    private int attacks = 2;
     
 }

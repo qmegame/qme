@@ -11,18 +11,9 @@ import org.qme.world.TileType;
 public class Chariots extends Unit {
 
     public Chariots(QApplication app, Tile tile) {
-        super(app, tile);
+        super(app, tile, 4, 3, 20, 1, 2);
+        type = UnitType.CHARIOTS;
     }
-
-    public Tile tileOn;
-    
-    public UnitType type = UnitType.CHARIOTS;
-
-    private double attack = 4;
-    private double defense = 3;
-    private double health = 20;
-    private double movement = 1;
-    private int attacks = 2;
     
     @Override
     public double currentMovement() {

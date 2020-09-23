@@ -11,18 +11,9 @@ import org.qme.world.TileType;
 public class LightCavalry extends Unit {
 
     public LightCavalry(QApplication app, Tile tile) {
-        super(app, tile);
+        super(app, tile, 2, 1, 10, 4, 2);
+        type = UnitType.LIGHT_CAVALRY;
     }
-
-    public Tile tileOn;
-    
-    public UnitType type = UnitType.LIGHT_CAVALRY;
-
-    private double attack = 2;
-    private double defense = 1;
-    private double health = 10;
-    private double movement = 4;
-    private int attacks = 2;
     
     @Override
     public double currentMovement() {

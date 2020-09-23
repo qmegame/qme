@@ -11,18 +11,9 @@ import org.qme.world.TileType;
 public class HorseArcher extends Unit {
 
     public HorseArcher(QApplication app, Tile tile) {
-        super(app, tile);
+        super(app, tile, 3, 1, 15, 3, 2);
+        type = UnitType.HORSE_ARCHER;
     }
-
-    public Tile tileOn;
-    
-    public UnitType type = UnitType.HORSE_ARCHER;
-
-    private double attack = 3;
-    private double defense = 1;
-    private double health = 15;
-    private double movement = 3;
-    private int attacks = 2;
     
     @Override
     public double currentMovement() {

@@ -10,18 +10,9 @@ import org.qme.world.Tile;
 public class Legionnaire extends Unit {
 
     public Legionnaire(QApplication app, Tile tile) {
-        super(app, tile);
+        super(app, tile, 0, 1, 5, 2, 2);
+        type = UnitType.SPEARMAN;
     }
-
-    public Tile tileOn;
-    
-    public UnitType type = UnitType.SPEARMAN;
-
-    private double attack = 0;
-    private double defense = 1;
-    private double health = 5;
-    private double movement = 2;
-    private int attacks = 2;
     
     @Override
     public double currentAttack() {

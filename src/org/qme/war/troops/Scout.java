@@ -14,18 +14,10 @@ import org.qme.world.Tile;
 public class Scout extends Unit {
 
     public Scout(QApplication app, Tile tile) {
-        super(app, tile);
+        super(app, tile, 1, 1, 10, 3, 2);
+        type = UnitType.SCOUT;
     }
-
-    public Tile tileOn;
-    public UnitType type = UnitType.SCOUT;
-
-    private double attack = 1;
-    private double defense = 1;
-    private double health = 10;
-    private double movement = 3;
-    private int attacks = 2;
-
+    
     @Override
     protected double movementCalculate(Tile target) {
         int xDistance = Math.abs(this.tileOn.x - target.x);

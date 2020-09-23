@@ -10,16 +10,8 @@ import org.qme.world.Tile;
 public class Catapult extends Unit {
 
     public Catapult(QApplication app, Tile tile) {
-        super(app, tile);
+        super(app, tile, 5, 0, 5, 1, 2);
+        type = UnitType.CATAPULT;
     }
 
-    public Tile tileOn;
-    
-    public UnitType type = UnitType.CATAPULT;
-
-    private double attack = 5;
-    private double defense = 0;
-    private double health = 5;
-    private double movement = 1;
-    private int attacks = 2;
 }

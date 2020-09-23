@@ -21,15 +21,22 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	private static final float ABOVE_MORALE = 1.1f;
 	private static final float BELOW_MORALE = 1.15f;
 	
-	public Unit(QApplication app, Tile tile) {	// Again, idk and this kills errors
+	public Unit(QApplication app, Tile tile,
+			int a, int d, int h, int m, int attacks) {	// Again, idk and this kills errors
 		super(app);
 		
+		attack = a;
+		defense = d;
+		health = h;
+		movement = m;
+		this.attacks = attacks;
 		
 		this.currentAttack = this.attack;
 		this.currentDefense = this.defense;
 		this.currentHealth = this.health;
 		this.currentMovement = this.movement;
 		this.currentAttacks = this.attacks;
+		
 	}
 	
 	private boolean actionable = true;	// Whether or not a unit can do stuff (aka it's dead)
@@ -66,7 +73,7 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	 * Call this when morale changes (only deals with movement by 1)
 	 * @param up
 	 */
-	private void moraleEffects(boolean up) {
+	protected void moraleEffects(boolean up) {
 		if(up && this.morale >= 0) {
 			this.health *= ABOVE_MORALE;
 			this.defense *= ABOVE_MORALE;

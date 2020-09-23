@@ -11,18 +11,9 @@ import org.qme.world.TileType;
 public class Archer extends Unit {
 
     public Archer(QApplication app, Tile tile) {
-        super(app, tile);
+        super(app, tile, 1, 2, 15, 2, 2);
+        type = UnitType.ARCHER;
     }
-
-    public Tile tileOn;
-    
-    public UnitType type = UnitType.ARCHER;
-
-    private double attack = 1;
-    private double defense = 2;
-    private double health = 15;
-    private double movement = 2;
-    private int attacks = 2;
     
     @Override
     public double currentAttack() {
