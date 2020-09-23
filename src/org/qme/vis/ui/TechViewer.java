@@ -2,6 +2,7 @@ package org.qme.vis.ui;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -20,8 +21,8 @@ import org.qme.vis.QRenderable;
  */
 public class TechViewer extends QObject implements QRenderable, UIComponent {
 	
-	private static int TECH_VIEW_WIDTH = 200;
-	private static int TECH_VIEW_HEIGHT = 50;
+	private static int TECH_VIEW_WIDTH = 150;
+	private static int TECH_VIEW_HEIGHT = 25;
 	
 	/**
 	 * A rectangular background for the tech
@@ -91,8 +92,9 @@ public class TechViewer extends QObject implements QRenderable, UIComponent {
 			gCopy.dispose();
 		}
 		
-		// Write the name of the tech
-		UIUtils.drawCenteredString(g, tech.getName(), backgroundRect, UIUtils.QME_FONT);
+		// Write the name of the tech in small font
+		Font copyFont = UIUtils.QME_FONT.deriveFont(15f);
+		UIUtils.drawCenteredString(g, tech.getName(), backgroundRect, copyFont);
 		
 	}
 
