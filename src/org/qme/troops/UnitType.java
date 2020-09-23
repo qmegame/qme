@@ -1,0 +1,14 @@
+package org.qme.troops;
+
+public enum UnitType {
+	SCOUT,
+	SWORDSMAN,
+	SPEARMAN,
+	SHIELD_BEARER,
+	LEGIONNAIRE,
+	ARCHER,
+	LIGHT_CAVALRY,
+	HORSE_ARCHER,
+	CHARIOTS,
+	CATAPULT
+}
