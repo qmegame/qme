@@ -63,7 +63,8 @@ public class Tech {
 	public static final Tech GALLEY_TECH           = new Tech(CELESTIAL_TECH);
 
 	public String getName() {
-		if (this == WHEEL_TECH)                 return "Wheel";
+		     if (this == NULL_TECH)             return "None";
+		else if (this == WHEEL_TECH)            return "Wheel";
 		else if (this == AGRICULTURE_TECH)      return "Agriculture";
 		else if (this == WRITING_TECH)          return "Writin'";
 		else if (this == ANIMAL_HUSBANDRY_TECH) return "Animal Husbandry";
