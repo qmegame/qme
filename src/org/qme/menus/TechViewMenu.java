@@ -14,7 +14,7 @@ public class TechViewMenu {
 	
 	public static void makeMenu(QApplication app) {
 		
-		new TechViewer(app, Tech.AGRICULTURE_TECH, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+		new TechViewer(app, Tech.ANIMAL_HUSBANDRY_TECH, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 		
 		// Quit time
 		new QButton(app, SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) + 100, "Return to game") {
