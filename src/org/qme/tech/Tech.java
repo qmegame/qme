@@ -62,4 +62,42 @@ public class Tech {
 	public static final Tech ORGANIZED_ED_TECH     = new Tech(CHEMISTRY_TECH);
 	public static final Tech GALLEY_TECH           = new Tech(CELESTIAL_TECH);
 
+	public String getName() {
+		if (this == WHEEL_TECH)                 return "Wheel";
+		else if (this == AGRICULTURE_TECH)      return "Agriculture";
+		else if (this == WRITING_TECH)          return "Writin'";
+		else if (this == ANIMAL_HUSBANDRY_TECH) return "Animal Husbandry";
+		else if (this == WOOD_CHOPPING_TECH)    return "Wood Choppin'";
+		else if (this == ARCHERY_TECH)          return "Archery";
+		else if (this == POTTERY_TECH)          return "Pottery";
+		else if (this == ASTROLOGY_TECH)        return "Astrology";
+		else if (this == FISHING_NET_TECH)      return "Fishin' Nets";
+		else if (this == MASONRY_TECH)          return "Masonry";
+		else if (this == BRONZE_WORKING_TECH)   return "Bronze Workin'";
+		else if (this == IRRIGATION_TECH)       return "Irrigation";
+		else if (this == MEDICINE_TECH)         return "Medicine";
+		else if (this == SAILING_TECH)          return "Sailin'";
+		else if (this == MINING_TECH)           return "Minin'";
+		else if (this == HORSEBACK_RIDING_TECH) return "Horse Ridin'";
+		else if (this == FERMENTATION_TECH)     return "Fermentation";
+		else if (this == MATHEMATICS_TECH)      return "Mathematics";
+		else if (this == TRIREME_TECH)          return "Trireme";
+		else if (this == QUARRYING_TECH)        return "Quarryin'";
+		else if (this == SMELTING_TECH)         return "Smeltin'";
+		else if (this == CURRENCY_TECH)         return "Currency";
+		else if (this == EDUCATION_TECH)        return "Education";
+		else if (this == QUADRIREME_TECH)       return "Quadriremes";
+		else if (this == PULLEY_TECH)           return "Pulley";
+		else if (this == IRON_WORKING_TECH)     return "Ironworkin'";
+		else if (this == SCYTHE_TECH)           return "Scythe";
+		else if (this == CHEMISTRY_TECH)        return "Chemistry";
+		else if (this == CELESTIAL_TECH)        return "Astronomy";
+		else if (this == CRANE_TECH)            return "Cranes";
+		else if (this == ENGINEERING_TECH)      return "Engineerin'";
+		else if (this == STONEWORKING_TECH)     return "Stoneworkin'";
+		else if (this == ORGANIZED_ED_TECH)     return "Organized Ed";
+		else if (this == GALLEY_TECH)           return "Galleys";
+		else                                    return "Error: unrecognized tech";
+	}
+
 }
