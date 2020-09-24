@@ -23,8 +23,8 @@ import org.qme.vis.QRenderable;
  */
 public class TechViewer extends QObject implements QRenderable, UIComponent {
 	
-	private static int TECH_VIEW_WIDTH = 150;
-	private static int TECH_VIEW_HEIGHT = 25;
+	public static int TECH_VIEW_WIDTH = 150;
+	public static int TECH_VIEW_HEIGHT = 25;
 	
 	/**
 	 * A rectangular background for the tech
@@ -38,7 +38,7 @@ public class TechViewer extends QObject implements QRenderable, UIComponent {
 		super(app);
 		tech = t;
 		backgroundRect = new Rectangle(
-			xPos - TECH_VIEW_WIDTH / 2, yPos = TECH_VIEW_HEIGHT / 2,
+			xPos - TECH_VIEW_WIDTH / 2, yPos - TECH_VIEW_HEIGHT / 2,
 			TECH_VIEW_WIDTH, TECH_VIEW_HEIGHT
 		);
 	}
