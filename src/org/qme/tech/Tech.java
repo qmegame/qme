@@ -96,7 +96,7 @@ public class Tech {
 		else if (this == CRANE_TECH)            return "Cranes";
 		else if (this == ENGINEERING_TECH)      return "Engineerin'";
 		else if (this == STONEWORKING_TECH)     return "Stoneworkin'";
-		else if (this == ORGANIZED_ED_TECH)     return "Organized Ed";
+		else if (this == ORGANIZED_ED_TECH)     return "Organized Education";
 		else if (this == GALLEY_TECH)           return "Galleys";
 		else                                    return "Error: unrecognized tech";
 	}
