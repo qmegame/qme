@@ -136,10 +136,31 @@ public class QInputScreen extends JFrame implements KeyListener {
 			break;
 			
 		case KeyEvent.VK_ESCAPE:
-			app.setState(GlobalState.ESCAPE_MENU);
+			
+			// We need to see what state to "escape" to
+			switch (app.getState()) {
+			
+			case MAIN_GAME:
+				app.setState(GlobalState.ESCAPE_MENU);
+				break;
+				
+			case TECH_TREE_VIEW:
+				app.setState(GlobalState.MAIN_GAME);
+				break;
+			
+			default:
+				// Do nothing
+				break;
+					
+			}
+			
+			break;
 			
 		case KeyEvent.VK_Q:
 			QDebug.toggleDebug();
+			
+		case KeyEvent.VK_T:
+			if (app.getState() == GlobalState.MAIN_GAME) app.setState(GlobalState.TECH_TREE_VIEW);
 			
 		}
 		

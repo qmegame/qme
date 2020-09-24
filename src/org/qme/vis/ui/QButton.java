@@ -32,12 +32,12 @@ public abstract class QButton extends QObject implements UIComponent {
 	/**
 	 * Default width of a button.
 	 */
-	private static final int BUTTON_WIDTH = 150;
+	public static final int BUTTON_WIDTH = 150;
 	
 	/**
 	 * Default height of a button.
 	 */
-	private static final int BUTTON_HEIGHT = 50;
+	public static final int BUTTON_HEIGHT = 50;
 	
 	/**
 	 * The central x coordinate of the button.
