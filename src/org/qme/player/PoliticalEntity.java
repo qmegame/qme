@@ -31,6 +31,7 @@ public class PoliticalEntity {
 	public PoliticalEntity(String n) {
 		
 		name = n;
+		ai = false;
 		
 		// Settlement stuff here later
 		
@@ -39,6 +40,7 @@ public class PoliticalEntity {
 	// Without a name
 	public PoliticalEntity() {
 		this(NameGen.namer());
+		ai = true;
 	}
 	
 	/**
