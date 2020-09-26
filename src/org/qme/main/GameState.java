@@ -2,7 +2,7 @@ package org.qme.main;
 
 import java.util.ArrayList;
 
-import org.qme.player.Player;
+import org.qme.player.PoliticalEntity;
 
 /**
  * This is the class that will be written to saves eventually
@@ -12,13 +12,13 @@ import org.qme.player.Player;
  */
 public final class GameState {
 	public QApplication owner;
-	public ArrayList<Player> civilizations;
+	public ArrayList<PoliticalEntity> civilizations;
 	public int playerTurn;
 	public int turn;
 	
 	public GameState(QApplication app) {
 		this.owner = app;
-		this.civilizations = new ArrayList<Player>();
+		this.civilizations = new ArrayList<PoliticalEntity>();
 		this.playerTurn = 0;
 		this.turn = 0;
 	}

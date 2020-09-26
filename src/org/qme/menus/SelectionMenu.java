@@ -5,9 +5,8 @@ import javax.swing.JOptionPane;
 import org.qme.main.GlobalState;
 import static org.qme.main.Main.displayError;
 import org.qme.main.QApplication;
-import org.qme.player.AI;
-import org.qme.player.Human;
-import org.qme.player.Player;
+import org.qme.player.PoliticalEntity;
+
 import static org.qme.util.GlobalConstants.SCREEN_HEIGHT;
 import static org.qme.util.GlobalConstants.SCREEN_WIDTH;
 import org.qme.vis.ui.QButton;
@@ -50,7 +49,7 @@ public class SelectionMenu {
 					
 					if ((playerName != null) && (playerName.length() > 0)) {
 						boolean duplicate = false;
-						for (Player player : app.game.civilizations) {
+						for (PoliticalEntity player : app.game.civilizations) {
 							if (player.name.equals(playerName)) {
 								duplicate = true;
 							}
@@ -58,14 +57,14 @@ public class SelectionMenu {
 						if (duplicate) {
 							displayError("Please choose a non-duplicate name.", false);
 						} else {
-							app.game.civilizations.add(new Human(playerName));
+							app.game.civilizations.add(new PoliticalEntity(playerName));
 						}
 					} else {
 						displayError("Oops! No name was selected. Try again, you failure.", false);
 					}
 					
 				} else {
-					app.game.civilizations.add(new AI());
+					app.game.civilizations.add(new PoliticalEntity());
 				}
 				
 			}
