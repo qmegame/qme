@@ -2,6 +2,7 @@ package org.qme.main;
 
 import java.util.ArrayList;
 
+import org.qme.ai.AIMain;
 import org.qme.player.PoliticalEntity;
 
 /**
@@ -28,6 +29,12 @@ public final class GameState {
 		this.playerTurn %= this.civilizations.size();
 		if (this.playerTurn == 0) {
 			this.turn++;
+		}
+		// If it's an AI move, use the ai move thingy
+		if (civilizations.get(playerTurn).ai) {
+			AIMain.makeMove(civilizations.get(playerTurn), this);
+			// Risk of recursion here, so at least one human player must exist.
+			turnEnded();
 		}
 	}
 }
