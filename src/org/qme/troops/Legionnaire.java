@@ -11,7 +11,7 @@ public class Legionnaire extends Unit {
 
     public Legionnaire(QApplication app, Tile tile) {
         super(app, tile, 0, 1, 5, 2, 2);
-        type = UnitType.SPEARMAN;
+        type = UnitType.LEGIONNAIRE;
     }
     
     @Override
