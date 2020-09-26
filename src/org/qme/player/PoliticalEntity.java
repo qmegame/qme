@@ -17,14 +17,13 @@ public class PoliticalEntity {
 	
 	ArrayList<PoliticalEntity> subordinates = new ArrayList<>();
 	
-	public PoliticalEntity superior = null;
+	public PoliticalEntity superior;
 	
-	public Settlement home;
+	public Settlement capital;
 	
 	public String name;
 	
-	@SuppressWarnings("serial")
-	ArrayList<Settlement> ownedCities = new ArrayList<>() {{add(home);}};
+	ArrayList<Settlement> ownedCities = new ArrayList<>();
 	
 	public boolean ai;
 	
@@ -33,7 +32,8 @@ public class PoliticalEntity {
 		name = n;
 		ai = false;
 		
-		// Settlement stuff here later
+		// We're going to have to set the capital here later.
+		ownedCities.add(capital);
 		
 	}
 	

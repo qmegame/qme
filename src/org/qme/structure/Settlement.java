@@ -1,6 +1,7 @@
 package org.qme.structure;
 
 import org.qme.player.PoliticalEntity;
+import org.qme.world.Tile;
 
 /**
  * Just the basics of what I assume a settlement might need.
@@ -9,7 +10,7 @@ import org.qme.player.PoliticalEntity;
  */
 public class Settlement {
 
-	public int x, y;
+	public Tile tile;
 	
 	public PoliticalEntity directOwner;
 	
