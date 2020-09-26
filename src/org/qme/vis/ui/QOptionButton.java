@@ -36,6 +36,11 @@ public abstract class QOptionButton extends QButton {
 		if (!(current < options.length)) {
 			current = 0;
 		}
+		text = options[current];
+	}
+	
+	public String getOption() {
+		return options[current];
 	}
 
 }
