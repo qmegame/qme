@@ -87,6 +87,8 @@ public class QInputScreen extends JFrame implements KeyListener {
 							uc.mouseHoverOn();
 							qo.hoveredOver = true;
 							
+							return;
+							
 						}
 						
 					} else {
@@ -95,6 +97,8 @@ public class QInputScreen extends JFrame implements KeyListener {
 							
 							uc.mouseHoverOff();
 							qo.hoveredOver = false;
+							
+							return;
 							
 						}
 						
