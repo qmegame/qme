@@ -94,6 +94,7 @@ public class QRenderScreen extends JPanel implements MouseListener {
 					)) {
 						qo.clicked = true;
 						uc.mouseClickOn();
+						return;
 					}
 					
 				}
@@ -123,6 +124,7 @@ public class QRenderScreen extends JPanel implements MouseListener {
 					if (qo.clicked) {
 						qo.clicked = false;
 						uc.mouseClickOff();
+						return;
 					}
 					
 				}
