@@ -32,26 +32,26 @@ public class TileColors {
 	/**
 	 * Color for desert - light yellow
 	 */
-	public static final Color DESERT_COLOR = new Color(250, 250, 100);
+	public static final Color DESERT_COLOR = new Color(251, 236, 86);
 	
 	/**
 	 * Color for forest - dark green
 	 */
-	public static final Color FOREST_COLOR = new Color(25, 75, 0);
+	public static final Color FOREST_COLOR = new Color(42, 109, 8);
 	
 	/**
 	 * Color for mountains - light gray
 	 */
-	public static final Color MOUNTAIN_COLOR = new Color(175, 175, 175);
+	public static final Color MOUNTAIN_COLOR = new Color(180, 183, 205);
 	
 	/**
 	 * Color for high mountains - dark gray
 	 */
-	public static final Color HIGH_MOUNTAIN_COLOR = new Color(75, 75, 75);
+	public static final Color HIGH_MOUNTAIN_COLOR = new Color(79, 83, 90);
 	
 	/**
 	 * Color for fertile plains - purer green
 	 */
-	public static final Color FERTILE_PLAINS_COLOR = new Color(50, 250, 0);
+	public static final Color FERTILE_PLAINS_COLOR = new Color(62, 194, 30);
 	
 }
