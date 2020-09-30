@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import org.qme.main.GlobalState;
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
+import org.qme.player.PoliticalEntity;
 import org.qme.tech.Tech;
 import org.qme.util.GlobalConstants;
 import org.qme.vis.QLayer;
@@ -92,8 +93,16 @@ public class TechViewer extends QObject implements QRenderable, UIComponent {
 	@Override
 	public void render(Graphics g) {
 		
-		// Render the rectangle base (will be different colors later)
-		g.setColor(Color.GRAY);
+		// Render the rectangle base
+		PoliticalEntity player = application.game.civilizations.get(application.game.playerTurn);
+		if (player.hasTech(tech)) {
+			g.setColor(Color.BLUE);
+		} else if (player.canGetTech(tech)) {
+			g.setColor(new Color(0, 100, 0));
+		} else {
+			g.setColor(Color.BLACK);
+		}
+		
 		g.drawRect(backgroundRect.x, backgroundRect.y, backgroundRect.width, backgroundRect.height);
 		
 		// Draw the outline (THICC)
