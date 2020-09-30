@@ -36,6 +36,8 @@ public class PoliticalEntity {
 		// We're going to have to set the capital here later.
 		ownedCities.add(capital);
 		
+		techs.add(Tech.NULL_TECH);
+		
 	}
 	
 	// Without a name
