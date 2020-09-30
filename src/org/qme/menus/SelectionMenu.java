@@ -116,8 +116,6 @@ public class SelectionMenu {
 				for (int i = players.size(); i < goalPlayers; i++) {
 					app.game.civilizations.add(new PoliticalEntity());
 				}
-				
-				System.out.println(app.game.civilizations.size());
 
 				app.world = new World(app, size, size);
 				
