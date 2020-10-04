@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.qme.structure.Settlement;
 import org.qme.tech.Tech;
 import org.qme.util.NameGen;
+import org.qme.world.TileType;
 
 /**
  * For the new political system!
@@ -42,7 +43,14 @@ public class PoliticalEntity {
 	
 	// Without a name
 	public PoliticalEntity() {
-		this(NameGen.namer());
+		this("");
+		if(this.capital.tile.getType() == TileType.DESERT) {
+			this.name = NameGen.namerSahara();
+		} else if(this.capital.tile.getType() == TileType.FERTILE_PLAINS || this.capital.tile.getType() == TileType.PLAINS || this.capital.tile.getType() == TileType.FOREST) {
+			this.name = NameGen.namerIroquois();
+		} else {
+			this.name = NameGen.namerTibet();
+		}
 		ai = true;
 	}
 	
