@@ -12,6 +12,7 @@ import org.qme.util.NameGen;
  * and a list of subordinates, as well as some things that
  * may be owned.
  * @author adamhutchings
+ * @author S-Mackenzie1678
  * @since pre3
  */
 public class PoliticalEntity {
@@ -25,6 +26,12 @@ public class PoliticalEntity {
 	public String name;
 	
 	ArrayList<Settlement> ownedCities = new ArrayList<>();
+	
+	public double science;
+	public double production;
+	public double gold;
+	public double growth;
+	public double happiness;
 	
 	public boolean ai;
 	
