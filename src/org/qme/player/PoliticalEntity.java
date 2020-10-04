@@ -43,14 +43,14 @@ public class PoliticalEntity {
 	
 	// Without a name
 	public PoliticalEntity() {
-		this("");
-		if(this.capital.tile.getType() == TileType.DESERT) {
+		this(NameGen.namerTibet());
+		/*if(this.capital.tile.getType() == TileType.DESERT) {
 			this.name = NameGen.namerSahara();
 		} else if(this.capital.tile.getType() == TileType.FERTILE_PLAINS || this.capital.tile.getType() == TileType.PLAINS || this.capital.tile.getType() == TileType.FOREST) {
 			this.name = NameGen.namerIroquois();
 		} else {
 			this.name = NameGen.namerTibet();
-		}
+		}*/	// Uncomment when capital gets actually set and this won't give big nullptrexceptions.
 		ai = true;
 	}
 	
