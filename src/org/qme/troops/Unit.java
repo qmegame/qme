@@ -6,6 +6,7 @@ import java.lang.Math;
 import org.qme.main.GlobalState;
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
+import org.qme.player.PoliticalEntity;
 import org.qme.vis.QLayer;
 import org.qme.vis.QRenderable;
 import org.qme.vis.ui.UIComponent;
@@ -43,6 +44,7 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	public Tile tileOn;
 	public int morale = 0;
 	public UnitType type;
+	public PoliticalEntity owner;
 	
 	private double attack;
 	private double defense;

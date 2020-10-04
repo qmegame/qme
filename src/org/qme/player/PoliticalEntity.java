@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import org.qme.structure.Settlement;
 import org.qme.tech.Tech;
+import org.qme.troops.Unit;
 import org.qme.util.NameGen;
+import org.qme.world.Tile;
 
 /**
  * For the new political system!
@@ -25,7 +27,16 @@ public class PoliticalEntity {
 	
 	public String name;
 	
+	ArrayList<Tile> territory = new ArrayList<>();
+	
 	ArrayList<Settlement> ownedCities = new ArrayList<>();
+	
+	ArrayList<Unit> troops = new ArrayList<>();
+	
+	private void addTroop(Unit troop) {
+		this.troops.add(troop);
+		troop.owner = this;
+	}
 	
 	public double science;
 	public double production;
