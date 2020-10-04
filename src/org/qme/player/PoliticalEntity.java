@@ -1,12 +1,14 @@
 package org.qme.player;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.qme.structure.Settlement;
 import org.qme.tech.Tech;
 import org.qme.troops.Unit;
 import org.qme.util.NameGen;
 import org.qme.world.Tile;
+import org.qme.world.TileType;
 
 /**
  * For the new political system!
@@ -60,7 +62,26 @@ public class PoliticalEntity {
 	
 	// Without a name
 	public PoliticalEntity() {
-		this(NameGen.namer());
+		this("");
+		if(this.capital == null) {
+			Random rand = new Random();
+			int language = rand.nextInt(3);
+			if(language == 0) {
+				this.name = NameGen.namerSahara();
+			} else if(language == 1) {
+				this.name = NameGen.namerSahara();
+			} else {
+				this.name = NameGen.namerTibet();
+			}
+		} else {
+			if(this.capital.tile.getType() == TileType.DESERT) {
+				this.name = NameGen.namerSahara();
+			} else if(this.capital.tile.getType() == TileType.FERTILE_PLAINS || this.capital.tile.getType() == TileType.PLAINS || this.capital.tile.getType() == TileType.FOREST) {
+				this.name = NameGen.namerIroquois();
+			} else {
+				this.name = NameGen.namerTibet();
+			}
+		}
 		ai = true;
 	}
 	
