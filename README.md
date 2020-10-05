@@ -62,3 +62,4 @@ Notes for pre3:
   - Techs are blue if you have them, green if you can buy them, and black otherwise (currently no way to buy techs)
   - Your preferences will be stored in a file called `qdata/preferences.txt`. Don't delete this file.
   - In future releases, game builds will be with a ZIP file, because resources!
+  - pre4 on October 25!
