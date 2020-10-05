@@ -46,4 +46,19 @@ Changelog for pre2:
 Notes for pre2:
   - 2683 lines of code (wow)
   - You need a file for error logging (if you don't have one, you will be prompted to fix it)
-  - Next release on October 5!
+
+Changelog for pre3:
+  - Added tooltip preferences
+  - Added a tech tree UI
+  - Finished up the tech tree code
+  - Added units and all of their diverse types
+  - Created a framework for the AI
+  - Created framework for player statistics
+  - Added more name gens (unused as of now)
+  
+Notes for pre3:
+  - 4257 lines of code (that's a lot)
+  - Enter the tech tree view with the t key, exit with either the back button or `esc`
+  - Techs are blue if you have them, green if you can buy them, and black otherwise (currently no way to buy techs)
+  - Your preferences will be stored in a file called `qdata/preferences.txt`. Don't delete this file.
+  - In future releases, game builds will be with a ZIP file, because resources!
