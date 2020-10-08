@@ -1,7 +1,6 @@
 package org.qme.main;
 
 import java.util.ArrayList;
-
 import org.qme.vis.QInputScreen;
 import org.qme.vis.QRenderScreen;
 import org.qme.vis.ui.UIComponent;

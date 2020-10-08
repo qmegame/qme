@@ -18,6 +18,7 @@ import org.qme.world.World;
 
 public class SelectionMenu {
 	
+	
 	public static String SMALL_WORLD_MESSAGE = "Small (15x15)";
 	public static String MEDIUM_WORLD_MESSAGE = "Medium (25x25)";
 	public static String LARGE_WORLD_MESSAGE = "Large (40x40)";
