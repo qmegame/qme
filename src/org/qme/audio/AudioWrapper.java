@@ -34,17 +34,7 @@ public class AudioWrapper {
 	 * @since pre4
 	 */
 	public AudioWrapper(File audio) {
-		try {
-			this.stream = AudioSystem.getAudioInputStream(audio);
-			this.clip = AudioSystem.getClip();
-			this.clip.open(this.stream);
-		} catch(IOException e) {
-			Main.displayError("Something has gone wrong importing the audio.", true);
-		} catch(LineUnavailableException f) {
-			Main.displayError("The audio file seems to have corrupted somehow.", true);
-		} catch(UnsupportedAudioFileException g) {
-			Main.displayError("The audio file's format is unsupported, that's weird.", false);
-		}
+		editMusic(audio);
 	}
 	
 	public void editMusic(File audio) {
