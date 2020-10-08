@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.swing.JOptionPane;
 
+import org.qme.audio.AudioWrapper;
 import org.qme.logging.FileWatcher;
 import static org.qme.logging.FileWatcher.ERROR_LOG;
 import org.qme.logging.PreferencesFile;
@@ -59,6 +60,11 @@ public class Main {
 		// dead line
 		return "";
 	}
+	
+	/**
+	 * The music that is playing
+	 */
+	AudioWrapper music = null;
 	
 	/**
 	 * Creates a new QApplication instance and reloads it.

@@ -8,6 +8,8 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException; 
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import org.qme.main.Main;
+
 /**
  * This class wraps all the java hell to make things easier
  * @author santiago
@@ -31,10 +33,32 @@ public class AudioWrapper {
 	 * @throws UnsupportedAudioFileException
 	 * @since pre4
 	 */
-	public AudioWrapper(File audio) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
-		this.stream = AudioSystem.getAudioInputStream(audio);
-		this.clip = AudioSystem.getClip();
-		this.clip.open(this.stream);
+	public AudioWrapper(File audio) {
+		try {
+			this.stream = AudioSystem.getAudioInputStream(audio);
+			this.clip = AudioSystem.getClip();
+			this.clip.open(this.stream);
+		} catch(IOException e) {
+			Main.displayError("Something has gone wrong importing the audio.", true);
+		} catch(LineUnavailableException f) {
+			Main.displayError("The audio file seems to have corrupted somehow.", true);
+		} catch(UnsupportedAudioFileException g) {
+			Main.displayError("The audio file's format is unsupported, that's weird.", false);
+		}
+	}
+	
+	public void editMusic(File audio) {
+		try {
+			this.stream = AudioSystem.getAudioInputStream(audio);
+			this.clip = AudioSystem.getClip();
+			this.clip.open(this.stream);
+		} catch(IOException e) {
+			Main.displayError("Something has gone wrong importing the audio.", true);
+		} catch(LineUnavailableException f) {
+			Main.displayError("The audio file seems to have corrupted somehow.", true);
+		} catch(UnsupportedAudioFileException g) {
+			Main.displayError("The audio file's format is unsupported, that's weird.", false);
+		}
 	}
 	
 	public void loopForever() {
