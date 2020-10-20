@@ -97,4 +97,12 @@ public class Legionnaire extends Unit {
     	
     	return this.currentHealth + HBonus;
     }
+    
+
+    
+    @Override
+    public String getTexturePath() {
+    	return "res/troops/legionnaire.png";
+    }
+    
 }

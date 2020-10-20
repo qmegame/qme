@@ -59,4 +59,10 @@ public class Scout extends Unit {
         // TODO Auto-generated method stub
 
     }
+    
+    @Override
+    public String getTexturePath() {
+    	return "res/troops/scout.png";
+    }
+    
 }

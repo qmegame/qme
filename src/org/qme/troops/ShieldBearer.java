@@ -40,4 +40,10 @@ public class ShieldBearer extends Unit {
     	
     	return this.currentDefense + bonus;
     }
+     
+    @Override
+    public String getTexturePath() {
+    	return "res/troops/shield_bearer.png";
+    }
+    
 }
