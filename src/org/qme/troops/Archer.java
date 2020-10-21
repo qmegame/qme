@@ -23,4 +23,10 @@ public class Archer extends Unit {
     	}
     	return currentAttack * multiplier;
     }
+    
+    @Override
+    public String getTexturePath() {
+    	return "res/troops/archer.png";
+    }
+    
 }
