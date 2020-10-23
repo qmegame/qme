@@ -1,7 +1,6 @@
 package org.qme.troops;
 
 import org.qme.main.QApplication;
-import org.qme.vis.QLayer;
 import org.qme.world.Tile;
 
 /**
