@@ -1,6 +1,7 @@
 package org.qme.troops;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.TexturePaint;
 import java.lang.Math;
 
@@ -8,6 +9,8 @@ import org.qme.main.GlobalState;
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
 import org.qme.player.PoliticalEntity;
+import org.qme.util.QDimension;
+import org.qme.vis.Perspective;
 import org.qme.vis.QLayer;
 import org.qme.vis.QRenderable;
 import org.qme.vis.tex.TroopTextureManager;
@@ -181,8 +184,25 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	}
     @Override
     public void render(Graphics g) {
-        // TODO Auto-generated method stub
-
+        
+    	// Render using the texture
+    	
+    	// Get the central dimensions on which to render it
+    	QDimension<Float> center = Perspective.worldToScreen(new QDimension<Float>((float) tileOn.x, (float) tileOn.y));
+    	
+    	// Move the troop up a little
+    	center.y -= 50;
+    	
+    	// Dimensions of the texture
+    	double width  = texture.getImage().getWidth();
+    	double height = texture.getImage().getHeight();
+    	
+    	// Render it
+    	Graphics2D g2d = (Graphics2D) g.create();
+    	g2d.setPaint(texture);
+    	g2d.fillRect((int)(center.x - (width / 2)), (int)(center.y - (height / 2)), (int)width, (int)height);
+    	g2d.dispose();
+    	
     }
 
     @Override
