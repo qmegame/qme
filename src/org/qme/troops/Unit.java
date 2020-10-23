@@ -208,12 +208,15 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
     	double width  = texture.getWidth();
     	double height = texture.getHeight();
     	
+    	// Rectangle for later
+    	Rectangle texRect = new Rectangle(
+    			(int)(center.x - (width / 2)), (int)(center.y - (height / 2)), (int)width, (int)height
+    	);
+    	
     	// Render it
     	Graphics2D g2d = (Graphics2D) g.create();
-    	g2d.setPaint(new TexturePaint(texture, new Rectangle(
-    			(int)(center.x - (width / 2)), (int)(center.y - (height / 2)), (int)width, (int)height
-    	)));
-    	g2d.fillRect((int)(center.x - (width / 2)), (int)(center.y - (height / 2)), (int)width, (int)height);
+    	g2d.setPaint(new TexturePaint(texture, texRect));
+    	g2d.fillRect(texRect.x, texRect.y, texRect.width, texRect.height);
     	
     }
 
