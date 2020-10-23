@@ -30,6 +30,8 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 			int a, int d, int h, int m, int attacks, UnitType type) {	// Again, idk and this kills errors
 		super(app);
 		
+		tileOn = tile;
+		
 		attack = a;
 		defense = d;
 		health = h;
@@ -183,12 +185,19 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	
 	}
     @Override
+    /**
+     * Paint the texture of the unit
+     * on the screen.
+     * @author adamhutchings
+     * @since pre4
+     */
     public void render(Graphics g) {
-        
-    	// Render using the texture
     	
     	// Get the central dimensions on which to render it
     	QDimension<Float> center = Perspective.worldToScreen(new QDimension<Float>((float) tileOn.x, (float) tileOn.y));
+    	
+    	center.x -= application.qiscreen.xOffset;
+    	center.y -= application.qiscreen.yOffset;
     	
     	// Move the troop up a little
     	center.y -= 50;
@@ -201,7 +210,6 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
     	Graphics2D g2d = (Graphics2D) g.create();
     	g2d.setPaint(texture);
     	g2d.fillRect((int)(center.x - (width / 2)), (int)(center.y - (height / 2)), (int)width, (int)height);
-    	g2d.dispose();
     	
     }
 
@@ -226,8 +234,7 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 
     @Override
     public void update(QApplication app) {
-        // TODO Auto-generated method stub
-
+        // nothing
     }
     
 }
