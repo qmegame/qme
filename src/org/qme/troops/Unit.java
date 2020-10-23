@@ -2,7 +2,9 @@ package org.qme.troops;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.TexturePaint;
+import java.awt.image.BufferedImage;
 import java.lang.Math;
 
 import org.qme.main.GlobalState;
@@ -50,7 +52,7 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 		
 	}
 	
-	protected TexturePaint texture;
+	protected BufferedImage texture;
 	
 	private boolean actionable = true;	// Whether or not a unit can do stuff (aka it's dead)
 	
@@ -203,12 +205,14 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
     	center.y -= 50;
     	
     	// Dimensions of the texture
-    	double width  = texture.getImage().getWidth();
-    	double height = texture.getImage().getHeight();
+    	double width  = texture.getWidth();
+    	double height = texture.getHeight();
     	
     	// Render it
     	Graphics2D g2d = (Graphics2D) g.create();
-    	g2d.setPaint(texture);
+    	g2d.setPaint(new TexturePaint(texture, new Rectangle(
+    			(int)(center.x - (width / 2)), (int)(center.y - (height / 2)), (int)width, (int)height
+    	)));
     	g2d.fillRect((int)(center.x - (width / 2)), (int)(center.y - (height / 2)), (int)width, (int)height);
     	
     }
