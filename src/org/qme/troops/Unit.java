@@ -202,7 +202,7 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
     	center.y -= application.qiscreen.yOffset;
     	
     	// Move the troop up a little
-    	center.y -= 50;
+    	center.y -= 25;
     	
     	// Dimensions of the texture
     	double width  = texture.getWidth();
