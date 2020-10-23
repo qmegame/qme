@@ -217,6 +217,7 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
     	Graphics2D g2d = (Graphics2D) g.create();
     	g2d.setPaint(new TexturePaint(texture, texRect));
     	g2d.fillRect(texRect.x, texRect.y, texRect.width, texRect.height);
+    	g2d.dispose();
     	
     }
 
