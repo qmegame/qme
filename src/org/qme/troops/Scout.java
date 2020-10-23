@@ -14,8 +14,7 @@ import org.qme.world.Tile;
 public class Scout extends Unit {
 
     public Scout(QApplication app, Tile tile) {
-        super(app, tile, 1, 1, 10, 3, 2);
-        type = UnitType.SCOUT;
+        super(app, tile, 1, 1, 10, 3, 2, UnitType.SCOUT);
     }
     
     @Override

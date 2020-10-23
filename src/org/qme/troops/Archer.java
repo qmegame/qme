@@ -11,8 +11,7 @@ import org.qme.world.TileType;
 public class Archer extends Unit {
 
     public Archer(QApplication app, Tile tile) {
-        super(app, tile, 1, 2, 15, 2, 2);
-        type = UnitType.ARCHER;
+        super(app, tile, 1, 2, 15, 2, 2, UnitType.ARCHER);
     }
     
     @Override

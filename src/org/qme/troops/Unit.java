@@ -1,6 +1,7 @@
 package org.qme.troops;
 
 import java.awt.Graphics;
+import java.awt.TexturePaint;
 import java.lang.Math;
 
 import org.qme.main.GlobalState;
@@ -9,6 +10,7 @@ import org.qme.main.QObject;
 import org.qme.player.PoliticalEntity;
 import org.qme.vis.QLayer;
 import org.qme.vis.QRenderable;
+import org.qme.vis.tex.TroopTextureManager;
 import org.qme.vis.ui.UIComponent;
 import org.qme.world.Tile;
 
@@ -22,7 +24,7 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	private static final float BELOW_MORALE = 1.15f;
 	
 	public Unit(QApplication app, Tile tile,
-			int a, int d, int h, int m, int attacks) {	// Again, idk and this kills errors
+			int a, int d, int h, int m, int attacks, UnitType type) {	// Again, idk and this kills errors
 		super(app);
 		
 		attack = a;
@@ -37,7 +39,13 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 		this.currentMovement = this.movement;
 		this.currentAttacks = this.attacks;
 		
+		this.type = type;
+		
+		texture = TroopTextureManager.getTexture(type);
+		
 	}
+	
+	protected TexturePaint texture;
 	
 	private boolean actionable = true;	// Whether or not a unit can do stuff (aka it's dead)
 	
