@@ -8,6 +8,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import org.qme.troops.UnitType;
+
 import static org.qme.main.Main.displayError;
 
 /**
@@ -49,6 +51,8 @@ public final class TroopTextureManager {
 	 * with textures loaded from the files.
 	 * This method should be called BEFORE all other
 	 * initialization.
+	 * @author adamhutchings
+	 * @since pre4
 	 */
 	public static void loadTroopTextures() {
 		
@@ -89,6 +93,40 @@ public final class TroopTextureManager {
 		} catch (IOException e) {
 			displayError("Error loading texture from file.", true);
 		}
+		
+	}
+	
+	/**
+	 * Get the right texture for a given troop.
+	 * @author adamhutchings
+	 * @since pre4
+	 */
+	public static TexturePaint getTexture(UnitType type) {
+		
+		switch (type) {
+		case ARCHER:
+			return ARCHER_TEX;
+		case CATAPULT:
+			return CATAPULT_TEX;
+		case CHARIOTS:
+			return CHARIOT_TEX;
+		case HORSE_ARCHER:
+			return HORSE_ARCHER_TEX;
+		case LEGIONNAIRE:
+			return LEGIONNAIRE_TEX;
+		case LIGHT_CAVALRY:
+			return LIGHT_CAVALRY_TEX;
+		case SCOUT:
+			return SCOUT_TEX;
+		case SHIELD_BEARER:
+			return SHIELD_BEARER_TEX;
+		case SPEARMAN:
+			return SPEARMAN_TEX;
+		case SWORDSMAN:
+			return SWORDSMAN_TEX;
+		}
+		
+		return null;
 		
 	}
 
