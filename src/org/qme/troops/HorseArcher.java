@@ -48,9 +48,4 @@ public class HorseArcher extends Unit {
   		return 0;
     }
     
-    @Override
-    public String getTexturePath() {
-    	return "res/troops/horse_archer.png";
-    }
-    
 }

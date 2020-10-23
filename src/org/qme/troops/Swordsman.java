@@ -14,9 +14,4 @@ public class Swordsman extends Unit {
         type = UnitType.SWORDSMAN;
     }
     
-    @Override
-    public String getTexturePath() {
-    	return "res/troops/swordsman.png";
-    }
-    
 }

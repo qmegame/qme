@@ -44,9 +44,4 @@ public class Spearman extends Unit {
     	return this.currentAttack + bonus;
     }
     
-    @Override
-    public String getTexturePath() {
-    	return "res/troops/spearman.png";
-    }
-    
 }

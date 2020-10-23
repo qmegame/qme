@@ -202,7 +202,4 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 
     }
     
-    // So we can get the location of the texture more easily
-    public abstract String getTexturePath();
-    
 }

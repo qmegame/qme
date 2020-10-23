@@ -60,9 +60,4 @@ public class Scout extends Unit {
 
     }
     
-    @Override
-    public String getTexturePath() {
-    	return "res/troops/scout.png";
-    }
-    
 }

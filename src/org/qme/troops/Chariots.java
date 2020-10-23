@@ -37,9 +37,4 @@ public class Chariots extends Unit {
   		return 0;
     }
     
-    @Override
-    public String getTexturePath() {
-    	return "res/troops/chariot.png";
-    }
-    
 }

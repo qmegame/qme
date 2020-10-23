@@ -37,11 +37,4 @@ public class LightCavalry extends Unit {
   		return 0;
     }
     
-
-    
-    @Override
-    public String getTexturePath() {
-    	return "res/troops/light_cavalry.png";
-    }
-    
 }
