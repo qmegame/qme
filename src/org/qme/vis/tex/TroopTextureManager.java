@@ -1,7 +1,5 @@
 package org.qme.vis.tex;
 
-import java.awt.Rectangle;
-import java.awt.TexturePaint;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -23,16 +21,16 @@ import static org.qme.main.Main.displayError;
 public final class TroopTextureManager {
 	
 	// ----- TEXTURES ----- //
-	public static TexturePaint ARCHER_TEX;
-	public static TexturePaint CATAPULT_TEX;
-	public static TexturePaint CHARIOT_TEX;
-	public static TexturePaint HORSE_ARCHER_TEX;
-	public static TexturePaint LEGIONNAIRE_TEX;
-	public static TexturePaint LIGHT_CAVALRY_TEX;
-	public static TexturePaint SCOUT_TEX;
-	public static TexturePaint SHIELD_BEARER_TEX;
-	public static TexturePaint SPEARMAN_TEX;
-	public static TexturePaint SWORDSMAN_TEX;
+	public static BufferedImage ARCHER_TEX;
+	public static BufferedImage CATAPULT_TEX;
+	public static BufferedImage CHARIOT_TEX;
+	public static BufferedImage HORSE_ARCHER_TEX;
+	public static BufferedImage LEGIONNAIRE_TEX;
+	public static BufferedImage LIGHT_CAVALRY_TEX;
+	public static BufferedImage SCOUT_TEX;
+	public static BufferedImage SHIELD_BEARER_TEX;
+	public static BufferedImage SPEARMAN_TEX;
+	public static BufferedImage SWORDSMAN_TEX;
 	
 	// ----- TEXTURE PATHS ----- //
 	public static String ARCHER_TEX_PATH        = "res/troops/archer.png";
@@ -58,37 +56,16 @@ public final class TroopTextureManager {
 		
 		try {
 			
-			BufferedImage image; // Internal use
-		
-			image = ImageIO.read(new File(ARCHER_TEX_PATH));
-			ARCHER_TEX = new TexturePaint(image, new Rectangle(0, 0, image.getWidth(), image.getHeight()));
-		
-			image = ImageIO.read(new File(CATAPULT_TEX_PATH));
-			CATAPULT_TEX = new TexturePaint(image, new Rectangle(0, 0, image.getWidth(), image.getHeight()));
-		
-			image = ImageIO.read(new File(CHARIOT_TEX_PATH));
-			CHARIOT_TEX = new TexturePaint(image, new Rectangle(0, 0, image.getWidth(), image.getHeight()));
-		
-			image = ImageIO.read(new File(HORSE_ARCHER_TEX_PATH));
-			HORSE_ARCHER_TEX = new TexturePaint(image, new Rectangle(0, 0, image.getWidth(), image.getHeight()));
-		
-			image = ImageIO.read(new File(LEGIONNAIRE_TEX_PATH));
-			LEGIONNAIRE_TEX = new TexturePaint(image, new Rectangle(0, 0, image.getWidth(), image.getHeight()));
-		
-			image = ImageIO.read(new File(LIGHT_CAVALRY_TEX_PATH));
-			LIGHT_CAVALRY_TEX = new TexturePaint(image, new Rectangle(0, 0, image.getWidth(), image.getHeight()));
-		
-			image = ImageIO.read(new File(SCOUT_TEX_PATH));
-			SCOUT_TEX = new TexturePaint(image, new Rectangle(0, 0, image.getWidth(), image.getHeight()));
-		
-			image = ImageIO.read(new File(SHIELD_BEARER_TEX_PATH));
-			SHIELD_BEARER_TEX = new TexturePaint(image, new Rectangle(0, 0, image.getWidth(), image.getHeight()));
-		
-			image = ImageIO.read(new File(SPEARMAN_TEX_PATH));
-			SPEARMAN_TEX = new TexturePaint(image, new Rectangle(0, 0, image.getWidth(), image.getHeight()));
-		
-			image = ImageIO.read(new File(SWORDSMAN_TEX_PATH));
-			SWORDSMAN_TEX = new TexturePaint(image, new Rectangle(0, 0, image.getWidth(), image.getHeight()));
+			ARCHER_TEX        = ImageIO.read(new File(ARCHER_TEX_PATH));
+			CATAPULT_TEX      = ImageIO.read(new File(CATAPULT_TEX_PATH));
+			CHARIOT_TEX       = ImageIO.read(new File(CHARIOT_TEX_PATH));
+			HORSE_ARCHER_TEX  = ImageIO.read(new File(HORSE_ARCHER_TEX_PATH));
+			LEGIONNAIRE_TEX   = ImageIO.read(new File(LEGIONNAIRE_TEX_PATH));
+			LIGHT_CAVALRY_TEX = ImageIO.read(new File(LIGHT_CAVALRY_TEX_PATH));
+			SCOUT_TEX         = ImageIO.read(new File(SCOUT_TEX_PATH));
+			SHIELD_BEARER_TEX = ImageIO.read(new File(SHIELD_BEARER_TEX_PATH));
+			SPEARMAN_TEX      = ImageIO.read(new File(SPEARMAN_TEX_PATH));
+			SWORDSMAN_TEX     = ImageIO.read(new File(SWORDSMAN_TEX_PATH));
 			
 		} catch (IOException e) {
 			displayError("Error loading texture from file.", true);
@@ -101,7 +78,7 @@ public final class TroopTextureManager {
 	 * @author adamhutchings
 	 * @since pre4
 	 */
-	public static TexturePaint getTexture(UnitType type) {
+	public static BufferedImage getTexture(UnitType type) {
 		
 		switch (type) {
 		case ARCHER:
