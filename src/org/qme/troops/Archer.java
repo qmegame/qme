@@ -11,8 +11,7 @@ import org.qme.world.TileType;
 public class Archer extends Unit {
 
     public Archer(QApplication app, Tile tile) {
-        super(app, tile, 1, 2, 15, 2, 2);
-        type = UnitType.ARCHER;
+        super(app, tile, 1, 2, 15, 2, 2, UnitType.ARCHER);
     }
     
     @Override
@@ -22,11 +21,6 @@ public class Archer extends Unit {
     		multiplier = 1.35;
     	}
     	return currentAttack * multiplier;
-    }
-    
-    @Override
-    public String getTexturePath() {
-    	return "res/troops/archer.png";
     }
     
 }

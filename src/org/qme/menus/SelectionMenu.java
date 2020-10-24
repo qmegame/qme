@@ -4,6 +4,16 @@ import org.qme.main.GlobalState;
 import static org.qme.main.Main.displayError;
 import org.qme.main.QApplication;
 import org.qme.player.PoliticalEntity;
+import org.qme.troops.Archer;
+import org.qme.troops.Catapult;
+import org.qme.troops.Chariots;
+import org.qme.troops.HorseArcher;
+import org.qme.troops.Legionnaire;
+import org.qme.troops.LightCavalry;
+import org.qme.troops.Scout;
+import org.qme.troops.ShieldBearer;
+import org.qme.troops.Spearman;
+import org.qme.troops.Swordsman;
 
 import static org.qme.util.GlobalConstants.SCREEN_HEIGHT;
 import static org.qme.util.GlobalConstants.SCREEN_WIDTH;
@@ -121,6 +131,18 @@ public class SelectionMenu {
 				app.world = new World(app, size, size);
 				
 				app.setState(GlobalState.MAIN_GAME);
+				
+				// ----- TEST ----- //
+				new Archer      (app, app.world.tiles[0][0]);
+				new Catapult    (app, app.world.tiles[0][1]);
+				new Chariots    (app, app.world.tiles[0][2]);
+				new HorseArcher (app, app.world.tiles[0][3]);
+				new Legionnaire (app, app.world.tiles[0][4]);
+				new LightCavalry(app, app.world.tiles[0][5]);
+				new Scout       (app, app.world.tiles[0][6]);
+				new ShieldBearer(app, app.world.tiles[0][7]);
+				new Spearman    (app, app.world.tiles[0][8]);
+				new Swordsman   (app, app.world.tiles[0][9]);
 				
 			}
 			

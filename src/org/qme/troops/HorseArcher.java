@@ -11,8 +11,7 @@ import org.qme.world.TileType;
 public class HorseArcher extends Unit {
 
     public HorseArcher(QApplication app, Tile tile) {
-        super(app, tile, 3, 1, 15, 3, 2);
-        type = UnitType.HORSE_ARCHER;
+        super(app, tile, 3, 1, 15, 3, 2, UnitType.HORSE_ARCHER);
     }
     
     @Override
@@ -46,11 +45,6 @@ public class HorseArcher extends Unit {
   			return returN;
   		}
   		return 0;
-    }
-    
-    @Override
-    public String getTexturePath() {
-    	return "res/troops/horse_archer.png";
     }
     
 }

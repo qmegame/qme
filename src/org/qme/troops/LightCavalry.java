@@ -11,8 +11,7 @@ import org.qme.world.TileType;
 public class LightCavalry extends Unit {
 
     public LightCavalry(QApplication app, Tile tile) {
-        super(app, tile, 2, 1, 10, 4, 2);
-        type = UnitType.LIGHT_CAVALRY;
+        super(app, tile, 2, 1, 10, 4, 2, UnitType.LIGHT_CAVALRY);
     }
     
     @Override
@@ -35,13 +34,6 @@ public class LightCavalry extends Unit {
   			return returN;
   		}
   		return 0;
-    }
-    
-
-    
-    @Override
-    public String getTexturePath() {
-    	return "res/troops/light_cavalry.png";
     }
     
 }

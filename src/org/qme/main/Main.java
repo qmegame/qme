@@ -25,6 +25,7 @@ import static org.qme.util.GlobalConstants.SCREEN_WIDTH;
 import static org.qme.util.GlobalConstants.TOOLTIPS;
 import org.qme.vis.QDebug;
 import org.qme.vis.QGameInfo;
+import org.qme.vis.tex.TroopTextureManager;
 
 /**
  * Holds the main method and the FRAMERATE constant.
@@ -102,6 +103,8 @@ public class Main {
 		try {
 			
 			FileWatcher alert = new FileWatcher(new File(ERROR_LOG));
+			
+			TroopTextureManager.loadTroopTextures();
 			
 			QApplication app = new QApplication();
 			

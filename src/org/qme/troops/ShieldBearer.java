@@ -10,8 +10,7 @@ import org.qme.world.Tile;
 public class ShieldBearer extends Unit {
 
     public ShieldBearer(QApplication app, Tile tile) {
-        super(app, tile, 0, 2, 15, 2, 0);
-        type = UnitType.SHIELD_BEARER;
+        super(app, tile, 0, 2, 15, 2, 0, UnitType.SHIELD_BEARER);
     }
     
     @Override
@@ -39,11 +38,6 @@ public class ShieldBearer extends Unit {
     	}
     	
     	return this.currentDefense + bonus;
-    }
-     
-    @Override
-    public String getTexturePath() {
-    	return "res/troops/shield_bearer.png";
     }
     
 }

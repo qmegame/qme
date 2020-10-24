@@ -10,13 +10,7 @@ import org.qme.world.Tile;
 public class Catapult extends Unit {
 
     public Catapult(QApplication app, Tile tile) {
-        super(app, tile, 5, 0, 5, 1, 2);
-        type = UnitType.CATAPULT;
-    }
-    
-    @Override
-    public String getTexturePath() {
-    	return "res/troops/catapult.png";
+        super(app, tile, 5, 0, 5, 1, 2, UnitType.CATAPULT);
     }
 
 }

@@ -1,14 +1,21 @@
 package org.qme.troops;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.TexturePaint;
+import java.awt.image.BufferedImage;
 import java.lang.Math;
 
 import org.qme.main.GlobalState;
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
 import org.qme.player.PoliticalEntity;
+import org.qme.util.QDimension;
+import org.qme.vis.Perspective;
 import org.qme.vis.QLayer;
 import org.qme.vis.QRenderable;
+import org.qme.vis.tex.TroopTextureManager;
 import org.qme.vis.ui.UIComponent;
 import org.qme.world.Tile;
 
@@ -22,8 +29,10 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	private static final float BELOW_MORALE = 1.15f;
 	
 	public Unit(QApplication app, Tile tile,
-			int a, int d, int h, int m, int attacks) {	// Again, idk and this kills errors
+			int a, int d, int h, int m, int attacks, UnitType type) {	// Again, idk and this kills errors
 		super(app);
+		
+		tileOn = tile;
 		
 		attack = a;
 		defense = d;
@@ -37,7 +46,13 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 		this.currentMovement = this.movement;
 		this.currentAttacks = this.attacks;
 		
+		this.type = type;
+		
+		texture = TroopTextureManager.getTexture(type);
+		
 	}
+	
+	protected BufferedImage texture;
 	
 	private boolean actionable = true;	// Whether or not a unit can do stuff (aka it's dead)
 	
@@ -172,9 +187,38 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	
 	}
     @Override
+    /**
+     * Paint the texture of the unit
+     * on the screen.
+     * @author adamhutchings
+     * @since pre4
+     */
     public void render(Graphics g) {
-        // TODO Auto-generated method stub
-
+    	
+    	// Get the central dimensions on which to render it
+    	QDimension<Float> center = Perspective.worldToScreen(new QDimension<Float>((float) tileOn.x, (float) tileOn.y));
+    	
+    	center.x -= application.qiscreen.xOffset;
+    	center.y -= application.qiscreen.yOffset;
+    	
+    	// Move the troop up a little
+    	center.y -= 25;
+    	
+    	// Dimensions of the texture
+    	double width  = texture.getWidth();
+    	double height = texture.getHeight();
+    	
+    	// Rectangle for later
+    	Rectangle texRect = new Rectangle(
+    			(int)(center.x - (width / 2)), (int)(center.y - (height / 2)), (int)width, (int)height
+    	);
+    	
+    	// Render it
+    	Graphics2D g2d = (Graphics2D) g.create();
+    	g2d.setPaint(new TexturePaint(texture, texRect));
+    	g2d.fillRect(texRect.x, texRect.y, texRect.width, texRect.height);
+    	g2d.dispose();
+    	
     }
 
     @Override
@@ -198,11 +242,7 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 
     @Override
     public void update(QApplication app) {
-        // TODO Auto-generated method stub
-
+        // nothing
     }
-    
-    // So we can get the location of the texture more easily
-    public abstract String getTexturePath();
     
 }
