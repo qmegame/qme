@@ -162,9 +162,11 @@ public class QInputScreen extends JFrame implements KeyListener {
 			
 		case KeyEvent.VK_Q:
 			QDebug.toggleDebug();
+			break;
 			
 		case KeyEvent.VK_T:
 			if (app.getState() == GlobalState.MAIN_GAME) app.setState(GlobalState.TECH_TREE_VIEW);
+			break;
 			
 		}
 		
