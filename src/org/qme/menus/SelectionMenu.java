@@ -77,7 +77,7 @@ public class SelectionMenu {
 				
 				if ((playerName != null) && (playerName.length() > 0)) {
 					boolean duplicate = false;
-					for (PoliticalEntity player : app.game.civilizations) {
+					for (PoliticalEntity player : players) {
 						if (player.name.equals(playerName)) {
 							duplicate = true;
 						}
