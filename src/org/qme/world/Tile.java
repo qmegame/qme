@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.qme.main.GlobalState;
 import org.qme.main.QApplication;
@@ -36,6 +37,9 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 	
 	//
 	public Unit occupier;
+	
+	// Resources fun time
+	public String resource = "";
 	
 	/**
 	 * Simple generation with coordinates.
@@ -70,11 +74,119 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 	}
 	
 	/**
-	 * Nothing for now
+	 * @author S-Mackenzie1678
+	 * @since pre4
 	 */
-	public void update(QApplication app) {
-		
+	void resourceRegen() {
+		Random rand = new Random();
+		if(this.type == TileType.OCEAN) {
+			int r = rand.nextInt(100);
+			if(r < 50) {
+				this.resource = "fish";
+			} else if (r < 80) {
+				this.resource = "seaweed";
+			} else {
+				this.resource = "salt";
+			}
+		} else if(this.type == TileType.SEA) {
+			int r = rand.nextInt(100);
+			if(r < 30) {
+				this.resource = "fish";
+			} else if(r < 55) {
+				this.resource = "seaweed";
+			} else {
+				this.resource = "salt";
+			}
+		} else if(this.type == TileType.PLAINS) {
+			int r = rand.nextInt(100);
+			if(r < 70 && r >= 30) {
+				this.resource = "grass";
+				int s = rand.nextInt(100);
+				if(s < 65) {
+					this.resource = "grain";
+				}
+			}
+			else if(r < 30) {
+				this.resource = "small game";
+			}
+		} else if(this.type == TileType.FERTILE_PLAINS) {
+			int r = rand.nextInt(100);
+			if(r < 50) {
+				this.resource = "tall grass";
+				int s = rand.nextInt(100);
+				if(s < 85) {
+					this.resource = "grain";
+				}
+			}
+			else if(r < 75) {
+				this.resource = "medium game";
+			}
+			else if(r < 90) {
+				this.resource = "small game";
+			}
+			else {
+				this.resource = "grapes";
+			}
+		} else if(this.type == TileType.FOREST) {
+			int r = rand.nextInt(100);
+			if(r < 65) {
+				this.resource = "lumber";
+				int s = rand.nextInt(100);
+				if(s >= 15) {
+					this.resource = "leaves";
+					int t = rand.nextInt(100);
+					if(t < 20) {
+						this.resource = "fruit";
+					}
+				}
+				if(s < 15) {
+					this.resource = "sap";
+				}
+			}
+			else {
+				this.resource = "large game";
+			}
+		} else if(this.type == TileType.HIGH_MOUNTAIN) {
+			this.resource = "snow";
+			int r = rand.nextInt(100);
+			if(r < 35) {
+				this.resource = "rock";
+				int s = rand.nextInt(100);
+				if(s < 20) {
+					this.resource = "gold ore";
+				}
+				else {
+					this.resource = "iron ore";
+				}
+			}
+		} else if(this.type == TileType.MOUNTAIN) {
+			int r = rand.nextInt(100);
+			if(r < 80) {
+				this.resource = "rock";
+				int s = rand.nextInt(100);
+				if(s < 50) {
+					this.resource = "coal";
+				}
+				else if(s < 90) {
+					this.resource = "iron ore";
+				}
+				else {
+					this.resource = "gold ore";
+				}
+			}
+			else {
+				this.resource = "snow";
+			}
+		} else if(this.type == TileType.DESERT) {
+			this.resource = "sand";
+			int r = rand.nextInt(100);
+			if(r < 50) {
+				this.resource = "cacti";
+			}
+		}
 	}
+	
+	public void update(QApplication app) {}
 	
 	@Override
 	/**
