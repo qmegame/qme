@@ -11,7 +11,7 @@ import org.qme.world.TileType;
 public class Chariots extends Unit {
 
     public Chariots(QApplication app, Tile tile) {
-        super(app, tile, 4, 3, 20, 1, 2, UnitType.CHARIOTS);
+        super(app, tile, 4, 3, 20, 1, 2, UnitType.CHARIOTS, 1);
     }
     
     @Override

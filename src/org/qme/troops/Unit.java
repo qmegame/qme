@@ -29,7 +29,7 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	private static final float BELOW_MORALE = 1.15f;
 	
 	public Unit(QApplication app, Tile tile,
-			int a, int d, int h, int m, int attacks, UnitType type) {	// Again, idk and this kills errors
+			int a, int d, int h, int m, int attacks, UnitType type, int r) {	// Again, idk and this kills errors
 		super(app);
 		
 		tileOn = tile;
@@ -50,6 +50,9 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 		
 		texture = TroopTextureManager.getTexture(type);
 		
+		range = r;
+		this.currentRange = this.range;
+		
 	}
 	
 	protected BufferedImage texture;
@@ -66,24 +69,28 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	private double health;
 	private double movement;
 	private int attacks;
+	private int range;
 	
 	public double getAttack() { return this.attack; }
 	public double getDefense() { return this.defense; }
 	public double getHealth() { return this.health; }
 	public double getMovement() { return this.movement; }
 	public int getAttacks() { return this.attacks; }
+	public int getRange() { return this.range; }
 	
 	public double currentAttack;
 	public double currentDefense;
 	public double currentHealth;
 	public double currentMovement;
 	public int currentAttacks;
+	public int currentRange;
 	
 	public double currentAttack() { return this.currentAttack; }
 	public double currentDefense() { return this.currentDefense; }
 	public double currentHealth() { return this.currentHealth; }
 	public double currentMovement() { return this.currentMovement; }
 	public int currentAttacks() { return this.currentAttacks; }
+	public int currentRange() { return this.currentRange; }
 	
 	/**
 	 * Call this to check if this can do things
@@ -130,11 +137,18 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	}
 	
 	public double attack(Unit defender) {
-		if(this.actionable) { 
+		if(canAttack(defender)) { 
 			double returN = ((2.5 * this.currentAttack() * (this.currentHealth() / this.getHealth())) / defender.currentDefense());
 			return returN;
 		}
 		return 0;
+	}
+	
+	public boolean canAttack(Unit defender) {
+		if(movementCalculate(defender.tileOn) > this.currentRange() && this.actionable()) {
+			return false;
+		}
+		return true;
 	}
 	
 	public void takeDamage(int damage) {
