@@ -91,6 +91,8 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	 */
 	public boolean actionable() { return this.actionable; }
 	
+	public boolean canMove() { return this.actionable(); }
+	
 	/**
 	 * Call this when morale changes (only deals with movement by 1)
 	 * @param up
