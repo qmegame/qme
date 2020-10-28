@@ -11,7 +11,7 @@ import org.qme.world.TileType;
 public class HorseArcher extends Unit {
 
     public HorseArcher(QApplication app, Tile tile) {
-        super(app, tile, 3, 1, 15, 3, 2, UnitType.HORSE_ARCHER);
+        super(app, tile, 3, 1, 15, 3, 2, UnitType.HORSE_ARCHER, 2);
     }
     
     @Override

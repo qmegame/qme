@@ -10,7 +10,7 @@ import org.qme.world.Tile;
 public class Spearman extends Unit {
 
     public Spearman(QApplication app, Tile tile) {
-        super(app, tile, 1, 2, 15, 2, 2, UnitType.SPEARMAN);
+        super(app, tile, 1, 2, 15, 2, 2, UnitType.SPEARMAN, 1);
     }
     
     @Override

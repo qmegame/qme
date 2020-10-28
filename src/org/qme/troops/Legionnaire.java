@@ -10,7 +10,7 @@ import org.qme.world.Tile;
 public class Legionnaire extends Unit {
 
     public Legionnaire(QApplication app, Tile tile) {
-        super(app, tile, 0, 1, 5, 2, 2, UnitType.LEGIONNAIRE);
+        super(app, tile, 0, 1, 5, 2, 2, UnitType.LEGIONNAIRE, 1);
     }
     
     @Override

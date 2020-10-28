@@ -10,7 +10,7 @@ import org.qme.world.Tile;
 public class ShieldBearer extends Unit {
 
     public ShieldBearer(QApplication app, Tile tile) {
-        super(app, tile, 0, 2, 15, 2, 0, UnitType.SHIELD_BEARER);
+        super(app, tile, 0, 2, 15, 2, 0, UnitType.SHIELD_BEARER, 1);
     }
     
     @Override
