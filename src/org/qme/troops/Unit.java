@@ -128,6 +128,13 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 		return 0;
 	}
 	
+	public boolean canAttack(Unit defender) {
+		if(movementCalculate(defender.tileOn) > 1.6) {
+			return false;
+		}
+		return true;
+	}
+	
 	public void takeDamage(int damage) {
 		this.currentHealth -= damage;
 	}
