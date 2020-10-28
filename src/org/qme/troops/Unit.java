@@ -91,6 +91,15 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	 */
 	public boolean actionable() { return this.actionable; }
 	
+	public boolean canMove(Tile target) {
+		if(this.actionable()) {
+			if(this.movementCalculate(target) > this.currentMovement()) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	/**
 	 * Call this when morale changes (only deals with movement by 1)
 	 * @param up
