@@ -7,7 +7,18 @@ import static org.qme.main.Main.tooltipString;
 import org.qme.main.QApplication;
 import static org.qme.util.GlobalConstants.SCREEN_HEIGHT;
 import static org.qme.util.GlobalConstants.SCREEN_WIDTH;
+import static org.qme.util.GlobalConstants.SQUASH_FACTOR;
 import static org.qme.util.GlobalConstants.TOOLTIPS;
+
+import java.util.Hashtable;
+
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import org.qme.vis.ui.QButton;
 
 public class SettingsMenu {
@@ -55,6 +66,82 @@ public class SettingsMenu {
 			public GlobalState getActiveState() {
 				return GlobalState.SETTINGS_MENU;
 			}
+		};
+		
+		// Adjust squash
+		new QButton(app, SCREEN_WIDTH / 2, 300, "Change Squash") {
+			
+			@Override
+			public void mouseClickOff() {
+				
+				// Create a JOptionPane
+				JOptionPane box = new JOptionPane();
+				
+				// Create our little slider (internal numbers are squash * 20)
+				JSlider slider = null;
+				try {
+					slider = new JSlider(40, 60,
+							/* default value read from prefs */ Integer.parseInt(PreferencesFile.getPreference("squash"))
+					);
+				} catch (Exception e) {
+					displayError("Error reading from preferences file in squash adjustment", true);
+				}
+				
+				slider.setMajorTickSpacing(5);
+				slider.setMinorTickSpacing(1);
+				slider.setPaintTicks(true);
+				
+				// Custom labels
+				Hashtable<Integer, JLabel> labels = new Hashtable<Integer, JLabel>();
+				labels.put(40, new JLabel("2"));
+				labels.put(45, new JLabel("2.25"));
+				labels.put(50, new JLabel("2.5"));
+				labels.put(55, new JLabel("2.75"));
+				labels.put(60, new JLabel("3"));
+				
+				slider.setLabelTable(labels);
+				slider.setPaintLabels(true);
+				
+				slider.addChangeListener(
+					new ChangeListener() {
+
+						@Override
+						public void stateChanged(ChangeEvent e) {
+							
+							JSlider src = (JSlider) (e.getSource());
+							
+							// Write the selected value
+							if (!src.getValueIsAdjusting()) {
+								try {
+									PreferencesFile.setPreference("squash", Integer.toString(src.getValue()));
+								} catch (Exception e1) {
+									e1.printStackTrace();
+									displayError("Error writing to preferences file in squash adjustment", true);
+								}
+							}
+							
+							SQUASH_FACTOR = src.getValue() / 20f;
+							
+						}
+						
+					}
+				);
+				
+				box.setMessage(new Object[] {"Set squash factor: ", slider});
+				
+			    box.setMessageType(JOptionPane.QUESTION_MESSAGE);
+			    box.setOptionType(JOptionPane.OK_CANCEL_OPTION);
+			    JDialog dialog = box.createDialog(app.qiscreen, "My Slider");
+			    dialog.setVisible(true);
+			    
+				
+			}
+			
+			@Override
+			public GlobalState getActiveState() {
+				return GlobalState.SETTINGS_MENU;
+			}
+			
 		};
 		
 	}
