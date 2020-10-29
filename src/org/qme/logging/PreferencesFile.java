@@ -37,7 +37,7 @@ public final class PreferencesFile {
 	 */
 	@SuppressWarnings("serial")
 	private static HashMap<String, String> DEFAULT_PREFS = new HashMap<>() {{
-		put("squash", "2.0");
+		put("squash", "40");
 		put("tooltips", "true");
 	}};
 	
@@ -160,7 +160,7 @@ public final class PreferencesFile {
 			
 			preference = prefsCopy[i];
 			
-			if (preference.length() > key.length() + 3) {
+			if (preference.length() > key.length() + 2) {
 			
 				if (preference.startsWith(key) && preference.charAt(key.length()) == ':') {
 					prefsCopy[i] = preference.substring(0, key.length()) + ": " + value;
