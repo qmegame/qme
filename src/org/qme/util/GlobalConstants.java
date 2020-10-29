@@ -25,7 +25,7 @@ public class GlobalConstants {
 	/**
 	 * For how flat the final result should look.
 	 */
-	public static final float SQUASH_FACTOR = 2f;
+	public static float SQUASH_FACTOR = 2f;
 	
 	/**
 	 * The size that each tile is rendered as. Kind of.
