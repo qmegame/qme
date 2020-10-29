@@ -1,5 +1,6 @@
 package org.qme.troops;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -17,6 +18,7 @@ import org.qme.vis.QLayer;
 import org.qme.vis.QRenderable;
 import org.qme.vis.tex.TroopTextureManager;
 import org.qme.vis.ui.UIComponent;
+import org.qme.vis.ui.UIUtils;
 import org.qme.world.Tile;
 
 /**
@@ -25,8 +27,15 @@ import org.qme.world.Tile;
  * @since pre2
  */
 public abstract class Unit extends QObject implements QRenderable, UIComponent {
+	
 	private static final float ABOVE_MORALE = 1.1f;
 	private static final float BELOW_MORALE = 1.15f;
+	
+	// Stuff for rendering the health as a number
+	private static final int HEALTH_WIDTH_OFFSET = 20;
+	private static final int HEALTH_HEIGHT_OFFSET = 35;
+	
+	private static final Color HEALTH_COLOR = new Color(100, 50, 0);
 	
 	public Unit(QApplication app, Tile tile,
 			int a, int d, int h, int m, int attacks, UnitType type, int r) {	// Again, idk and this kills errors
@@ -241,6 +250,19 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
     	g2d.setPaint(new TexturePaint(texture, texRect));
     	g2d.fillRect(texRect.x, texRect.y, texRect.width, texRect.height);
     	g2d.dispose();
+    	
+    	// Render the unit's health
+    	Rectangle healthRect = new Rectangle(
+    		(int) (center.x + HEALTH_WIDTH_OFFSET) - 10, (int) (center.y - HEALTH_HEIGHT_OFFSET) - 10,
+    		20, 20
+    	);
+    	
+    	// Background rectangle
+    	g.setColor(Color.WHITE);
+    	g.fillRect(healthRect.x, healthRect.y, healthRect.width, healthRect.height);
+    	
+    	g.setColor(HEALTH_COLOR); // Color for health
+    	UIUtils.drawCenteredString(g, Integer.toString((int) getHealth()), healthRect, UIUtils.QME_FONT);
     	
     }
 
