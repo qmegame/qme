@@ -2,6 +2,8 @@ package org.qme.world;
 
 import org.qme.main.QApplication;
 import org.qme.world.gen.WorldGenNeo;
+import org.qme.world.gen.WorldGenRandom;
+import org.qme.world.gen.WorldGenSquigglyBlob;
 
 /**
  * Represents a 2D array of tiles
@@ -39,7 +41,7 @@ public class World {
 		
 		TileType[][] map;
 		
-		map = WorldGenNeo.newWorldMap(x, y);
+		map = WorldGenSquigglyBlob.newWorldMapRandom(x, y, 7 /*magic*/);
 		
 		tiles = new Tile[x][y];
 		

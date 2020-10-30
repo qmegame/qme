@@ -115,24 +115,25 @@ public class WorldGenSquigglyBlob {
 				}
 			}
 		}
+		world = oceanFixer(world, xSize, ySize);
 		return world;
 	}
 	
 	private static TileType assignRandom() {
 		TileType a;
 		Random rand = new Random();
-		int type = rand.nextInt(10);
-		if(type == 0 || type == 8) {
+		int type = rand.nextInt(16);
+		if(type == 0 || type == 8 || type == 10 || type == 13) {
 			a = TileType.OCEAN;
-		} else if(type == 1) {
+		} else if(type == 1 || type == 11 || type == 14) {
 			a = TileType.SEA;
-		} else if(type == 2 || type == 9) {
+		} else if(type == 2 || type == 9 || type == 12) {
 			a = TileType.PLAINS;
 		} else if(type == 3) {
 			a = TileType.DESERT;
 		} else if(type == 4) {
 			a = TileType.MOUNTAIN;
-		} else if(type == 5) {
+		} else if(type == 5 || type == 15) {
 			a = TileType.FOREST;
 		} else if(type == 6) {
 			a = TileType.HIGH_MOUNTAIN;
@@ -140,6 +141,53 @@ public class WorldGenSquigglyBlob {
 			a = TileType.FERTILE_PLAINS;
 		}
 		return a;
+	}
+	
+	private static TileType[][] oceanFixer(TileType[][] cliff, int xSize, int ySize) {
+		TileType[][] world = cliff.clone();
+		for(int i = 1; i < (xSize - 1); i++) {
+			for(int j = 1; j < (ySize - 1); j++) {
+				if(world[i][j] == TileType.OCEAN) {
+					if(shallow(world, i, j)) {
+						world[i][j] = TileType.SEA;
+					}
+				} else if(world[i][j] == TileType.SEA) {
+					if(deep(world, i, j)) {
+						world[i][j] = TileType.OCEAN;
+					}
+				}
+			}
+		}
+		return world;
+	}
+	
+	private static boolean shallow(TileType[][] world, int x, int y) {
+		if((world[x + 1][y] != TileType.OCEAN) && (world[x + 1][y] != TileType.SEA)) {
+			return true;
+		}
+		if(world[x - 1][y] != TileType.OCEAN && world[x - 1][y] != TileType.SEA) {
+			return true;
+		}
+		if(world[x][y + 1] != TileType.OCEAN && world[x][y + 1] != TileType.SEA) {
+			return true;
+		}
+		if(world[x][y - 1] != TileType.OCEAN && world[x][y - 1] != TileType.SEA) {
+			return true;
+		}
+		return false;
+	}
+	
+	private static boolean deep(TileType[][] world, int x, int y) {
+		if(world[x + 1][y] == TileType.OCEAN || world[x + 1][y] == TileType.SEA) {
+			if(world[x - 1][y] == TileType.OCEAN || world[x - 1][y] == TileType.SEA) {
+				if(world[x][y + 1] == TileType.OCEAN || world[x][y + 1] == TileType.SEA) {
+					if(world[x][y - 1] == TileType.OCEAN || world[x][y - 1] == TileType.SEA) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 }
