@@ -63,3 +63,18 @@ Notes for pre3:
   - Your preferences will be stored in a file called `qdata/preferences.txt`. Don't delete this file.
   - In future releases, game builds will be with a ZIP file, because resources!
   - pre4 on October 25!
+  
+Changelog for pre4:
+  - Added main menu music
+  - Added troop textures and rendering (currently each troop appears once as a test)
+  - Created troop health display
+  - Created more functions for troops to use later
+  - Added code for generating resources (currently unused)
+  - Redid world gen a third time
+  - Added a slider in settings to change the "squash factor"
+  
+Notes for pre4:
+  - Finally broke 5000 lines! WOOO!
+  - Users with old `qdata/preferences.txt` may see some strange errors. Please change the squash line to `squash: 40`.
+  - A resource folder is needed to run the game now. It contains a music file and some troop textures.
+  - The ZIP file for download is available in the discord server.
