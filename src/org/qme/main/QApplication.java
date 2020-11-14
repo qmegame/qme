@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import org.qme.vis.QInputScreen;
 import org.qme.vis.QRenderScreen;
 import org.qme.vis.ui.UIComponent;
+import org.qme.world.Tile;
 import org.qme.world.World;
 
 /**
@@ -121,5 +122,19 @@ public class QApplication {
 		}
 		
 	}
-
+	
+	/**
+	 * Get the tooltipped tile.
+	 */
+	public Tile getHighlightedTile() {
+		for (Tile[] row : world.tiles) {
+			for (Tile tile : row) {
+				if (tile.tooltip) {
+					return tile;
+				}
+			}
+		}
+		return null;
+	}
+	
 }
