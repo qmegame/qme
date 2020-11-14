@@ -22,7 +22,7 @@ public class BottomViewBar extends QObject implements UIComponent {
 	
 	public Color color;
 	
-	public static Color TILE_COLOR = Color.GREEN;
+	public static Color TILE_COLOR = new Color(0, 50, 0);
 	public static Color UNIT_COLOR = Color.BLUE;
 	public static Color TECH_COLOR = new Color(50, 0, 50);
 	
@@ -66,11 +66,11 @@ public class BottomViewBar extends QObject implements UIComponent {
 		);
 		
 		UIUtils.drawCenteredString(g, middleString, new Rectangle(
-			rect.x, GlobalConstants.SCREEN_WIDTH / 3, GlobalConstants.SCREEN_WIDTH / 3, 100), UIUtils.QME_FONT
+				GlobalConstants.SCREEN_WIDTH / 3, rect.y, GlobalConstants.SCREEN_WIDTH / 3, 100), UIUtils.QME_FONT
 		);
 		
 		UIUtils.drawCenteredString(g, rightString, new Rectangle(
-			rect.x, GlobalConstants.SCREEN_WIDTH * 2 / 3, GlobalConstants.SCREEN_WIDTH / 3, 100), UIUtils.QME_FONT
+			GlobalConstants.SCREEN_WIDTH * 2 / 3, rect.y, GlobalConstants.SCREEN_WIDTH / 3, 100), UIUtils.QME_FONT
 		);
 			
 	}
