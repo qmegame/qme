@@ -11,7 +11,7 @@ public class GameMenu {
 	public static void makeMenu(QApplication app) {
 		
 		// Next turn time
-		new QButton(app, SCREEN_WIDTH / 2, (SCREEN_HEIGHT) - 100, "Next turn") {
+		new QButton(app, SCREEN_WIDTH / 2, (SCREEN_HEIGHT) - 200, "Next turn") {
 
 			@Override
 			public void mouseClickOff() {
