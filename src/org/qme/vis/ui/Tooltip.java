@@ -12,6 +12,7 @@ import org.qme.main.QApplication;
 import org.qme.main.QObject;
 import org.qme.vis.QLayer;
 
+@Deprecated(since = "pre5")
 public class Tooltip extends QObject implements UIComponent {
 	
 	private GlobalState activeState;
