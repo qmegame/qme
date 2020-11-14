@@ -17,6 +17,7 @@ import org.qme.vis.ui.UIUtils;
  * @author adamhutchings
  * @since pre2
  */
+@Deprecated(since = "pre5")
 public class QGameInfo extends QObject implements QRenderable {
 	
 	private static final Rectangle GAME_INFO_RENDER_RECT = new Rectangle(
