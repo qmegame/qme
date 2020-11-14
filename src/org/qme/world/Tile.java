@@ -28,6 +28,8 @@ import org.qme.troops.Unit;
  */
 public class Tile extends QObject implements QRenderable, UIComponent {
 	
+	public boolean tooltipViewsUnit;
+	
 	// Location
 	public int x, y;
 	
@@ -254,14 +256,16 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 		
 	}
 	
-	@Override
-	/**
-	 * Makes a tooltip
-	 * @author adamhutchings
-	 */
-	public void mouseClickOn() {
-		
-		if ((!tooltip) && TOOLTIPS) {
+	public void setTooltip() {
+		if (TOOLTIPS) {
+			// Remove other active tooltip
+			Tile prev = application.getHighlightedTile();
+			if (prev != null) {
+				prev.tooltip = false;
+			}
+			
+			tooltipViewsUnit = false;
+			tooltip = true;
 			
 			BottomViewBar.viewBar.color = BottomViewBar.TILE_COLOR;
 			BottomViewBar.viewBar.leftString = getName();
@@ -271,6 +275,19 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 				BottomViewBar.viewBar.middleString = "No unit on this tile";
 			}
 			BottomViewBar.viewBar.rightString = "";
+		}
+	}
+	
+	@Override
+	/**
+	 * Makes a tooltip
+	 * @author adamhutchings
+	 */
+	public void mouseClickOn() {
+		
+		if (!tooltip) {
+			
+			setTooltip();
 			
 		}
 		
