@@ -3,7 +3,6 @@ package org.qme.world;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
-import java.util.ArrayList;
 import java.util.Random;
 
 import org.qme.main.GlobalState;
@@ -16,7 +15,7 @@ import org.qme.util.QDimension;
 import org.qme.vis.Perspective;
 import org.qme.vis.QLayer;
 import org.qme.vis.QRenderable;
-import org.qme.vis.ui.Tooltip;
+import org.qme.vis.ui.BottomViewBar;
 import org.qme.vis.ui.UIComponent;
 import org.qme.troops.Unit;
 
@@ -264,28 +263,14 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 		
 		if ((!tooltip) && TOOLTIPS) {
 			
-			@SuppressWarnings("serial")
-			ArrayList<String> info = new ArrayList<String>() {{
-				add(
-						(type == TileType.UNGENERATED)    ? "ungenerated"    :
-						(type == TileType.OCEAN)          ? "ocean"          :
-						(type == TileType.SEA)            ? "sea"            :
-						(type == TileType.PLAINS)         ? "plains"         :
-						(type == TileType.DESERT)         ? "desert"         :
-						(type == TileType.FOREST)         ? "forest"         :
-						(type == TileType.MOUNTAIN)       ? "mountain"       :
-						(type == TileType.HIGH_MOUNTAIN)  ? "high mountain"  :
-						(type == TileType.FERTILE_PLAINS) ? "fertile plains" :
-						"error"
-				);
-				add(x + ", " + y);
-			}};
-			
-			new Tooltip(this,
-				application.qrscreen.getMousePosition().x,
-				application.qrscreen.getMousePosition().y,
-				application, info
-			);
+			BottomViewBar.viewBar.color = BottomViewBar.TILE_COLOR;
+			BottomViewBar.viewBar.leftString = getName();
+			if (occupier != null) {
+				BottomViewBar.viewBar.middleString = "Press G to see occupier";
+			} else {
+				BottomViewBar.viewBar.middleString = "No unit on this tile";
+			}
+			BottomViewBar.viewBar.rightString = "";
 			
 		}
 		
@@ -341,6 +326,32 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 		
 		return new Polygon(xPoints, yPoints, 4);
 		
+	}
+	
+	public String getName() {
+		switch (type) {
+		case DESERT:
+			return "Desert";
+		case FERTILE_PLAINS:
+			return "Fertile Plains";
+		case FOREST:
+			return "Forest";
+		case HIGH_MOUNTAIN:
+			return "High Mountain";
+		case MOUNTAIN:
+			return "Mountain";
+		case OCEAN:
+			return "Ocean";
+		case PLAINS:
+			return "Plains";
+		case SEA:
+			return "Sea";
+		case UNGENERATED:
+			return "!!INVALID!!";
+		default:
+			return "!!INVALID!!";
+		
+		}
 	}
 
 	@Override
