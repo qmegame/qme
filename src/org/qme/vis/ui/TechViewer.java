@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.util.ArrayList;
 
 import org.qme.main.GlobalState;
 import org.qme.main.QApplication;
@@ -51,17 +50,12 @@ public class TechViewer extends QObject implements QRenderable, UIComponent {
 
 	@Override
 	public void mouseClickOn() {
+		// NONFUNCTIONAL
 		if (GlobalConstants.TOOLTIPS) {
-			@SuppressWarnings("serial")
-			ArrayList<String> info = new ArrayList<>() {{
-				this.add("Prerequisite: " + tech.parent.getName());
-			}};
-			new Tooltip(this,
-				backgroundRect.x + TECH_VIEW_WIDTH  / 2,
-				backgroundRect.y + TECH_VIEW_HEIGHT / 2,
-				application,
-				info
-			);
+			BottomViewBar.viewBar.color = BottomViewBar.TECH_COLOR;
+			BottomViewBar.viewBar.leftString = "Tech: " + tech.getName();
+			BottomViewBar.viewBar.middleString = "Parent: " + tech.parent.getName();
+			BottomViewBar.viewBar.rightString = "Cost: 0"; // TODO TODO TODO
 		}
 	}
 
