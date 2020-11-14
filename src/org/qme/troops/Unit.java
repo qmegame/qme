@@ -42,6 +42,7 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 		super(app);
 		
 		tileOn = tile;
+		tile.occupier = this;
 		
 		attack = a;
 		defense = d;
