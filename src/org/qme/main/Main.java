@@ -25,7 +25,6 @@ import static org.qme.util.GlobalConstants.SCREEN_WIDTH;
 import static org.qme.util.GlobalConstants.SQUASH_FACTOR;
 import static org.qme.util.GlobalConstants.TOOLTIPS;
 import org.qme.vis.QDebug;
-import org.qme.vis.QGameInfo;
 import org.qme.vis.tex.TroopTextureManager;
 import org.qme.vis.ui.BottomViewBar;
 
