@@ -35,7 +35,7 @@ public class GlobalConstants {
 	/**
 	 * How fast the user "scrolls".
 	 */
-	public static final int SCROLL_SPEED = 20;
+	public static int SCROLL_SPEED = 20;
 	
 	/**
 	 * The default width of the screen generated.

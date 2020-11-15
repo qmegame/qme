@@ -22,6 +22,7 @@ import org.qme.menus.TechViewMenu;
 import static org.qme.util.GlobalConstants.FRAMERATE;
 import static org.qme.util.GlobalConstants.SCREEN_HEIGHT;
 import static org.qme.util.GlobalConstants.SCREEN_WIDTH;
+import static org.qme.util.GlobalConstants.SCROLL_SPEED;
 import static org.qme.util.GlobalConstants.SQUASH_FACTOR;
 import static org.qme.util.GlobalConstants.TOOLTIPS;
 import org.qme.vis.QDebug;
@@ -98,6 +99,7 @@ public class Main {
 		try {
 			TOOLTIPS = (PreferencesFile.getPreference("tooltips").equals("true"));
 			SQUASH_FACTOR = ((int) (Float.parseFloat(PreferencesFile.getPreference("squash")) / 20));
+			SCROLL_SPEED =  Integer.parseInt(PreferencesFile.getPreference("scroll_speed"));
 		} catch (Exception e1) {
 			displayError("Oops", true);
 		}

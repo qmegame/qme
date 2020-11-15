@@ -39,6 +39,7 @@ public final class PreferencesFile {
 	private static HashMap<String, String> DEFAULT_PREFS = new HashMap<>() {{
 		put("squash", "40");
 		put("tooltips", "true");
+		put("scroll_speed", "20");
 	}};
 	
 	// Do this always, because ... yeah
