@@ -1,6 +1,7 @@
 package org.qme.world;
 
 import org.qme.main.QApplication;
+import org.qme.world.gen.SettlementGen;
 import org.qme.world.gen.WorldGenNeo;
 import org.qme.world.gen.WorldGenRandom;
 import org.qme.world.gen.WorldGenSquigglyBlob;
@@ -8,6 +9,7 @@ import org.qme.world.gen.WorldGenSquigglyBlob;
 /**
  * Represents a 2D array of tiles
  * @author adamhutchings
+ * @author S-Mackenzie1678
  * @since pre0
  */
 public class World {
@@ -56,6 +58,7 @@ public class World {
 			}
 		}
 		
+		SettlementGen.settlementGive(this);
 	}
 
 }

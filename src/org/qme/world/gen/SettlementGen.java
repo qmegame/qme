@@ -9,8 +9,14 @@ import org.qme.world.Tile;
 import org.qme.world.TileType;
 import org.qme.world.World;
 
+/**
+ * Generates settlement
+ * CURSED!
+ * @author santiago
+ * @since pre5
+ */
 public class SettlementGen {
-	private int settlementProbabilityModifier(Tile tile) {
+	private static int settlementProbabilityModifier(Tile tile) {
 		if(tile.getType() == TileType.OCEAN) {
 			return 10000;
 		}
@@ -35,21 +41,20 @@ public class SettlementGen {
 		return 2100000000;
 	}
 	
-	public World settlementGive(World world) {
-		World s = world;
+	public static void settlementGive(World world) {
 		ArrayList<PoliticalEntity> civs = world.tiles[0][0].application.game.civilizations;
-		for(int w = 0; w < world.tiles[0].length; w++) {	
+		for(int w = 0; w < civs.size(); w++) {	
 			while(civs.get(w).capital == null) {
 				for(int i = 0; i < world.xDimension; i++) {
 					for(int j = 0; j < world.yDimension; j++) {
 						Random rand = new Random();
 						if(rand.nextInt(17) == 0) {
 							if(rand.nextInt(settlementProbabilityModifier(world.tiles[i][j])) == 0) {
-								Settlement newCity = new Settlement(s.tiles[i][j].application, s.tiles[i][j], civs.get(w));
-								s.tiles[i][j].structure = newCity;
+								Settlement newCity = new Settlement(world.tiles[i][j].application, world.tiles[i][j], civs.get(w));
+								world.tiles[i][j].structure = newCity;
 								civs.get(w).capital = newCity;
 								civs.get(w).superior = null;
-								civs.get(w).territory.add(0, s.tiles[i][j]);
+								civs.get(w).territory.add(0, world.tiles[i][j]);
 								civs.get(w).ownedCities.add(0, newCity);
 							}
 						}
@@ -57,7 +62,5 @@ public class SettlementGen {
 				}
 			}
 		}
-		
-		return s;
 	}
 }
