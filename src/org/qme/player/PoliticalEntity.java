@@ -29,9 +29,9 @@ public class PoliticalEntity {
 	
 	public String name;
 	
-	ArrayList<Tile> territory = new ArrayList<>();
+	public ArrayList<Tile> territory = new ArrayList<>();
 	
-	ArrayList<Settlement> ownedCities = new ArrayList<>();
+	public ArrayList<Settlement> ownedCities = new ArrayList<>();
 	
 	ArrayList<Unit> troops = new ArrayList<>();
 	
