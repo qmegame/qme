@@ -78,3 +78,11 @@ Notes for pre4:
   - Users with old `qdata/preferences.txt` may see some strange errors. Please change the squash line to `squash: 40`.
   - A resource folder is needed to run the game now. It contains a music file and some troop textures.
   - The ZIP file for download is available in the discord server.
+  
+Changelog for pre5:
+  - Removed old tooltips and replaced it with a bar system
+  - Added city backend and generation (no frontend!)
+  - Scroll speed is now adjustable!
+Notes for pre5:
+  - Our artists had a slight hiccup, so nothing is there for resources.
+  - Delete your preferences.txt file before trying to run this. We'll make this better later.
