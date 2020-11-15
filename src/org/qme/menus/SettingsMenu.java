@@ -5,8 +5,8 @@ import org.qme.main.GlobalState;
 import static org.qme.main.Main.displayError;
 import static org.qme.main.Main.tooltipString;
 import org.qme.main.QApplication;
-import static org.qme.util.GlobalConstants.SCREEN_HEIGHT;
 import static org.qme.util.GlobalConstants.SCREEN_WIDTH;
+import static org.qme.util.GlobalConstants.SCROLL_SPEED;
 import static org.qme.util.GlobalConstants.SQUASH_FACTOR;
 import static org.qme.util.GlobalConstants.TOOLTIPS;
 
@@ -26,7 +26,7 @@ public class SettingsMenu {
 	public static void makeMenu(QApplication app) {
 		
 		// Get back from settings
-		new QButton(app, SCREEN_WIDTH / 2, SCREEN_HEIGHT - 100, "Back") {
+		new QButton(app, SCREEN_WIDTH / 2, 400, "Back") {
 
 			@Override
 			public void mouseClickOff() {
@@ -69,7 +69,7 @@ public class SettingsMenu {
 		};
 		
 		// Adjust squash
-		new QButton(app, SCREEN_WIDTH / 2, 300, "Change Squash") {
+		new QButton(app, SCREEN_WIDTH / 2, 200, "Change Squash") {
 			
 			@Override
 			public void mouseClickOff() {
@@ -131,7 +131,7 @@ public class SettingsMenu {
 				
 			    box.setMessageType(JOptionPane.QUESTION_MESSAGE);
 			    box.setOptionType(JOptionPane.OK_CANCEL_OPTION);
-			    JDialog dialog = box.createDialog(app.qiscreen, "My Slider");
+			    JDialog dialog = box.createDialog(app.qiscreen, "Squash Factor");
 			    dialog.setVisible(true);
 			    
 				
@@ -142,6 +142,80 @@ public class SettingsMenu {
 				return GlobalState.SETTINGS_MENU;
 			}
 			
+		};
+		
+		// Scroll speed! WHEEEE!
+		new QButton(app, SCREEN_WIDTH / 2, 300, "Scroll speed") {
+
+			@Override
+			public void mouseClickOff() {
+				
+				// Create a JOptionPane
+				JOptionPane box = new JOptionPane();
+				
+				// Create our little slider (internal numbers are squash * 20)
+				JSlider slider = null;
+				try {
+					slider = new JSlider(15, 35,
+							/* default value read from prefs */ Integer.parseInt(PreferencesFile.getPreference("scroll_speed"))
+					);
+				} catch (Exception e) {
+					displayError("Error reading from preferences file in scroll speed adjustment", true);
+				}
+				
+				slider.setMajorTickSpacing(5);
+				slider.setMinorTickSpacing(1);
+				slider.setPaintTicks(true);
+				
+				// Custom labels
+				Hashtable<Integer, JLabel> labels = new Hashtable<Integer, JLabel>();
+				labels.put(15, new JLabel("1.5"));
+				labels.put(20, new JLabel("2"));
+				labels.put(25, new JLabel("2.5"));
+				labels.put(30, new JLabel("3"));
+				labels.put(35, new JLabel("3.5"));
+				
+				slider.setLabelTable(labels);
+				slider.setPaintLabels(true);
+				
+				slider.addChangeListener(
+					new ChangeListener() {
+
+						@Override
+						public void stateChanged(ChangeEvent e) {
+							
+							JSlider src = (JSlider) (e.getSource());
+							
+							// Write the selected value
+							if (!src.getValueIsAdjusting()) {
+								try {
+									PreferencesFile.setPreference("scroll_speed", Integer.toString(src.getValue()));
+								} catch (Exception e1) {
+									e1.printStackTrace();
+									displayError("Error writing to preferences file in scroll speed adjustment", true);
+								}
+							}
+							
+							SCROLL_SPEED = src.getValue();
+							
+						}
+						
+					}
+				);
+				
+				box.setMessage(new Object[] {"Set scroll speed: ", slider});
+				
+			    box.setMessageType(JOptionPane.QUESTION_MESSAGE);
+			    box.setOptionType(JOptionPane.OK_CANCEL_OPTION);
+			    JDialog dialog = box.createDialog(app.qiscreen, "Scroll Speed");
+			    dialog.setVisible(true);
+			}
+
+
+			@Override
+			public GlobalState getActiveState() {
+				return GlobalState.SETTINGS_MENU;
+			}
 		};
 		
 	}
