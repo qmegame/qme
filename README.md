@@ -83,6 +83,7 @@ Changelog for pre5:
   - Removed old tooltips and replaced it with a bar system
   - Added city backend and generation (no frontend!)
   - Scroll speed is now adjustable!
+
 Notes for pre5:
   - Our artists had a slight hiccup, so nothing is there for resources.
   - Delete your preferences.txt file before trying to run this. We'll make this better later.
