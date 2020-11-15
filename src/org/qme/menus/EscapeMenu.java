@@ -43,7 +43,7 @@ public class EscapeMenu {
 		};
 		
 		// Get to settings
-		new QButton(app, SCREEN_WIDTH - 75, 25, "Settings") {
+		new QButton(app, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "Settings") {
 
 			@Override
 			public void mouseClickOff() {
