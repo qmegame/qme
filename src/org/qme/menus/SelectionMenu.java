@@ -133,16 +133,16 @@ public class SelectionMenu {
 				app.setState(GlobalState.MAIN_GAME);
 				
 				// ----- TEST ----- //
-				new Archer      (app, app.world.tiles[0][0]);
-				new Catapult    (app, app.world.tiles[0][1]);
-				new Chariots    (app, app.world.tiles[0][2]);
-				new HorseArcher (app, app.world.tiles[0][3]);
-				new Legionnaire (app, app.world.tiles[0][4]);
-				new LightCavalry(app, app.world.tiles[0][5]);
-				new Scout       (app, app.world.tiles[0][6]);
-				new ShieldBearer(app, app.world.tiles[0][7]);
-				new Spearman    (app, app.world.tiles[0][8]);
-				new Swordsman   (app, app.world.tiles[0][9]);
+				new Archer      (app, app.world.tiles[0][0]).owner = app.game.civilizations.get(0);
+				new Catapult    (app, app.world.tiles[0][1]).owner = app.game.civilizations.get(0);
+				new Chariots    (app, app.world.tiles[0][2]).owner = app.game.civilizations.get(0);
+				new HorseArcher (app, app.world.tiles[0][3]).owner = app.game.civilizations.get(0);
+				new Legionnaire (app, app.world.tiles[0][4]).owner = app.game.civilizations.get(0);
+				new LightCavalry(app, app.world.tiles[0][5]).owner = app.game.civilizations.get(0);
+				new Scout       (app, app.world.tiles[0][6]).owner = app.game.civilizations.get(0);
+				new ShieldBearer(app, app.world.tiles[0][7]).owner = app.game.civilizations.get(0);
+				new Spearman    (app, app.world.tiles[0][8]).owner = app.game.civilizations.get(0);
+				new Swordsman   (app, app.world.tiles[0][9]).owner = app.game.civilizations.get(0);
 				
 			}
 			

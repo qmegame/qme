@@ -25,8 +25,8 @@ import static org.qme.util.GlobalConstants.SCREEN_WIDTH;
 import static org.qme.util.GlobalConstants.SQUASH_FACTOR;
 import static org.qme.util.GlobalConstants.TOOLTIPS;
 import org.qme.vis.QDebug;
-import org.qme.vis.QGameInfo;
 import org.qme.vis.tex.TroopTextureManager;
+import org.qme.vis.ui.BottomViewBar;
 
 /**
  * Holds the main method and the FRAMERATE constant.
@@ -117,9 +117,9 @@ public class Main {
 			GameMenu.makeMenu(app);
 			TechViewMenu.makeMenu(app);
 			
-			new QDebug(app, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 15);
+			BottomViewBar.registerViewBar(app);
 			
-			new QGameInfo(app);
+			new QDebug(app, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 15);
 		
 			// Main loop time
 			while (true) {

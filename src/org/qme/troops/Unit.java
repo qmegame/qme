@@ -42,6 +42,7 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 		super(app);
 		
 		tileOn = tile;
+		tile.occupier = this;
 		
 		attack = a;
 		defense = d;
@@ -264,6 +265,34 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
     	g.setColor(HEALTH_COLOR); // Color for health
     	UIUtils.drawCenteredString(g, Integer.toString((int) getHealth()), healthRect, UIUtils.QME_FONT);
     	
+    }
+    
+    public String getName() {
+    	switch (type) {
+		case ARCHER:
+			return "Archer";
+		case CATAPULT:
+			return "Catapult";
+		case CHARIOTS:
+			return "Chariots";
+		case HORSE_ARCHER:
+			return "Horse Archer";
+		case LEGIONNAIRE:
+			return "Legionnaire";
+		case LIGHT_CAVALRY:
+			return "Light Cavalry";
+		case SCOUT:
+			return "Scout";
+		case SHIELD_BEARER:
+			return "Shield Bearer";
+		case SPEARMAN:
+			return "Spearman";
+		case SWORDSMAN:
+			return "Swordsman";
+		default:
+			return "!!INVALID!!";
+    	
+    	}
     }
 
     @Override

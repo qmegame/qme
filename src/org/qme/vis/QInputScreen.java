@@ -14,7 +14,10 @@ import org.qme.main.QObject;
 import static org.qme.util.GlobalConstants.SCREEN_WIDTH;
 import static org.qme.util.GlobalConstants.SCREEN_HEIGHT;
 import static org.qme.util.GlobalConstants.SCROLL_SPEED;
+
+import org.qme.vis.ui.BottomViewBar;
 import org.qme.vis.ui.UIComponent;
+import org.qme.world.Tile;
 
 /**
  * This class represents a screen. The main function is to handle input,
@@ -167,6 +170,31 @@ public class QInputScreen extends JFrame implements KeyListener {
 		case KeyEvent.VK_T:
 			if (app.getState() == GlobalState.MAIN_GAME) app.setState(GlobalState.TECH_TREE_VIEW);
 			break;
+			
+		case KeyEvent.VK_G:
+			
+			// Toggle view to tile
+			
+			// Get tile
+			Tile toggleOn = app.getHighlightedTile();
+			
+			if (toggleOn == null) {
+				break;
+			}
+			
+			if (!toggleOn.tooltipViewsUnit) {
+				if (toggleOn.occupier != null) {
+					BottomViewBar.viewBar.leftString = toggleOn.occupier.getName();
+					BottomViewBar.viewBar.middleString = "Owner: " + toggleOn.occupier.owner.name;
+					BottomViewBar.viewBar.rightString = "H: " + (int) toggleOn.occupier.getHealth() +
+						"    A: "  + (int) toggleOn.occupier.getAttack() +
+						"    D: " +  (int) toggleOn.occupier.getDefense();
+				}
+				toggleOn.tooltipViewsUnit = true;
+			} else {
+				// This is pretty hacky but whatever
+				toggleOn.setTooltip();
+			}
 			
 		}
 		
