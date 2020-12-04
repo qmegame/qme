@@ -31,4 +31,4 @@
 .
 .
 
-[Tile (x-1)(y-1)]: [resource]
+[Tile (x-1)(y-1)+(y-1)]: [resource]

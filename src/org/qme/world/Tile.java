@@ -36,7 +36,7 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 	public int x, y;
 	
 	// Type
-	private TileType type;
+	public TileType type;
 	
 	//
 	public Unit occupier;

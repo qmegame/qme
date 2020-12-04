@@ -67,19 +67,19 @@ public abstract class Unit extends QObject implements QRenderable, UIComponent {
 	
 	protected BufferedImage texture;
 	
-	private boolean actionable = true;	// Whether or not a unit can do stuff (aka it's dead)
+	public boolean actionable = true;	// Whether or not a unit can do stuff (aka it's dead)
 	
 	public Tile tileOn;
 	public int morale = 0;
 	public UnitType type;
 	public PoliticalEntity owner;
 	
-	private double attack;
-	private double defense;
-	private double health;
-	private double movement;
-	private int attacks;
-	private int range;
+	public double attack;
+	public double defense;
+	public double health;
+	public double movement;
+	public int attacks;
+	public int range;
 	
 	public double getAttack() { return this.attack; }
 	public double getDefense() { return this.defense; }
