@@ -8,6 +8,7 @@ import java.util.Random;
 import org.qme.main.GlobalState;
 import org.qme.main.QApplication;
 import org.qme.main.QObject;
+import org.qme.structure.Settlement;
 import org.qme.structure.Structure;
 import static org.qme.util.GlobalConstants.SQUASH_FACTOR;
 import static org.qme.util.GlobalConstants.TILE_SIZE;
@@ -41,6 +42,8 @@ public class Tile extends QObject implements QRenderable, UIComponent {
 	public Unit occupier;
 	
 	public Structure structure;
+	
+	public Settlement settlement;
 	
 	// Resources fun time
 	public String resource = "";

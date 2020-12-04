@@ -1,0 +1,34 @@
+[xDimension]
+[yDimension]
+
+[Tile 0]: [x]
+[Tile 0]: [y]
+[Tile 0]: [type]
+[Tile 0]: [Unit]: [actionable]
+[Tile 0]: [Unit]: [morale]
+[Tile 0]: [Unit]: [UnitType]
+[Tile 0]: [Unit]: (playerindex)
+[Tile 0]: [Unit]: [attack]
+[Tile 0]: [Unit]: [defense]
+[Tile 0]: [Unit]: [health]
+[Tile 0]: [Unit]: [movement]
+[Tile 0]: [Unit]: [attacks]
+[Tile 0]: [Unit]: [range]
+[Tile 0]: [Unit]: [currentAttack]
+[Tile 0]: [Unit]: [currentDefense]
+[Tile 0]: [Unit]: [currentHealth]
+[Tile 0]: [Unit]: [currentMovement]
+[Tile 0]: [Unit]: [currentAttacks]
+[Tile 0]: [Unit]: [currentRange]
+[Tile 0]: [Settlement]: (playerindex)
+[Tile 0]: [Settlement]: [population]
+[Tile 0]: [Settlement]: [maxPopulation]
+[Tile 0]: [Settlement]: [happiness]
+[Tile 0]: [Settlement]: [crime]
+[Tile 0]: [resource]
+
+.
+.
+.
+
+[Tile (x-1)(y-1)]: [resource]
