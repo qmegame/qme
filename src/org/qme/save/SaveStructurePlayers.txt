@@ -1,0 +1,10 @@
+[Player 0]: (index)
+[Player 0]: [name]
+[Player 0]: (index of superior)
+[Player 0]: (x of capital)
+[Player 0]: (y of capital)
+
+.
+.
+.
+[Player n]: (y of capital)

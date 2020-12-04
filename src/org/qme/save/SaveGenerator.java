@@ -10,7 +10,25 @@ import org.qme.player.PoliticalEntity;
 import org.qme.structure.Settlement;
 
 public class SaveGenerator {
-	public void generateWorldSave(File file, QApplication app) throws IOException{
+	
+	public void generateSave(File worldSave, File playerSave, QApplication app) {
+		try {
+			SaveGenerator.generateWorldSave(worldSave, app);
+			SaveGenerator.generatePlayerSave(playerSave, app);
+		} catch(IOException e) {
+			Main.displayError("Saving has gone wrong. Try trying again with different names", false);
+		}
+	}
+	
+	/**
+	 * This makes the file for the world save
+	 * @author S-Mackenzie1678
+	 * @since pre6
+	 * @param file
+	 * @param app
+	 * @throws IOException
+	 */
+	public static void generateWorldSave(File file, QApplication app) throws IOException{
 		file.createNewFile();
 		FileWriter save = new FileWriter(file);
 		
@@ -62,6 +80,34 @@ public class SaveGenerator {
 				
 				save.write(app.world.tiles[i][j].resource + "\n");
 			}
+		}
+	}
+	
+	/**
+	 * This makes the file for the player save
+	 * @author S-Mackenzie1678
+	 * @since pre6
+	 * @param file
+	 * @param app
+	 * @throws IOException
+	 */
+	public static void generatePlayerSave(File file, QApplication app) throws IOException{
+		file.createNewFile();
+		FileWriter save = new FileWriter(file);
+		
+		for(int i = 0; i < app.game.civilizations.size(); i++) {
+			save.write(new Integer(i).toString() + "\n");
+			
+			save.write(app.game.civilizations.get(i).name + "\n");
+			
+			if(app.game.civilizations.get(i).superior == null) {
+				save.write("\n");
+			} else {
+				save.write(new Integer(app.game.civilizations.get(i).superior.index).toString() + "\n");
+			}
+			
+			save.write(new Integer(app.game.civilizations.get(i).capital.tile.x).toString() + "\n");
+			save.write(new Integer(app.game.civilizations.get(i).capital.tile.y).toString() + "\n");
 		}
 	}
 }
