@@ -16,7 +16,13 @@ import org.qme.world.TileType;
 import org.qme.world.World;
 
 public class SaveReader {
-	
+	/**
+	 * @author S-Mackenzie1678
+	 * @since pre6
+	 * @param worldSave
+	 * @param playerSave
+	 * @return Literally the entire game lol
+	 */
 	private QApplication generateGame(File worldSave, File playerSave) {
 		try {
 			Scanner readWorld = new Scanner(worldSave);
