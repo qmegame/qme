@@ -21,6 +21,8 @@ import org.qme.world.TileType;
  */
 public class PoliticalEntity {
 	
+	public int index; // Where it is in the array of players. Needed for saving the game
+	
 	ArrayList<PoliticalEntity> subordinates = new ArrayList<>();
 	
 	public PoliticalEntity superior;
@@ -35,7 +37,7 @@ public class PoliticalEntity {
 	
 	ArrayList<Unit> troops = new ArrayList<>();
 	
-	private void addTroop(Unit troop) {
+	public void addTroop(Unit troop) {
 		this.troops.add(troop);
 		troop.owner = this;
 	}
