@@ -37,7 +37,7 @@ public class PoliticalEntity {
 	
 	ArrayList<Unit> troops = new ArrayList<>();
 	
-	private void addTroop(Unit troop) {
+	public void addTroop(Unit troop) {
 		this.troops.add(troop);
 		troop.owner = this;
 	}

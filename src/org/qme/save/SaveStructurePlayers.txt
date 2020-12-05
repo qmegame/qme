@@ -3,6 +3,12 @@
 [Player 0]: (index of superior)
 [Player 0]: (x of capital)
 [Player 0]: (y of capital)
+[Player 0]: [science]
+[Player 0]: [production
+[Player 0]: [gold]
+[Player 0]: [growth]
+[Player 0]: [happiness]
+[Player 0]: [ai]
 
 .
 .

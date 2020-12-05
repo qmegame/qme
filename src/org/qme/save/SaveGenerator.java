@@ -108,6 +108,12 @@ public class SaveGenerator {
 			
 			save.write(new Integer(app.game.civilizations.get(i).capital.tile.x).toString() + "\n");
 			save.write(new Integer(app.game.civilizations.get(i).capital.tile.y).toString() + "\n");
+			save.write(new Double(app.game.civilizations.get(i).science).toString() + "\n");
+			save.write(new Double(app.game.civilizations.get(i).production).toString() + "\n");
+			save.write(new Double(app.game.civilizations.get(i).gold).toString() + "\n");
+			save.write(new Double(app.game.civilizations.get(i).growth).toString() + "\n");
+			save.write(new Double(app.game.civilizations.get(i).happiness).toString() + "\n");
+			save.write(new Boolean(app.game.civilizations.get(i).ai).toString() + "\n");
 		}
 	}
 }
