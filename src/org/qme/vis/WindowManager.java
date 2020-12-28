@@ -8,6 +8,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
+import org.qme.client.Request;
 
 /**
  * Manages the sole window handle used with GLFW / OpenGL , and provides ways to
@@ -79,18 +80,26 @@ public final class WindowManager {
 	 * If the window is not about to close
 	 * @return whether the window is going to stay open
 	 */
-	public static boolean open() {
+	private static boolean open() {
 		return !glfwWindowShouldClose(wn);
 	}
 	
 	/**
-	 * Redraw the screen.
+	 * Redraw the screen. If the window should close, send a request to the
+	 * application so it can close.
 	 */
 	public static void repaint() {
+		
+		if (!open()) {
+			Request.addRequest(new Request(Request.RequestType.EXIT));
+			return;
+		}
+		
 		glClearColor(0.5f, 0.5f, 0.5f, 0.0f);
 		glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		glfwSwapBuffers(wn);
 		glfwPollEvents();
+		
 	}
 
 }
