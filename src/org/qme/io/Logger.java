@@ -17,15 +17,19 @@ public class Logger {
 	 * the severity, and a message
 	 * @author santiago
 	 * @since preA
-	 * @param message
-	 * @param severity
+	 * @param message The custom message to be logged
+	 * @param severity An estimation of the severity of the error
 	 * @return void
 	 * @throws IOException
 	 */
-	public static void log(String message, Severity severity) throws IOException {
+	public static void log(String message, Severity severity) {
 		// Creates file if not created
 		final File logs = new File("qdata/logs.txt");
-		logs.createNewFile();
+		try {
+			logs.createNewFile();
+		} catch(IOException e) {
+			Logger.log("Error generating or accessing log file.", Severity.ERROR);
+		}
 		
 		// String to be written
 		String error = "";
@@ -51,8 +55,12 @@ public class Logger {
 		error += "\"";
 		
 		// Write to file
-		final FileWriter write = new FileWriter(logs);
-		write.write(error);
-		write.close();
+		try {
+			final FileWriter write = new FileWriter(logs);
+			write.write(error);
+			write.close();
+		} catch(IOException e) {
+			Logger.log("Error writing to error log.", Severity.WARNING);
+		}
 	}
 }
