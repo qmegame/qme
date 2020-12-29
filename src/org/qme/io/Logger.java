@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+import javax.swing.JOptionPane;
+
 /**
  * A class to log things wanting to be logged to "qdata/logs.txt"
  * @author santiago
@@ -28,7 +30,10 @@ public class Logger {
 		try {
 			logs.createNewFile();
 		} catch(IOException e) {
-			Logger.log("Error generating or accessing log file.", Severity.ERROR);
+			JOptionPane.showMessageDialog(null,
+					"Error writing errors to log. Fatal. "
+					+ "Possible cause: insufficient permissions.");
+			System.exit(-1);
 		}
 		
 		// String to be written
@@ -60,7 +65,7 @@ public class Logger {
 			write.write(error);
 			write.close();
 		} catch(IOException e) {
-			Logger.log("Error writing to error log.", Severity.WARNING);
+			JOptionPane.showMessageDialog(null, "Error writing errors; nonfatal.");
 		}
 	}
 }
