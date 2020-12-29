@@ -65,7 +65,7 @@ public class Logger {
 			write.write(error);
 			write.close();
 		} catch(IOException e) {
-			JOptionPane.showMessageDialog(null, "Error writing errors; nonfatal.");
+			JOptionPane.showMessageDialog(null, "Error writing errors. Nonfatal.");
 		}
 	}
 }
