@@ -1,6 +1,6 @@
 package org.qme;
 
-import org.qme.vis.WindowManager;
+import org.qme.client.Application;
 
 /**
  * Holds the main method to launch the application.
@@ -14,10 +14,7 @@ public class Main {
 	 * @param args unused command-line arguments
 	 */
 	public static void main(String[] args) {
-		while (WindowManager.open()) {
-			WindowManager.repaint();
-		}
-		
+		Application.app.mainloop();
 	}
 
 }
