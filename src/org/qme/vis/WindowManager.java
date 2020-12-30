@@ -5,6 +5,7 @@ import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.glClearColor;
 import static org.lwjgl.system.MemoryUtil.*;
 
+import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
@@ -74,6 +75,25 @@ public final class WindowManager {
 		glfwShowWindow(wn);
 		GL.createCapabilities();
 		
+		glfwSetKeyCallback(wn, new GLFWKeyCallback() {
+
+			@Override
+			public void invoke(
+					long window,
+					int glfwKeyCode,
+					int systemScancode,
+					int keyAction,
+					int modifierKeys)
+			// Sorry for having the opening bracket on its own line here.
+			{
+				// Simple wrapper.
+				onKeyPress(
+					window, glfwKeyCode, systemScancode, keyAction, modifierKeys
+				);
+			}
+			
+		});
+		
 	}
 	
 	/**
@@ -100,6 +120,24 @@ public final class WindowManager {
 		glfwSwapBuffers(wn);
 		glfwPollEvents();
 		
+	}
+	
+	/**
+	 * The function that gets called when a key is pressed.
+	 * @param window the window handle (should be redundant)
+	 * @param glfwKeyCode which key was pressed
+	 * @param systemScancode system-specific scancode (unused)
+	 * @param keyAction pressed down, released, etc.
+	 * @param modifierKeys which keys were held (shift, ctrl, alt, caps lock)
+	 */
+	private static void onKeyPress(
+			long window,
+			int glfwKeyCode,
+			int systemScancode,
+			int keyAction,
+			int modifierKeys)
+	{
+		// Nothing needed yet
 	}
 
 }
