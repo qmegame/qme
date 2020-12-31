@@ -10,6 +10,14 @@ import java.util.Random;
  * @since preA
  */
 public class WorldGenerator {
+	
+	/**
+	 * The function that generates the map for a game
+	 * @author santiago
+	 * @since preA
+	 * @param side The length of a side of the map
+	 * @return The kinds of tiles on the map
+	 */
 	public TileType[][] generateWorldMap(int side) {
 		
 		// Generate blank world
@@ -28,15 +36,6 @@ public class WorldGenerator {
 			int j = rand.nextInt(side);
 			world = WorldGenerator.addContinent(world, side, i, j);
 		}
-			//TODO: Give continent mountain range:
-				// 75% chance that it'll have a mountain range
-				// 25% chance that it'll have none
-				//TODO: Pick random tile that borders center tile and make it mountain
-				//TODO: Continue until the a mountain borders an ocean or sea
-			//TODO: Give continent river:
-				// 75% chance 1 river
-				//TODO: Pick random non-mountain tile that borders center: make it river
-				//TODO: Continue until river touches ocean.
 		
 		// Make coastal oceans into seas
 		world = WorldGenerator.oceanToSea(world, side);
@@ -46,7 +45,7 @@ public class WorldGenerator {
 	}
 	
 	/**
-	 * Utility function to create oceans
+	 * A utility function to create oceans
 	 * Mainly used to free up i and j variable names
 	 * @author santiago
 	 * @since preA
@@ -69,6 +68,16 @@ public class WorldGenerator {
 		return wet;
 	}
 	
+	/**
+	 * A utility function to generate and add a continent
+	 * @author santiago
+	 * @since preA
+	 * @param world The array to be modified
+	 * @param side The size of the world
+	 * @param centerX The center of the contnient
+	 * @param centerY The center of the continent
+	 * @return The inputted array with a continent added
+	 */
 	private static TileType[][] addContinent(TileType[][] world,
 			int side, int centerX, int centerY) {
 		
@@ -200,10 +209,6 @@ public class WorldGenerator {
 			}
 		}
 		
-		// Find continent's height and length
-		final int continentL = rightmost - leftmost + 1;
-		final int continentH = downmost - upmost + 1;
-		
 		// Expand continents into "squares"
 		for(int k = leftmost; k <= rightmost; k++) {
 			for(int l = upmost; l <= downmost; l++) {
@@ -237,5 +242,277 @@ public class WorldGenerator {
 			newWorld = WorldGenerator.addRiver(newWorld, leftmost, upmost,
 					rightmost, downmost);
 		}
+		
+		// Return the world plus continent
+		return newWorld;
+	}
+	
+	/**
+	 * A utility function to generate a mountain range on a continent
+	 * @author santiago
+	 * @since preA
+	 * @param world A non-mountainous, flat expanse
+	 * @param leftBound The left extreme of the continent
+	 * @param upBound The up extreme of the continent
+	 * @param rightBound The right extreme of the continent
+	 * @param downBound The down extreme of the continent
+	 * @return A world with a continent with a mountain range
+	 */
+	private static TileType[][] addMountain(TileType[][] world, int leftBound,
+			int upBound, int rightBound, int downBound) {
+		
+		// Create output
+		TileType[][] mountainWorld = world;
+		
+		// Set random start for range
+		Random rand = new Random();
+		final int startX = rand.nextInt(rightBound - leftBound + 1) + leftBound;
+		final int startY = rand.nextInt(downBound - upBound + 1) + upBound;
+		
+		// Make starting tile mountainous
+		if(rand.nextInt(3) < 2) {
+			mountainWorld[startX][startY] = TileType.MOUNTAIN;
+		} else {
+			mountainWorld[startX][startY] = TileType.HIGH_MOUNTAIN;
+		}
+		
+		// Detect lead of mountain
+		int headX = startX;
+		int headY = startY;
+		
+		// Extend to the sea
+		int infiniteLoopAvoid = 0;
+		while(!WorldGenerator.touchesOcean(mountainWorld, headX, headY) &&
+				infiniteLoopAvoid < 1000) {
+			
+			// Get direction to extend
+			int nextDirection = rand.nextInt(4);
+			
+			// Extend mountain range
+			if(nextDirection == 0) {
+				if(mountainWorld[headX - 1][headY] == TileType.MOUNTAIN ||
+						mountainWorld[headX - 1][headY] == TileType.HIGH_MOUNTAIN) {
+					headX--;
+				} else {
+					if(rand.nextInt(3) < 2) {
+						mountainWorld[headX - 1][headY] = TileType.MOUNTAIN;
+					} else {
+						mountainWorld[headX - 1][headY] = TileType.HIGH_MOUNTAIN;
+					}
+					headX--;
+				}
+			} else if(nextDirection == 1) {
+				if(mountainWorld[headX][headY - 1] == TileType.MOUNTAIN ||
+						mountainWorld[headX][headY - 1] == TileType.HIGH_MOUNTAIN) {
+					headY--;
+				} else {
+					if(rand.nextInt(3) < 2) {
+						mountainWorld[headX][headY - 1] = TileType.MOUNTAIN;
+					} else {
+						mountainWorld[headX][headY - 1] = TileType.HIGH_MOUNTAIN;
+					}
+					headY--;
+				}
+			} else if(nextDirection == 2) {
+				if(mountainWorld[headX + 1][headY] == TileType.MOUNTAIN ||
+						mountainWorld[headX + 1][headY] == TileType.HIGH_MOUNTAIN) {
+					headX++;
+				} else {
+					if(rand.nextInt(3) < 2) {
+						mountainWorld[headX + 1][headY] = TileType.MOUNTAIN;
+					} else {
+						mountainWorld[headX + 1][headY] = TileType.HIGH_MOUNTAIN;
+					}
+					headX++;
+				}
+			} else {
+				if(mountainWorld[headX][headY + 1] == TileType.MOUNTAIN ||
+						mountainWorld[headX][headY + 1] == TileType.HIGH_MOUNTAIN) {
+					headY++;
+				} else {
+					if(rand.nextInt(3) < 2) {
+						mountainWorld[headX][headY + 1] = TileType.MOUNTAIN;
+					} else {
+						mountainWorld[headX][headY + 1] = TileType.HIGH_MOUNTAIN;
+					}
+					headY++;
+				}
+			}
+			
+			// Break infinite loops
+			infiniteLoopAvoid++;
+		}
+		
+		// Return
+		return mountainWorld;
+	}
+	
+	/**
+	 * A utility function to check if a tile touches an ocean
+	 * @author santiago
+	 * @since preA
+	 * @param world The world
+	 * @param x The tile's x
+	 * @param y The tile's y
+	 * @return Whether or not the tile touches an ocean
+	 */
+	private static boolean touchesOcean(TileType[][] world, int x, int y) {
+		if(world[x - 1][y] == TileType.OCEAN) {
+			return true;
+		}
+		if(world[x][y - 1] == TileType.OCEAN) {
+			return true;
+		}
+		if(world[x + 1][y] == TileType.OCEAN) {
+			return true;
+		}
+		if(world[x][y + 1] == TileType.OCEAN) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * A utility function that generates a river on a continent
+	 * @author santiago
+	 * @since preA
+	 * @param world The riverless world
+	 * @param leftBound The left extreme of the continent
+	 * @param upBound The up extreme of the continent
+	 * @param rightBound The right extreme of the continent
+	 * @param downBound The down extreme of the continent
+	 * @return A world with a continent with a river
+	 */
+	private static TileType[][] addRiver(TileType[][] world, int leftBound,
+			int upBound, int rightBound, int downBound) {
+		
+		// Create output
+		TileType[][] flowingWorld = world;
+		
+		// Set random start for range
+		Random rand = new Random();
+		final int startX = rand.nextInt(rightBound - leftBound + 1) + leftBound;
+		final int startY = rand.nextInt(downBound - upBound + 1) + upBound;
+		
+		// Set starting tile
+		flowingWorld[startX][startY] = TileType.OCEAN;
+		
+		// Detect river's downstream
+		int headX = startX;
+		int headY = startY;
+		
+		// Extend to the ocean (or theoretically a looping river (but that's cool))
+		int infiniteLoopAvoid = 0;
+		while(!WorldGenerator.touchesTwoOceans(flowingWorld, headX, headY) &&
+				infiniteLoopAvoid < 1000) {
+			
+			// Get extend direction
+			int nextDirection = rand.nextInt(4);
+			
+			// Extend river
+			if(nextDirection == 0) {
+				flowingWorld[headX - 1][headY] = TileType.OCEAN;
+				headX--;
+			} else if(nextDirection == 1) {
+				flowingWorld[headX][headY - 1] = TileType.OCEAN;
+				headY--;
+			} else if(nextDirection == 2) {
+				flowingWorld[headX + 1][headY] = TileType.OCEAN;
+				headX++;
+			} else {
+				flowingWorld[headX][headY + 1] = TileType.OCEAN;
+				headY++;
+			}
+			
+			// Break infinite loops
+			infiniteLoopAvoid++;
+		}
+		
+		// Return
+		return flowingWorld;
+	}
+	
+	/**
+	 * A utility function that checks whether a tile touches ocean on two sides
+	 * @author santiago
+	 * @since preA
+	 * @param world The world with the tile
+	 * @param x The tile to be checked
+	 * @param y The tile to be checked
+	 * @return True or false: it touches two ocean tiles
+	 */
+	private static boolean touchesTwoOceans(TileType[][] world, int x, int y) {
+		
+		// Set up count
+		int oceansTouched = 0;
+		
+		// Count
+		if(world[x - 1][y] == TileType.OCEAN) {
+			oceansTouched++;
+		} else if(world[x][y - 1] == TileType.OCEAN) {
+			oceansTouched++;
+		} else if(world[x + 1][y] == TileType.OCEAN) {
+			oceansTouched++;
+		} else if(world[x][y + 1] == TileType.OCEAN) {
+			oceansTouched++;
+		}
+		
+		// Return
+		return oceansTouched >= 2;
+	}
+	
+	/**
+	 * A utility function to turn all ocean tiles that touch land into sea tiles
+	 * @author santiago
+	 * @since preA
+	 * @param world The world in which all ocean tiles will be cheched
+	 * @param side The length of the world's sides
+	 * @return The world but with sea tiles surrounding the land
+	 */
+	private static TileType[][] oceanToSea(TileType[][] world, int side) {
+		
+		// Set up return
+		TileType[][] shallowWorld = world;
+		
+		// Check tiles
+		for(int i = 1; i < side - 1; i++) {
+			// Without starting at 1 and ending early, there'd be Out of Bounds
+			for(int j = 1; j < side - 1; j++) {
+				if(shallowWorld[i][j] == TileType.OCEAN) {
+					if(WorldGenerator.touchesLand(shallowWorld, i, j)) {
+						shallowWorld[i][j] = TileType.SEA;
+					}
+				}
+			}
+		}
+		
+		// Return
+		return shallowWorld;
+	}
+	
+	/**
+	 * A utility function to determine if a tile touches land
+	 * @author santiago
+	 * @since preA
+	 * @param world The world with no continental shelves
+	 * @param x The tile to be checked
+	 * @param y The tile to be checked
+	 * @return A world with nice continental shelves
+	 */
+	private static boolean touchesLand(TileType[][] world, int x, int y) {
+		if(world[x - 1][y] != TileType.OCEAN && world[x - 1][y] != TileType.SEA) {
+			return true;
+		}
+		if(world[x][y - 1] != TileType.OCEAN && world[x][y - 1] != TileType.SEA) {
+			return true;
+		}
+		if(world[x + 1][y] != TileType.OCEAN && world[x + 1][y] != TileType.SEA) {
+			return true;
+		}
+		if(world[x][y + 1] != TileType.OCEAN && world[x][y + 1] != TileType.SEA) {
+			return true;
+		}
+		return false;
 	}
 }
