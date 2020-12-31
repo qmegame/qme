@@ -5,6 +5,9 @@ import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.glClearColor;
 import static org.lwjgl.system.MemoryUtil.*;
 
+import java.util.ArrayList;
+
+import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
@@ -42,6 +45,11 @@ public final class WindowManager {
 	private static long wn;
 	
 	/**
+	 * The size of the window.
+	 */
+	private static int size;
+	
+	/**
 	 * The ratio between window height / monitor height
 	 */
 	private static final float SCREEN_SIZE = 0.75f;
@@ -65,7 +73,7 @@ public final class WindowManager {
 		
 		// In case something weird happens with the primary monitor, get the
 		// size of the monitor one time
-		int size = windowSize();
+		size = windowSize();
 		
 		wn = glfwCreateWindow(size, size, "QME", NULL, NULL);
 		
@@ -73,6 +81,30 @@ public final class WindowManager {
 		glfwMakeContextCurrent(wn);
 		glfwShowWindow(wn);
 		GL.createCapabilities();
+		
+		glfwSetKeyCallback(wn, new GLFWKeyCallback() {
+
+			@Override
+			public void invoke(
+					long window,
+					int glfwKeyCode,
+					int systemScancode,
+					int keyAction,
+					int modifierKeys)
+			// Sorry for having the opening bracket on its own line here.
+			{
+				// Simple wrapper.
+				onKeyPress(
+					window, glfwKeyCode, systemScancode, keyAction, modifierKeys
+				);
+			}
+			
+		});
+		
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+	    GL11.glLoadIdentity();
+	    GL11.glOrtho(0, size, 0, size, 1, -1);
+	    GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		
 	}
 	
@@ -87,8 +119,9 @@ public final class WindowManager {
 	/**
 	 * Redraw the screen. If the window should close, send a request to the
 	 * application so it can close.
+	 * @param input the renderables to draw
 	 */
-	public static void repaint() {
+	public static void repaint(ArrayList<Renderable> input) {
 		
 		if (!open()) {
 			Request.addRequest(new Request(Request.RequestType.EXIT));
@@ -96,10 +129,41 @@ public final class WindowManager {
 		}
 		
 		glClearColor(0.5f, 0.5f, 0.5f, 0.0f);
-		glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		glClear(GL11.GL_COLOR_BUFFER_BIT);
+		
+		for (Renderable e : input) {
+			e.draw();
+		}
+		
 		glfwSwapBuffers(wn);
 		glfwPollEvents();
 		
+	}
+	
+	/**
+	 * The function that gets called when a key is pressed.
+	 * @param window the window handle (should be redundant)
+	 * @param glfwKeyCode which key was pressed
+	 * @param systemScancode system-specific scancode (unused)
+	 * @param keyAction pressed down, released, etc.
+	 * @param modifierKeys which keys were held (shift, ctrl, alt, caps lock)
+	 */
+	private static void onKeyPress(
+			long window,
+			int glfwKeyCode,
+			int systemScancode,
+			int keyAction,
+			int modifierKeys)
+	{
+		// Nothing needed yet
+	}
+	
+	/**
+	 * Get the size of the window
+	 * @return the size
+	 */
+	public static int size() {
+		return size;
 	}
 
 }
