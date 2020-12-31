@@ -5,6 +5,8 @@ import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.glClearColor;
 import static org.lwjgl.system.MemoryUtil.*;
 
+import java.util.ArrayList;
+
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
@@ -107,8 +109,9 @@ public final class WindowManager {
 	/**
 	 * Redraw the screen. If the window should close, send a request to the
 	 * application so it can close.
+	 * @param input the renderables to draw
 	 */
-	public static void repaint() {
+	public static void repaint(ArrayList<Renderable> input) {
 		
 		if (!open()) {
 			Request.addRequest(new Request(Request.RequestType.EXIT));
@@ -117,6 +120,11 @@ public final class WindowManager {
 		
 		glClearColor(0.5f, 0.5f, 0.5f, 0.0f);
 		glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		
+		for (Renderable e : input) {
+			e.draw();
+		}
+		
 		glfwSwapBuffers(wn);
 		glfwPollEvents();
 		
