@@ -44,7 +44,7 @@ public final class RenderUtil {
 	}
 	
 	/**
-	 * Usage as a render coordinate, from -1.0f to 0.0f in both directions.
+	 * Usage as a render coordinate, from -1.0f to 1.0f in both directions.
 	 * @author adamhutchings
 	 * @since preA
 	 */
