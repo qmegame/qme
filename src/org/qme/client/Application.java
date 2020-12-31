@@ -1,6 +1,10 @@
 package org.qme.client;
 
+import java.util.ArrayList;
+
+import org.qme.vis.Renderable;
 import org.qme.vis.WindowManager;
+import org.qme.world.Tile;
 
 /**
  * The "controller", so to speak, of all events. It also helps to validate
@@ -13,6 +17,12 @@ import org.qme.vis.WindowManager;
  * @since preA
  */
 public final class Application {
+	
+	/**
+	 * All objects that can be rendered.
+	 */
+	private final ArrayList<Renderable> renderables
+		= new ArrayList<>();
 	
 	/**
 	 * The constructor is private. Only one instance allowed.
@@ -31,6 +41,8 @@ public final class Application {
 	 */
 	public void mainloop() {
 		
+		new Tile(0, 0);
+		
 		while (true) {
 		
 			// Handle all requests
@@ -41,10 +53,8 @@ public final class Application {
 					return;
 				}
 			}
-			
-			// TODO - State updating
 		
-			WindowManager.repaint();
+			WindowManager.repaint(renderables);
 		
 		}
 		
@@ -62,6 +72,14 @@ public final class Application {
 			return false;
 		}
 		return true;
+	}
+	
+	/**
+	 * Add an object to the list.
+	 * @param r the object to render
+	 */
+	public void addObject(Renderable r) {
+		renderables.add(r);
 	}
 
 }
