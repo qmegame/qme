@@ -45,6 +45,11 @@ public final class WindowManager {
 	private static long wn;
 	
 	/**
+	 * The size of the window.
+	 */
+	private static int size;
+	
+	/**
 	 * The ratio between window height / monitor height
 	 */
 	private static final float SCREEN_SIZE = 0.75f;
@@ -68,7 +73,7 @@ public final class WindowManager {
 		
 		// In case something weird happens with the primary monitor, get the
 		// size of the monitor one time
-		int size = windowSize();
+		size = windowSize();
 		
 		wn = glfwCreateWindow(size, size, "QME", NULL, NULL);
 		
@@ -96,6 +101,11 @@ public final class WindowManager {
 			
 		});
 		
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+	    GL11.glLoadIdentity();
+	    GL11.glOrtho(0, size, 0, size, 1, -1);
+	    GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		
 	}
 	
 	/**
@@ -119,7 +129,7 @@ public final class WindowManager {
 		}
 		
 		glClearColor(0.5f, 0.5f, 0.5f, 0.0f);
-		glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		glClear(GL11.GL_COLOR_BUFFER_BIT);
 		
 		for (Renderable e : input) {
 			e.draw();
@@ -146,6 +156,14 @@ public final class WindowManager {
 			int modifierKeys)
 	{
 		// Nothing needed yet
+	}
+	
+	/**
+	 * Get the size of the window
+	 * @return the size
+	 */
+	public static int size() {
+		return size;
 	}
 
 }
