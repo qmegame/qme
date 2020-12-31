@@ -1,7 +1,11 @@
 package org.qme.world;
 
+import static org.lwjgl.opengl.GL11.*;
+
 import org.qme.client.Application;
 import org.qme.vis.Renderable;
+import org.qme.vis.Renderer;
+import org.qme.vis.WindowManager;
 
 /**
  * Represents a single tile in the world. As with other objects, rendering and
@@ -38,7 +42,12 @@ public class Tile implements Renderable {
 	 */
 	@Override
 	public void draw() {
-		// Nothing
+		glColor4f(0.0f, 0.0f, 0.0f, 0.0f);
+		Renderer.renderQuad(
+			WindowManager.size() / 2,
+			WindowManager.size() / 2,
+			200
+		);
 	}
 
 }
