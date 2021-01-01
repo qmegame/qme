@@ -1,7 +1,6 @@
 package org.qme.client;
 
 import org.qme.vis.WindowManager;
-import org.qme.world.World;
 
 /**
  * The "controller", so to speak, of all events. It also helps to validate
@@ -31,8 +30,6 @@ public final class Application {
 	 * Run the application forever (or until an exit request is sent)
 	 */
 	public void mainloop() {
-		
-		new World();
 		
 		while (true) {
 		
