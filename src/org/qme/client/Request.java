@@ -43,7 +43,6 @@ public class Request {
 	 */
 	public static enum RequestType {
 		EXIT,
-		GENERATE_NEW_WORLD,
 	}
 	
 	/**
