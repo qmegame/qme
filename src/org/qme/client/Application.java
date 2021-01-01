@@ -81,5 +81,13 @@ public final class Application {
 	public void addObject(Renderable r) {
 		renderables.add(r);
 	}
+	
+	/**
+	 * Remove an object from the list permanently.
+	 * @param r the object to remove
+	 */
+	public void removeObject(Renderable r) {
+		renderables.remove(r);
+	}
 
 }
