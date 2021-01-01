@@ -88,16 +88,7 @@ public class WorldGenerator {
 		TileType[][] newWorld = world;
 		
 		// Assign center tile to a random non-mountain land type
-		int centerType = rand.nextInt(7);
-		if(centerType == 0 || centerType == 4) {
-			newWorld[centerX][centerY] = TileType.PLAINS;
-		} else if(centerType == 1 || centerType == 5) {
-			newWorld[centerX][centerY] = TileType.FOREST;
-		} else if(centerType == 2 || centerType == 6) {
-			newWorld[centerX][centerY] = TileType.DESERT;
-		} else {
-			newWorld[centerX][centerY] = TileType.FERTILE_PLAINS;
-		}
+		newWorld[centerX][centerY] = WorldGenerator.assignRandomFlatLand();
 		
 		// Set up extreme points with most extreme values
 		int leftmost = 0;
@@ -110,16 +101,8 @@ public class WorldGenerator {
 			if(newWorld[centerX - i][centerY] == TileType.OCEAN) {
 				final double chance = 1 - i * Math.sqrt(22 / 3);
 				if(rand.nextInt(10000) < Math.ceil(10000 * chance)) {
-					int leftType = rand.nextInt(7);
-					if(leftType == 0 || leftType == 4) {
-						newWorld[centerX - i][centerY] = TileType.PLAINS;
-					} else if(leftType == 1 || leftType == 5) {
-						newWorld[centerX - i][centerY] = TileType.FOREST;
-					} else if(leftType == 2 || leftType == 6) {
-						newWorld[centerX - i][centerY] = TileType.DESERT;
-					} else {
-						newWorld[centerX - i][centerY] = TileType.FERTILE_PLAINS;
-					}
+					newWorld[centerX - 1][centerY] =
+							WorldGenerator.assignRandomFlatLand();
 				} else {
 					i--;
 					
@@ -136,16 +119,8 @@ public class WorldGenerator {
 			if(newWorld[centerX][centerY - j] == TileType.OCEAN) {
 				final double chance = 1 - j * Math.sqrt(22 / 3);
 				if(rand.nextInt(10000) < Math.ceil(10000 * chance)) {
-					int upType = rand.nextInt(7);
-					if(upType == 0 || upType == 4) {
-						newWorld[centerX][centerY - j] = TileType.PLAINS;
-					} else if(upType == 1 || upType == 5) {
-						newWorld[centerX][centerY - j] = TileType.FOREST;
-					} else if(upType == 2 || upType == 6) {
-						newWorld[centerX][centerY - j] = TileType.DESERT;
-					} else {
-						newWorld[centerX][centerY - j] = TileType.FERTILE_PLAINS;
-					}
+					newWorld[centerX][centerY - j] =
+							WorldGenerator.assignRandomFlatLand();
 				} else {
 					j--;
 					
@@ -162,16 +137,8 @@ public class WorldGenerator {
 			if(newWorld[centerX + ii][centerY] == TileType.OCEAN) {
 				final double chance = 1 - ii * Math.sqrt(22 / 3);
 				if(rand.nextInt(10000) < Math.ceil(10000 * chance)) {
-					int rightType = rand.nextInt(7);
-					if(rightType == 0 || rightType == 4) {
-						newWorld[centerX + ii][centerY] = TileType.PLAINS;
-					} else if(rightType == 1 || rightType == 5) {
-						newWorld[centerX + ii][centerY] = TileType.FOREST;
-					} else if(rightType == 2 || rightType == 6) {
-						newWorld[centerX + ii][centerY] = TileType.DESERT;
-					} else {
-						newWorld[centerX + ii][centerY] = TileType.FERTILE_PLAINS;
-					}
+					newWorld[centerX + ii][centerY] =
+							WorldGenerator.assignRandomFlatLand();
 				} else {
 					ii--;
 					
@@ -188,16 +155,8 @@ public class WorldGenerator {
 			if(newWorld[centerX][centerY + jj] == TileType.OCEAN) {
 				final double chance = 1 - jj * Math.sqrt(22 / 3);
 				if(rand.nextInt(10000) < Math.ceil(10000 * chance)) {
-					int rightType = rand.nextInt(7);
-					if(rightType == 0 || rightType == 4) {
-						newWorld[centerX][centerY + jj] = TileType.PLAINS;
-					} else if(rightType == 1 || rightType == 5) {
-						newWorld[centerX][centerY + jj] = TileType.FOREST;
-					} else if(rightType == 2 || rightType == 6) {
-						newWorld[centerX][centerY + jj] = TileType.DESERT;
-					} else {
-						newWorld[centerX][centerY + jj] = TileType.FERTILE_PLAINS;
-					}
+					newWorld[centerX][centerY + jj] =
+							WorldGenerator.assignRandomFlatLand();
 				} else {
 					jj--;
 					
@@ -216,16 +175,7 @@ public class WorldGenerator {
 					final int distance = Math.abs(centerX - k) + Math.abs(centerY - l);
 					final double chance = 1 - distance * Math.sqrt(22 / 3);
 					if(rand.nextInt(10000) < Math.ceil(10000 * chance)) {
-						int type = rand.nextInt(7);
-						if(type == 0 || type == 4) {
-							newWorld[k][l] = TileType.PLAINS;
-						} else if(type == 1 || type == 5) {
-							newWorld[k][l] = TileType.FOREST;
-						} else if(type == 2 || type == 6) {
-							newWorld[k][l] = TileType.DESERT;
-						} else {
-							newWorld[k][l] = TileType.FERTILE_PLAINS;
-						}
+						newWorld[k][l] = WorldGenerator.assignRandomFlatLand();
 					}
 				}
 			}
@@ -514,5 +464,25 @@ public class WorldGenerator {
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * A function that is used to assign a random non-mountain, non-water tile
+	 * @author santiago
+	 * @since preA
+	 * @return A random non-mountain, non-water tile
+	 */
+	private static TileType assignRandomFlatLand() {
+		Random rand = new Random();
+		int type = rand.nextInt(7);
+		if(type == 0 || type == 4) {
+			return TileType.FERTILE_PLAINS;
+		} else if(type == 1 || type == 5) {
+			return TileType.DESERT;
+		} else if(type == 2 || type == 6) {
+			return TileType.FOREST;
+		} else {
+			return TileType.FERTILE_PLAINS;
+		}
 	}
 }
