@@ -32,33 +32,11 @@ public final class Application {
 	public void mainloop() {
 		
 		while (WindowManager.shouldClose()) {
-		
-			// Handle all requests
-			Request request;
-			while ( (request = Request.takeRequest()) != null ) {
-				if (!this.handleRequest(request))  {
-					// The game should exit now
-					return;
-				}
-			}
 			
 			WindowManager.repaint();
 		
 		}
 		
-	}
-	
-	/**
-	 * Handle a single given request, while also returning whether the game
-	 * should keep running.
-	 * @param request the request to handle
-	 * @return whether the game should keep running
-	 */
-	private boolean handleRequest(Request request) {
-		switch (request.type()) {
-			// Nothing needed here
-		}
-		return true;
 	}
 
 }
