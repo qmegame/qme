@@ -5,6 +5,7 @@ import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.glClearColor;
 import static org.lwjgl.system.MemoryUtil.*;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 import org.lwjgl.glfw.GLFWKeyCallback;
@@ -48,6 +49,21 @@ public final class WindowManager {
 	 * The size of the window.
 	 */
 	private static int size;
+	
+	/**
+	 * The x-offset from normal
+	 */
+	private static int xOffset = 0;
+	
+	/**
+	 * The y-offset from normal
+	 */
+	private static int yOffset = 0;
+	
+	/**
+	 * How fast this works
+	 */
+	private static final int scrollSpeed = 20;
 	
 	/**
 	 * The ratio between window height / monitor height
@@ -155,7 +171,43 @@ public final class WindowManager {
 			int keyAction,
 			int modifierKeys)
 	{
-		// Nothing needed yet
+		switch (glfwKeyCode) {
+		
+		// Scroll
+		case GLFW_KEY_A:
+		case GLFW_KEY_S:
+		case GLFW_KEY_D:
+		case GLFW_KEY_W:
+			doScroll(glfwKeyCode);
+			break;
+		
+		}
+	}
+	
+	/**
+	 * Scroll based on a key code
+	 * @param keycode the code (WASD)
+	 */
+	private static void doScroll(int keycode) {
+		
+		switch (keycode) {
+		
+		case GLFW_KEY_A:
+			xOffset -= scrollSpeed;
+			break;
+		case GLFW_KEY_S:
+			yOffset -= scrollSpeed;
+			break;
+		case GLFW_KEY_D:
+			xOffset += scrollSpeed;
+			break;
+		case GLFW_KEY_W:
+			yOffset += scrollSpeed;
+			break;
+		default:;
+		
+		}
+		
 	}
 	
 	/**
@@ -164,6 +216,14 @@ public final class WindowManager {
 	 */
 	public static int size() {
 		return size;
+	}
+	
+	/**
+	 * Get the offset, for use in calculating rendering routines
+	 * @return the offset in a Java AWT dimension
+	 */
+	public static Dimension getOffsets() {
+		return new Dimension(xOffset, yOffset);
 	}
 
 }
