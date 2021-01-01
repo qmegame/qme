@@ -34,6 +34,11 @@ public class Logger {
 					"Error writing errors to log. Fatal. "
 					+ "Possible cause: insufficient permissions.");
 			System.exit(-1);
+		} catch(SecurityException f) {
+			JOptionPane.showMessageDialog(null,
+					"Error writing errors to log. Fatal. "
+					+ "Possible cause: insufficient permissions.");
+			System.exit(-1);
 		}
 		
 		// String to be written
@@ -49,7 +54,7 @@ public class Logger {
 		error += " - ";
 		
 		// Append severity
-		error += severity.toString();
+		error += severity.name();
 		
 		// Append formatting
 		error += ": ";
@@ -60,8 +65,21 @@ public class Logger {
 		error += "\"";
 		
 		// Write to file
+		FileWriter write = null;
 		try {
-			final FileWriter write = new FileWriter(logs);
+			write = new FileWriter(logs, true);
+		} catch(IOException e) {
+			JOptionPane.showMessageDialog(null,
+					"Error writing errors to log. Fatal. "
+					+ "Possible cause: insufficient permissions.");
+			System.exit(-1);
+		} catch(SecurityException f) {
+			JOptionPane.showMessageDialog(null,
+					"Error writing errors to log. Fatal. "
+					+ "Possible cause: insufficient permissions.");
+			System.exit(-1);
+		}
+		try {
 			write.write(error);
 			write.close();
 		} catch(IOException e) {
