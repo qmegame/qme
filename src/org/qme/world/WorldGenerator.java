@@ -18,7 +18,7 @@ public class WorldGenerator {
 	 * @param side The length of a side of the map
 	 * @return The kinds of tiles on the map
 	 */
-	public TileType[][] generateWorldMap(int side) {
+	public static TileType[][] generateWorldMap(int side) {
 		
 		// Generate blank world
 		TileType[][] world = new TileType[side][side];
