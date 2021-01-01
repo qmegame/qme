@@ -1,10 +1,7 @@
 package org.qme.client;
 
-import java.util.ArrayList;
-
-import org.qme.vis.Renderable;
 import org.qme.vis.WindowManager;
-import org.qme.world.Tile;
+import org.qme.world.World;
 
 /**
  * The "controller", so to speak, of all events. It also helps to validate
@@ -17,12 +14,6 @@ import org.qme.world.Tile;
  * @since preA
  */
 public final class Application {
-	
-	/**
-	 * All objects that can be rendered.
-	 */
-	private final ArrayList<Renderable> renderables
-		= new ArrayList<>();
 	
 	/**
 	 * The constructor is private. Only one instance allowed.
@@ -41,7 +32,7 @@ public final class Application {
 	 */
 	public void mainloop() {
 		
-		new Tile(0, 0);
+		new World();
 		
 		while (true) {
 		
@@ -54,7 +45,7 @@ public final class Application {
 				}
 			}
 		
-			WindowManager.repaint(renderables);
+			WindowManager.repaint();
 		
 		}
 		
@@ -72,22 +63,6 @@ public final class Application {
 			return false;
 		}
 		return true;
-	}
-	
-	/**
-	 * Add an object to the list.
-	 * @param r the object to render
-	 */
-	public void addObject(Renderable r) {
-		renderables.add(r);
-	}
-	
-	/**
-	 * Remove an object from the list permanently.
-	 * @param r the object to remove
-	 */
-	public void removeObject(Renderable r) {
-		renderables.remove(r);
 	}
 
 }
