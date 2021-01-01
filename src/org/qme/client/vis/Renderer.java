@@ -1,4 +1,4 @@
-package org.qme.vis;
+package org.qme.client.vis;
 
 import static org.lwjgl.opengl.GL11.*;
 
