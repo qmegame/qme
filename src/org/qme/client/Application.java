@@ -66,7 +66,7 @@ public final class Application {
 	 * @param request the request to handle
 	 * @return whether the game should keep running
 	 */
-	public boolean handleRequest(Request request) {
+	private boolean handleRequest(Request request) {
 		switch (request.type()) {
 		case EXIT:
 			return false;
