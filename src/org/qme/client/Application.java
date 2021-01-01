@@ -1,6 +1,6 @@
 package org.qme.client;
 
-import org.qme.vis.WindowManager;
+import org.qme.world.World;
 
 /**
  * The "controller", so to speak, of all events. It also helps to validate
@@ -15,10 +15,20 @@ import org.qme.vis.WindowManager;
 public final class Application {
 	
 	/**
+	 * The client instance.
+	 */
+	private final Client client;
+	
+	/**
+	 * What world is showing - could be null if there's no world.
+	 */
+	private World world;
+	
+	/**
 	 * The constructor is private. Only one instance allowed.
 	 */
 	private Application() {
-		
+		client = new Client();
 	}
 	
 	/**
@@ -41,8 +51,8 @@ public final class Application {
 					return;
 				}
 			}
-		
-			WindowManager.repaint();
+			
+			client.render();
 		
 		}
 		
@@ -58,8 +68,19 @@ public final class Application {
 		switch (request.type()) {
 		case EXIT:
 			return false;
+		case GENERATE_NEW_WORLD:
+			this.world = new World();
+			break;
 		}
 		return true;
+	}
+	
+	/**
+	 * Whether a world exists.
+	 * @return the status
+	 */
+	public boolean worldExists() {
+		return this.world != null;
 	}
 
 }
