@@ -11,6 +11,7 @@ import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
+import org.qme.client.Application;
 import org.qme.client.Request;
 
 /**
@@ -145,6 +146,10 @@ public final class WindowManager {
 		
 		glClearColor(0.5f, 0.5f, 0.5f, 0.0f);
 		glClear(GL11.GL_COLOR_BUFFER_BIT);
+		
+		for (Renderable e : Application.app.getRenderables()) {
+			e.draw();
+		}
 		
 		glfwSwapBuffers(wn);
 		glfwPollEvents();

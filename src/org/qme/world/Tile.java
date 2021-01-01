@@ -1,5 +1,8 @@
 package org.qme.world;
 
+import org.qme.client.vis.RenderMaster;
+import org.qme.client.vis.Renderable;
+
 /**
  * Represents a single tile in the world. As with other objects, rendering and
  * bounds detection code will not be in this class, and rather with other
@@ -7,7 +10,7 @@ package org.qme.world;
  * @author adamhutchings
  * @since preA
  */
-public class Tile {
+public class Tile implements Renderable {
 	
 	/**
 	 * The x coordinate of the tile.
@@ -30,6 +33,14 @@ public class Tile {
 		this.x = x;
 		this.y = y;
 		this.type = type;
+	}
+
+	/**
+	 * Wrapper from RenderMaster
+	 */
+	@Override
+	public void draw() {
+		RenderMaster.drawTile(this);
 	}
 
 }

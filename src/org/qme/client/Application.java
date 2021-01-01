@@ -1,5 +1,9 @@
 package org.qme.client;
 
+import java.util.ArrayList;
+
+import org.qme.client.vis.Renderable;
+import org.qme.world.Tile;
 import org.qme.world.World;
 
 /**
@@ -70,6 +74,10 @@ public final class Application {
 			return false;
 		case GENERATE_NEW_WORLD:
 			this.world = new World();
+			for (Tile[] strip : this.world.getTiles()) {
+				// Register all tiles
+				this.client.registerDrawables(strip);
+			}
 			break;
 		}
 		return true;
@@ -81,6 +89,22 @@ public final class Application {
 	 */
 	public boolean worldExists() {
 		return this.world != null;
+	}
+	
+	/**
+	 * Get all tiles (wrapper)
+	 * @return all tiles
+	 */
+	public Tile[][] getWorldTiles() {
+		return this.world.getTiles();
+	}
+	
+	/**
+	 * Get all objects to render. Wrapper method.
+	 * @return the objects
+	 */
+	public ArrayList<Renderable> getRenderables() {
+		return client.getRenderables();
 	}
 
 }
