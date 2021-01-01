@@ -17,6 +17,9 @@ public class World {
 	 */
 	private final Tile[][] tiles;
 	
+	/**
+	 * Create the world by initializing all tiles wiith appropriate types.
+	 */
 	public World() {
 		
 		tiles = new Tile[WORLD_SIZE][WORLD_SIZE];
