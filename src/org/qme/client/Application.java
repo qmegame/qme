@@ -2,6 +2,8 @@ package org.qme.client;
 
 import java.util.ArrayList;
 
+import org.qme.io.Logger;
+import org.qme.io.Severity;
 import org.qme.vis.Renderable;
 import org.qme.vis.WindowManager;
 import org.qme.world.Tile;
@@ -67,10 +69,18 @@ public final class Application {
 	 * @return whether the game should keep running
 	 */
 	private boolean handleRequest(Request request) {
+		Logger.log(
+				"Handling request of type: " + request.type().name()
+				, Severity.NORMAL
+		);
 		switch (request.type()) {
 		case EXIT:
 			return false;
 		}
+		Logger.log(
+				"Finished handling request without request to exit.",
+				Severity.NORMAL
+		);
 		return true;
 	}
 	
