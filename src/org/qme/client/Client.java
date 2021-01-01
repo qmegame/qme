@@ -1,7 +1,11 @@
 package org.qme.client;
 
+import java.util.ArrayList;
+
 import org.qme.client.Request.RequestType;
+import org.qme.client.vis.Renderable;
 import org.qme.client.vis.WindowManager;
+import org.qme.world.Tile;
 
 /**
  * Represents an instance of the client running the game. The game starting
@@ -11,6 +15,9 @@ import org.qme.client.vis.WindowManager;
  * @since preA
  */
 public final class Client {
+	
+	private final ArrayList<Renderable> renderables
+		= new ArrayList<>();
 	
 	/**
 	 * Initialize the window.
@@ -39,9 +46,32 @@ public final class Client {
 	public void drawAll() {
 		
 		if (Application.app.worldExists()) {
-			
+			Tile[][] tiles = Application.app.getWorldTiles();
+			for (Tile[] strip : tiles) {
+				for (Tile tile : strip) {
+					tile.draw();
+				}
+			}
 		}
 		
+	}
+	
+	/**
+	 * Register all objects.
+	 * @param renderables the objects
+	 */
+	public void registerDrawables(Renderable[] renderables) {
+		for (Renderable e : renderables) {
+			this.renderables.add(e);
+		}
+	}
+	
+	/**
+	 * Pass all objects to WindowManager to draw.
+	 * @return the objects to draw
+	 */
+	public ArrayList<Renderable> getRenderables() {
+		return renderables;
 	}
 
 }
