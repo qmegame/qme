@@ -42,7 +42,6 @@ public class Request {
 	 * @since preA
 	 */
 	public static enum RequestType {
-		EXIT,
 	}
 	
 	/**

@@ -31,7 +31,7 @@ public final class Application {
 	 */
 	public void mainloop() {
 		
-		while (true) {
+		while (WindowManager.shouldClose()) {
 		
 			// Handle all requests
 			Request request;
@@ -56,8 +56,7 @@ public final class Application {
 	 */
 	private boolean handleRequest(Request request) {
 		switch (request.type()) {
-		case EXIT:
-			return false;
+			// Nothing needed here
 		}
 		return true;
 	}
