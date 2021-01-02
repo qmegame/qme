@@ -6,6 +6,7 @@ import static org.lwjgl.opengl.GL11.glClearColor;
 import static org.lwjgl.system.MemoryUtil.*;
 
 import java.awt.Dimension;
+import java.nio.DoubleBuffer;
 
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -213,6 +214,16 @@ public final class WindowManager {
 	 */
 	public static Dimension getOffsets() {
 		return new Dimension(xOffset, yOffset);
+	}
+	
+	/**
+	 * Stuff a mouse location - GLFW wrapper
+	 * @param xWrap the x to stuff
+	 * @param yWrap the y to stuff
+	 */
+	public static void getMouseLocation(
+			DoubleBuffer xWrap, DoubleBuffer yWrap) {
+		glfwGetCursorPos(wn, xWrap, yWrap);
 	}
 
 }
