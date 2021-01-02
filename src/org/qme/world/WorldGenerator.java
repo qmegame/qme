@@ -3,6 +3,9 @@ package org.qme.world;
 import java.lang.Math;
 import java.util.Random;
 
+import org.qme.io.Logger;
+import org.qme.io.Severity;
+
 /**
  * The class that houses the generateWorldMap function
  * And also houses auxiliary functions that area called in that function
@@ -20,35 +23,35 @@ public class WorldGenerator {
 	 */
 	public static TileType[][] generateWorldMap(int side) {
 		
-		System.out.println("function called");
+		Logger.log("function called", Severity.NORMAL);
 		
 		// Generate blank world
 		TileType[][] world = new TileType[side][side];
 		
-		System.out.println("before ocean");
+		Logger.log("before ocean", Severity.NORMAL);
 		// Fill world with ocean
 		world = WorldGenerator.ocean(side);
-		System.out.println("after ocean");
+		Logger.log("after ocean", Severity.NORMAL);
 		
 		final int continents = (int) Math.ceil(side / 11);
 		// Continents should average 22/3 * side tiles rounded down
 		// Avg radius of continent is therefore sqrt(22/3 * side) / 2
 		
-		System.out.println("before continents");
+		Logger.log("before continents", Severity.NORMAL);
 		for(int continentCount = 0; continentCount < continents; continentCount++) {
 			Random rand = new Random();
 			int i = rand.nextInt(side);
 			int j = rand.nextInt(side);
-			System.out.println("before individual continent");
+			Logger.log("before individual continent", Severity.NORMAL);
 			world = WorldGenerator.addContinent(world, side, i, j);
 		}
 		
 		// Make coastal oceans into seas
-		System.out.println("before ocean to sea");
+		Logger.log("before ocean to sea", Severity.NORMAL);
 		world = WorldGenerator.oceanToSea(world, side);
 		
 		// Return generated (not yet) world
-		System.out.println("done");
+		Logger.log("done", Severity.NORMAL);
 		return world;
 	}
 	
@@ -64,7 +67,7 @@ public class WorldGenerator {
 		
 		// Make return blank world
 		TileType[][] wet = new TileType[parchedSide][parchedSide];
-		System.out.println("before each tile for loops");
+		Logger.log("before each tile for loops", Severity.NORMAL);
 		// Fill each tile with ocean
 		for(int i = 0; i < parchedSide; i++) {
 			for(int j = 0; j < parchedSide; j++) {
@@ -95,7 +98,7 @@ public class WorldGenerator {
 		// Set up return world
 		TileType[][] newWorld = world;
 		
-		System.out.println("assign center tile to random");
+		Logger.log("assign center tile to random", Severity.NORMAL);
 		// Assign center tile to a random non-mountain land type
 		newWorld[centerX][centerY] = WorldGenerator.assignRandomFlatLand();
 		
@@ -105,7 +108,7 @@ public class WorldGenerator {
 		int rightmost = side - 1;
 		int downmost = side - 1;
 		
-		System.out.println("before expand left");
+		Logger.log("before expand left", Severity.NORMAL);
 		// Expand left
 		for(int i = 1 /* helps with math*/ ; i <= centerX; i++) {
 			try {
@@ -128,7 +131,7 @@ public class WorldGenerator {
 			}
 		}
 		
-		System.out.println("before expand up");
+		Logger.log("before expand up", Severity.NORMAL);
 		// Expand up
 		for(int j = 1 /* helps with math*/ ; j <= centerY; j++) {
 			try {
@@ -151,7 +154,7 @@ public class WorldGenerator {
 			}
 		}
 		
-		System.out.println("before expand right");
+		Logger.log("before expand right", Severity.NORMAL);
 		// Expand right
 		for(int ii = 1 /* helps with math*/ ; ii < side; ii++) {
 			try {
@@ -174,7 +177,7 @@ public class WorldGenerator {
 			}
 		}
 		
-		System.out.println("before expand down");
+		Logger.log("before expand down", Severity.NORMAL);
 		// Expand down
 		for(int jj = 1 /* helps with math*/ ; jj < side; jj++) {
 			try {
@@ -197,7 +200,7 @@ public class WorldGenerator {
 			}
 		}
 		
-		System.out.println("before expand squares");
+		Logger.log("before expand squares", Severity.NORMAL);
 		// Expand continents into "squares"
 		for(int k = leftmost; k <= rightmost; k++) {
 			for(int l = upmost; l <= downmost; l++) {
@@ -211,21 +214,21 @@ public class WorldGenerator {
 			}
 		}
 		
-		System.out.println("before mountain");
+		Logger.log("before mountain", Severity.NORMAL);
 		// Add the continent's mountain range(s)
 		if(rand.nextInt(100) < 75) {
 			newWorld = WorldGenerator.addMountain(newWorld, leftmost, upmost,
 					rightmost, downmost);
 		}
 		
-		System.out.println("before river");
+		Logger.log("before river", Severity.NORMAL);
 		// Add the continent's river(s)
 		if(rand.nextInt(100) < 75) {
 			newWorld = WorldGenerator.addRiver(newWorld, leftmost, upmost,
 					rightmost, downmost);
 		}
 		
-		System.out.println("done with individual continent");
+		Logger.log("done with individual continent", Severity.NORMAL);
 		// Return the world plus continent
 		return newWorld;
 	}
@@ -252,7 +255,7 @@ public class WorldGenerator {
 		final int startX = rand.nextInt(rightBound - leftBound + 1) + leftBound;
 		final int startY = rand.nextInt(downBound - upBound + 1) + upBound;
 		
-		System.out.println("random start generated");
+		Logger.log("random start generated", Severity.NORMAL);
 		// Make starting tile mountainous
 		if(rand.nextInt(3) < 2) {
 			mountainWorld[startX][startY] = TileType.MOUNTAIN;
@@ -267,7 +270,7 @@ public class WorldGenerator {
 		// Make sure mountain can't double back
 		int previousDirection = rand.nextInt(4);
 		
-		System.out.println("before while loop");
+		Logger.log("before while loop", Severity.NORMAL);
 		// Extend to the sea
 		int infiniteLoopAvoid = 0;
 		while(!WorldGenerator.touchesOcean(mountainWorld, headX, headY) &&
@@ -278,13 +281,13 @@ public class WorldGenerator {
 			
 			// Ensure mountain range can't double back
 			if(nextDirection == previousDirection) {
-				System.out.println("next direction fix triggered; not fixed yet");
+				Logger.log("next direction fix triggered; not fixed yet", Severity.NORMAL);
 				nextDirection++;
 				nextDirection %= 4;
-				System.out.println("next direction double back avoided");
+				Logger.log("next direction double back avoided", Severity.NORMAL);
 			}
 			
-			System.out.println("expanding range");
+			Logger.log("expanding range", Severity.NORMAL);
 			// Extend mountain range
 			if(nextDirection == 0) {
 				if(mountainWorld[headX - 1][headY] == TileType.MOUNTAIN ||
@@ -390,7 +393,7 @@ public class WorldGenerator {
 	 */
 	private static TileType[][] addRiver(TileType[][] world, int leftBound,
 			int upBound, int rightBound, int downBound) {
-		System.out.println("create river started");
+		Logger.log("create river started", Severity.NORMAL);
 		// Create output
 		TileType[][] flowingWorld = world;
 		
@@ -405,7 +408,7 @@ public class WorldGenerator {
 		// Detect river's downstream
 		int headX = startX;
 		int headY = startY;
-		System.out.println("starting tile set, before while loop");
+		Logger.log("starting tile set, before while loop", Severity.NORMAL);
 		// Extend to the ocean (or theoretically a looping river (but that's cool))
 		int infiniteLoopAvoid = 0;
 		while(!WorldGenerator.touchesTwoOceans(flowingWorld, headX, headY) &&
@@ -413,7 +416,7 @@ public class WorldGenerator {
 			
 			// Get extend direction
 			int nextDirection = rand.nextInt(4);
-			System.out.println("extend river");
+			Logger.log("extend river", Severity.NORMAL);
 			// Extend river
 			try {
 				if(nextDirection == 0) {
@@ -436,7 +439,7 @@ public class WorldGenerator {
 			// Break infinite loops
 			infiniteLoopAvoid++;
 		}
-		System.out.println("river loop exited");
+		Logger.log("river loop exited", Severity.NORMAL);
 		// Return
 		return flowingWorld;
 	}
@@ -483,7 +486,7 @@ public class WorldGenerator {
 	 * @return The world but with sea tiles surrounding the land
 	 */
 	private static TileType[][] oceanToSea(TileType[][] world, int side) {
-		System.out.println("ocean to sea called");
+		Logger.log("ocean to sea called", Severity.NORMAL);
 		// Set up return
 		TileType[][] shallowWorld = world;
 		
@@ -498,7 +501,7 @@ public class WorldGenerator {
 				}
 			}
 		}
-		System.out.println("ocean to sea for loop finished");
+		Logger.log("Ocean to sea for loop finished", Severity.NORMAL);
 		// Return
 		return shallowWorld;
 	}
