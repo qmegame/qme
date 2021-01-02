@@ -1,11 +1,7 @@
 package org.qme.world;
 
-import static org.lwjgl.opengl.GL11.*;
-
-import org.qme.client.Application;
-import org.qme.vis.Renderable;
-import org.qme.vis.Renderer;
-import org.qme.vis.WindowManager;
+import org.qme.client.vis.RenderMaster;
+import org.qme.client.vis.Renderable;
 
 /**
  * Represents a single tile in the world. As with other objects, rendering and
@@ -26,28 +22,25 @@ public class Tile implements Renderable {
 	 */
 	public final int y;
 	
+	public final TileType type;
+	
 	/**
 	 * Constructor - initialize with coordinates
 	 * @param x the input x coordinate
 	 * @param y the input y coordinate
 	 */
-	public Tile(int x, int y) {
+	public Tile(int x, int y, TileType type) {
 		this.x = x;
 		this.y = y;
-		Application.app.addObject(this);
+		this.type = type;
 	}
 
 	/**
-	 * Draw a red square (for now)
+	 * Wrapper from RenderMaster
 	 */
 	@Override
 	public void draw() {
-		glColor4f(0.0f, 0.0f, 0.0f, 0.0f);
-		Renderer.renderQuad(
-			WindowManager.size() / 2,
-			WindowManager.size() / 2,
-			200
-		);
+		RenderMaster.drawTile(this);
 	}
 
 }

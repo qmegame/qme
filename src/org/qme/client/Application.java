@@ -1,10 +1,6 @@
 package org.qme.client;
 
-import java.util.ArrayList;
-
-import org.qme.vis.Renderable;
-import org.qme.vis.WindowManager;
-import org.qme.world.Tile;
+import org.qme.client.vis.WindowManager;
 
 /**
  * The "controller", so to speak, of all events. It also helps to validate
@@ -17,12 +13,6 @@ import org.qme.world.Tile;
  * @since preA
  */
 public final class Application {
-	
-	/**
-	 * All objects that can be rendered.
-	 */
-	private final ArrayList<Renderable> renderables
-		= new ArrayList<>();
 	
 	/**
 	 * The constructor is private. Only one instance allowed.
@@ -41,45 +31,12 @@ public final class Application {
 	 */
 	public void mainloop() {
 		
-		new Tile(0, 0);
-		
-		while (true) {
-		
-			// Handle all requests
-			Request request;
-			while ( (request = Request.takeRequest()) != null ) {
-				if (!this.handleRequest(request))  {
-					// The game should exit now
-					return;
-				}
-			}
-		
-			WindowManager.repaint(renderables);
+		while (WindowManager.shouldClose()) {
+			
+			WindowManager.repaint();
 		
 		}
 		
-	}
-	
-	/**
-	 * Handle a single given request, while also returning whether the game
-	 * should keep running.
-	 * @param request the request to handle
-	 * @return whether the game should keep running
-	 */
-	public boolean handleRequest(Request request) {
-		switch (request.type()) {
-		case EXIT:
-			return false;
-		}
-		return true;
-	}
-	
-	/**
-	 * Add an object to the list.
-	 * @param r the object to render
-	 */
-	public void addObject(Renderable r) {
-		renderables.add(r);
 	}
 
 }

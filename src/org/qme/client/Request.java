@@ -3,10 +3,10 @@ package org.qme.client;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
- * This represents a single request submitted to the application. The class also
+ * This represents a single request submitted to the game. The class also
  * contains the RequestType enum and the static queue that elements are placed
- * into and taken out of. Various components can submit requests however they
- * want, and every game loop the Application instance polls the queue and
+ * into and taken out of. Components should only submit requests when the game
+ * state is changed, so the game (whether local or remote) can handle it. It
  * handles each request in FIFO order. PLEASE subclass this (and make your own
  * RequestType for it), so much more information can be carried.
  * @author adamhutchings
@@ -42,7 +42,6 @@ public class Request {
 	 * @since preA
 	 */
 	public static enum RequestType {
-		EXIT,
 	}
 	
 	/**

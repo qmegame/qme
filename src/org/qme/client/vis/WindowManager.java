@@ -1,17 +1,16 @@
-package org.qme.vis;
+package org.qme.client.vis;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.glClearColor;
 import static org.lwjgl.system.MemoryUtil.*;
 
-import java.util.ArrayList;
+import java.awt.Dimension;
 
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
-import org.qme.client.Request;
 
 /**
  * Manages the sole window handle used with GLFW / OpenGL , and provides ways to
@@ -48,6 +47,21 @@ public final class WindowManager {
 	 * The size of the window.
 	 */
 	private static int size;
+	
+	/**
+	 * The x-offset from normal
+	 */
+	private static int xOffset = 0;
+	
+	/**
+	 * The y-offset from normal
+	 */
+	private static int yOffset = 0;
+	
+	/**
+	 * How fast this works
+	 */
+	private static final int scrollSpeed = 20;
 	
 	/**
 	 * The ratio between window height / monitor height
@@ -112,7 +126,7 @@ public final class WindowManager {
 	 * If the window is not about to close
 	 * @return whether the window is going to stay open
 	 */
-	private static boolean open() {
+	public static boolean shouldClose() {
 		return !glfwWindowShouldClose(wn);
 	}
 	
@@ -121,19 +135,10 @@ public final class WindowManager {
 	 * application so it can close.
 	 * @param input the renderables to draw
 	 */
-	public static void repaint(ArrayList<Renderable> input) {
-		
-		if (!open()) {
-			Request.addRequest(new Request(Request.RequestType.EXIT));
-			return;
-		}
+	public static void repaint() {
 		
 		glClearColor(0.5f, 0.5f, 0.5f, 0.0f);
 		glClear(GL11.GL_COLOR_BUFFER_BIT);
-		
-		for (Renderable e : input) {
-			e.draw();
-		}
 		
 		glfwSwapBuffers(wn);
 		glfwPollEvents();
@@ -155,7 +160,43 @@ public final class WindowManager {
 			int keyAction,
 			int modifierKeys)
 	{
-		// Nothing needed yet
+		switch (glfwKeyCode) {
+		
+		// Scroll
+		case GLFW_KEY_A:
+		case GLFW_KEY_S:
+		case GLFW_KEY_D:
+		case GLFW_KEY_W:
+			doScroll(glfwKeyCode);
+			break;
+		
+		}
+	}
+	
+	/**
+	 * Scroll based on a key code
+	 * @param keycode the code (WASD)
+	 */
+	private static void doScroll(int keycode) {
+		
+		switch (keycode) {
+		
+		case GLFW_KEY_A:
+			xOffset -= scrollSpeed;
+			break;
+		case GLFW_KEY_S:
+			yOffset -= scrollSpeed;
+			break;
+		case GLFW_KEY_D:
+			xOffset += scrollSpeed;
+			break;
+		case GLFW_KEY_W:
+			yOffset += scrollSpeed;
+			break;
+		default:;
+		
+		}
+		
 	}
 	
 	/**
@@ -164,6 +205,14 @@ public final class WindowManager {
 	 */
 	public static int size() {
 		return size;
+	}
+	
+	/**
+	 * Get the offset, for use in calculating rendering routines
+	 * @return the offset in a Java AWT dimension
+	 */
+	public static Dimension getOffsets() {
+		return new Dimension(xOffset, yOffset);
 	}
 
 }
