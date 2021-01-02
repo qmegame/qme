@@ -82,7 +82,7 @@ public interface MouseResponder {
 		WindowManager.getMouseLocation(MouseData.mouseX, MouseData.mouseY);
 		
 		int x = (int) MouseData.mouseX.array()[0];
-		int y = (int) MouseData.mouseX.array()[0];
+		int y = (int) MouseData.mouseY.array()[0];
 		
 		for (MouseResponder responder : objects) {
 			
@@ -111,7 +111,7 @@ public interface MouseResponder {
 					responder.setClicked(true);
 				}
 				
-				// Release happenns if a component was clicked, no matter if the
+				// Release happens if a component was clicked, no matter if the
 				// mouse is still over it.
 				if (event.action == GLFW_RELEASE && responder.clicked()) {
 					responder.mouseClickOff();
