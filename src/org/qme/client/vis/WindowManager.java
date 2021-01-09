@@ -7,6 +7,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 import java.awt.Dimension;
 import java.nio.DoubleBuffer;
+import java.util.ArrayList;
 
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -20,6 +21,12 @@ import org.lwjgl.opengl.GL11;
  * @since preA
  */
 public final class WindowManager {
+	
+	/**
+	 * Objects to render
+	 */
+	private static final ArrayList<Renderable> renderables
+		= new ArrayList<>();
 	
 	/**
 	 * No initialization, thank you very much.
@@ -127,19 +134,22 @@ public final class WindowManager {
 	 * If the window is not about to close
 	 * @return whether the window is going to stay open
 	 */
-	public static boolean shouldClose() {
+	public static boolean shouldBeOpen() {
 		return !glfwWindowShouldClose(wn);
 	}
 	
 	/**
 	 * Redraw the screen. If the window should close, send a request to the
 	 * application so it can close.
-	 * @param input the renderables to draw
 	 */
 	public static void repaint() {
 		
 		glClearColor(0.5f, 0.5f, 0.5f, 0.0f);
 		glClear(GL11.GL_COLOR_BUFFER_BIT);
+		
+		for (Renderable e : renderables) {
+			e.draw();
+		}
 		
 		glfwSwapBuffers(wn);
 		glfwPollEvents();
@@ -224,6 +234,30 @@ public final class WindowManager {
 	public static void getMouseLocation(
 			DoubleBuffer xWrap, DoubleBuffer yWrap) {
 		glfwGetCursorPos(wn, xWrap, yWrap);
+	}
+	
+	/**
+	 * Get the window x offset
+	 * @return the window x offset
+	 */
+	public static int getWindowX() {
+		return xOffset;
+	}
+	
+	/**
+	 * Get the window y offset
+	 * @return the window y offset
+	 */
+	public static int getWindowY() {
+		return yOffset;
+	}
+	
+	/**
+	 * Register object
+	 * @param e the object to add to the render list
+	 */
+	public static void addObject(Renderable e) {
+		renderables.add(e);
 	}
 
 }
