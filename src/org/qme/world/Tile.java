@@ -2,6 +2,7 @@ package org.qme.world;
 
 import org.qme.client.vis.RenderMaster;
 import org.qme.client.vis.Renderable;
+import org.qme.client.vis.WindowManager;
 
 /**
  * Represents a single tile in the world. As with other objects, rendering and
@@ -33,6 +34,7 @@ public class Tile implements Renderable {
 		this.x = x;
 		this.y = y;
 		this.type = type;
+		WindowManager.addObject(this);
 	}
 
 	/**

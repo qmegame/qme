@@ -1,6 +1,7 @@
 package org.qme.client;
 
 import org.qme.client.vis.WindowManager;
+import org.qme.world.World;
 
 /**
  * The "controller", so to speak, of all events. It also helps to validate
@@ -18,7 +19,7 @@ public final class Application {
 	 * The constructor is private. Only one instance allowed.
 	 */
 	private Application() {
-		
+		new World();
 	}
 	
 	/**
@@ -31,7 +32,7 @@ public final class Application {
 	 */
 	public void mainloop() {
 		
-		while (WindowManager.shouldClose()) {
+		while (WindowManager.shouldBeOpen()) {
 			
 			WindowManager.repaint();
 		

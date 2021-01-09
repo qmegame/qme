@@ -5,6 +5,7 @@ import static org.lwjgl.opengl.GL11.*;
 import java.awt.Color;
 
 import org.qme.world.Tile;
+import org.qme.world.TileType;
 
 /**
  * Class containing all main rendering utilities.
@@ -23,18 +24,19 @@ public final class RenderMaster {
 	 * @param tile the tile to draw
 	 */
 	public static void drawTile(Tile tile) {
+		
+		int tileX = tile.x - WindowManager.getWindowX();
+		int tileY = tile.y - WindowManager.getWindowY();
+		
 		// TEMP
 		drawQuad(
-			100,
-			100,
-			300,
-			100,
-			300,
-			300,
-			100,
-			300,
-			new Color(100, 0, 0)
-		);		
+			tileX, tileY,
+			tileX + 200, tileY,
+			tileX + 200, tileY + 200,
+			tileX, tileY + 200,
+			getColor(tile.type)
+		);	
+		
 	}
 	
 	/**
@@ -77,6 +79,34 @@ public final class RenderMaster {
 			glVertex2f(vert3X, vert3Y);
 			glVertex2f(vert4X, vert4Y);
 		glEnd();
+	}
+	
+	/**
+	 * Get the color to render from a type
+	 * @param type which tile type
+	 * @return the color
+	 */
+	private static Color getColor(TileType type) {
+		switch (type) {
+		case DESERT:
+			return new Color(200, 200, 0);
+		case FERTILE_PLAINS:
+			return new Color(0, 250, 0);
+		case FOREST:
+			return new Color(0, 200, 0);
+		case HIGH_MOUNTAIN:
+			return new Color(75, 75, 75);
+		case MOUNTAIN:
+			return new Color(150, 150, 150);
+		case OCEAN:
+			return new Color(0, 0, 100);
+		case PLAINS:
+			return new Color(100, 200, 0);
+		case SEA:
+			return new Color(0, 175, 175);
+		default:
+			return new Color(100, 0, 0); // invalid
+		}
 	}
 
 }
