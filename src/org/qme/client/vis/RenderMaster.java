@@ -23,18 +23,19 @@ public final class RenderMaster {
 	 * @param tile the tile to draw
 	 */
 	public static void drawTile(Tile tile) {
+		
+		int tileX = tile.x - WindowManager.getWindowX();
+		int tileY = tile.y - WindowManager.getWindowY();
+		
 		// TEMP
 		drawQuad(
-			100,
-			100,
-			300,
-			100,
-			300,
-			300,
-			100,
-			300,
+			tileX, tileY,
+			tileX + 200, tileY,
+			tileX + 200, tileY + 200,
+			tileX, tileY + 200,
 			new Color(100, 0, 0)
-		);		
+		);	
+		
 	}
 	
 	/**
