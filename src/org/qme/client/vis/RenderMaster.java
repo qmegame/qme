@@ -25,8 +25,8 @@ public final class RenderMaster {
 	 */
 	public static void drawTile(Tile tile) {
 		
-		int tileX = tile.x - WindowManager.getWindowX();
-		int tileY = tile.y - WindowManager.getWindowY();
+		int tileX = (tile.x * 220) - WindowManager.getWindowX();
+		int tileY = (tile.y * 220) - WindowManager.getWindowY();
 		
 		// TEMP
 		drawQuad(
