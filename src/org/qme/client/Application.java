@@ -1,8 +1,7 @@
 package org.qme.client;
 
 import org.qme.client.vis.WindowManager;
-import org.qme.world.Tile;
-import org.qme.world.TileType;
+import org.qme.world.World;
 
 /**
  * The "controller", so to speak, of all events. It also helps to validate
@@ -20,7 +19,7 @@ public final class Application {
 	 * The constructor is private. Only one instance allowed.
 	 */
 	private Application() {
-		new Tile(0, 0, TileType.DESERT);
+		new World();
 	}
 	
 	/**
