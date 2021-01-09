@@ -1,6 +1,8 @@
 package org.qme.client;
 
 import org.qme.client.vis.WindowManager;
+import org.qme.world.Tile;
+import org.qme.world.TileType;
 
 /**
  * The "controller", so to speak, of all events. It also helps to validate
@@ -18,7 +20,7 @@ public final class Application {
 	 * The constructor is private. Only one instance allowed.
 	 */
 	private Application() {
-		
+		new Tile(0, 0, TileType.DESERT);
 	}
 	
 	/**
@@ -31,7 +33,7 @@ public final class Application {
 	 */
 	public void mainloop() {
 		
-		while (WindowManager.shouldClose()) {
+		while (WindowManager.shouldBeOpen()) {
 			
 			WindowManager.repaint();
 		
