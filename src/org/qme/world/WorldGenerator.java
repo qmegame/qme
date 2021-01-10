@@ -32,9 +32,9 @@ public class WorldGenerator {
 		world = WorldGenerator.ocean(side);
 		Logger.log("after ocean", Severity.NORMAL);
 		
-		final int continents = (int) Math.ceil(side / 11);
-		// Continents should average 22/3 * side tiles rounded down
-		// Avg radius of continent is therefore sqrt(22/3 * side) / 2
+		final int continents = 1 + (int) Math.ceil(side / 11);
+		Logger.log("# of cont: " + new Integer(continents).toString(),
+				Severity.NORMAL);
 		
 		Logger.log("before continents", Severity.NORMAL);
 		for(int continentCount = 0; continentCount < continents; continentCount++) {
@@ -43,10 +43,14 @@ public class WorldGenerator {
 			int j = rand.nextInt(side);
 			Logger.log("before individual continent", Severity.NORMAL);
 			world = WorldGenerator.addContinent(world, side, i, j);
+			
+			// Make coastal oceans into seas
+			Logger.log("before ocean to sea", Severity.NORMAL);
+			world = WorldGenerator.oceanToSea(world, side);
 		}
 		
 		// Make coastal oceans into seas
-		Logger.log("before ocean to sea", Severity.NORMAL);
+		Logger.log("before final ocean to sea", Severity.NORMAL);
 		world = WorldGenerator.oceanToSea(world, side);
 		
 		// Return generated (not yet) world
@@ -97,10 +101,6 @@ public class WorldGenerator {
 		TileType[][] newWorld = new TileType[side][side];
 		newWorld = world;
 		
-		//TEMP
-		newWorld[2][2] = TileType.DESERT;
-		//END TEMP
-		
 		Logger.log("assign center tile to random", Severity.NORMAL);
 		// Assign center tile to a random non-mountain land type
 		newWorld[centerX][centerY] = WorldGenerator.assignRandomFlatLand();
@@ -118,8 +118,14 @@ public class WorldGenerator {
 		for(int i = 1 /* helps with math*/ ; i <= centerX; i++) {
 			try {
 				if(newWorld[centerX - i][centerY] == TileType.OCEAN) {
-					final double chance = 1 + i * Math.sqrt(22 / 3);
-					if(rand.nextInt(10000) < Math.ceil(10000 * chance)) {
+					
+					// Set chance that tile is land
+					double chance = Math.pow(0.95, i) / 0.95;
+					if(i > side * 2 / 3) {
+						chance = 0;
+					}
+					
+					if(rand.nextInt(10000) < Math.floor(10000 * chance)) {
 						newWorld[centerX - i][centerY] =
 								WorldGenerator.assignRandomFlatLand();
 					} else {
@@ -143,8 +149,15 @@ public class WorldGenerator {
 		for(int j = 1 /* helps with math*/ ; j <= centerY; j++) {
 			try {
 				if(newWorld[centerX][centerY - j] == TileType.OCEAN) {
-					final double chance = 1 + j * Math.sqrt(22 / 3);
-					if(rand.nextInt(10000) < Math.ceil(10000 * chance)) {
+					
+					// Set chance that tile is land
+					double chance = Math.pow(0.95, j) / 0.95;
+					if(j > side * 2 / 3) {
+						chance = 0;
+					}
+					
+					// Determine if tile is land
+					if(rand.nextInt(10000) < Math.floor(10000 * chance)) {
 						newWorld[centerX][centerY - j] =
 								WorldGenerator.assignRandomFlatLand();
 					} else {
@@ -168,8 +181,14 @@ public class WorldGenerator {
 		for(int ii = 1 /* helps with math*/ ; ii < side; ii++) {
 			try {
 				if(newWorld[centerX + ii][centerY] == TileType.OCEAN) {
-					final double chance = 1 + ii * Math.sqrt(22 / 3);
-					if(rand.nextInt(10000) < Math.ceil(10000 * chance)) {
+					
+					// Set chance that tile is land
+					double chance = Math.pow(0.95, ii) / 0.95;
+					if(ii > side * 2 / 3) {
+						chance = 0;
+					}
+					
+					if(rand.nextInt(10000) < Math.floor(10000 * chance)) {
 						newWorld[centerX + ii][centerY] =
 								WorldGenerator.assignRandomFlatLand();
 					} else {
@@ -193,8 +212,14 @@ public class WorldGenerator {
 		for(int jj = 1 /* helps with math*/ ; jj < side; jj++) {
 			try {
 				if(newWorld[centerX][centerY + jj] == TileType.OCEAN) {
-					final double chance = 1 + jj * Math.sqrt(22 / 3);
-					if(rand.nextInt(10000) < Math.ceil(10000 * chance)) {
+					
+					// Set chance that tile is land
+					double chance = Math.pow(0.95, jj) / 0.95;
+					if(jj > side * 2 / 3) {
+						chance = 0;
+					}
+					
+					if(rand.nextInt(10000) < Math.floor(10000 * chance)) {
 						newWorld[centerX][centerY + jj] =
 								WorldGenerator.assignRandomFlatLand();
 					} else {
@@ -219,8 +244,14 @@ public class WorldGenerator {
 			for(int l = upmost; l <= downmost; l++) {
 				if(newWorld[k][l] == TileType.OCEAN) {
 					final int distance = Math.abs(centerX - k) + Math.abs(centerY - l);
-					final double chance = 1 + distance * Math.sqrt(22 / 3);
-					if(rand.nextInt(10000) < Math.ceil(10000 * chance)) {
+					
+					// Set chance that tile is land
+					double chance = Math.pow(0.95, distance) / 0.95;
+					if(distance > side * 2 / 3) {
+						chance = 0;
+					}
+					
+					if(rand.nextInt(10000) < Math.floor(10000 * chance)) {
 						newWorld[k][l] = WorldGenerator.assignRandomFlatLand();
 					}
 				}
