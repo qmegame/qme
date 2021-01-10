@@ -25,6 +25,15 @@ public class Logger {
 	 * @throws IOException
 	 */
 	public static void log(String message, Severity severity) {
+		// Creates directory if not already created
+		try {
+			new File("qdata/").mkdir();
+		} catch(SecurityException e) {
+			JOptionPane.showMessageDialog(null,
+					"Error creating error log folder. Fatal."
+					+ "Possible cause: insufficient permissions.");
+		}
+		
 		// Creates file if not created
 		final File logs = new File("qdata/logs.txt");
 		try {
