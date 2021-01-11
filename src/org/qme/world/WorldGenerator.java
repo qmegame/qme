@@ -14,6 +14,7 @@ import org.qme.io.Severity;
  */
 public class WorldGenerator {
 	private static final Random rand = new Random();
+	private static final String EXPANDED = "expanded ";
 
 	/**
 	 * The function that generates the map for a game
@@ -142,7 +143,7 @@ public class WorldGenerator {
 			}
 		}
 		
-		Logger.log("expanded" + Integer.toString(centerX - leftmost) +
+		Logger.log(EXPANDED + Integer.toString(centerX - leftmost) +
 				" tiles. before expand up", Severity.NORMAL);
 		// Expand up
 		for(int j = 1 /* helps with math*/ ; j <= centerY; j++) {
@@ -174,7 +175,7 @@ public class WorldGenerator {
 			}
 		}
 		
-		Logger.log("expanded " + Integer.toString(centerY - upmost) +
+		Logger.log(EXPANDED + Integer.toString(centerY - upmost) +
 				" tiles. before expand right", Severity.NORMAL);
 		// Expand right
 		for(int ii = 1 /* helps with math*/ ; ii < side; ii++) {
@@ -205,7 +206,7 @@ public class WorldGenerator {
 			}
 		}
 		
-		Logger.log("expanded " + Integer.toString(centerX - rightmost) +
+		Logger.log(EXPANDED + Integer.toString(centerX - rightmost) +
 				" tiles. before expand down", Severity.NORMAL);
 		// Expand down
 		for(int jj = 1 /* helps with math*/ ; jj < side; jj++) {
@@ -236,7 +237,7 @@ public class WorldGenerator {
 			}
 		}
 		
-		Logger.log("expanded " + Integer.toString(centerY - downmost) +
+		Logger.log(EXPANDED + Integer.toString(centerY - downmost) +
 				" tiles. before expand squares", Severity.NORMAL);
 		// Expand continents into "squares"
 		for(int k = leftmost; k <= rightmost; k++) {
