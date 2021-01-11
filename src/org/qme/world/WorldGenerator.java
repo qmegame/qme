@@ -13,6 +13,8 @@ import org.qme.io.Severity;
  * @since preA
  */
 public class WorldGenerator {
+	private static final Random rand = new Random();
+
 	/**
 	 * The function that generates the map for a game
 	 * @author santiago
@@ -37,7 +39,6 @@ public class WorldGenerator {
 		
 		Logger.log("before continents", Severity.NORMAL);
 		for(int continentCount = 0; continentCount < continents; continentCount++) {
-			Random rand = new Random();
 			int i = rand.nextInt(side);
 			int j = rand.nextInt(side);
 			Logger.log("before individual continent", Severity.NORMAL);
@@ -93,9 +94,7 @@ public class WorldGenerator {
 	 */
 	private static TileType[][] addContinent(TileType[][] world,
 			int side, int centerX, int centerY) {
-		// Set up random for later
-		Random rand = new Random();
-		
+
 		// Set up return world
 		TileType[][] newWorld = new TileType[side][side];
 		newWorld = world;
@@ -296,7 +295,6 @@ public class WorldGenerator {
 		mountainWorld = world;
 		
 		// Set random start for range
-		Random rand = new Random();
 		final int startX = rand.nextInt(rightBound - leftBound + 1) + leftBound;
 		final int startY = rand.nextInt(downBound - upBound + 1) + upBound;
 		
@@ -448,7 +446,6 @@ public class WorldGenerator {
 		flowingWorld = world;
 		
 		// Set random start for range
-		Random rand = new Random();
 		final int startX = rand.nextInt(rightBound - leftBound + 1) + leftBound;
 		final int startY = rand.nextInt(downBound - upBound + 1) + upBound;
 		
@@ -600,7 +597,6 @@ public class WorldGenerator {
 	 * @return A random non-mountain, non-water tile
 	 */
 	private static TileType assignRandomFlatLand() {
-		Random rand = new Random();
 		int type = rand.nextInt(7);
 		if(type == 0 || type == 4) {
 			return TileType.PLAINS;
