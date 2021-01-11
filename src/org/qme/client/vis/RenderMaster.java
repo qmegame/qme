@@ -20,20 +20,25 @@ public final class RenderMaster {
 	private RenderMaster() {}
 	
 	/**
+	 * The zoom for the tiles
+	 */
+	public static double zoom = 10;
+
+	/**
 	 * Draw a given tile.
 	 * @param tile the tile to draw
 	 */
 	public static void drawTile(Tile tile) {
 		
-		int tileX = (tile.x * 220) - WindowManager.getWindowX();
-		int tileY = (tile.y * 220) - WindowManager.getWindowY();
+		int tileX = (int) ((tile.x * 22 * zoom) - WindowManager.getWindowX());
+		int tileY = (int) ((tile.y * 22 * zoom) - WindowManager.getWindowY());
 		
 		// TEMP
 		drawQuad(
 			tileX, tileY,
-			tileX + 200, tileY,
-			tileX + 200, tileY + 200,
-			tileX, tileY + 200,
+			tileX + (int) (20 * zoom), tileY,
+			tileX + (int) (20 * zoom), tileY + (int) (20 * zoom),
+			tileX, tileY + (int) (20 * zoom),
 			getColor(tile.type)
 		);	
 		
