@@ -180,7 +180,12 @@ public final class WindowManager {
 		case GLFW_KEY_W:
 			doScroll(glfwKeyCode);
 			break;
-		
+		case GLFW_KEY_I:
+			RenderMaster.zoom /= 0.9;
+			break;
+		case GLFW_KEY_O:
+			RenderMaster.zoom *= 0.9;
+			break;
 		}
 	}
 	
