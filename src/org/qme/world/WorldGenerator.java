@@ -545,10 +545,9 @@ public class WorldGenerator {
 		for(int i = 1; i < side - 1; i++) {
 			// Without starting at 1 and ending early, there'd be Out of Bounds
 			for(int j = 1; j < side - 1; j++) {
-				if(WorldGenerator.isType(shallowWorld[i][j], TileType.OCEAN)) {
-					if(WorldGenerator.touchesLand(shallowWorld, i, j)) {
-						shallowWorld[i][j] = TileType.SEA;
-					}
+				if(WorldGenerator.isType(shallowWorld[i][j], TileType.OCEAN) &&
+				 WorldGenerator.touchesLand(shallowWorld, i, j)) {
+					shallowWorld[i][j] = TileType.SEA;
 				}
 			}
 		}
