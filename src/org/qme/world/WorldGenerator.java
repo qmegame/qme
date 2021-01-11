@@ -13,7 +13,6 @@ import org.qme.io.Severity;
  * @since preA
  */
 public class WorldGenerator {
-	
 	/**
 	 * The function that generates the map for a game
 	 * @author santiago
@@ -33,7 +32,7 @@ public class WorldGenerator {
 		Logger.log("after ocean", Severity.NORMAL);
 		
 		final int continents = 1 + (int) Math.ceil(side / 11);
-		Logger.log("# of cont: " + new Integer(continents).toString(),
+		Logger.log("# of cont: " + Integer.toString(continents),
 				Severity.NORMAL);
 		
 		Logger.log("before continents", Severity.NORMAL);
@@ -104,8 +103,8 @@ public class WorldGenerator {
 		Logger.log("assign center tile to random", Severity.NORMAL);
 		// Assign center tile to a random non-mountain land type
 		newWorld[centerX][centerY] = WorldGenerator.assignRandomFlatLand();
-		Logger.log("centerX is: " + new Integer(centerX).toString(), Severity.NORMAL);
-		Logger.log("centerY is: " + new Integer(centerY).toString(), Severity.NORMAL);
+		Logger.log("centerX is: " + Integer.toString(centerX), Severity.NORMAL);
+		Logger.log("centerY is: " + Integer.toString(centerY), Severity.NORMAL);
 		
 		// Set up extreme points with most extreme values
 		int leftmost = 0;
@@ -144,7 +143,7 @@ public class WorldGenerator {
 			}
 		}
 		
-		Logger.log("expanded " + new Integer(centerX - leftmost).toString() +
+		Logger.log("expanded" + Integer.toString(centerX - leftmost) +
 				" tiles. before expand up", Severity.NORMAL);
 		// Expand up
 		for(int j = 1 /* helps with math*/ ; j <= centerY; j++) {
@@ -176,7 +175,7 @@ public class WorldGenerator {
 			}
 		}
 		
-		Logger.log("expanded " + new Integer(centerY - upmost).toString() +
+		Logger.log("expanded " + Integer.toString(centerY - upmost) +
 				" tiles. before expand right", Severity.NORMAL);
 		// Expand right
 		for(int ii = 1 /* helps with math*/ ; ii < side; ii++) {
@@ -207,7 +206,7 @@ public class WorldGenerator {
 			}
 		}
 		
-		Logger.log("expanded " + new Integer(centerX - rightmost).toString() +
+		Logger.log("expanded " + Integer.toString(centerX - rightmost) +
 				" tiles. before expand down", Severity.NORMAL);
 		// Expand down
 		for(int jj = 1 /* helps with math*/ ; jj < side; jj++) {
@@ -238,7 +237,7 @@ public class WorldGenerator {
 			}
 		}
 		
-		Logger.log("expanded " + new Integer(centerY - downmost).toString() +
+		Logger.log("expanded " + Integer.toString(centerY - downmost) +
 				" tiles. before expand squares", Severity.NORMAL);
 		// Expand continents into "squares"
 		for(int k = leftmost; k <= rightmost; k++) {
