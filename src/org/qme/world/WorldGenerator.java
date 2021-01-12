@@ -243,7 +243,8 @@ public class WorldGenerator {
 		for(int k = leftmost; k <= rightmost; k++) {
 			for(int l = upmost; l <= downmost; l++) {
 				if(WorldGenerator.isType(newWorld[k][l], TileType.OCEAN)) {
-					final int distance = Math.abs(centerX - k) + Math.abs(centerY - l);
+					final double distance = Math.pow(Math.pow(Math.abs(centerX - k),
+							16 / 15) + Math.pow(Math.abs(centerY - l), 16 / 15), 3 / 2);
 					
 					// Set chance that tile is land
 					double chance = Math.pow(0.95, distance) / 0.95;
