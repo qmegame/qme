@@ -43,12 +43,21 @@ public final class RenderMaster {
 		int tileX = (int) (((tile.x) * TILE_SPACING * zoom) - WindowManager.getWindowX());
 		int tileY = (int) (((tile.y) * TILE_SPACING * zoom) - WindowManager.getWindowY());
 
+		int size = WindowManager.size()/2;
+
+		// Marks center of screen for testing zooming
+		drawQuad(size - 5, size - 5,
+				size + 5, size - 5,
+				size + 5, size + 5,
+				size - 5, size + 5,
+				new Color(100, 100, 100, 100));
+
 		// TEMP
 		drawQuad(
-			tileX - (int) (TILE_SIZE/2 * zoom), tileY - (int) (TILE_SIZE/2 * zoom),
-			tileX + (int) (TILE_SIZE/2 * zoom), tileY - (int) (TILE_SIZE/2 * zoom),
-			tileX + (int) (TILE_SIZE/2 * zoom), tileY + (int) (TILE_SIZE/2 * zoom),
-			tileX - (int) (TILE_SIZE/2 * zoom), tileY + (int) (TILE_SIZE/2 * zoom),
+			tileX, tileY,
+			tileX + (int) (TILE_SIZE * zoom), tileY,
+			tileX + (int) (TILE_SIZE * zoom), tileY + (int) (TILE_SIZE * zoom),
+			tileX, tileY + (int) (TILE_SIZE * zoom),
 			getColor(tile.type)
 		);
 		
