@@ -41,7 +41,7 @@ public class Request {
 	 * @author adamhutchings
 	 * @since preA
 	 */
-	public static enum RequestType {
+	public enum RequestType {
 	}
 	
 	/**

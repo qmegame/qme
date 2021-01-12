@@ -13,7 +13,9 @@ import org.qme.io.Severity;
  * @since preA
  */
 public class WorldGenerator {
-	
+	private static final Random rand = new Random();
+	private static final String EXPANDED = "expanded ";
+
 	/**
 	 * The function that generates the map for a game
 	 * @author santiago
@@ -33,12 +35,11 @@ public class WorldGenerator {
 		Logger.log("after ocean", Severity.NORMAL);
 		
 		final int continents = 1 + (int) Math.ceil(side / 11);
-		Logger.log("# of cont: " + new Integer(continents).toString(),
+		Logger.log("# of cont: " + Integer.toString(continents),
 				Severity.NORMAL);
 		
 		Logger.log("before continents", Severity.NORMAL);
 		for(int continentCount = 0; continentCount < continents; continentCount++) {
-			Random rand = new Random();
 			int i = rand.nextInt(side);
 			int j = rand.nextInt(side);
 			Logger.log("before individual continent", Severity.NORMAL);
@@ -94,9 +95,7 @@ public class WorldGenerator {
 	 */
 	private static TileType[][] addContinent(TileType[][] world,
 			int side, int centerX, int centerY) {
-		// Set up random for later
-		Random rand = new Random();
-		
+
 		// Set up return world
 		TileType[][] newWorld = new TileType[side][side];
 		newWorld = world;
@@ -104,8 +103,8 @@ public class WorldGenerator {
 		Logger.log("assign center tile to random", Severity.NORMAL);
 		// Assign center tile to a random non-mountain land type
 		newWorld[centerX][centerY] = WorldGenerator.assignRandomFlatLand();
-		Logger.log("centerX is: " + new Integer(centerX).toString(), Severity.NORMAL);
-		Logger.log("centerY is: " + new Integer(centerY).toString(), Severity.NORMAL);
+		Logger.log("centerX is: " + Integer.toString(centerX), Severity.NORMAL);
+		Logger.log("centerY is: " + Integer.toString(centerY), Severity.NORMAL);
 		
 		// Set up extreme points with most extreme values
 		int leftmost = 0;
@@ -144,7 +143,7 @@ public class WorldGenerator {
 			}
 		}
 		
-		Logger.log("expanded " + new Integer(centerX - leftmost).toString() +
+		Logger.log(EXPANDED + Integer.toString(centerX - leftmost) +
 				" tiles. before expand up", Severity.NORMAL);
 		// Expand up
 		for(int j = 1 /* helps with math*/ ; j <= centerY; j++) {
@@ -176,7 +175,7 @@ public class WorldGenerator {
 			}
 		}
 		
-		Logger.log("expanded " + new Integer(centerY - upmost).toString() +
+		Logger.log(EXPANDED + Integer.toString(centerY - upmost) +
 				" tiles. before expand right", Severity.NORMAL);
 		// Expand right
 		for(int ii = 1 /* helps with math*/ ; ii < side; ii++) {
@@ -207,7 +206,7 @@ public class WorldGenerator {
 			}
 		}
 		
-		Logger.log("expanded " + new Integer(centerX - rightmost).toString() +
+		Logger.log(EXPANDED + Integer.toString(centerX - rightmost) +
 				" tiles. before expand down", Severity.NORMAL);
 		// Expand down
 		for(int jj = 1 /* helps with math*/ ; jj < side; jj++) {
@@ -238,7 +237,7 @@ public class WorldGenerator {
 			}
 		}
 		
-		Logger.log("expanded " + new Integer(centerY - downmost).toString() +
+		Logger.log(EXPANDED + Integer.toString(centerY - downmost) +
 				" tiles. before expand squares", Severity.NORMAL);
 		// Expand continents into "squares"
 		for(int k = leftmost; k <= rightmost; k++) {
@@ -297,7 +296,6 @@ public class WorldGenerator {
 		mountainWorld = world;
 		
 		// Set random start for range
-		Random rand = new Random();
 		final int startX = rand.nextInt(rightBound - leftBound + 1) + leftBound;
 		final int startY = rand.nextInt(downBound - upBound + 1) + upBound;
 		
@@ -449,7 +447,6 @@ public class WorldGenerator {
 		flowingWorld = world;
 		
 		// Set random start for range
-		Random rand = new Random();
 		final int startX = rand.nextInt(rightBound - leftBound + 1) + leftBound;
 		final int startY = rand.nextInt(downBound - upBound + 1) + upBound;
 		
@@ -549,10 +546,9 @@ public class WorldGenerator {
 		for(int i = 1; i < side - 1; i++) {
 			// Without starting at 1 and ending early, there'd be Out of Bounds
 			for(int j = 1; j < side - 1; j++) {
-				if(WorldGenerator.isType(shallowWorld[i][j], TileType.OCEAN)) {
-					if(WorldGenerator.touchesLand(shallowWorld, i, j)) {
-						shallowWorld[i][j] = TileType.SEA;
-					}
+				if(WorldGenerator.isType(shallowWorld[i][j], TileType.OCEAN) &&
+				 WorldGenerator.touchesLand(shallowWorld, i, j)) {
+					shallowWorld[i][j] = TileType.SEA;
 				}
 			}
 		}
@@ -601,7 +597,6 @@ public class WorldGenerator {
 	 * @return A random non-mountain, non-water tile
 	 */
 	private static TileType assignRandomFlatLand() {
-		Random rand = new Random();
 		int type = rand.nextInt(7);
 		if(type == 0 || type == 4) {
 			return TileType.PLAINS;
