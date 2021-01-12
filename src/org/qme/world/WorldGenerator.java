@@ -34,7 +34,7 @@ public class WorldGenerator {
 		world = WorldGenerator.ocean(side);
 		Logger.log("after ocean", Severity.NORMAL);
 		
-		final int continents = 1 + (int) Math.ceil(side / 11);
+		final int continents = 5 * (1 + (int) Math.ceil(side / 11));
 		Logger.log("# of cont: " + Integer.toString(continents),
 				Severity.NORMAL);
 		
