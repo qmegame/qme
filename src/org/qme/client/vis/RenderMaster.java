@@ -25,22 +25,32 @@ public final class RenderMaster {
 	public static double zoom = 10;
 
 	/**
+	 * The size of the tiles
+	 */
+	public static final float TILE_SIZE = 20;
+
+	/**
+	 * The amount  of spacing added in between each tile origin the gap between the tiles would effectively be TILE_SIZE-TILE_SPACING
+	 */
+	public static final float TILE_SPACING = 22;
+
+	/**
 	 * Draw a given tile.
 	 * @param tile the tile to draw
 	 */
 	public static void drawTile(Tile tile) {
 		
-		int tileX = (int) ((tile.x * 22 * zoom) - WindowManager.getWindowX());
-		int tileY = (int) ((tile.y * 22 * zoom) - WindowManager.getWindowY());
-		
+		int tileX = (int) (((tile.x) * TILE_SPACING * zoom) - WindowManager.getWindowX());
+		int tileY = (int) (((tile.y) * TILE_SPACING * zoom) - WindowManager.getWindowY());
+
 		// TEMP
 		drawQuad(
-			tileX, tileY,
-			tileX + (int) (20 * zoom), tileY,
-			tileX + (int) (20 * zoom), tileY + (int) (20 * zoom),
-			tileX, tileY + (int) (20 * zoom),
+			tileX - (int) (TILE_SIZE/2 * zoom), tileY - (int) (TILE_SIZE/2 * zoom),
+			tileX + (int) (TILE_SIZE/2 * zoom), tileY - (int) (TILE_SIZE/2 * zoom),
+			tileX + (int) (TILE_SIZE/2 * zoom), tileY + (int) (TILE_SIZE/2 * zoom),
+			tileX - (int) (TILE_SIZE/2 * zoom), tileY + (int) (TILE_SIZE/2 * zoom),
 			getColor(tile.type)
-		);	
+		);
 		
 	}
 	
