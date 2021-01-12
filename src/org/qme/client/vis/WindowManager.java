@@ -9,7 +9,6 @@ import java.awt.Dimension;
 import java.nio.DoubleBuffer;
 import java.util.ArrayList;
 
-import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
