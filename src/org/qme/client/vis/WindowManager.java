@@ -60,12 +60,12 @@ public final class WindowManager {
 	/**
 	 * The x-offset from normal
 	 */
-	private static Double xOffset = 0D;
+	private static double xOffset = 0D;
 	
 	/**
 	 * The y-offset from normal
 	 */
-	private static Double yOffset = 0D;
+	private static double yOffset = 0D;
 	
 	/**
 	 * How fast this works
@@ -193,13 +193,13 @@ public final class WindowManager {
 	/**
 	 * Zooms in or out and applies an offset to zoom evenly
 	 */
-	private static void applyZoom(Float zoomFactor) {
+	private static void applyZoom(float zoomFactor) {
 		// Works by calculating how much offset must be applied to counteract the objects increasing in size
-		Double newWorldSize = RenderMaster.TILE_SPACING * (RenderMaster.zoom*zoomFactor) * (World.WORLD_SIZE);
-		Double oldWorldSize = RenderMaster.TILE_SPACING * RenderMaster.zoom * (World.WORLD_SIZE);
+		double newWorldSize = RenderMaster.TILE_SPACING * (RenderMaster.zoom*zoomFactor) * (World.WORLD_SIZE);
+		double oldWorldSize = RenderMaster.TILE_SPACING * RenderMaster.zoom * (World.WORLD_SIZE);
 
-		Double focusX = ((size/2) + xOffset)/oldWorldSize;
-		Double focusY = ((size/2) + yOffset)/oldWorldSize;
+		double focusX = ((size/2) + xOffset)/oldWorldSize;
+		double focusY = ((size/2) + yOffset)/oldWorldSize;
 
 		xOffset -= (oldWorldSize - newWorldSize) * focusX;
 		yOffset -= (oldWorldSize - newWorldSize) * focusY;
