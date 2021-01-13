@@ -179,7 +179,8 @@ public final class WindowManager {
 		case GLFW_KEY_S:
 		case GLFW_KEY_D:
 		case GLFW_KEY_W:
-			doScroll(glfwKeyCode);
+			if (keyAction == GLFW_PRESS)
+				doScroll(glfwKeyCode);
 			break;
 		case GLFW_KEY_I:
 			applyZoom(1.1F);
