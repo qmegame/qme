@@ -41,7 +41,7 @@ public final class WindowManager {
 		
 		glfwDefaultWindowHints();
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 		
 		createWindow();
 		
