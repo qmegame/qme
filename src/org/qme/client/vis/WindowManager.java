@@ -265,7 +265,7 @@ public final class WindowManager {
 	 * Get the window x offset
 	 * @return the window x offset
 	 */
-	public static Double getWindowX() {
+	public static double getWindowX() {
 		return xOffset;
 	}
 	
@@ -273,7 +273,7 @@ public final class WindowManager {
 	 * Get the window y offset
 	 * @return the window y offset
 	 */
-	public static Double getWindowY() {
+	public static double getWindowY() {
 		return yOffset;
 	}
 	
