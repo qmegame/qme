@@ -183,14 +183,14 @@ public final class WindowManager {
 			break;
 		case GLFW_KEY_I:
 			// Zoom in until limit is reached
-			if (RenderMaster.zoom <= RenderMaster.highest) {
-				applyZoom(1.1F);
+			if (RenderMaster.zoom <= RenderMaster.HIGHEST) {
+				applyZoom(RenderMaster.ZOOM_IN);
 				break;
 			}
 		case GLFW_KEY_O:
 			// Zoom out until limit is reached
-			if (RenderMaster.zoom >= RenderMaster.lowest) {
-				applyZoom(0.9F);
+			if (RenderMaster.zoom >= RenderMaster.LOWEST) {
+				applyZoom(RenderMaster.ZOOM_OUT);
 				break;
 			}
 		}
