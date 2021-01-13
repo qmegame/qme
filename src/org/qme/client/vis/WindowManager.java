@@ -223,14 +223,10 @@ public final class WindowManager {
 		switch (keycode) {
 
 		case GLFW_KEY_A:
-	        if (xOffset > -300) {
-	                xOffset -= scrollSpeed;
-	        }
+	        if (xOffset > -300) { xOffset -= scrollSpeed; }
 	        break;
 		case GLFW_KEY_S:
-	        if (yOffset > -300) {
-	                yOffset -= scrollSpeed;
-	        }
+	        if (yOffset > -300) { yOffset -= scrollSpeed; }
 	        break;
 		case GLFW_KEY_D:
 	        if (xOffset < RenderMaster.TILE_SPACING * RenderMaster.zoom * (World.WORLD_SIZE) - (World.WORLD_SIZE * RenderMaster.TILE_SPACING)) {
