@@ -10,7 +10,7 @@ public class World {
 	/**
 	 * The size of the world
 	 */
-	private static final int WORLD_SIZE = 25;
+	public static final int WORLD_SIZE = 25;
 	
 	/**
 	 * All tiles in the world.

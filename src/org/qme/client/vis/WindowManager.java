@@ -13,6 +13,7 @@ import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
+import org.qme.world.World;
 
 /**
  * Manages the sole window handle used with GLFW / OpenGL , and provides ways to
@@ -59,12 +60,12 @@ public final class WindowManager {
 	/**
 	 * The x-offset from normal
 	 */
-	private static int xOffset = 0;
+	private static double xOffset = 0D;
 	
 	/**
 	 * The y-offset from normal
 	 */
-	private static int yOffset = 0;
+	private static double yOffset = 0D;
 	
 	/**
 	 * How fast this works
@@ -181,12 +182,29 @@ public final class WindowManager {
 			doScroll(glfwKeyCode);
 			break;
 		case GLFW_KEY_I:
-			RenderMaster.zoom /= 0.9;
+			applyZoom(1.1F);
 			break;
 		case GLFW_KEY_O:
-			RenderMaster.zoom *= 0.9;
+			applyZoom(0.9F);
 			break;
 		}
+	}
+
+	/**
+	 * Zooms in or out and applies an offset to zoom evenly
+	 */
+	private static void applyZoom(float zoomFactor) {
+		// Works by calculating how much offset must be applied to counteract the objects increasing in size
+		double newWorldSize = RenderMaster.TILE_SPACING * (RenderMaster.zoom*zoomFactor) * (World.WORLD_SIZE);
+		double oldWorldSize = RenderMaster.TILE_SPACING * RenderMaster.zoom * (World.WORLD_SIZE);
+
+		double focusX = ((size/2) + xOffset)/oldWorldSize;
+		double focusY = ((size/2) + yOffset)/oldWorldSize;
+
+		xOffset -= (oldWorldSize - newWorldSize) * focusX;
+		yOffset -= (oldWorldSize - newWorldSize) * focusY;
+
+		RenderMaster.zoom *= zoomFactor;
 	}
 	
 	/**
@@ -226,9 +244,11 @@ public final class WindowManager {
 	/**
 	 * Get the offset, for use in calculating rendering routines
 	 * @return the offset in a Java AWT dimension
+	 * @deprecated Provides imprecise rounded offsets use getWindowY() and getWindowX() instead
 	 */
+	@Deprecated
 	public static Dimension getOffsets() {
-		return new Dimension(xOffset, yOffset);
+		return new Dimension((int) Math.round(xOffset), (int) Math.round(yOffset));
 	}
 	
 	/**
@@ -245,7 +265,7 @@ public final class WindowManager {
 	 * Get the window x offset
 	 * @return the window x offset
 	 */
-	public static int getWindowX() {
+	public static double getWindowX() {
 		return xOffset;
 	}
 	
@@ -253,7 +273,7 @@ public final class WindowManager {
 	 * Get the window y offset
 	 * @return the window y offset
 	 */
-	public static int getWindowY() {
+	public static double getWindowY() {
 		return yOffset;
 	}
 	
