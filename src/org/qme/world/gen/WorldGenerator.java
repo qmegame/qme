@@ -1,10 +1,11 @@
-package org.qme.world;
+package org.qme.world.gen;
 
 import java.lang.Math;
 import java.util.Random;
 
 import org.qme.io.Logger;
 import org.qme.io.Severity;
+import org.qme.world.TileType;
 
 /**
  * The class that houses the generateWorldMap function
