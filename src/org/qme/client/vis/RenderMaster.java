@@ -25,6 +25,12 @@ public final class RenderMaster {
 	public static double zoom = 10;
 
 	/**
+	 * lowest is the smallest amount of zoom, the farthest out
+	 */
+	public static int lowest = 2;
+	public static int highest = 20;
+
+	/**
 	 * The size of the tiles
 	 */
 	public static final float TILE_SIZE = 20;

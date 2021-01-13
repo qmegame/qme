@@ -182,11 +182,17 @@ public final class WindowManager {
 			doScroll(glfwKeyCode);
 			break;
 		case GLFW_KEY_I:
-			applyZoom(1.1F);
-			break;
+			// Zoom in until limit is reached
+			if (RenderMaster.zoom <= RenderMaster.highest) {
+				applyZoom(1.1F);
+				break;
+			}
 		case GLFW_KEY_O:
-			applyZoom(0.9F);
-			break;
+			// Zoom out until limit is reached
+			if (RenderMaster.zoom >= RenderMaster.lowest) {
+				applyZoom(0.9F);
+				break;
+			}
 		}
 	}
 
