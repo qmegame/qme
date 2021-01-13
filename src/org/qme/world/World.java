@@ -1,5 +1,7 @@
 package org.qme.world;
 
+import org.qme.world.gen.WorldGenerator;
+
 /**
  * Represents a world in the game, with tiles.
  * @author adamhutchings
