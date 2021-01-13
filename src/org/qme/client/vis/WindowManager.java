@@ -221,21 +221,28 @@ public final class WindowManager {
 	private static void doScroll(int keycode) {
 		
 		switch (keycode) {
-		
+
 		case GLFW_KEY_A:
-			xOffset -= scrollSpeed;
-			break;
+	        if (xOffset > -300) {
+	                xOffset -= scrollSpeed;
+	        }
+	        break;
 		case GLFW_KEY_S:
-			yOffset -= scrollSpeed;
-			break;
+	        if (yOffset > -300) {
+	                yOffset -= scrollSpeed;
+	        }
+	        break;
 		case GLFW_KEY_D:
-			xOffset += scrollSpeed;
-			break;
+	        if (xOffset < RenderMaster.TILE_SPACING * RenderMaster.zoom * (World.WORLD_SIZE) - (World.WORLD_SIZE * RenderMaster.TILE_SPACING)) {
+	                xOffset += scrollSpeed;
+	        }
+	        break;
 		case GLFW_KEY_W:
-			yOffset += scrollSpeed;
-			break;
+	        if (yOffset < RenderMaster.TILE_SPACING * RenderMaster.zoom * (World.WORLD_SIZE) - (World.WORLD_SIZE * RenderMaster.TILE_SPACING)) {
+	                yOffset += scrollSpeed;
+	        }
+	        break;
 		default:;
-		
 		}
 		
 	}
