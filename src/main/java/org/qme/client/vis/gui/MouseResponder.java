@@ -1,12 +1,13 @@
 package org.qme.client.vis.gui;
 
-import static org.lwjgl.glfw.GLFW.*;
+import org.lwjgl.BufferUtils;
+import org.qme.client.vis.WindowManager;
 
 import java.nio.DoubleBuffer;
 import java.util.ArrayList;
 
-import org.lwjgl.BufferUtils;
-import org.qme.client.vis.WindowManager;
+import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
+import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 
 /**
  * Represents an interface for UI component interaction with mouse events. Most

@@ -1,11 +1,10 @@
 package org.qme.io;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-
-import javax.swing.JOptionPane;
 
 /**
  * A class to log things wanting to be logged to "qdata/logs.txt"

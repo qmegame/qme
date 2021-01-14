@@ -1,11 +1,12 @@
 package org.qme.client.vis;
 
-import static org.lwjgl.opengl.GL11.*;
-
-import java.awt.Color;
 import org.qme.client.vis.tex.TextureManager;
 import org.qme.world.Tile;
 import org.qme.world.TileType;
+
+import java.awt.*;
+
+import static org.lwjgl.opengl.GL11.*;
 
 /**
  * Class containing all main rendering utilities.

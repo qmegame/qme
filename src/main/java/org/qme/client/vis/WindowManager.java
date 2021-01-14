@@ -1,20 +1,20 @@
 package org.qme.client.vis;
 
-import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.glClear;
-import static org.lwjgl.opengl.GL11.glClearColor;
-import static org.lwjgl.system.MemoryUtil.*;
-
-import java.awt.Dimension;
-import java.nio.DoubleBuffer;
-import java.util.ArrayList;
-
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.qme.client.vis.tex.TextureManager;
 import org.qme.world.World;
+
+import java.awt.*;
+import java.nio.DoubleBuffer;
+import java.util.ArrayList;
+
+import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengl.GL11.glClearColor;
+import static org.lwjgl.system.MemoryUtil.NULL;
 
 /**
  * Manages the sole window handle used with GLFW / OpenGL , and provides ways to
