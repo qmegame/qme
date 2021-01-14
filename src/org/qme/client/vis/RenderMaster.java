@@ -3,7 +3,7 @@ package org.qme.client.vis;
 import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Color;
-
+import org.qme.client.vis.tex.TextureManager;
 import org.qme.world.Tile;
 import org.qme.world.TileType;
 
@@ -61,7 +61,7 @@ public final class RenderMaster {
 			tileX + (int) (TILE_SIZE * zoom), tileY,
 			tileX + (int) (TILE_SIZE * zoom), tileY + (int) (TILE_SIZE * zoom),
 			tileX, tileY + (int) (TILE_SIZE * zoom),
-			getColor(tile.type)
+			getTexture(tile.type)
 		);
 		
 	}
@@ -77,7 +77,7 @@ public final class RenderMaster {
 	 * @param vert3Y y position of the third vertex
 	 * @param vert4X x position of the fourth vertex
 	 * @param vert4Y y position of the fourth vertex
-	 * @param color the color to draw with (later a texture)
+	 * @param tex texture id of quad
 	 */
 	private static void drawQuad(
 			int vert1X,
@@ -88,24 +88,29 @@ public final class RenderMaster {
 			int vert3Y,
 			int vert4X,
 			int vert4Y,
-			Color color
+			int tex
 	) {
-		glColor4f(
-				((float) color.getRed()) / 256f,
-				((float) color.getGreen()) / 256f,
-				((float) color.getBlue()) / 256f,
-				((float) color.getAlpha()) / 256f
-		);
-		glBegin(GL_TRIANGLES);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, TextureManager.textures.get(tex));
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(1, 1);
 			glVertex2f(vert1X, vert1Y);
+
+			glTexCoord2f(0, 1);
 			glVertex2f(vert2X, vert2Y);
+
+			glTexCoord2f(0, 0);
 			glVertex2f(vert3X, vert3Y);
-		glEnd();
-		glBegin(GL_TRIANGLES);
-			glVertex2f(vert1X, vert1Y);
-			glVertex2f(vert3X, vert3Y);
+
+			glTexCoord2f(1, 0);
 			glVertex2f(vert4X, vert4Y);
 		glEnd();
+		glDisable(GL_TEXTURE_2D);
 	}
 	
 	/**
@@ -133,6 +138,34 @@ public final class RenderMaster {
 			return new Color(0, 175, 175);
 		default:
 			return new Color(100, 0, 0); // invalid
+		}
+	}
+
+	/**
+	 * Get a texture id from a tile type
+	 * @param type which tile type
+	 * @return the texture id of the tile
+	 */
+	private static int getTexture(TileType type) {
+		switch (type) {
+			case FOREST:
+				return 1;
+			case PLAINS:
+				return 2;
+			case FERTILE_PLAINS:
+				return 3;
+			case MOUNTAIN:
+				return 4;
+			case OCEAN:
+				return 5;
+			case SEA:
+				return 6;
+			case HIGH_MOUNTAIN:
+				return 7;
+			case DESERT:
+				return 8;
+			default:
+				return 0;
 		}
 	}
 
