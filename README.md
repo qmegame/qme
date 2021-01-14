@@ -9,4 +9,8 @@ This is the repository for the QME source code and assets.
 - o zooms the camera out
 
 ## Requirements
-We use Java 13 `openjdk-13-jdk-headless`
+The project is built using the latest version of open Java Development Pack
+`java-latest-openjdk-devel`
+
+The current version the program supports Java version `15`
+Maximum backwards compatibility with JDK version `13`
