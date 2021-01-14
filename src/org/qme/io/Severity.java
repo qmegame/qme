@@ -9,5 +9,6 @@ package org.qme.io;
 public enum Severity {
 	NORMAL,
 	WARNING,
-	ERROR
+	ERROR,
+	FATAL
 }
