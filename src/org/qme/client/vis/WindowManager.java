@@ -13,6 +13,7 @@ import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
+import org.qme.client.vis.tex.TextureManager;
 import org.qme.world.World;
 
 /**
@@ -44,6 +45,9 @@ public final class WindowManager {
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 		
 		createWindow();
+
+		// Load textures
+		new TextureManager();
 		
 	}
 	
