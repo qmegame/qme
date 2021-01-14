@@ -13,4 +13,4 @@ The project is built using the latest version of open Java Development Pack
 `java-latest-openjdk-devel`
 
 The current version the program supports Java version `15`
-Maximum backwards compatibility with JDK version `13`
+Maximum backwards compatibility with JDK version `15`
