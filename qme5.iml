@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="EclipseModuleManager">
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-glfw-javadoc.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-glfw-natives-linux-arm32.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-glfw-natives-linux-arm64.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-glfw-natives-linux.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-glfw-natives-macos.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-glfw-natives-windows-x86.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-glfw-natives-windows.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-glfw-sources.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-glfw.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-javadoc.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-natives-linux-arm32.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-natives-linux-arm64.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-natives-linux.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-natives-macos.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-natives-windows-x86.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-natives-windows.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-opengl-javadoc.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-opengl-natives-linux-arm32.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-opengl-natives-linux-arm64.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-opengl-natives-linux.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-opengl-natives-macos.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-opengl-natives-windows-x86.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-opengl-natives-windows.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-opengl-sources.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-opengl.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl-sources.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jars/lwjgl.jar!/" />
+    <src_description expected_position="0">
+      <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
+    </src_description>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/bin" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/qdata" />
+    </content>
+    <orderEntry type="jdk" jdkName="15" jdkType="JavaSDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="org.lwjgl:lwjgl:3.1.2" level="project" />
+    <orderEntry type="library" name="org.lwjgl.osgi:org.lwjgl.opengl:3.2.1.2" level="project" />
+    <orderEntry type="library" name="org.lwjgl.osgi:org.lwjgl.opengles:3.2.1.2" level="project" />
+    <orderEntry type="library" name="org.lwjgl.osgi:org.lwjgl.glfw:3.2.1.2" level="project" />
+    <orderEntry type="library" name="org.lwjgl.osgi:org.lwjgl.egl:3.2.1.2" level="project" />
+    <orderEntry type="module-library" scope="TEST">
+      <library name="JUnit5.4">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/junit-jupiter-5.4.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/junit-jupiter-api-5.4.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/apiguardian-api-1.0.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/opentest4j-1.1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/junit-platform-commons-1.4.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/junit-jupiter-params-5.4.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/junit-jupiter-engine-5.4.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/junit-platform-engine-1.4.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>
