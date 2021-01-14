@@ -59,17 +59,17 @@ public final class WindowManager {
 	/**
 	 * The size of the window.
 	 */
-	private static int size;
+	public static int size;
 	
 	/**
 	 * The x-offset from normal
 	 */
-	private static double xOffset = 0D;
+	public static double xOffset = 0D;
 	
 	/**
 	 * The y-offset from normal
 	 */
-	private static double yOffset = 0D;
+	public static double yOffset = 0D;
 	
 	/**
 	 * How fast this works
@@ -79,13 +79,13 @@ public final class WindowManager {
 	/**
 	 * The ratio between window height / monitor height
 	 */
-	private static final float SCREEN_SIZE = 0.75f;
+	public static final float SCREEN_SIZE = 0.75f;
 	
 	/**
 	 * Get the preferred window size (3/4 screen height)
 	 * @return the height/width of the window
 	 */
-	private static int windowSize() {
+	public static int windowSize() {
 		
 		GLFWVidMode screenSize = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
