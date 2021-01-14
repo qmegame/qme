@@ -64,12 +64,12 @@ public final class WindowManager {
 	/**
 	 * The x-offset from normal
 	 */
-	public static double xOffset = 0D;
+	private static double xOffset = 0D;
 	
 	/**
 	 * The y-offset from normal
 	 */
-	public static double yOffset = 0D;
+	private static double yOffset = 0D;
 	
 	/**
 	 * How fast this works
@@ -79,7 +79,7 @@ public final class WindowManager {
 	/**
 	 * The ratio between window height / monitor height
 	 */
-	public static final float SCREEN_SIZE = 0.75f;
+	private static final float SCREEN_SIZE = 0.75f;
 	
 	/**
 	 * Get the preferred window size (3/4 screen height)
