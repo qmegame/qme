@@ -54,7 +54,7 @@ public final class RenderMaster {
 		double screenLeft = - 200;
 		double screenRight = WindowManager.size;
 
-		double screenBottom = - 200 * zoom;
+		double screenBottom = - 200;
 		double screenTop = WindowManager.size;
 
 		if (x > screenLeft && x < screenRight) {
