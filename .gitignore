@@ -3,4 +3,6 @@ doc/
 *.DS_STORE*
 qdata/
 .idea/
-*.iml
+target/
+/.classpath
+/.macosLib.txt
