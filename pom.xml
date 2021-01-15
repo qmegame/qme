@@ -6,7 +6,7 @@
 
     <groupId>org.qme</groupId>
     <artifactId>qme5</artifactId>
-    <version>PreB</version>
+    <version>preB</version>
 
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
