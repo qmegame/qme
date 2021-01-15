@@ -29,7 +29,7 @@ public final class RenderMaster {
 	 * lowest is the smallest amount of zoom, the farthest out
 	 */
 	public static final int LOWEST = 2;
-	public static final int HIGHEST = 20;
+	public static final int HIGHEST = 10;
 
 	/**
 	 * The amount to zoom in and out
@@ -48,23 +48,42 @@ public final class RenderMaster {
 	public static final float TILE_SPACING = 22;
 
 	/**
+	 * Check if a tile is in frame
+	 */
+	public static boolean isInFrame(double x, double y) {
+		double screenLeft = - 200;
+		double screenRight = WindowManager.size;
+
+		double screenBottom = - 200;
+		double screenTop = WindowManager.size;
+
+		if (x > screenLeft && x < screenRight) {
+			if (y > screenBottom && y < screenTop) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Draw a given tile.
 	 * @param tile the tile to draw
 	 */
 	public static void drawTile(Tile tile) {
-		
+
 		int tileX = (int) (((tile.x) * TILE_SPACING * zoom) - WindowManager.getWindowX());
 		int tileY = (int) (((tile.y) * TILE_SPACING * zoom) - WindowManager.getWindowY());
 
-		// TEMP
-		drawQuad(
-			tileX, tileY,
-			tileX + (int) (TILE_SIZE * zoom), tileY,
-			tileX + (int) (TILE_SIZE * zoom), tileY + (int) (TILE_SIZE * zoom),
-			tileX, tileY + (int) (TILE_SIZE * zoom),
-			getTexture(tile.type)
-		);
-		
+		if (isInFrame(tileX, tileY)) {
+			// TEMP
+			drawQuad(
+					tileX, tileY,
+					tileX + (int) (TILE_SIZE * zoom), tileY,
+					tileX + (int) (TILE_SIZE * zoom), tileY + (int) (TILE_SIZE * zoom),
+					tileX, tileY + (int) (TILE_SIZE * zoom),
+					getTexture(tile.type)
+			);
+		}
 	}
 	
 	/**

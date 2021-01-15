@@ -59,7 +59,7 @@ public final class WindowManager {
 	/**
 	 * The size of the window.
 	 */
-	private static int size;
+	public static int size;
 	
 	/**
 	 * The x-offset from normal
@@ -85,7 +85,7 @@ public final class WindowManager {
 	 * Get the preferred window size (3/4 screen height)
 	 * @return the height/width of the window
 	 */
-	private static int windowSize() {
+	public static int windowSize() {
 		
 		GLFWVidMode screenSize = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
