@@ -85,7 +85,7 @@ public class Logger {
 		}
 
 		if (severity == Severity.FATAL) {
-			showDialog(message+ ". Fatal.");
+			showDialog(message + ". Fatal.");
 		}
 
 	}
