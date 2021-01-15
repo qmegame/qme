@@ -115,13 +115,12 @@ public class TextureManager {
         try {
             return ImageIO.read(new File(path));
         } catch (IOException e) {
-            Logger.log("Could not find texture " + path, Severity.WARNING);
-            e.printStackTrace();
+            // The reason this is not fatal is because the application can still run with fallback textures so we don't always want to quit just in case the user needs to debug
+            Logger.log("Could not load texture " + path, Severity.ERROR);
             try {
-                Logger.log("Could not find fallback texture", Severity.ERROR);
                 return ImageIO.read(new File("resources/textures/missing.png"));
             } catch (IOException ex) {
-                ex.printStackTrace();
+                Logger.log("Could not load fallback texture", Severity.FATAL);
             }
         }
         return null;
