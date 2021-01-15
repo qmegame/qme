@@ -10,9 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Setup JDK 15
+    - name: Setup Java
       uses: actions/setup-java@v1
       with:
         java-version: 15
-    - name: Build qme5
+    - name: Test Qme5
+      run: mvn test
+    - name: Build Qme5
       run: mvn -B package --file pom.xml
