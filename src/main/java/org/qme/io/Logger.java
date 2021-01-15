@@ -28,9 +28,7 @@ public class Logger {
 		try {
 			new File("qdata/").mkdir();
 		} catch(SecurityException e) {
-			JOptionPane.showMessageDialog(null,
-					"Error creating error log folder. Fatal."
-					+ "Possible cause: insufficient permissions.");
+			showDialog("Error creating error log folder. Fatal. Possible cause: insufficient permissions.");
 		}
 		
 		// Creates file if not created
@@ -38,14 +36,10 @@ public class Logger {
 		try {
 			logs.createNewFile();
 		} catch(IOException e) {
-			JOptionPane.showMessageDialog(null,
-					"Error writing errors to log. Fatal. "
-					+ "Possible cause: insufficient permissions.");
+			showDialog("Error writing errors to log. Fatal. Possible cause: insufficient permissions.");
 			System.exit(-1);
 		} catch(SecurityException f) {
-			JOptionPane.showMessageDialog(null,
-					"Error writing errors to log. Fatal. "
-					+ "Possible cause: insufficient permissions.");
+			showDialog("Error writing errors to log. Fatal. Possible cause: insufficient permissions.");
 			System.exit(-1);
 		}
 		
@@ -77,21 +71,31 @@ public class Logger {
 		try {
 			write = new FileWriter(logs, true);
 		} catch(IOException e) {
-			JOptionPane.showMessageDialog(null,
-					"Error writing errors to log. Fatal. "
-					+ "Possible cause: insufficient permissions.");
+			showDialog("Error writing errors to log. Fatal. Possible cause: insufficient permissions.");
 			System.exit(-1);
 		} catch(SecurityException f) {
-			JOptionPane.showMessageDialog(null,
-					"Error writing errors to log. Fatal. "
-					+ "Possible cause: insufficient permissions.");
+			showDialog("Error writing errors to log. Fatal. Possible cause: insufficient permissions.");
 			System.exit(-1);
 		}
 		try {
 			write.write(error);
 			write.close();
 		} catch(IOException e) {
-			JOptionPane.showMessageDialog(null, "Error writing errors. Nonfatal.");
+			showDialog("Error writing errors. Nonfatal.");
 		}
+
+		if (severity == Severity.FATAL) {
+			showDialog(message+ ". Fatal.");
+		}
+
 	}
+
+	/**
+	 * Creates dialog box, wrapper for JOptionPane.showMessageDialog();
+	 * @param message information about error
+	 */
+	private static void showDialog(String message) {
+		JOptionPane.showMessageDialog(null, message, null, JOptionPane.ERROR_MESSAGE);
+	}
+
 }
