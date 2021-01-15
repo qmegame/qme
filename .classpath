@@ -1,3 +1,5 @@
+<!-- If you are on macOS, replace the all content in this file with contents in macosLib.txt-->
+
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
   <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
