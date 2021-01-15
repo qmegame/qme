@@ -4,3 +4,5 @@ doc/
 qdata/
 .idea/
 target/
+.classpath
+.macosLib.txt
