@@ -3,7 +3,7 @@
 
 name: Run tests
 
-on: [pull_request, push, workflow_dispatch]
+on: [pull_request]
 
 jobs:
   build:
