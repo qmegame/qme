@@ -23,7 +23,7 @@ public final class RenderMaster {
 	/**
 	 * The zoom for the tiles
 	 */
-	public static double zoom = 10;
+	public static float zoom = 10;
 
 	/**
 	 * lowest is the smallest amount of zoom, the farthest out

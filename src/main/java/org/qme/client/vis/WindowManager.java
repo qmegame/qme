@@ -5,6 +5,7 @@ import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.qme.client.vis.tex.TextureManager;
+import org.qme.utils.Direction;
 import org.qme.world.World;
 
 import java.awt.*;
@@ -169,35 +170,37 @@ public final class WindowManager {
 	 * @param keyAction pressed down, released, etc.
 	 * @param modifierKeys which keys were held (shift, ctrl, alt, caps lock)
 	 */
-	private static void onKeyPress(
-			long window,
-			int glfwKeyCode,
-			int systemScancode,
-			int keyAction,
-			int modifierKeys)
-	{
+	private static void onKeyPress(long window, int glfwKeyCode, int systemScancode, int keyAction, int modifierKeys) {
+		if (keyAction == GLFW_RELEASE) {
+			return;
+		}
+
 		switch (glfwKeyCode) {
-		
-		// Scroll
-		case GLFW_KEY_A:
-		case GLFW_KEY_S:
-		case GLFW_KEY_D:
-		case GLFW_KEY_W:
-			if (keyAction != GLFW_RELEASE)
-				doScroll(glfwKeyCode);
-			break;
-		case GLFW_KEY_I:
-			// Zoom in until limit is reached
-			if (RenderMaster.zoom <= RenderMaster.HIGHEST) {
-				applyZoom(RenderMaster.ZOOM_IN);
-			}
-			break;
-		case GLFW_KEY_O:
-			// Zoom out until limit is reached
-			if (RenderMaster.zoom >= RenderMaster.LOWEST) {
-				applyZoom(RenderMaster.ZOOM_OUT);
-			}
-			break;
+			// Scroll
+			case GLFW_KEY_A:
+				doScroll(Direction.LEFT);
+				break;
+			case GLFW_KEY_S:
+				doScroll(Direction.DOWN);
+				break;
+			case GLFW_KEY_D:
+				doScroll(Direction.RIGHT);
+				break;
+			case GLFW_KEY_W:
+				doScroll(Direction.UP);
+				break;
+			case GLFW_KEY_I:
+				// Zoom in until limit is reached
+				if (RenderMaster.zoom <= RenderMaster.HIGHEST) {
+					applyZoom(RenderMaster.ZOOM_IN);
+				}
+				break;
+			case GLFW_KEY_O:
+				// Zoom out until limit is reached
+				if (RenderMaster.zoom >= RenderMaster.LOWEST) {
+					applyZoom(RenderMaster.ZOOM_OUT);
+				}
+				break;
 		}
 	}
 
@@ -206,8 +209,8 @@ public final class WindowManager {
 	 */
 	private static void applyZoom(float zoomFactor) {
 		// Works by calculating how much offset must be applied to counteract the objects increasing in size
-		double newWorldSize = RenderMaster.TILE_SPACING * (RenderMaster.zoom*zoomFactor) * (World.WORLD_SIZE);
-		double oldWorldSize = RenderMaster.TILE_SPACING * RenderMaster.zoom * (World.WORLD_SIZE);
+		double newWorldSize = getWorldSize(RenderMaster.zoom * zoomFactor);
+		double oldWorldSize = getWorldSize(RenderMaster.zoom);
 
 		double focusX = ((size/2) + xOffset)/oldWorldSize;
 		double focusY = ((size/2) + yOffset)/oldWorldSize;
@@ -217,34 +220,61 @@ public final class WindowManager {
 
 		RenderMaster.zoom *= zoomFactor;
 	}
+
+	/**
+	 * Gets the size of the world in pixels
+	 * @param zoom the current zoom factor of the world
+	 * @return the size of the world in pixels
+	 */
+	private static float getWorldSize(float zoom) {
+		return RenderMaster.TILE_SPACING * zoom * World.WORLD_SIZE;
+	}
+
+	/**
+	 * Calculates if the camera can move any more in any direction given that the limit is the center of the screen
+	 * @param direction the direction that is being moved to
+	 * @param zoom the current zoom to calculate for
+	 * @return if the camera can move
+	 */
+	private static boolean canMove(Direction direction, float zoom) {
+		switch (direction) {
+			case UP:
+				return ((size/2) + yOffset)/getWorldSize(zoom) < 1;
+			case DOWN:
+				return ((size/2) + yOffset)/getWorldSize(zoom) > 0;
+			case LEFT:
+				return ((size/2) + xOffset)/getWorldSize(zoom) > 0;
+			case RIGHT:
+				return ((size/2) + xOffset)/getWorldSize(zoom) < 1;
+			default:
+				return true;
+		}
+	}
 	
 	/**
 	 * Scroll based on a key code
-	 * @param keycode the code (WASD)
+	 * @param direction the direction of motion
 	 */
-	private static void doScroll(int keycode) {
-		
-		switch (keycode) {
+	private static void doScroll(Direction direction) {
 
-		case GLFW_KEY_A:
-	        if (xOffset > -300) { xOffset -= scrollSpeed; }
-	        break;
-		case GLFW_KEY_S:
-	        if (yOffset > -300) { yOffset -= scrollSpeed; }
-	        break;
-		case GLFW_KEY_D:
-	        if (xOffset < RenderMaster.TILE_SPACING * RenderMaster.zoom * (World.WORLD_SIZE) - (World.WORLD_SIZE * RenderMaster.TILE_SPACING)) {
-	                xOffset += scrollSpeed;
-	        }
-	        break;
-		case GLFW_KEY_W:
-	        if (yOffset < RenderMaster.TILE_SPACING * RenderMaster.zoom * (World.WORLD_SIZE) - (World.WORLD_SIZE * RenderMaster.TILE_SPACING)) {
-	                yOffset += scrollSpeed;
-	        }
-	        break;
-		default:;
+		if (!canMove(direction, RenderMaster.zoom)) {
+			return;
 		}
-		
+
+		switch (direction) {
+			case UP:
+				yOffset += scrollSpeed;
+				break;
+			case DOWN:
+				yOffset -= scrollSpeed;
+				break;
+			case RIGHT:
+				xOffset += scrollSpeed;
+				break;
+			case LEFT:
+				xOffset -= scrollSpeed;
+				break;
+		}
 	}
 	
 	/**
