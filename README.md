@@ -1,3 +1,5 @@
+![Build Status](https://github.com/adamhutchings/qme5/workflows/Run%20tests/badge.svg)
+
 This is the repository for the QME source code and assets.
 
 ## QME

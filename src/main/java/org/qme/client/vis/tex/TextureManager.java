@@ -7,7 +7,6 @@ import org.qme.io.Severity;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -22,7 +21,12 @@ public class TextureManager {
     /**
      * Path to the texture locations
      */
-    private static final String TEXTURE_RESOURCES = "resources/textures/";
+    private static final String TEXTURE_RESOURCES = "/textures/";
+
+    /**
+     * Path to missing textures
+     */
+    private static final String MISSING_TEXTURE = "/textures/missing.png";
 
     /**
      * List of every loaded texture
@@ -52,7 +56,7 @@ public class TextureManager {
      */
     public static void loadTextures(ArrayList<String> toLoad) {
         for (String texture : toLoad) {
-            textures.add(loadTextureFromImage(loadImage(TEXTURE_RESOURCES + texture)));
+            textures.add(loadTextureFromImage(loadImageResource(TEXTURE_RESOURCES + texture)));
         }
     }
 
@@ -107,23 +111,41 @@ public class TextureManager {
     }
 
     /**
-     * Gets an image from the file system
+     * Gets an image from resources
      * @param path path of the file
      * @return an image
      */
-    public static BufferedImage loadImage(String path) {
-        try {
-            return ImageIO.read(new File(path));
-        } catch (IOException e) {
-            // The reason this is not fatal is because the application can still run with fallback textures so we don't always want to quit just in case the user needs to debug
-            Logger.log("Could not load texture " + path, Severity.ERROR);
-            try {
-                return ImageIO.read(new File("resources/textures/missing.png"));
-            } catch (IOException ex) {
-                Logger.log("Could not load fallback texture", Severity.FATAL);
+    private static BufferedImage loadImageResource(String path) {
+
+        // If the texture doesn't exist try to load fallback texture
+        if (TextureManager.class.getResource(path) == null) {
+            Logger.log("Could not find texture " + path, Severity.ERROR);
+
+            // Attempt to load fallback texture so the application can at least start
+
+            if (TextureManager.class.getResource(MISSING_TEXTURE) == null) {
+                Logger.log("Could not find fallback texture", Severity.FATAL);
+                return null;
             }
+
+            try {
+                return ImageIO.read(TextureManager.class.getResource(MISSING_TEXTURE));
+            } catch (IOException e) {
+                Logger.log("Could not load fallback texture", Severity.FATAL);
+                e.printStackTrace();
+                return null;
+            }
+
         }
-        return null;
+
+        try {
+            return ImageIO.read(TextureManager.class.getResource(path));
+        } catch (IOException e) {
+            // Some unforeseen error has occurred. Don't try to load fallback texture
+            Logger.log("Could not load texture " + path, Severity.FATAL);
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }
