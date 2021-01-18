@@ -6,11 +6,20 @@ import java.io.IOException;
 import java.lang.Runtime;
 
 public class InstallerUnix {
+
+    /**
+     * The all important function that installs the game
+     * (It's frontend's problem now)
+     * @author santiago
+     * @since preB
+     * @param location Where the game will be put
+     */
     public void Install(File location) {
         if(InstallerUnix.filesDownloaded()) {
             try {
                 Runtime.getRuntime().exec("mv resources/ " + location.getPath());
-                //TODO: move actual jar or exe once i have the name
+                //qme5.jar is a placeholder name
+                Runtime.getRuntime().exec("mv qme5.jar " + location.getPath());
             } catch(IOException e) {
                 JOptionPane.showMessageDialog(null,
                         "Issue installing files to selected location. Grant necessary permissions.",
@@ -44,10 +53,12 @@ public class InstallerUnix {
         final File plainsPng = new File("resources/textures/plains.png");
         final File seaPng = new File("resources/textures/sea.png");
 
+        final File qme5Jar = new File("qme5.jar");
+
         return resources.exists() && textures.exists() && desertPng.exists() &&
                 fertilePlainsPng.exists() && forestPng.exists() &&
                 highMountainPng.exists() && missingPng.exists() &&
                 mountainPng.exists() && oceanPng.exists() && plainsPng.exists() &&
-                seaPng.exists();
+                seaPng.exists() && qme5Jar.exists();
     }
 }
