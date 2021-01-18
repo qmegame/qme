@@ -1,56 +1,38 @@
-<!-- If you are on macOS, replace the all content in this file with contents in macosLib.txt-->
-
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-  <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
-  <classpathentry kind="src" path="src/main/resources" excluding="**/*.java"/>
-  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-  <classpathentry kind="output" path="target/classes"/>
-  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-15"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl/3.2.3/lwjgl-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-assimp/3.2.3/lwjgl-assimp-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-bgfx/3.2.3/lwjgl-bgfx-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-cuda/3.2.3/lwjgl-cuda-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-egl/3.2.3/lwjgl-egl-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-glfw/3.2.3/lwjgl-glfw-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-jawt/3.2.3/lwjgl-jawt-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-jemalloc/3.2.3/lwjgl-jemalloc-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-libdivide/3.2.3/lwjgl-libdivide-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-llvm/3.2.3/lwjgl-llvm-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-lmdb/3.2.3/lwjgl-lmdb-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-lz4/3.2.3/lwjgl-lz4-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-meow/3.2.3/lwjgl-meow-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-nanovg/3.2.3/lwjgl-nanovg-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-nfd/3.2.3/lwjgl-nfd-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-nuklear/3.2.3/lwjgl-nuklear-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-odbc/3.2.3/lwjgl-odbc-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-openal/3.2.3/lwjgl-openal-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-opencl/3.2.3/lwjgl-opencl-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-opengl/3.2.3/lwjgl-opengl-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-opengles/3.2.3/lwjgl-opengles-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-openvr/3.2.3/lwjgl-openvr-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-opus/3.2.3/lwjgl-opus-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-ovr/3.2.3/lwjgl-ovr-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-par/3.2.3/lwjgl-par-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-remotery/3.2.3/lwjgl-remotery-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-rpmalloc/3.2.3/lwjgl-rpmalloc-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-shaderc/3.2.3/lwjgl-shaderc-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-sse/3.2.3/lwjgl-sse-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-stb/3.2.3/lwjgl-stb-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-tinyexr/3.2.3/lwjgl-tinyexr-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-tinyfd/3.2.3/lwjgl-tinyfd-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-tootle/3.2.3/lwjgl-tootle-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-vma/3.2.3/lwjgl-vma-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-vulkan/3.2.3/lwjgl-vulkan-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-xxhash/3.2.3/lwjgl-xxhash-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-yoga/3.2.3/lwjgl-yoga-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/lwjgl/lwjgl-zstd/3.2.3/lwjgl-zstd-3.2.3.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/junit/jupiter/junit-jupiter/5.7.0/junit-jupiter-5.7.0.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/junit/jupiter/junit-jupiter-api/5.7.0/junit-jupiter-api-5.7.0.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/junit/platform/junit-platform-commons/1.7.0/junit-platform-commons-1.7.0.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/junit/jupiter/junit-jupiter-params/5.7.0/junit-jupiter-params-5.7.0.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/junit/jupiter/junit-jupiter-engine/5.7.0/junit-jupiter-engine-5.7.0.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/junit/platform/junit-platform-engine/1.7.0/junit-platform-engine-1.7.0.jar"/>
+    <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
+    <classpathentry kind="src" path="src/main/resources" excluding="**/*.java"/>
+    <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-15">
+        <attributes>
+            <attribute name="module" value="true"/>
+        </attributes>
+    </classpathentry>
+    <classpathentry kind="lib" path="jars/lwjgl-glfw-javadoc.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-glfw-natives-linux-arm32.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-glfw-natives-linux-arm64.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-glfw-natives-linux.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-glfw-natives-macos.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-glfw-natives-windows-x86.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-glfw-natives-windows.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-glfw-sources.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-glfw.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-javadoc.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-natives-linux-arm32.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-natives-linux-arm64.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-natives-linux.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-natives-macos.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-natives-windows-x86.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-natives-windows.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-opengl-javadoc.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-opengl-natives-linux-arm32.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-opengl-natives-linux-arm64.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-opengl-natives-linux.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-opengl-natives-macos.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-opengl-natives-windows-x86.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-opengl-natives-windows.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-opengl-sources.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-opengl.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl-sources.jar"/>
+    <classpathentry kind="lib" path="jars/lwjgl.jar"/>
+    <classpathentry kind="output" path="bin"/>
 </classpath>
