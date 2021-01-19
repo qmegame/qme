@@ -13,13 +13,27 @@ import java.lang.Runtime;
 public class Installer {
 
     /**
+     * The runnable that installs the rest of the game
+     * @author santiago
+     * @since preB
+     * @param args The first argument is (probably temporarily) the directory to install to
+     */
+    public static void main(String[] args) {
+        if(Installer.windowsOrUnix()) {
+            Installer.installWindows(new File(args[0]));
+        } else {
+            Installer.installUnix(new File(args[0]));
+        }
+    }
+
+    /**
      * The all important function that installs the game on Unix systems
      * (It's frontend's problem now)
      * @author santiago
      * @since preB
      * @param location Where the game will be put
      */
-    public void installUnix(File location) {
+    public static void installUnix(File location) {
         if(Installer.filesDownloadedUnix()) {
             try {
                 Runtime.getRuntime().exec("mv resources/ " + location.getPath());
@@ -37,7 +51,13 @@ public class Installer {
         }
     }
 
-    public void installWindows(File location) {
+    /**
+     * The function that installs the files on Windows systems
+     * @author santiago
+     * @since pre5
+     * @param location Where the files will be installed
+     */
+    public static void installWindows(File location) {
         if(Installer.filesDownloadedWindows()) {
             try {
                 Runtime.getRuntime().exec("Move resources\\ " + location.getPath());
@@ -113,5 +133,19 @@ public class Installer {
                 highMountainPng.exists() && missingPng.exists() &&
                 mountainPng.exists() && oceanPng.exists() && plainsPng.exists() &&
                 seaPng.exists() && qme5Jar.exists();
+    }
+
+    /**
+     * (Non Unix and Windows be damned)
+     * @author santiago
+     * @since preB
+     * @return Whether or not it's a windows system
+     */
+    private static boolean windowsOrUnix() {
+        if(System.getProperty("os.name") == "Windows 10") {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
