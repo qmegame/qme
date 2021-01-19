@@ -53,7 +53,9 @@ public class WorldGenerator {
 		// Make coastal oceans into seas
 		Logger.log("before final ocean to sea", Severity.NORMAL);
 		world = WorldGenerator.oceanToSea(world, side);
-		
+
+		world = WorldGenerator.landReclaim(world, side);
+
 		// Return generated (not yet) world
 		Logger.log("done", Severity.NORMAL);
 		return world;
@@ -428,6 +430,36 @@ public class WorldGenerator {
 			return true;
 		}
 	}
+
+	/**
+	 * A utility function to check if a tile touches a sea
+	 * @author santiago
+	 * @since preB
+	 * @param world The world
+	 * @param x The tile's x
+	 * @param y The tile's y
+	 * @return Whether or not the tile touches a sea
+	 */
+	private static boolean touchesSea(TileType[][] world, int x, int y) {
+		try {
+			if(WorldGenerator.isType(world[x - 1][y], TileType.SEA)) {
+				return true;
+			}
+			if(WorldGenerator.isType(world[x][y - 1], TileType.SEA)) {
+				return true;
+			}
+			if(WorldGenerator.isType(world[x + 1][y], TileType.SEA)) {
+				return true;
+			}
+			if(WorldGenerator.isType(world[x][y + 1], TileType.SEA)) {
+				return true;
+			}
+
+			return false;
+		} catch(ArrayIndexOutOfBoundsException e) {
+			return true;
+		}
+	}
 	
 	/**
 	 * A utility function that generates a river on a continent
@@ -620,5 +652,26 @@ public class WorldGenerator {
 	 */
 	public static boolean isType(TileType tile, TileType type) {
 		return tile == type;
+	}
+
+	/**
+	 * @author santiago
+	 * @since preB
+	 * @param world The world
+	 * @param side How long a side of the world is
+	 * @return The world but with no little "ponds"
+	 */
+	private static TileType[][] landReclaim(TileType[][] world, int side) {
+		TileType[][] dubaiWorld = world;
+		for(int i = 1; i < (side - 1); i++) {
+			for(int j = 1; j < (side - 1); j++) {
+				if(!WorldGenerator.touchesOcean(dubaiWorld, i, j)) {
+					if(!WorldGenerator.touchesSea(dubaiWorld, i, j)) {
+						dubaiWorld[i][j] = WorldGenerator.assignRandomFlatLand();
+					}
+				}
+			}
+		}
+		return dubaiWorld;
 	}
 }
