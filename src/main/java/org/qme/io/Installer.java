@@ -32,7 +32,7 @@ public class Installer {
         }
     }
 
-    public void InstallWindows(File location) {
+    public void installWindows(File location) {
         if(Installer.filesDownloadedWindows()) {
             try {
                 Runtime.getRuntime().exec("Move resources\\\ " + location.getPath());
