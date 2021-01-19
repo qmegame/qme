@@ -5,6 +5,11 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.Runtime;
 
+/**
+ * The class that installs the game. As such, it has its own main()
+ * @author santiago
+ * @since preB
+ */
 public class Installer {
 
     /**
