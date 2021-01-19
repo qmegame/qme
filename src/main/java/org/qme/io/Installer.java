@@ -14,7 +14,7 @@ public class Installer {
      * @since preB
      * @param location Where the game will be put
      */
-    public void InstallUnix(File location) {
+    public void installUnix(File location) {
         if(Installer.filesDownloadedUnix()) {
             try {
                 Runtime.getRuntime().exec("mv resources/ " + location.getPath());
