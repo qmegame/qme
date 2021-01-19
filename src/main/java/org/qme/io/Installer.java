@@ -35,7 +35,7 @@ public class Installer {
     public void installWindows(File location) {
         if(Installer.filesDownloadedWindows()) {
             try {
-                Runtime.getRuntime().exec("Move resources\\\ " + location.getPath());
+                Runtime.getRuntime().exec("Move resources\\ " + location.getPath());
                 //qme5.jar is a placeholder name
                 Runtime.getRuntime().exec("Move qme5.jar " + location.getPath());
             } catch(IOException e) {
@@ -89,17 +89,17 @@ public class Installer {
      */
     private static boolean filesDownloadedWindows() {
         // This is gonna get cursed
-        final File resources = new File("resources\\\");
-        final File textures = new File("resources\\\textures\\\");
-        final File desertPng = new File("resources\\\textures\\\desert.png");
-        final File fertilePlainsPng = new File("resources\\\textures\\\fertile-plains.png");
-        final File forestPng = new File("resources\\\textures\\\forest.png");
-        final File highMountainPng = new File("resources\\\textures\\\high-mountain.png");
-        final File missingPng = new File("resources\\\textures\\\missing.png");
-        final File mountainPng = new File("resources\\\textures\\\mountain.png");
-        final File oceanPng = new File("resources\\\textures\\\ocean.png");
-        final File plainsPng = new File("resources\\\textures\\\plains.png");
-        final File seaPng = new File("resources\\\textures\\\sea.png");
+        final File resources = new File("resources\\");
+        final File textures = new File("resources\\textures\\");
+        final File desertPng = new File("resources\\textures\\desert.png");
+        final File fertilePlainsPng = new File("resources\\textures\\fertile-plains.png");
+        final File forestPng = new File("resources\\textures\\forest.png");
+        final File highMountainPng = new File("resources\\textures\\high-mountain.png");
+        final File missingPng = new File("resources\\textures\\missing.png");
+        final File mountainPng = new File("resources\\textures\\mountain.png");
+        final File oceanPng = new File("resources\\textures\\ocean.png");
+        final File plainsPng = new File("resources\\textures\\plains.png");
+        final File seaPng = new File("resources\\textures\\sea.png");
 
         final File qme5Jar = new File("qme5.jar");
 
