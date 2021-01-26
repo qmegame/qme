@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Class responsible for loading textures from files
@@ -29,9 +30,9 @@ public class TextureManager {
     private static final String MISSING_TEXTURE = "/textures/missing.png";
 
     /**
-     * List of every loaded texture
+     * Every loaded texture - string name to ID
      */
-    public static ArrayList<Integer> textures = new ArrayList<>();
+    public static HashMap<String, Integer> textures = new HashMap<>();
 
     /**
      * Loads textures
@@ -56,7 +57,14 @@ public class TextureManager {
      */
     public static void loadTextures(ArrayList<String> toLoad) {
         for (String texture : toLoad) {
-            textures.add(loadTextureFromImage(loadImageResource(TEXTURE_RESOURCES + texture)));
+            textures.put(
+                    texture,
+                    loadTextureFromImage(
+                            loadImageResource(
+                                    TEXTURE_RESOURCES + texture
+                            )
+                    )
+            );
         }
     }
 
