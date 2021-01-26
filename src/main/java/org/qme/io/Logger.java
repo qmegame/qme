@@ -65,6 +65,9 @@ public class Logger {
 		error += "\"";
 		error += message;
 		error += "\"";
+
+		// Print to output
+		System.out.print(error);
 		
 		// Write to file
 		FileWriter write = null;
