@@ -4,8 +4,6 @@ import org.qme.client.vis.tex.TextureManager;
 import org.qme.world.Tile;
 import org.qme.world.TileType;
 
-import java.awt.*;
-
 import static org.lwjgl.opengl.GL11.*;
 
 /**
@@ -111,7 +109,7 @@ public final class RenderMaster {
 			int tex
 	) {
 		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, TextureManager.textures.get(tex));
+		glBindTexture(GL_TEXTURE_2D, tex);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -139,26 +137,10 @@ public final class RenderMaster {
 	 * @return the texture id of the tile
 	 */
 	private static int getTexture(TileType type) {
-		switch (type) {
-			case FOREST:
-				return 1;
-			case PLAINS:
-				return 2;
-			case FERTILE_PLAINS:
-				return 3;
-			case MOUNTAIN:
-				return 4;
-			case OCEAN:
-				return 5;
-			case SEA:
-				return 6;
-			case HIGH_MOUNTAIN:
-				return 7;
-			case DESERT:
-				return 8;
-			default:
-				return 0;
-		}
+		String texString =
+				// HIGH_MOUNTAIN -> high_mountain -> high-mountain -> high-mountain.png
+				type.name().toLowerCase().replace('_', '-') + ".png";
+		return TextureManager.textures.get(texString);
 	}
 
 }
