@@ -3,13 +3,14 @@ package org.qme.world.gen;
 import org.qme.io.Logger;
 import org.qme.io.Severity;
 import org.qme.world.TileType;
+import org.qme.utils.Multithreading;
 
 import java.util.Random;
 
 /**
  * The class that houses the generateWorldMap function
  * And also houses auxiliary functions that area called in that function
- * @author santiago
+ * @author santiago, Tom
  * @since preA
  */
 public class WorldGenerator {
