@@ -132,34 +132,6 @@ public final class RenderMaster {
 		glEnd();
 		glDisable(GL_TEXTURE_2D);
 	}
-	
-	/**
-	 * Get the color to render from a type
-	 * @param type which tile type
-	 * @return the color
-	 */
-	private static Color getColor(TileType type) {
-		switch (type) {
-		case DESERT:
-			return new Color(200, 200, 0);
-		case FERTILE_PLAINS:
-			return new Color(0, 250, 0);
-		case FOREST:
-			return new Color(0, 200, 0);
-		case HIGH_MOUNTAIN:
-			return new Color(75, 75, 75);
-		case MOUNTAIN:
-			return new Color(150, 150, 150);
-		case OCEAN:
-			return new Color(0, 0, 100);
-		case PLAINS:
-			return new Color(100, 200, 0);
-		case SEA:
-			return new Color(0, 175, 175);
-		default:
-			return new Color(100, 0, 0); // invalid
-		}
-	}
 
 	/**
 	 * Get a texture id from a tile type
