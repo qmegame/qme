@@ -10,7 +10,7 @@ public class Multithreading implements Runnable {
     private Thread t;
     private String threadName;
 
-    Multithreading(String name) {
+    public Multithreading(String name) {
         threadName = name;
         System.out.println("Creating " +  threadName );
     }

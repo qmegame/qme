@@ -3,7 +3,6 @@ package org.qme.world.gen;
 import org.qme.io.Logger;
 import org.qme.io.Severity;
 import org.qme.world.TileType;
-import org.qme.utils.Multithreading;
 
 import java.util.Random;
 
@@ -24,6 +23,7 @@ public class WorldGenerator {
 	 * @param side The length of a side of the map
 	 * @return The kinds of tiles on the map
 	 */
+
 	public static TileType[][] generateWorldMap(int side) {
 		Logger.log("function called", Severity.NORMAL);
 		

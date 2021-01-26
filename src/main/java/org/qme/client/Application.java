@@ -1,5 +1,6 @@
 package org.qme.client;
 
+import org.qme.utils.Multithreading;
 import org.qme.client.vis.WindowManager;
 import org.qme.world.World;
 
@@ -14,14 +15,24 @@ import org.qme.world.World;
  * @since preA
  */
 public final class Application {
-	
+
+	/**
+	 * Create New Threads
+	 */
+	private Multithreading R1 = new Multithreading("Thread 1");
+	private Multithreading R2 = new Multithreading("Thread 2");
+
 	/**
 	 * The constructor is private. Only one instance allowed.
 	 */
 	private Application() {
-		new World();
+		World R1 = new World("Thread-1");
+		R1.start();
+
+		World R2 = new World("Thread-2");
+		R2.start();
 	}
-	
+
 	/**
 	 * The global instance of application.
 	 */
