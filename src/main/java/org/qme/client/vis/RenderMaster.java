@@ -8,7 +8,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 /**
  * Class containing all main rendering utilities.
- * @author adamhutchings
+ * @author adamhutchings, jakeroggenbuck
  * @since preA
  */
 public final class RenderMaster {
@@ -69,16 +69,18 @@ public final class RenderMaster {
 	 */
 	public static void drawTile(Tile tile) {
 
-		int tileX = (int) (((tile.x) * TILE_SPACING * zoom) - WindowManager.getWindowX());
-		int tileY = (int) (((tile.y) * TILE_SPACING * zoom) - WindowManager.getWindowY());
+		int tile_space_actual = (int) (TILE_SPACING * zoom);
+		int tileX = (int) (((tile.x) * tile_space_actual) - WindowManager.getWindowX());
+		int tileY = (int) (((tile.y) * tile_space_actual) - WindowManager.getWindowY());
 
 		if (isInFrame(tileX, tileY)) {
+			int tile_size_actual = (int) (TILE_SIZE * zoom);
 			// TEMP
 			drawQuad(
 					tileX, tileY,
-					tileX + (int) (TILE_SIZE * zoom), tileY,
-					tileX + (int) (TILE_SIZE * zoom), tileY + (int) (TILE_SIZE * zoom),
-					tileX, tileY + (int) (TILE_SIZE * zoom),
+					tileX + tile_size_actual, tileY,
+					tileX + tile_size_actual, tileY + tile_size_actual,
+					tileX, tileY + tile_size_actual,
 					getTexture(tile.type)
 			);
 		}
