@@ -7,7 +7,7 @@ import org.qme.client.Application;
  * @author adamhutchings
  * @since preA
  */
-public class Main{
+public class Main {
 	
 	/**
 	 * Main method for the whole application.

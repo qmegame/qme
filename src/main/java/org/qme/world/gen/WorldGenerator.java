@@ -24,7 +24,7 @@ public class WorldGenerator {
 	 * @return The kinds of tiles on the map
 	 */
 
-	public static TileType[][] generateWorldMap(int side) {
+	public static TileType[][] generateWorldMap(double side) {
 		Logger.log("function called", Severity.NORMAL);
 		
 		// Generate blank world
@@ -41,8 +41,8 @@ public class WorldGenerator {
 		
 		Logger.log("before continents", Severity.NORMAL);
 		for(int continentCount = 0; continentCount < continents; continentCount++) {
-			int i = rand.nextInt(side);
-			int j = rand.nextInt(side);
+			int i = rand.nextInt((int) side);
+			int j = rand.nextInt((int) side);
 			Logger.log("before individual continent", Severity.NORMAL);
 			world = WorldGenerator.addContinent(world, side, i, j);
 			
@@ -70,10 +70,10 @@ public class WorldGenerator {
 	 * @param parchedSide A side length of the world
 	 * @return A TileType[][] of all TileType.OCEAN
 	 */
-	private static TileType[][] ocean(int parchedSide) {
-		
+	private static TileType[][] ocean(double parchedSide) {
+
 		// Make return blank world
-		TileType[][] wet = new TileType[parchedSide][parchedSide];
+		TileType[][] wet = new TileType[(int) parchedSide][(int) parchedSide];
 		Logger.log("before each tile for loops", Severity.NORMAL);
 		// Fill each tile with ocean
 		for(int i = 0; i < parchedSide; i++) {
@@ -97,7 +97,7 @@ public class WorldGenerator {
 	 * @return The inputted array with a continent added
 	 */
 	private static TileType[][] addContinent(TileType[][] world,
-			int side, int centerX, int centerY) {
+			double side, int centerX, int centerY) {
 
 		// Set up return world
 		TileType[][] newWorld;
@@ -112,8 +112,8 @@ public class WorldGenerator {
 		// Set up extreme points with most extreme values
 		int leftmost = 0;
 		int upmost = 0;
-		int rightmost = side - 1;
-		int downmost = side - 1;
+		int rightmost = (int) (side - 1);
+		int downmost = (int) (side - 1);
 		
 		Logger.log("before expand left", Severity.NORMAL);
 		// Expand left
@@ -293,10 +293,10 @@ public class WorldGenerator {
 	 * @return A world with a continent with a mountain range
 	 */
 	private static TileType[][] addMountain(TileType[][] world, int leftBound,
-			int upBound, int rightBound, int downBound, int side) {
+			int upBound, int rightBound, int downBound, double side) {
 		
 		// Create output
-		TileType[][] mountainWorld = new TileType[side][side];
+		TileType[][] mountainWorld;
 		mountainWorld = world;
 		
 		// Set random start for range
@@ -456,7 +456,7 @@ public class WorldGenerator {
 	 * @return A world with a continent with a river
 	 */
 	private static TileType[][] addRiver(TileType[][] world, int leftBound,
-			int upBound, int rightBound, int downBound, int side) {
+			int upBound, int rightBound, int downBound, double side) {
 		Logger.log("create river started", Severity.NORMAL);
 		// Create output
 		TileType[][] flowingWorld;
@@ -544,7 +544,7 @@ public class WorldGenerator {
 	 * @param side The length of the world's sides
 	 * @return The world but with sea tiles surrounding the land
 	 */
-	private static TileType[][] oceanToSea(TileType[][] world, int side) {
+	private static TileType[][] oceanToSea(TileType[][] world, double side) {
 		Logger.log("ocean to sea called", Severity.NORMAL);
 		// Set up return
 		TileType[][] shallowWorld;
@@ -636,7 +636,8 @@ public class WorldGenerator {
 	 * @param side How long a side of the world is
 	 * @return The world but with no little "ponds"
 	 */
-	private static TileType[][] landReclaim(TileType[][] world, int side) {
+
+	private static TileType[][] landReclaim(TileType[][] world, double side) {
 		TileType[][] dubaiWorld = world;
 		for(int i = 1; i < (side - 1); i++) {
 			for(int j = 1; j < (side - 1); j++) {
