@@ -16,6 +16,10 @@ public class WorldGenerator {
 	private static final Random rand = new Random();
 	private static final String EXPANDED = "expanded ";
 
+	private WorldGenerator() {
+		throw new IllegalStateException("World Generation");
+	}
+
 	/**
 	 * The function that generates the map for a game
 	 * @author santiago
@@ -92,7 +96,7 @@ public class WorldGenerator {
 	 * @since preA
 	 * @param world The array to be modified
 	 * @param side The size of the world
-	 * @param centerX The center of the contnient
+	 * @param centerX The center of the continent
 	 * @param centerY The center of the continent
 	 * @return The inputted array with a continent added
 	 */
@@ -448,7 +452,7 @@ public class WorldGenerator {
 	 * A utility function that generates a river on a continent
 	 * @author santiago
 	 * @since preA
-	 * @param world The riverless world
+	 * @param world The river-less world
 	 * @param leftBound The left extreme of the continent
 	 * @param upBound The up extreme of the continent
 	 * @param rightBound The right extreme of the continent
@@ -540,7 +544,7 @@ public class WorldGenerator {
 	 * A utility function to turn all ocean tiles that touch land into sea tiles
 	 * @author santiago
 	 * @since preA
-	 * @param world The world in which all ocean tiles will be cheched
+	 * @param world The world in which all ocean tiles will be checked
 	 * @param side The length of the world's sides
 	 * @return The world but with sea tiles surrounding the land
 	 */
@@ -552,7 +556,7 @@ public class WorldGenerator {
 		
 		// Check tiles
 		for(int i = 1; i < side - 1; i++) {
-			// Without starting at 1 and ending early, there'd be Out of Bounds
+			// Without starting at 1 and ending early, they'd be Out of Bounds
 			for(int j = 1; j < side - 1; j++) {
 				if(WorldGenerator.isType(shallowWorld[i][j], TileType.OCEAN) &&
 				 WorldGenerator.touchesLand(shallowWorld, i, j)) {
