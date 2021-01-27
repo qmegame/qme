@@ -28,7 +28,7 @@ public class WorldGenerator {
 		Logger.log("function called", Severity.NORMAL);
 		
 		// Generate blank world
-		TileType[][] world = new TileType[side][side];
+		TileType[][] world;
 		
 		Logger.log("before ocean", Severity.NORMAL);
 		// Fill world with ocean
@@ -100,7 +100,7 @@ public class WorldGenerator {
 			int side, int centerX, int centerY) {
 
 		// Set up return world
-		TileType[][] newWorld = new TileType[side][side];
+		TileType[][] newWorld;
 		newWorld = world;
 		
 		Logger.log("assign center tile to random", Severity.NORMAL);
@@ -459,7 +459,7 @@ public class WorldGenerator {
 			int upBound, int rightBound, int downBound, int side) {
 		Logger.log("create river started", Severity.NORMAL);
 		// Create output
-		TileType[][] flowingWorld = new TileType[side][side];
+		TileType[][] flowingWorld;
 		flowingWorld = world;
 		
 		// Set random start for range
@@ -547,7 +547,7 @@ public class WorldGenerator {
 	private static TileType[][] oceanToSea(TileType[][] world, int side) {
 		Logger.log("ocean to sea called", Severity.NORMAL);
 		// Set up return
-		TileType[][] shallowWorld = new TileType[side][side];
+		TileType[][] shallowWorld;
 		shallowWorld = world;
 		
 		// Check tiles
