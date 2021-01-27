@@ -35,14 +35,11 @@ public class Logger {
 		final File logs = new File("qdata/logs.txt");
 		try {
 			logs.createNewFile();
-		} catch(IOException e) {
-			showDialog("Error writing errors to log. Fatal. Possible cause: insufficient permissions.");
-			System.exit(-1);
-		} catch(SecurityException f) {
+		} catch(IOException | SecurityException e) {
 			showDialog("Error writing errors to log. Fatal. Possible cause: insufficient permissions.");
 			System.exit(-1);
 		}
-		
+
 		// String to be written
 		String error = "";
 		
@@ -65,18 +62,12 @@ public class Logger {
 		error += "\"";
 		error += message;
 		error += "\"";
-
-		// Print to output
-		//System.out.print(error);
 		
 		// Write to file
 		FileWriter write = null;
 		try {
 			write = new FileWriter(logs, true);
-		} catch(IOException e) {
-			showDialog("Error writing errors to log. Fatal. Possible cause: insufficient permissions.");
-			System.exit(-1);
-		} catch(SecurityException f) {
+		} catch(IOException | SecurityException e) {
 			showDialog("Error writing errors to log. Fatal. Possible cause: insufficient permissions.");
 			System.exit(-1);
 		}

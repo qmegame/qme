@@ -12,7 +12,6 @@ import org.qme.io.Severity;
 public class Multithreading implements Runnable {
     private Thread t;
     private String threadName;
-    private int worldSize;
 
     public Multithreading(String name) {
         threadName = name;
@@ -42,5 +41,9 @@ public class Multithreading implements Runnable {
             Thread.currentThread().interrupt();
         }
         Logger.log("Thread " +  threadName + " exiting.", Severity.NORMAL);
+    }
+
+    public void stop() {
+        t.interrupt();
     }
 }
