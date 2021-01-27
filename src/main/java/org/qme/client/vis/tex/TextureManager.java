@@ -57,14 +57,7 @@ public class TextureManager {
      */
     public static void loadTextures(ArrayList<String> toLoad) {
         for (String texture : toLoad) {
-            textures.put(
-                    texture,
-                    loadTextureFromImage(
-                            loadImageResource(
-                                    TEXTURE_RESOURCES + texture
-                            )
-                    )
-            );
+            textures.put(texture, loadTextureFromImage(loadImageResource(TEXTURE_RESOURCES + texture)));
         }
     }
 
