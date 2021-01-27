@@ -413,19 +413,10 @@ public class WorldGenerator {
 	 */
 	private static boolean touchesOcean(TileType[][] world, int x, int y) {
 		try {
-			if(WorldGenerator.isType(world[x - 1][y], TileType.OCEAN)) {
-				return true;
-			}
-			if(WorldGenerator.isType(world[x][y - 1], TileType.OCEAN)) {
-				return true;
-			}
-			if(WorldGenerator.isType(world[x + 1][y], TileType.OCEAN)) {
-				return true;
-			}
-			if(WorldGenerator.isType(world[x][y + 1], TileType.OCEAN)) {
-				return true;
-			}
-			
+			if(WorldGenerator.isType(world[x - 1][y], TileType.OCEAN)) { return true; }
+			if(WorldGenerator.isType(world[x][y - 1], TileType.OCEAN)) { return true; }
+			if(WorldGenerator.isType(world[x + 1][y], TileType.OCEAN)) { return true; }
+			if(WorldGenerator.isType(world[x][y + 1], TileType.OCEAN)) { return true; }
 			return false;
 		} catch(ArrayIndexOutOfBoundsException e) {
 			return true;
@@ -443,19 +434,10 @@ public class WorldGenerator {
 	 */
 	private static boolean touchesSea(TileType[][] world, int x, int y) {
 		try {
-			if(WorldGenerator.isType(world[x - 1][y], TileType.SEA)) {
-				return true;
-			}
-			if(WorldGenerator.isType(world[x][y - 1], TileType.SEA)) {
-				return true;
-			}
-			if(WorldGenerator.isType(world[x + 1][y], TileType.SEA)) {
-				return true;
-			}
-			if(WorldGenerator.isType(world[x][y + 1], TileType.SEA)) {
-				return true;
-			}
-
+			if(WorldGenerator.isType(world[x - 1][y], TileType.SEA)) { return true; }
+			if(WorldGenerator.isType(world[x][y - 1], TileType.SEA)) { return true; }
+			if(WorldGenerator.isType(world[x + 1][y], TileType.SEA)) { return true; }
+			if(WorldGenerator.isType(world[x][y + 1], TileType.SEA)) { return true; }
 			return false;
 		} catch(ArrayIndexOutOfBoundsException e) {
 			return true;
@@ -542,18 +524,10 @@ public class WorldGenerator {
 			int oceansTouched = 0;
 			
 			// Count
-			if(WorldGenerator.isType(world[x - 1][y], TileType.OCEAN)) {
-				oceansTouched++;
-			}
-			if(WorldGenerator.isType(world[x][y - 1], TileType.OCEAN)) {
-				oceansTouched++;
-			}
-			if(WorldGenerator.isType(world[x + 1][y], TileType.OCEAN)) {
-				oceansTouched++;
-			}
-			if(WorldGenerator.isType(world[x][y + 1], TileType.OCEAN)) {
-				oceansTouched++;
-			}
+			if(WorldGenerator.isType(world[x - 1][y], TileType.OCEAN)) { oceansTouched++; }
+			if(WorldGenerator.isType(world[x][y - 1], TileType.OCEAN)) { oceansTouched++; }
+			if(WorldGenerator.isType(world[x + 1][y], TileType.OCEAN)) { oceansTouched++; }
+			if(WorldGenerator.isType(world[x][y + 1], TileType.OCEAN)) { oceansTouched++; }
 			
 			// Return
 			return oceansTouched >= 2;

@@ -1,5 +1,6 @@
 package org.qme.world;
 
+import org.qme.utils.Multithreading;
 import org.qme.world.gen.WorldGenerator;
 
 /**
@@ -7,57 +8,39 @@ import org.qme.world.gen.WorldGenerator;
  * @author adamhutchings
  * @since preA
  */
-public class World implements Runnable {
+public class World {
+
+	Multithreading R1 = new Multithreading("Thread-1");
+	Multithreading R2 = new Multithreading("Thread-2");
+
 
 	/**
 	 * The size of the world
 	 */
-	public static final int WORLD_SIZE = 500;
-	
+	public static final int WORLD_SIZE = 25;
+
 	/**
 	 * All tiles in the world.
 	 */
-	private Tile[][] tiles;
+	private final Tile[][] tiles;
 
-	/**
-	 * Set up for Multithreading
-	 */
-	private Thread t;
-	private String threadName;
-
-
-	public World(String name) {
-		threadName = name;
-		System.out.println("Creating " +  threadName );
-	}
 	/**
 	 * Create the world by initializing all tiles with appropriate types.
 	 */
-	@Override
-	public void run() {
+	public World() {
+		R1.start();
+		R2.start();
+
 		tiles = new Tile[WORLD_SIZE][WORLD_SIZE];
 		TileType[][] typelist = WorldGenerator.generateWorldMap(WORLD_SIZE);
-		try {
-			for (int i = 0; i < WORLD_SIZE; i++) {
-				for (int j = 0; j < WORLD_SIZE; j++) {
-					tiles[i][j] = new Tile(i, j, typelist[i][j]);
-				}
+		for (int i = 0; i < WORLD_SIZE; i++) {
+			for (int j = 0; j < WORLD_SIZE; j++) {
+				tiles[i][j] = new Tile(i, j, typelist[i][j]);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Thread " +  threadName + " interrupted.");
 		}
-		System.out.println("Thread " +  threadName + " exiting.");
+
 	}
 
-	public void start () {
-		System.out.println("Starting " +  threadName );
-		if (t == null) {
-			t = new Thread (this, threadName);
-			t.start ();
-		}
-	}
-	
 	/**
 	 * Get all the tiles.
 	 * @return the tile map for rendering
