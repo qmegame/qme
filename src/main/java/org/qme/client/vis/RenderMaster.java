@@ -69,18 +69,18 @@ public final class RenderMaster {
 	 */
 	public static void drawTile(Tile tile) {
 
-		int tile_space_actual = (int) (TILE_SPACING * zoom);
-		int tileX = (int) (((tile.x) * tile_space_actual) - WindowManager.getWindowX());
-		int tileY = (int) (((tile.y) * tile_space_actual) - WindowManager.getWindowY());
+		int tileSpaceActual = (int) (TILE_SPACING * zoom);
+		int tileX = (int) (((tile.x) * tileSpaceActual) - WindowManager.getWindowX());
+		int tileY = (int) (((tile.y) * tileSpaceActual) - WindowManager.getWindowY());
 
 		if (isInFrame(tileX, tileY)) {
-			int tile_size_actual = (int) (TILE_SIZE * zoom);
+			int tileSizeActual = (int) (TILE_SIZE * zoom);
 			// TEMP
 			drawQuad(
 					tileX, tileY,
-					tileX + tile_size_actual, tileY,
-					tileX + tile_size_actual, tileY + tile_size_actual,
-					tileX, tileY + tile_size_actual,
+					tileX + tileSizeActual, tileY,
+					tileX + tileSizeActual, tileY + tileSizeActual,
+					tileX, tileY + tileSizeActual,
 					getTexture(tile.type)
 			);
 		}

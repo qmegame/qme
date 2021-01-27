@@ -81,7 +81,7 @@ public final class WindowManager {
 	 * The ratio between window height / monitor height
 	 */
 	private static final float SCREEN_SIZE = 0.75f;
-	
+
 	/**
 	 * Get the preferred window size (3/4 screen height)
 	 * @return the height/width of the window
