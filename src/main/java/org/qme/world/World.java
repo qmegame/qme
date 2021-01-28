@@ -28,6 +28,8 @@ public class World {
 	 * Create the world by initializing all tiles with appropriate types.
 	 */
 	public World() {
+		r1.start();
+		r2.start();
 		tiles = new Tile[WORLD_SIZE][WORLD_SIZE];
 		TileType[][] typelist = WorldGenerator.generateWorldMap(WORLD_SIZE);
 		for (int i = 0; i < WORLD_SIZE; i++) {
