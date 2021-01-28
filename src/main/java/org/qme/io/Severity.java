@@ -8,6 +8,7 @@ package org.qme.io;
  */
 public enum Severity {
 	NORMAL,
+	DEBUG,
 	WARNING,
 	ERROR,
 	FATAL

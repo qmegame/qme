@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 /**
  * A class to log things wanting to be logged to "qdata/logs.txt"
- * @author santiago
+ * @author santiago, jakeroggenbuck
  * @since preA
  */
 public class Logger {
@@ -16,7 +16,7 @@ public class Logger {
 	/**
 	 * Function that logs a message to "qdata/logs.txt" with the date and time,
 	 * the severity, and a message
-	 * @author santiago
+	 * @author santiago, jakeroggenbuck
 	 * @since preA
 	 * @param message The custom message to be logged
 	 * @param severity An estimation of the severity of the error
@@ -24,6 +24,7 @@ public class Logger {
 	 * @throws IOException
 	 */
 	public static void log(String message, Severity severity) {
+
 		// Creates directory if not already created
 		try {
 			new File("qdata/").mkdir();
@@ -35,48 +36,24 @@ public class Logger {
 		final File logs = new File("qdata/logs.txt");
 		try {
 			logs.createNewFile();
-		} catch(IOException e) {
-			showDialog("Error writing errors to log. Fatal. Possible cause: insufficient permissions.");
-			System.exit(-1);
-		} catch(SecurityException f) {
+		} catch(IOException | SecurityException e) {
 			showDialog("Error writing errors to log. Fatal. Possible cause: insufficient permissions.");
 			System.exit(-1);
 		}
 		
-		// String to be written
-		String error = "";
-		
-		// Append newline from pervious error
-		error += "\n";
-		
-		// Append date and time to message
-		error += LocalDateTime.now().toString();
-		
-		// Append formatting
-		error += " - ";
-		
-		// Append severity
-		error += severity.name();
-		
-		// Append formatting
-		error += ": ";
-		
-		// Append message
-		error += "\"";
-		error += message;
-		error += "\"";
+		// Error format
+		String error = "[ " + LocalDateTime.now().toString() + " ] [ " + severity.name() + " ] " + message + "\n";
 
-		// Print to output
-		System.out.print(error);
-		
+		if (severity != Severity.DEBUG) {
+			// Print to output if something is not normal
+			System.out.print(error);
+		}
+
 		// Write to file
 		FileWriter write = null;
 		try {
 			write = new FileWriter(logs, true);
-		} catch(IOException e) {
-			showDialog("Error writing errors to log. Fatal. Possible cause: insufficient permissions.");
-			System.exit(-1);
-		} catch(SecurityException f) {
+		} catch(IOException | SecurityException e) {
 			showDialog("Error writing errors to log. Fatal. Possible cause: insufficient permissions.");
 			System.exit(-1);
 		}
@@ -88,7 +65,7 @@ public class Logger {
 		}
 
 		if (severity == Severity.FATAL) {
-			showDialog(message + ". Fatal.");
+			showDialog("FATAL " + message);
 		}
 
 	}
