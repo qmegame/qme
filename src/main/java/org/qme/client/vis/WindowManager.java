@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 /**
  * Manages the sole window handle used with GLFW / OpenGL , and provides ways to
  * access GL code with a wrapper (because OpenGL is yucky)
- * @author adamhutchings
+ * @author adamhutchings, jakeroggenbuck
  * @since preA
  */
 public final class WindowManager {
@@ -81,7 +81,7 @@ public final class WindowManager {
 	 * The ratio between window height / monitor height
 	 */
 	private static final float SCREEN_SIZE = 0.75f;
-	
+
 	/**
 	 * Get the preferred window size (3/4 screen height)
 	 * @return the height/width of the window
@@ -215,8 +215,10 @@ public final class WindowManager {
 		double focusX = ((size/2) + xOffset)/oldWorldSize;
 		double focusY = ((size/2) + yOffset)/oldWorldSize;
 
-		xOffset -= (oldWorldSize - newWorldSize) * focusX;
-		yOffset -= (oldWorldSize - newWorldSize) * focusY;
+		double worldSizeChange = oldWorldSize - newWorldSize;
+
+		xOffset -= (worldSizeChange) * focusX;
+		yOffset -= (worldSizeChange) * focusY;
 
 		RenderMaster.zoom *= zoomFactor;
 	}
