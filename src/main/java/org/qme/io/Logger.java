@@ -44,7 +44,7 @@ public class Logger {
 		// Error format
 		String error = "[ " + LocalDateTime.now().toString() + " ] [ " + severity.name() + " ] " + message + "\n";
 
-		if (severity != Severity.DEBUG && severity != Severity.NORMAL) {
+		if (severity != Severity.DEBUG) {
 			// Print to output if something is not normal
 			System.out.print(error);
 		}
