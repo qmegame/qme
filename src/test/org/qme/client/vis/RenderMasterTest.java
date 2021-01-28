@@ -3,11 +3,7 @@ package org.qme.client.vis;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.qme.client.vis.tex.TextureManager;
-import org.qme.world.TileType;
 import org.qme.world.World;
-
-import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
