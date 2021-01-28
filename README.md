@@ -16,7 +16,7 @@ The project is built using the latest version of open Java Development Pack
 
 The current version the program supports Java version `15`
 
-Maximum backwards compatibility with JDK version `13`
+Maximum backwards compatibility with JDK version `11`
 
 
 Note: If you are using MacOS and do not have a working Maven installation, please replace all content in `.classpath` with content in `macosLib.txt`
