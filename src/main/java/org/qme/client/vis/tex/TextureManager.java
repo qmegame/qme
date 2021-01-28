@@ -70,14 +70,19 @@ public class TextureManager {
 
         GL32.glEnable(GL32.GL_TEXTURE_2D);
 
-        int[] pixelBuf = new int[image.getWidth() * image.getHeight()];
-        image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixelBuf, 0, image.getWidth());
-        ByteBuffer buf = BufferUtils.createByteBuffer(image.getWidth() * image.getHeight() * 4);
+        int height = image.getHeight();
+        int width = image.getWidth();
 
-        for (int y = 0; y < image.getHeight(); y++) {
-            for (int x = 0; x < image.getWidth(); x++) {
+        int area = height * width;
 
-                int pixel = pixelBuf[y * image.getWidth() + x];
+        int[] pixelBuf = new int[area];
+        image.getRGB(0, 0, width, height, pixelBuf, 0, width);
+        ByteBuffer buf = BufferUtils.createByteBuffer(area * 4);
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+
+                int pixel = pixelBuf[y * width + x];
 
                 // Get RGB
                 buf.put((byte) ((pixel >> 16) & 0xFF));
@@ -99,7 +104,7 @@ public class TextureManager {
 
         GL32.glTexImage2D(
                 GL32.GL_TEXTURE_2D, 0, GL32.GL_RGBA,
-                image.getWidth(), image.getHeight(),
+                width, height,
                 0, GL32.GL_RGBA, GL32.GL_UNSIGNED_BYTE, buf
         );
 
