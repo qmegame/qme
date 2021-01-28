@@ -25,30 +25,26 @@ public class Logger {
 	 */
 	public static void log(String message, Severity severity) {
 
-		String permErrorMessage = "Error creating error log folder. Fatal. Possible cause: insufficient permissions.";
 		// Creates directory if not already created
 		try {
 			new File("qdata/").mkdir();
 		} catch(SecurityException e) {
-			showDialog(permErrorMessage);
+			showDialog("Error creating error log folder. Fatal. Possible cause: insufficient permissions.");
 		}
 		
 		// Creates file if not created
 		final File logs = new File("qdata/logs.txt");
 		try {
 			logs.createNewFile();
-		} catch(IOException e) {
-			showDialog(permErrorMessage);
-			System.exit(-1);
-		} catch(SecurityException f) {
-			showDialog(permErrorMessage);
+		} catch(IOException | SecurityException e) {
+			showDialog("Error writing errors to log. Fatal. Possible cause: insufficient permissions.");
 			System.exit(-1);
 		}
 		
 		// Error format
 		String error = "[ " + LocalDateTime.now().toString() + " ] [ " + severity.name() + " ] " + message + "\n";
 
-		if (severity != Severity.NORMAL) {
+		if (severity != Severity.DEBUG) {
 			// Print to output if something is not normal
 			System.out.print(error);
 		}
@@ -57,11 +53,8 @@ public class Logger {
 		FileWriter write = null;
 		try {
 			write = new FileWriter(logs, true);
-		} catch(IOException e) {
-			showDialog(permErrorMessage);
-			System.exit(-1);
-		} catch(SecurityException f) {
-			showDialog(permErrorMessage);
+		} catch(IOException | SecurityException e) {
+			showDialog("Error writing errors to log. Fatal. Possible cause: insufficient permissions.");
 			System.exit(-1);
 		}
 		try {

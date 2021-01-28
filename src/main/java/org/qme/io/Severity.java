@@ -7,7 +7,7 @@ package org.qme.io;
  * @since preA
  */
 public enum Severity {
-	NORMAL,
+	DEBUG,
 	WARNING,
 	ERROR,
 	FATAL
