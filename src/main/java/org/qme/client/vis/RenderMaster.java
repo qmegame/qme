@@ -144,5 +144,4 @@ public final class RenderMaster {
 				type.name().toLowerCase().replace('_', '-') + ".png";
 		return TextureManager.textures.get(texString);
 	}
-
 }
