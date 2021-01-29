@@ -4,6 +4,8 @@ import org.qme.client.vis.tex.TextureManager;
 import org.qme.world.Tile;
 import org.qme.world.TileType;
 
+import java.awt.*;
+
 import static org.lwjgl.opengl.GL11.*;
 
 /**
@@ -131,6 +133,45 @@ public final class RenderMaster {
 			glVertex2f(vert4X, vert4Y);
 		glEnd();
 		glDisable(GL_TEXTURE_2D);
+	}
+
+	/**
+	 * Draws a specific region of a texture
+	 * @param originX the bottom left x coordinate for the origin point for the texture
+	 * @param originY the bottom left y coordinate for the origin point for the texture
+	 * @param texX the bottom left x coordinate for the location on the texture
+	 * @param texY the bottom left y coordinate for the location on the texture
+	 * @param originWidth the width of the image to render
+	 * @param originHeight the height of the image to render
+	 * @param texWidth the width of the texture
+	 * @param texHeight the height of the texture
+	 */
+	public static void drawRegion(float originX, float originY, float texX, float texY, float originWidth, float originHeight, float texWidth, float texHeight) {
+		/* Vertex positions */
+		float x1 = originX;
+		float y1 = originY;
+		float x2 = originX + originWidth;
+		float y2 = originY + originHeight;
+
+		/* Texture coordinates */
+		float s1 = texX / texWidth;
+		float t1 = texY / texHeight;
+		float s2 = (texX + originWidth) / texWidth;
+		float t2 = (texY + originHeight) / texHeight;
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(s1, t1);
+			glVertex2f(x1, y1);
+
+			glTexCoord2f(s1, t2);
+			glVertex2f(x1, y2);
+
+			glTexCoord2f(s2, t2);
+			glVertex2f(x2, y2);
+
+			glTexCoord2f(s2, t1);
+			glVertex2f(x2, y1);
+		glEnd();
 	}
 
 	/**
