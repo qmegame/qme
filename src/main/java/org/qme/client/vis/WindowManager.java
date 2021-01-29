@@ -37,6 +37,8 @@ public final class WindowManager {
 	private WindowManager() {}
 	
 	static {
+
+		System.setProperty("java.awt.headless", "true");
 		
 		// Initialize GLFW.
 		glfwInit();
@@ -228,7 +230,7 @@ public final class WindowManager {
 	 * @param zoom the current zoom factor of the world
 	 * @return the size of the world in pixels
 	 */
-	private static float getWorldSize(float zoom) {
+	public static float getWorldSize(float zoom) {
 		return RenderMaster.TILE_SPACING * zoom * World.WORLD_SIZE;
 	}
 
