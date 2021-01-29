@@ -37,6 +37,8 @@ public final class WindowManager {
 	private WindowManager() {}
 	
 	static {
+
+		System.setProperty("java.awt.headless", "true");
 		
 		// Initialize GLFW.
 		glfwInit();
