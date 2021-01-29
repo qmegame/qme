@@ -225,7 +225,7 @@ public final class WindowManager {
 
 	/**
 	 * Gets the size of the world in pixels
-	 * @param zoom the current zoom factor of the worldT
+	 * @param zoom the current zoom factor of the world
 	 * @return the size of the world in pixels
 	 */
 	private static float getWorldSize(float zoom) {

@@ -200,7 +200,7 @@ public class QFont {
                 continue;
             }
             Glyph g = glyphs.get(ch);
-            RenderMaster.drawRegion(drawX, drawY, g.x, g.y, g.width, g.height, g.imageWidth, g.imageHeight, TextureManager.textures.get(font.getFontName().replaceAll(" ", "-")), Color.WHITE);
+            RenderMaster.drawRegion(drawX, drawY, g.x, g.y, g.width, g.height, g.imageWidth, g.imageHeight);
             drawX += g.width;
         }
         glDisable(GL_TEXTURE_2D);

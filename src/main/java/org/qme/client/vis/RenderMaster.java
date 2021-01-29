@@ -139,16 +139,14 @@ public final class RenderMaster {
 	 * Draws a specific region of a texture
 	 * @param originX the bottom left x coordinate for the origin point for the texture
 	 * @param originY the bottom left y coordinate for the origin point for the texture
-	 * @param textX the bottom left x coordinate for the location on the texture
-	 * @param textY the bottom left y coordinate for the location on the texture
+	 * @param texX the bottom left x coordinate for the location on the texture
+	 * @param texY the bottom left y coordinate for the location on the texture
 	 * @param originWidth the width of the image to render
 	 * @param originHeight the height of the image to render
-	 * @param textWidth the width of the texture
-	 * @param textHeight the height of the texture
-	 * @param tex the texture id
-	 * @param color the color to render in
+	 * @param texWidth the width of the texture
+	 * @param texHeight the height of the texture
 	 */
-	public static void drawRegion(float originX, float originY, float textX, float textY, float originWidth, float originHeight, float textWidth, float textHeight, int tex, Color color) {
+	public static void drawRegion(float originX, float originY, float texX, float texY, float originWidth, float originHeight, float texWidth, float texHeight) {
 		/* Vertex positions */
 		float x1 = originX;
 		float y1 = originY;
@@ -156,10 +154,10 @@ public final class RenderMaster {
 		float y2 = originY + originHeight;
 
 		/* Texture coordinates */
-		float s1 = textX / textWidth;
-		float t1 = textY / textHeight;
-		float s2 = (textX + originWidth) / textWidth;
-		float t2 = (textY + originHeight) / textHeight;
+		float s1 = texX / texWidth;
+		float t1 = texY / texHeight;
+		float s2 = (texX + originWidth) / texWidth;
+		float t2 = (texY + originHeight) / texHeight;
 
 		glBegin(GL_QUADS);
 			glTexCoord2f(s1, t1);

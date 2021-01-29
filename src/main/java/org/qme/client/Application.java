@@ -7,8 +7,6 @@ import org.qme.world.World;
 
 import java.awt.*;
 
-import static java.awt.Font.PLAIN;
-
 /**
  * The "controller", so to speak, of all events. It also helps to validate
  * requests from the player or the game, because instead of acting on anything
@@ -30,7 +28,7 @@ public final class Application {
 	 */
 	private Application() {
 		new World();
-		QFont mono = new QFont(new Font(Font.MONOSPACED, PLAIN, 16), true);
+		QFont mono = new QFont(new Font(Font.MONOSPACED, Font.PLAIN, 16), true);
 		fpsLabel = new QLabel(mono, "...", 2, WindowManager.windowSize() - 21);
 	}
 	
