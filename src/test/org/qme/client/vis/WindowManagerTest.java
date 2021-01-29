@@ -33,7 +33,7 @@ class WindowManagerTest {
         assertTrue(WindowManager.getWorldSize(RenderMaster.zoom) > RenderMaster.zoom);
         assertTrue(WindowManager.getWorldSize(RenderMaster.zoom) > RenderMaster.zoom * World.WORLD_SIZE);
         assertTrue(WindowManager.getWorldSize(RenderMaster.zoom) > RenderMaster.zoom * World.WORLD_SIZE * RenderMaster.TILE_SIZE);
-        assertEquals(WindowManager.getWorldSize(RenderMaster.zoom), RenderMaster.zoom * World.WORLD_SIZE * RenderMaster.TILE_SPACING);
+        assertEquals(WindowManager.getWorldSize(RenderMaster.zoom), RenderMaster.zoom * World.WORLD_SIZE * (RenderMaster.TILE_SPACING + RenderMaster.TILE_SIZE));
     }
 
     @Test

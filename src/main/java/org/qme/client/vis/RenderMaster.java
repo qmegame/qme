@@ -45,7 +45,7 @@ public final class RenderMaster {
 	/**
 	 * The amount  of spacing added in between each tile origin the gap between the tiles would effectively be TILE_SIZE-TILE_SPACING
 	 */
-	public static final float TILE_SPACING = 32.5f;
+	public static final float TILE_SPACING = 0.5f;
 
 	/**
 	 * Check if a tile is in frame
@@ -71,7 +71,7 @@ public final class RenderMaster {
 	 */
 	public static void drawTile(Tile tile) {
 
-		float tileSpacingActual = TILE_SPACING * zoom;
+		float tileSpacingActual = (TILE_SIZE + TILE_SPACING) * zoom;
 
 		int tileX = (int) (((tile.x) * tileSpacingActual) - WindowManager.getWindowX());
 		int tileY = (int) (((tile.y) * tileSpacingActual) - WindowManager.getWindowY());

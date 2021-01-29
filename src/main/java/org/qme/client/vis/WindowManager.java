@@ -231,7 +231,7 @@ public final class WindowManager {
 	 * @return the size of the world in pixels
 	 */
 	public static float getWorldSize(float zoom) {
-		return RenderMaster.TILE_SPACING * zoom * World.WORLD_SIZE;
+		return (RenderMaster.TILE_SPACING + RenderMaster.TILE_SIZE) * zoom * World.WORLD_SIZE;
 	}
 
 	/**
