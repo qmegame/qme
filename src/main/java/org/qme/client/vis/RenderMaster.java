@@ -28,8 +28,8 @@ public final class RenderMaster {
 	/**
 	 * lowest is the smallest amount of zoom, the farthest out
 	 */
-	public static final int LOWEST = 2;
-	public static final int HIGHEST = 10;
+	public static final int LOWEST = 1;
+	public static final int HIGHEST = 8;
 
 	/**
 	 * The amount to zoom in and out
@@ -40,21 +40,21 @@ public final class RenderMaster {
 	/**
 	 * The size of the tiles
 	 */
-	public static final float TILE_SIZE = 20;
+	public static final float TILE_SIZE = 32;
 
 	/**
 	 * The amount  of spacing added in between each tile origin the gap between the tiles would effectively be TILE_SIZE-TILE_SPACING
 	 */
-	public static final float TILE_SPACING = 22;
+	public static final float TILE_SPACING = 32.5f;
 
 	/**
 	 * Check if a tile is in frame
 	 */
 	public static boolean isInFrame(double x, double y) {
-		double screenLeft = - 200;
+		double screenLeft = - 400;
 		double screenRight = WindowManager.size;
 
-		double screenBottom = - 200;
+		double screenBottom = - 400;
 		double screenTop = WindowManager.size;
 
 		if (x > screenLeft && x < screenRight) {
