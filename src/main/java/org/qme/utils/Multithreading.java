@@ -15,7 +15,7 @@ public class Multithreading implements Runnable {
 
     public Multithreading(String name) {
         threadName = name;
-        Logger.log("Creating " +  threadName, Severity.NORMAL);
+        Logger.log("Creating " +  threadName, Severity.DEBUG);
     }
 
     public synchronized void start () {
@@ -31,7 +31,7 @@ public class Multithreading implements Runnable {
         Logger.log("Running " +  threadName, Severity.NORMAL);
         try {
             for(int i = 4; i > 0; i--) {
-                Logger.log("Thread: " + threadName + ", " + i, Severity.NORMAL);
+                Logger.log("Thread: " + threadName + ", " + i, Severity.DEBUG);
 
                 // Let the thread sleep for a while.
                 Thread.sleep(50);
@@ -40,7 +40,7 @@ public class Multithreading implements Runnable {
             Logger.log("Thread " +  threadName + " interrupted.", Severity.FATAL);
             Thread.currentThread().interrupt();
         }
-        Logger.log("Thread " +  threadName + " exiting.", Severity.NORMAL);
+        Logger.log("Thread " +  threadName + " exiting.", Severity.DEBUG);
     }
 
     public void stop() {
