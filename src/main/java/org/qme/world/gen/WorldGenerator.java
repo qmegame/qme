@@ -74,11 +74,15 @@ public class WorldGenerator {
 	 * @return whether the tile touches the type
 	 */
 	private static boolean touches(TileType[][] world, int x, int y, TileType type) {
-		if (x > 0 && world[x - 1][y] == type) return true;
-		if (y > 0 && world[x][y - 1] == type) return true;
-		if (x < world.length - 1 &&world[x + 1][y] == type) return true;
-		if (y < world[0].length - 1 && world[x][y + 1] == type) return true;
-		return false;
+		try {
+			if (x > 0 && world[x - 1][y] == type) return true;
+			if (y > 0 && world[x][y - 1] == type) return true;
+			if (x < world.length - 1 && world[x + 1][y] == type) return true;
+			if (y < world[0].length - 1 && world[x][y + 1] == type) return true;
+			return false;
+		} catch(ArrayIndexOutOfBoundsException e){
+			return true;
+		}
 	}
 	
 	/**
