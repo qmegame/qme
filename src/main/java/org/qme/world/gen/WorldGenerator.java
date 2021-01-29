@@ -29,7 +29,7 @@ public class WorldGenerator {
 	 */
 
 	public static TileType[][] generateWorldMap(double side) {
-		Logger.log("function called", Severity.NORMAL);
+		Logger.log("function called", Severity.DEBUG);
 		
 		// Generate blank world
 		TileType[][] world;
@@ -74,10 +74,10 @@ public class WorldGenerator {
 	 * @return whether the tile touches the type
 	 */
 	private static boolean touches(TileType[][] world, int x, int y, TileType type) {
-		if (x > 0) if (world[x - 1][y] == type) return true;
-		if (y > 0) if (world[x][y - 1] == type) return true;
-		if (x < world.length - 1) if (world[x + 1][y] == type) return true;
-		if (y < world[0].length - 1) if (world[x][y + 1] == type) return true;
+		if (x > 0 && world[x - 1][y] == type) return true;
+		if (y > 0 && world[x][y - 1] == type) return true;
+		if (x < world.length - 1 &&world[x + 1][y] == type) return true;
+		if (y < world[0].length - 1 && world[x][y + 1] == type) return true;
 		return false;
 	}
 	
@@ -639,10 +639,8 @@ public class WorldGenerator {
 		TileType[][] dubaiWorld = world;
 		for(int i = 1; i < (side - 1); i++) {
 			for(int j = 1; j < (side - 1); j++) {
-				if(!WorldGenerator.touchesOcean(dubaiWorld, i, j)) {
-					if(!WorldGenerator.touchesSea(dubaiWorld, i, j)) {
+				if(!WorldGenerator.touchesOcean(dubaiWorld, i, j) && !WorldGenerator.touchesSea(dubaiWorld, i, j)) {
 						dubaiWorld[i][j] = WorldGenerator.assignRandomFlatLand();
-					}
 				}
 			}
 		}
