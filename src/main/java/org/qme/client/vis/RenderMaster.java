@@ -71,6 +71,8 @@ public final class RenderMaster {
 	 */
 	public static void drawTile(Tile tile) {
 
+		// Having the TILE_SPACING multiplied with the zoom this way affects the stutter
+		// of the zooming and is more smooth this way
 		int tileX = (int) (((tile.x) * TILE_SPACING * zoom) - WindowManager.getWindowX());
 		int tileY = (int) (((tile.y) * TILE_SPACING * zoom) - WindowManager.getWindowY());
 
