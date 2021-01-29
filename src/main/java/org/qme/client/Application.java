@@ -15,7 +15,7 @@ import java.awt.*;
  * this model will serve better, because request objects can be sent to a remote
  * location more easily.
  * @author adamhutchings
- * @since preA
+ * @since 0.1.0
  */
 public final class Application {
 
