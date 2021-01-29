@@ -11,7 +11,7 @@ import org.qme.io.Severity;
 
 public class Multithreading implements Runnable {
     private Thread t;
-    private String threadName;
+    private final String threadName;
 
     public Multithreading(String name) {
         threadName = name;
