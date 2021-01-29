@@ -33,6 +33,12 @@ public final class WindowManager {
 	private static final int SCROLL_SPEED = 20;
 	private static final float SCREEN_SIZE = 0.75f;
 
+	private static final float ZOOM_IN = 1.1F;
+	private static final float ZOOM_OUT = 0.9F;
+
+	private static final int ZOOM_MIN = 2;
+	private static final int ZOOM_MAX = 10;
+
 	private static final ArrayList<Renderable> renderables = new ArrayList<>();
 	
 	/**
@@ -167,14 +173,14 @@ public final class WindowManager {
 				break;
 			case GLFW_KEY_I:
 				// Zoom in until limit is reached
-				if (RenderMaster.zoom <= RenderMaster.HIGHEST) {
-					applyZoom(RenderMaster.ZOOM_IN);
+				if (RenderMaster.zoom <= ZOOM_MAX) {
+					applyZoom(ZOOM_IN);
 				}
 				break;
 			case GLFW_KEY_O:
 				// Zoom out until limit is reached
-				if (RenderMaster.zoom >= RenderMaster.LOWEST) {
-					applyZoom(RenderMaster.ZOOM_OUT);
+				if (RenderMaster.zoom >= ZOOM_MIN) {
+					applyZoom(ZOOM_OUT);
 				}
 				break;
 		}

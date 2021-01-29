@@ -8,12 +8,8 @@ import org.qme.world.gen.WorldGenerator;
  * @since 0.1.0
  */
 public class World {
-	
-	/**
-	 * Size of the world
-	 */
-	public static final int WORLD_SIZE = 25;
 
+	public static final int WORLD_SIZE = 25;
 	private final Tile[][] tiles;
 	
 	/**
@@ -32,7 +28,7 @@ public class World {
 	}
 	
 	/**
-	 * Get all the tiles.
+	 * Gets all the tiles in this world
 	 * @return the tile map for rendering
 	 */
 	public Tile[][] getTiles() {

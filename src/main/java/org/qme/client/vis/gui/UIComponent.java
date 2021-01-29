@@ -16,13 +16,8 @@ public abstract class UIComponent implements MouseResponder, Renderable {
 	 * For logging purposes (maybe more later)
 	 * @return the name of the component
 	 */
-	public String name() {
+	public String getName() {
 		return "component.unnamed";
-	}
-
-	@Override
-	public void draw() {
-		// Do nothing
 	}
 	
 	/**
@@ -86,6 +81,11 @@ public abstract class UIComponent implements MouseResponder, Renderable {
 
 	@Override
 	public void mouseClickOff() {
+		// Do nothing
+	}
+
+	@Override
+	public void draw() {
 		// Do nothing
 	}
 
