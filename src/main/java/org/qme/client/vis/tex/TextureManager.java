@@ -15,27 +15,17 @@ import java.util.HashMap;
 /**
  * Class responsible for loading textures from files
  * @author cameron
- * @since PreB
+ * @since 0.3.0
  */
 public class TextureManager {
 
-    /**
-     * Path to the texture locations
-     */
     private static final String TEXTURE_RESOURCES = "/textures/";
-
-    /**
-     * Path to missing textures
-     */
     private static final String MISSING_TEXTURE = "/textures/missing.png";
+    private static HashMap<String, Integer> textures = new HashMap<>();
 
     /**
-     * Every loaded texture - string name to ID
-     */
-    public static HashMap<String, Integer> textures = new HashMap<>();
-
-    /**
-     * Loads textures
+     * Initialising TextureManager will load textures in the resources directory
+     * Inorder to avoid loading textures twice this should only be initialised once
      */
     public TextureManager() {
         ArrayList<String> toLoad = new ArrayList<>();
@@ -48,17 +38,32 @@ public class TextureManager {
         toLoad.add("sea.png");
         toLoad.add("high-mountain.png");
         toLoad.add("desert.png");
-        loadTextures(toLoad);
+        for (String texture : toLoad) {
+            registerTexture(texture, loadTextureFromImage(loadImageResource(TEXTURE_RESOURCES + texture)));
+        }
     }
 
     /**
-     * Loads an array of textures by the file name
-     * @param toLoad a list of file names to load
+     * Registers a texture
+     * @param name the name of the texture
+     * @param id the id of the texture
      */
-    public static void loadTextures(ArrayList<String> toLoad) {
-        for (String texture : toLoad) {
-            textures.put(texture, loadTextureFromImage(loadImageResource(TEXTURE_RESOURCES + texture)));
+    public static void registerTexture(String name, int id) {
+        if (textures.containsKey(name) || textures.containsValue(id)) {
+            Logger.log("Failed to load texture " + name + " id " + id + " because a texture with the a common identifier exists.", Severity.WARNING);
+            return;
         }
+        Logger.log("Loaded texture: " + name, Severity.NORMAL);
+        textures.put(name, id);
+    }
+
+    /**
+     * Gets a texture by name
+     * @param name the name of the texture
+     * @return the texture id or null if the texture could not be found
+     */
+    public static Integer getTexture(String name) {
+        return textures.getOrDefault(name, null);
     }
 
     /**

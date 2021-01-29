@@ -5,9 +5,12 @@ import org.qme.client.vis.Renderable;
 /**
  * Simple class to extend both and offer default functionality.
  * @author adamhutchings
- * @since preA
+ * @since 0.1.0
  */
 public abstract class UIComponent implements MouseResponder, Renderable {
+
+	private boolean clicked;
+	private boolean hovered;
 	
 	/**
 	 * For logging purposes (maybe more later)
@@ -17,50 +20,41 @@ public abstract class UIComponent implements MouseResponder, Renderable {
 		return "component.unnamed";
 	}
 
-	/**
-	 * Do nothing
-	 */
 	@Override
 	public void draw() {
-		
+		// Do nothing
 	}
 	
 	/**
-	 * Whether this is clicked.
-	 */
-	private boolean clicked;
-	
-	/**
-	 * Access the click variable.
+	 * Gets if the UIComponent is clicked
+	 * @return if the component is clicked
 	 */
 	@Override
-	public boolean clicked() {
+	public boolean isClicked() {
 		return clicked;
 	}
 
 	/**
-	 * Set the click variable.
+	 * Sets the current clicked state of the UIComponent
+	 * @param b if the component should be clicked
 	 */
 	@Override
 	public void setClicked(boolean b) {
 		clicked = b;
 	}
-	
-	/**
-	 * Whether this is hovered.
-	 */
-	private boolean hovered;
 
 	/**
-	 * Access the hover variable
+	 * Gets if the UIComponent is hovered
+	 * @return if the component is hovered
 	 */
 	@Override
-	public boolean hovered() {
+	public boolean isHovered() {
 		return hovered;
 	}
 
 	/**
-	 * Set the hover variable
+	 * Sets the current hovered state of the UIComponent
+	 * @param b if the component should be hovered
 	 */
 	@Override
 	public void setHovered(boolean b) {
@@ -68,43 +62,31 @@ public abstract class UIComponent implements MouseResponder, Renderable {
 	}
 
 	/**
-	 * Default - never contains
+	 * Always false. Does not contain.
 	 */
 	@Override
 	public boolean contains(int xLoc, int yLoc) {
 		return false;
 	}
 
-	/**
-	 * Nothing
-	 */
 	@Override
 	public void mouseHoverOn() {
-		
+		// Do nothing
 	}
 
-	/**
-	 * Nothing
-	 */
 	@Override
 	public void mouseHoverOff() {
-		
+		// Do nothing
 	}
 
-	/**
-	 * Nothing
-	 */
 	@Override
 	public void mouseClickOn() {
-		
+		// Do nothing
 	}
 
-	/**
-	 * Nothing
-	 */
 	@Override
 	public void mouseClickOff() {
-		
+		// Do nothing
 	}
 
 }

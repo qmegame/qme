@@ -9,7 +9,7 @@ import org.qme.client.vis.WindowManager;
  * bounds detection code will not be in this class, and rather with other
  * rendering / bounds detection code, etc.
  * @author adamhutchings
- * @since preA
+ * @since 0.1.0
  */
 public class Tile implements Renderable {
 	

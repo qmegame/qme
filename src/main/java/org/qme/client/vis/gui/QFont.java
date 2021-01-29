@@ -118,12 +118,12 @@ public class QFont {
         }
         buffer.flip();
 
-        if (TextureManager.textures.containsKey(font.getFontName().replaceAll(" ", "-"))) {
-            Logger.log("The font " + font.getFontName() + " was initialised twice, this might cause problems.", Severity.WARNING);
+        if (TextureManager.getTexture(font.getFontName().replaceAll(" ", "-")) != null) {
+            Logger.log("The font " + font.getFontName() + " was initialised twice under the same name.", Severity.WARNING);
             return;
         }
 
-        TextureManager.textures.put(font.getFontName().replaceAll(" ", "-"), TextureManager.loadTextureFromBuffer(buffer, width, height));
+        TextureManager.registerTexture(font.getFontName().replaceAll(" ", "-"), TextureManager.loadTextureFromBuffer(buffer, width, height));
     }
 
     /**
@@ -184,7 +184,7 @@ public class QFont {
         }
 
         glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, TextureManager.textures.get(font.getFontName().replaceAll(" ", "-")));
+        glBindTexture(GL_TEXTURE_2D, TextureManager.getTexture(font.getFontName().replaceAll(" ", "-")));
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);

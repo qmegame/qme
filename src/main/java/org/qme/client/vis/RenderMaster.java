@@ -4,14 +4,12 @@ import org.qme.client.vis.tex.TextureManager;
 import org.qme.world.Tile;
 import org.qme.world.TileType;
 
-import java.awt.*;
-
 import static org.lwjgl.opengl.GL11.*;
 
 /**
  * Class containing all main rendering utilities.
  * @author adamhutchings, jakeroggenbuck
- * @since preA
+ * @since 0.1.0
  */
 public final class RenderMaster {
 	
@@ -52,10 +50,10 @@ public final class RenderMaster {
 	 */
 	public static boolean isInFrame(double x, double y) {
 		double screenLeft = - 200;
-		double screenRight = WindowManager.size;
+		double screenRight = WindowManager.getSize();
 
 		double screenBottom = - 200;
-		double screenTop = WindowManager.size;
+		double screenTop = WindowManager.getSize();
 
 		if (x > screenLeft && x < screenRight) {
 			if (y > screenBottom && y < screenTop) {
@@ -183,6 +181,6 @@ public final class RenderMaster {
 		String texString =
 				// HIGH_MOUNTAIN -> high_mountain -> high-mountain -> high-mountain.png
 				type.name().toLowerCase().replace('_', '-') + ".png";
-		return TextureManager.textures.get(texString);
+		return TextureManager.getTexture(texString);
 	}
 }

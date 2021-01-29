@@ -10,7 +10,7 @@ import java.util.Random;
  * The class that houses the generateWorldMap function
  * And also houses auxiliary functions that area called in that function
  * @author santiago
- * @since preA
+ * @since 0.1.0
  */
 public class WorldGenerator {
 	private static final Random rand = new Random();
@@ -19,7 +19,7 @@ public class WorldGenerator {
 	/**
 	 * The function that generates the map for a game
 	 * @author santiago
-	 * @since preA
+	 * @since 0.1.0
 	 * @param side The length of a side of the map
 	 * @return The kinds of tiles on the map
 	 */
@@ -65,7 +65,7 @@ public class WorldGenerator {
 	 * A utility function to create oceans
 	 * Mainly used to free up i and j variable names
 	 * @author santiago
-	 * @since preA
+	 * @since 0.1.0
 	 * @param parchedSide A side length of the world
 	 * @return A TileType[][] of all TileType.OCEAN
 	 */
@@ -88,7 +88,7 @@ public class WorldGenerator {
 	/**
 	 * A utility function to generate and add a continent
 	 * @author santiago
-	 * @since preA
+	 * @since 0.1.0
 	 * @param world The array to be modified
 	 * @param side The size of the world
 	 * @param centerX The center of the contnient
@@ -283,7 +283,7 @@ public class WorldGenerator {
 	/**
 	 * A utility function to generate a mountain range on a continent
 	 * @author santiago
-	 * @since preA
+	 * @since 0.1.0
 	 * @param world A non-mountainous, flat expanse
 	 * @param leftBound The left extreme of the continent
 	 * @param upBound The up extreme of the continent
@@ -404,7 +404,7 @@ public class WorldGenerator {
 	/**
 	 * A utility function to check if a tile touches an ocean
 	 * @author santiago
-	 * @since preA
+	 * @since 0.1.0
 	 * @param world The world
 	 * @param x The tile's x
 	 * @param y The tile's y
@@ -434,7 +434,7 @@ public class WorldGenerator {
 	/**
 	 * A utility function to check if a tile touches a sea
 	 * @author santiago
-	 * @since preB
+	 * @since 0.2.0
 	 * @param world The world
 	 * @param x The tile's x
 	 * @param y The tile's y
@@ -464,7 +464,7 @@ public class WorldGenerator {
 	/**
 	 * A utility function that generates a river on a continent
 	 * @author santiago
-	 * @since preA
+	 * @since 0.1.0
 	 * @param world The riverless world
 	 * @param leftBound The left extreme of the continent
 	 * @param upBound The up extreme of the continent
@@ -528,7 +528,7 @@ public class WorldGenerator {
 	/**
 	 * A utility function that checks whether a tile touches ocean on two sides
 	 * @author santiago
-	 * @since preA
+	 * @since 0.1.0
 	 * @param world The world with the tile
 	 * @param x The tile to be checked
 	 * @param y The tile to be checked
@@ -564,7 +564,7 @@ public class WorldGenerator {
 	/**
 	 * A utility function to turn all ocean tiles that touch land into sea tiles
 	 * @author santiago
-	 * @since preA
+	 * @since 0.1.0
 	 * @param world The world in which all ocean tiles will be cheched
 	 * @param side The length of the world's sides
 	 * @return The world but with sea tiles surrounding the land
@@ -593,7 +593,7 @@ public class WorldGenerator {
 	/**
 	 * A utility function to determine if a tile touches land
 	 * @author santiago
-	 * @since preA
+	 * @since 0.1.0
 	 * @param world The world with no continental shelves
 	 * @param x The tile to be checked
 	 * @param y The tile to be checked
@@ -626,7 +626,7 @@ public class WorldGenerator {
 	/**
 	 * A function that is used to assign a random non-mountain, non-water tile
 	 * @author santiago
-	 * @since preA
+	 * @since 0.1.0
 	 * @return A random non-mountain, non-water tile
 	 */
 	private static TileType assignRandomFlatLand() {
@@ -645,7 +645,7 @@ public class WorldGenerator {
 	/**
 	 * Does this please Adam?
 	 * @author santiago
-	 * @since preA
+	 * @since 0.1.0
 	 * @param tile The tested tile
 	 * @param type The type to test for
 	 * @return Whether the tile is the specified type
@@ -656,7 +656,7 @@ public class WorldGenerator {
 
 	/**
 	 * @author santiago
-	 * @since preB
+	 * @since 0.2.0
 	 * @param world The world
 	 * @param side How long a side of the world is
 	 * @return The world but with no little "ponds"
