@@ -5,18 +5,11 @@ import org.qme.world.gen.WorldGenerator;
 /**
  * Represents a world in the game, with tiles.
  * @author adamhutchings
- * @since preA
+ * @since 0.1.0
  */
 public class World {
-	
-	/**
-	 * The size of the world
-	 */
+
 	public static final int WORLD_SIZE = 25;
-	
-	/**
-	 * All tiles in the world.
-	 */
 	private final Tile[][] tiles;
 	
 	/**
@@ -35,7 +28,7 @@ public class World {
 	}
 	
 	/**
-	 * Get all the tiles.
+	 * Gets all the tiles in this world
 	 * @return the tile map for rendering
 	 */
 	public Tile[][] getTiles() {
