@@ -29,6 +29,13 @@ public class GLFWInteraction {
     private static final float SCREEN_SIZE = 0.75f;
 
     /**
+     * Not allowed!
+     */
+    private GLFWInteraction() {
+        throw new IllegalStateException("No initializing GLFWInteraction!");
+    }
+
+    /**
      * Set up some GLFW things.
      */
     public static void glfwSetup() {
