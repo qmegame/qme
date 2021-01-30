@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WorldGeneratorTest {
 
+    private static final int WORLD_SIZE = 250;
+
     @BeforeEach
     void setUp() {
     }
@@ -17,10 +19,8 @@ class WorldGeneratorTest {
     }
 
     @Test
-    void generateWorldMap() {
+    void generateWorldMapTest() {
+        assertNotNull(WorldGenerator.generateWorldMap(WORLD_SIZE), "Did not crash");
     }
 
-    @Test
-    void isType() {
-    }
 }

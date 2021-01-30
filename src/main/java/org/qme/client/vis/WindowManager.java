@@ -61,7 +61,7 @@ public final class WindowManager {
 
 		// Load textures
 		new TextureManager();
-		
+
 	}
 
 	/**
@@ -72,6 +72,7 @@ public final class WindowManager {
 		
 		GLFWVidMode screenSize = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
+		assert screenSize != null;
 		return (int) (screenSize.height() * SCREEN_SIZE);
 		
 	}
@@ -182,6 +183,8 @@ public final class WindowManager {
 				if (RenderMaster.zoom >= ZOOM_MIN) {
 					applyZoom(ZOOM_OUT);
 				}
+				break;
+			default:
 				break;
 		}
 	}

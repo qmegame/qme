@@ -31,7 +31,7 @@ public final class Application {
 		QFont mono = new QFont(new Font(Font.MONOSPACED, Font.PLAIN, 16), true);
 		fpsLabel = new QLabel(mono, "...", 2, WindowManager.windowSize() - 21);
 	}
-	
+
 	/**
 	 * The global instance of application.
 	 */

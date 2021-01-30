@@ -21,7 +21,7 @@ public class Logger {
 	 * @param message The custom message to be logged
 	 * @param severity An estimation of the severity of the error
 	 */
-	public static void log(String message, Severity severity) {
+	public static synchronized void log(String message, Severity severity) {
 
 		// Creates directory if not already created
 		try {
@@ -46,7 +46,6 @@ public class Logger {
 			// Print to output if something is not normal
 			System.out.print(error);
 		}
-
 		// Write to file
 		FileWriter write = null;
 		try {
