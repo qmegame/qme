@@ -41,14 +41,7 @@ public final class WindowManager {
 	
 	static {
 
-		System.setProperty("java.awt.headless", "true");
-		
-		// Initialize GLFW.
-		glfwInit();
-		
-		glfwDefaultWindowHints();
-		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+		WindowContextManager.glfwSetup();
 		
 		WindowContextManager.createWindow();
 

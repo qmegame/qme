@@ -30,6 +30,20 @@ public class WindowContextManager {
     private static final float SCREEN_SIZE = 0.75f;
 
     /**
+     * Set up some GLFW things.
+     */
+    public static void glfwSetup() {
+        System.setProperty("java.awt.headless", "true");
+
+        // Initialize GLFW.
+        glfwInit();
+
+        glfwDefaultWindowHints();
+        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+    }
+
+    /**
      * Create the window - called as a static initializer.
      */
     public static void createWindow() {
