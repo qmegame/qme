@@ -23,7 +23,7 @@ public class Logger {
 	 * @return void
 	 * @throws IOException
 	 */
-	public static void log(String message, Severity severity) {
+	public static synchronized void log(String message, Severity severity) {
 
 		// Creates directory if not already created
 		try {
