@@ -6,7 +6,7 @@ import org.qme.utils.Direction;
 import static org.qme.client.vis.wn.WindowManager.getWorldSize;
 
 /**
- * Contains all code for controlling scrollinng - moved out of WindowManager.
+ * Contains all code for controlling scrolling - moved out of WindowManager.
  * @author adamhutchings
  * @since 0.3.0
  */
