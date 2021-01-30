@@ -2,6 +2,7 @@ package org.qme.client.vis.gui;
 
 import org.lwjgl.BufferUtils;
 import org.qme.client.vis.WindowManager;
+import org.qme.client.vis.wn.WindowContextManager;
 
 import java.nio.DoubleBuffer;
 import java.util.ArrayList;
@@ -80,7 +81,7 @@ public interface MouseResponder {
 			MouseEvent event) {
 		
 		// Mouse location
-		WindowManager.getMouseLocation(MouseData.mouseX, MouseData.mouseY);
+		WindowContextManager.getMouseLocation(MouseData.mouseX, MouseData.mouseY);
 		
 		int x = (int) MouseData.mouseX.array()[0];
 		int y = (int) MouseData.mouseY.array()[0];

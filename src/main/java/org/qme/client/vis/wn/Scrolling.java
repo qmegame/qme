@@ -3,7 +3,6 @@ package org.qme.client.vis.wn;
 import org.qme.client.vis.RenderMaster;
 import org.qme.utils.Direction;
 
-import static org.qme.client.vis.WindowManager.getSize;
 import static org.qme.client.vis.WindowManager.getWorldSize;
 
 /**
@@ -76,7 +75,7 @@ public class Scrolling {
      * @return if the camera can move
      */
     private static boolean canMove(Direction direction, float zoom) {
-        int size = getSize();
+        int size = WindowContextManager.getSize();
         switch (direction) {
             case UP:
                 return ((size / 2) + Scrolling.getYOffset())/getWorldSize(zoom) < 1;

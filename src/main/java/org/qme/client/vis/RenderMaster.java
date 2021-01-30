@@ -2,6 +2,7 @@ package org.qme.client.vis;
 
 import org.qme.client.vis.tex.TextureManager;
 import org.qme.client.vis.wn.Scrolling;
+import org.qme.client.vis.wn.WindowContextManager;
 import org.qme.world.Tile;
 import org.qme.world.TileType;
 
@@ -33,10 +34,10 @@ public final class RenderMaster {
 	 */
 	public static boolean isInFrame(double x, double y) {
 		double screenLeft = - 400;
-		double screenRight = WindowManager.getSize();
+		double screenRight = WindowContextManager.getSize();
 
 		double screenBottom = - 400;
-		double screenTop = WindowManager.getSize();
+		double screenTop = WindowContextManager.getSize();
 
 		if (x > screenLeft && x < screenRight) {
 			if (y > screenBottom && y < screenTop) {

@@ -1,8 +1,8 @@
 package org.qme.client;
 
-import org.qme.client.vis.WindowManager;
 import org.qme.client.vis.gui.QFont;
 import org.qme.client.vis.gui.QLabel;
+import org.qme.client.vis.wn.WindowContextManager;
 import org.qme.world.World;
 
 import java.awt.*;
@@ -29,7 +29,7 @@ public final class Application {
 	private Application() {
 		new World();
 		QFont mono = new QFont(new Font(Font.MONOSPACED, Font.PLAIN, 16), true);
-		fpsLabel = new QLabel(mono, "...", 2, WindowManager.windowSize() - 21);
+		fpsLabel = new QLabel(mono, "...", 2, WindowContextManager.windowSize() - 21);
 	}
 
 	/**
@@ -42,9 +42,9 @@ public final class Application {
 	 */
 	public void mainloop() {
 		
-		while (WindowManager.shouldBeOpen()) {
+		while (WindowContextManager.shouldBeOpen()) {
 			
-			WindowManager.repaint();
+			WindowContextManager.repaint();
 
 			// Track fps
 			if (System.currentTimeMillis() - lastSecond > 1000) {

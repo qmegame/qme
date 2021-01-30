@@ -6,6 +6,7 @@ import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.qme.client.vis.tex.TextureManager;
 import org.qme.client.vis.wn.Scrolling;
+import org.qme.client.vis.wn.WindowContextManager;
 import org.qme.utils.Direction;
 import org.qme.world.World;
 
@@ -25,18 +26,13 @@ import static org.lwjgl.system.MemoryUtil.NULL;
  */
 public final class WindowManager {
 
-	private static long wn;
-	private static int size;
-
-	private static final float SCREEN_SIZE = 0.75f;
-
 	private static final float ZOOM_IN = 1.1F;
 	private static final float ZOOM_OUT = 0.9F;
 
 	private static final int ZOOM_MIN = 2;
 	private static final int ZOOM_MAX = 10;
 
-	private static final ArrayList<Renderable> renderables = new ArrayList<>();
+	public static final ArrayList<Renderable> renderables = new ArrayList<>();
 	
 	/**
 	 * No initialization, thank you very much.
@@ -54,92 +50,11 @@ public final class WindowManager {
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 		
-		createWindow();
+		WindowContextManager.createWindow();
 
 		// Load textures
 		new TextureManager();
 
-	}
-
-	/**
-	 * Get the preferred window size (3/4 screen height)
-	 * @return the height/width of the window
-	 */
-	public static int windowSize() {
-		
-		GLFWVidMode screenSize = glfwGetVideoMode(glfwGetPrimaryMonitor());
-
-		assert screenSize != null;
-		return (int) (screenSize.height() * SCREEN_SIZE);
-		
-	}
-	
-	/**
-	 * Create the window - called as a static initializer.
-	 */
-	private static void createWindow() {
-		
-		// In case something weird happens with the primary monitor, get the
-		// size of the monitor one time
-		size = windowSize();
-		
-		wn = glfwCreateWindow(size, size, "QME", NULL, NULL);
-		
-		// Boilerplate
-		glfwMakeContextCurrent(wn);
-		glfwShowWindow(wn);
-		GL.createCapabilities();
-		
-		glfwSetKeyCallback(wn, new GLFWKeyCallback() {
-
-			@Override
-			public void invoke(
-					long window,
-					int glfwKeyCode,
-					int systemScancode,
-					int keyAction,
-					int modifierKeys)
-			// Sorry for having the opening bracket on its own line here.
-			{
-				// Simple wrapper.
-				onKeyPress(
-					window, glfwKeyCode, systemScancode, keyAction, modifierKeys
-				);
-			}
-			
-		});
-		
-		GL11.glMatrixMode(GL11.GL_PROJECTION);
-	    GL11.glLoadIdentity();
-	    GL11.glOrtho(0, size, 0, size, 1, -1);
-	    GL11.glMatrixMode(GL11.GL_MODELVIEW);
-		
-	}
-	
-	/**
-	 * If the window is not about to close
-	 * @return whether the window is going to stay open
-	 */
-	public static boolean shouldBeOpen() {
-		return !glfwWindowShouldClose(wn);
-	}
-	
-	/**
-	 * Redraw the screen. If the window should close, send a request to the
-	 * application so it can close.
-	 */
-	public static void repaint() {
-		
-		glClearColor(0.5f, 0.5f, 0.5f, 0.0f);
-		glClear(GL11.GL_COLOR_BUFFER_BIT);
-		
-		for (Renderable e : renderables) {
-			e.draw();
-		}
-		
-		glfwSwapBuffers(wn);
-		glfwPollEvents();
-		
 	}
 	
 	/**
@@ -150,7 +65,7 @@ public final class WindowManager {
 	 * @param keyAction pressed down, released, etc.
 	 * @param modifierKeys which keys were held (shift, ctrl, alt, caps lock)
 	 */
-	private static void onKeyPress(long window, int glfwKeyCode, int systemScancode, int keyAction, int modifierKeys) {
+	public static void onKeyPress(long window, int glfwKeyCode, int systemScancode, int keyAction, int modifierKeys) {
 		if (keyAction == GLFW_RELEASE) {
 			return;
 		}
@@ -195,8 +110,8 @@ public final class WindowManager {
 		double newWorldSize = getWorldSize(RenderMaster.zoom * zoomFactor);
 		double oldWorldSize = getWorldSize(RenderMaster.zoom);
 
-		double focusX = ((size/2) + Scrolling.getXOffset())/oldWorldSize;
-		double focusY = ((size/2) + Scrolling.getYOffset())/oldWorldSize;
+		double focusX = ((WindowContextManager.getSize() / 2) + Scrolling.getXOffset())/oldWorldSize;
+		double focusY = ((WindowContextManager.getSize() / 2) + Scrolling.getYOffset())/oldWorldSize;
 
 		double worldSizeChange = oldWorldSize - newWorldSize;
 
@@ -213,24 +128,6 @@ public final class WindowManager {
 	 */
 	public static float getWorldSize(float zoom) {
 		return (RenderMaster.TILE_SPACING + RenderMaster.TILE_SIZE) * zoom * World.WORLD_SIZE;
-	}
-	
-	/**
-	 * Get the size of the window
-	 * @return the size
-	 */
-	public static int getSize() {
-		return size;
-	}
-	
-	/**
-	 * Stuff a mouse location - GLFW wrapper
-	 * @param xWrap the x to stuff
-	 * @param yWrap the y to stuff
-	 */
-	public static void getMouseLocation(
-			DoubleBuffer xWrap, DoubleBuffer yWrap) {
-		glfwGetCursorPos(wn, xWrap, yWrap);
 	}
 	
 	/**
