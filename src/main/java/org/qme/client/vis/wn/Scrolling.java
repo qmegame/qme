@@ -19,6 +19,13 @@ public class Scrolling {
     private static final int SCROLL_SPEED = 20;
 
     /**
+     * Not allowed!
+     */
+    private Scrolling() {
+        throw new IllegalStateException("No initializing scrolling!");
+    }
+
+    /**
      * Get the window x offset
      * @return the window x offset
      */
