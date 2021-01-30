@@ -2,7 +2,7 @@ package org.qme.world;
 
 import org.qme.client.vis.RenderMaster;
 import org.qme.client.vis.Renderable;
-import org.qme.client.vis.WindowManager;
+import org.qme.client.vis.wn.WindowManager;
 
 /**
  * Represents a single tile in the world. As with other objects, rendering and
