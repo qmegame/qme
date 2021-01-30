@@ -1,61 +1,43 @@
 package org.qme.client.vis;
 
 import org.qme.client.vis.tex.TextureManager;
+import org.qme.client.vis.wn.Scrolling;
+import org.qme.client.vis.wn.GLFWInteraction;
 import org.qme.world.Tile;
 import org.qme.world.TileType;
-
-import java.awt.*;
 
 import static org.lwjgl.opengl.GL11.*;
 
 /**
  * Class containing all main rendering utilities.
  * @author adamhutchings, jakeroggenbuck
- * @since preA
+ * @since 0.1.0
  */
 public final class RenderMaster {
-	
-	/**
-	 * No instantiation
-	 */
+
 	private RenderMaster() {}
-	
-	/**
-	 * The zoom for the tiles
-	 */
+
 	public static float zoom = 10;
+	public static final float TILE_SIZE = 32;
 
 	/**
-	 * lowest is the smallest amount of zoom, the farthest out
+	 * The offset that is applied to each tile when rendering.
+	 * The gap between the tiles would be TILE_SIZE - TILE_SPACING
 	 */
-	public static final int LOWEST = 2;
-	public static final int HIGHEST = 10;
-
-	/**
-	 * The amount to zoom in and out
-	 */
-	public static final float ZOOM_IN = 1.1F;
-	public static final float ZOOM_OUT = 0.9F;
-
-	/**
-	 * The size of the tiles
-	 */
-	public static final float TILE_SIZE = 20;
-
-	/**
-	 * The amount  of spacing added in between each tile origin the gap between the tiles would effectively be TILE_SIZE-TILE_SPACING
-	 */
-	public static final float TILE_SPACING = 22;
+	public static final float TILE_SPACING = 0.5f;
 
 	/**
 	 * Check if a tile is in frame
+	 * @param x the x position of the tile
+	 * @param y the y position of the tile
+	 * @returns if the tile is in frame
 	 */
 	public static boolean isInFrame(double x, double y) {
-		double screenLeft = - 200;
-		double screenRight = WindowManager.size;
+		double screenLeft = - 400;
+		double screenRight = GLFWInteraction.getSize();
 
-		double screenBottom = - 200;
-		double screenTop = WindowManager.size;
+		double screenBottom = - 400;
+		double screenTop = GLFWInteraction.getSize();
 
 		if (x > screenLeft && x < screenRight) {
 			if (y > screenBottom && y < screenTop) {
@@ -71,9 +53,10 @@ public final class RenderMaster {
 	 */
 	public static void drawTile(Tile tile) {
 
-		int tileSpaceActual = (int) (TILE_SPACING * zoom);
-		int tileX = (int) (((tile.x) * tileSpaceActual) - WindowManager.getWindowX());
-		int tileY = (int) (((tile.y) * tileSpaceActual) - WindowManager.getWindowY());
+		float tileSpacingActual = (TILE_SIZE + TILE_SPACING) * zoom;
+
+		int tileX = (int) (((tile.x) * tileSpacingActual) - Scrolling.getXOffset());
+		int tileY = (int) (((tile.y) * tileSpacingActual) - Scrolling.getYOffset());
 
 		if (isInFrame(tileX, tileY)) {
 			int tileSizeActual = (int) (TILE_SIZE * zoom);
@@ -183,6 +166,6 @@ public final class RenderMaster {
 		String texString =
 				// HIGH_MOUNTAIN -> high_mountain -> high-mountain -> high-mountain.png
 				type.name().toLowerCase().replace('_', '-') + ".png";
-		return TextureManager.textures.get(texString);
+		return TextureManager.getTexture(texString);
 	}
 }

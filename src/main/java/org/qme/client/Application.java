@@ -1,8 +1,8 @@
 package org.qme.client;
 
-import org.qme.client.vis.WindowManager;
 import org.qme.client.vis.gui.QFont;
 import org.qme.client.vis.gui.QLabel;
+import org.qme.client.vis.wn.GLFWInteraction;
 import org.qme.world.World;
 
 import java.awt.*;
@@ -15,7 +15,7 @@ import java.awt.*;
  * this model will serve better, because request objects can be sent to a remote
  * location more easily.
  * @author adamhutchings
- * @since preA
+ * @since 0.1.0
  */
 public final class Application {
 
@@ -29,9 +29,9 @@ public final class Application {
 	private Application() {
 		new World();
 		QFont mono = new QFont(new Font(Font.MONOSPACED, Font.PLAIN, 16), true);
-		fpsLabel = new QLabel(mono, "...", 2, WindowManager.windowSize() - 21);
+		fpsLabel = new QLabel(mono, "...", 2, GLFWInteraction.windowSize() - 21);
 	}
-	
+
 	/**
 	 * The global instance of application.
 	 */
@@ -42,9 +42,9 @@ public final class Application {
 	 */
 	public void mainloop() {
 		
-		while (WindowManager.shouldBeOpen()) {
+		while (GLFWInteraction.shouldBeOpen()) {
 			
-			WindowManager.repaint();
+			GLFWInteraction.repaint();
 
 			// Track fps
 			if (System.currentTimeMillis() - lastSecond > 1000) {
