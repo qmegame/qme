@@ -3,7 +3,6 @@ package org.qme.client.vis;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.qme.utils.Direction;
 import org.qme.world.World;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,16 +33,6 @@ class WindowManagerTest {
         assertTrue(WindowManager.getWorldSize(RenderMaster.zoom) > RenderMaster.zoom * World.WORLD_SIZE);
         assertTrue(WindowManager.getWorldSize(RenderMaster.zoom) > RenderMaster.zoom * World.WORLD_SIZE * RenderMaster.TILE_SIZE);
         assertEquals(WindowManager.getWorldSize(RenderMaster.zoom), RenderMaster.zoom * World.WORLD_SIZE * RenderMaster.TILE_SPACING);
-    }
-
-    @Test
-    void size() {
-       assertEquals(WindowManager.size, WindowManager.size());
-    }
-
-    @Test
-    void getOffsets() {
-        assertTrue(WindowManager.getOffsets() instanceof Dimension);
     }
 
     @Test

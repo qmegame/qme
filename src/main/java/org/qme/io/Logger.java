@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 /**
  * A class to log things wanting to be logged to "qdata/logs.txt"
  * @author santiago, jakeroggenbuck
- * @since preA
+ * @since 0.1.0
  */
 public class Logger {
 	
@@ -17,11 +17,9 @@ public class Logger {
 	 * Function that logs a message to "qdata/logs.txt" with the date and time,
 	 * the severity, and a message
 	 * @author santiago, jakeroggenbuck
-	 * @since preA
+	 * @since 0.1.0
 	 * @param message The custom message to be logged
 	 * @param severity An estimation of the severity of the error
-	 * @return void
-	 * @throws IOException
 	 */
 	public static synchronized void log(String message, Severity severity) {
 

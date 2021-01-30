@@ -6,7 +6,7 @@ import org.qme.world.gen.WorldGenerator;
 /**
  * Represents a world in the game, with tiles.
  * @author adamhutchings
- * @since preA
+ * @since 0.1.0
  */
 public class World {
 
@@ -40,7 +40,7 @@ public class World {
 	}
 
 	/**
-	 * Get all the tiles.
+	 * Gets all the tiles in this world
 	 * @return the tile map for rendering
 	 */
 	public Tile[][] getTiles() {

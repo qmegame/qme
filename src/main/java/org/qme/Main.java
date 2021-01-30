@@ -5,7 +5,7 @@ import org.qme.client.Application;
 /**
  * Holds the main method to launch the application.
  * @author adamhutchings
- * @since preA
+ * @since 0.1.0
  */
 public class Main {
 	

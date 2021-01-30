@@ -8,7 +8,6 @@ import org.qme.client.vis.tex.TextureManager;
 import org.qme.utils.Direction;
 import org.qme.world.World;
 
-import java.awt.*;
 import java.nio.DoubleBuffer;
 import java.util.ArrayList;
 
@@ -21,15 +20,26 @@ import static org.lwjgl.system.MemoryUtil.NULL;
  * Manages the sole window handle used with GLFW / OpenGL , and provides ways to
  * access GL code with a wrapper (because OpenGL is yucky)
  * @author adamhutchings, jakeroggenbuck
- * @since preA
+ * @since 0.1.0
  */
 public final class WindowManager {
-	
-	/**
-	 * Objects to render
-	 */
-	private static final ArrayList<Renderable> renderables
-		= new ArrayList<>();
+
+	private static long wn;
+	private static int size;
+
+	private static double xOffset = 0D;
+	private static double yOffset = 0D;
+
+	private static final int SCROLL_SPEED = 20;
+	private static final float SCREEN_SIZE = 0.75f;
+
+	private static final float ZOOM_IN = 1.1F;
+	private static final float ZOOM_OUT = 0.9F;
+
+	private static final int ZOOM_MIN = 2;
+	private static final int ZOOM_MAX = 10;
+
+	private static final ArrayList<Renderable> renderables = new ArrayList<>();
 	
 	/**
 	 * No initialization, thank you very much.
@@ -53,36 +63,6 @@ public final class WindowManager {
 		new TextureManager();
 
 	}
-	
-	/**
-	 * The window handle.
-	 */
-	private static long wn;
-	
-	/**
-	 * The size of the window.
-	 */
-	public static int size;
-	
-	/**
-	 * The x-offset from normal
-	 */
-	private static double xOffset = 0D;
-	
-	/**
-	 * The y-offset from normal
-	 */
-	private static double yOffset = 0D;
-	
-	/**
-	 * How fast this works
-	 */
-	private static final int scrollSpeed = 20;
-	
-	/**
-	 * The ratio between window height / monitor height
-	 */
-	private static final float SCREEN_SIZE = 0.75f;
 
 	/**
 	 * Get the preferred window size (3/4 screen height)
@@ -194,14 +174,14 @@ public final class WindowManager {
 				break;
 			case GLFW_KEY_I:
 				// Zoom in until limit is reached
-				if (RenderMaster.zoom <= RenderMaster.HIGHEST) {
-					applyZoom(RenderMaster.ZOOM_IN);
+				if (RenderMaster.zoom <= ZOOM_MAX) {
+					applyZoom(ZOOM_IN);
 				}
 				break;
 			case GLFW_KEY_O:
 				// Zoom out until limit is reached
-				if (RenderMaster.zoom >= RenderMaster.LOWEST) {
-					applyZoom(RenderMaster.ZOOM_OUT);
+				if (RenderMaster.zoom >= ZOOM_MIN) {
+					applyZoom(ZOOM_OUT);
 				}
 				break;
 			default:
@@ -211,6 +191,7 @@ public final class WindowManager {
 
 	/**
 	 * Zooms in or out and applies an offset to zoom evenly
+	 * @param zoomFactor the scale factor to be applied to the zoom
 	 */
 	private static void applyZoom(float zoomFactor) {
 		// Works by calculating how much offset must be applied to counteract the objects increasing in size
@@ -270,16 +251,16 @@ public final class WindowManager {
 
 		switch (direction) {
 			case UP:
-				yOffset += scrollSpeed;
+				yOffset += SCROLL_SPEED;
 				break;
 			case DOWN:
-				yOffset -= scrollSpeed;
+				yOffset -= SCROLL_SPEED;
 				break;
 			case RIGHT:
-				xOffset += scrollSpeed;
+				xOffset += SCROLL_SPEED;
 				break;
 			case LEFT:
-				xOffset -= scrollSpeed;
+				xOffset -= SCROLL_SPEED;
 				break;
 		}
 	}
@@ -288,18 +269,8 @@ public final class WindowManager {
 	 * Get the size of the window
 	 * @return the size
 	 */
-	public static int size() {
+	public static int getSize() {
 		return size;
-	}
-	
-	/**
-	 * Get the offset, for use in calculating rendering routines
-	 * @return the offset in a Java AWT dimension
-	 * @deprecated Provides imprecise rounded offsets use getWindowY() and getWindowX() instead
-	 */
-	@Deprecated
-	public static Dimension getOffsets() {
-		return new Dimension((int) Math.round(xOffset), (int) Math.round(yOffset));
 	}
 	
 	/**
