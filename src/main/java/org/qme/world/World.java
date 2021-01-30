@@ -17,7 +17,7 @@ public class World {
 	/**
 	 * The size of the world
 	 */
-	public static final int WORLD_SIZE = 25;
+	public static final int WORLD_SIZE = 125;
 
 	/**
 	 * All tiles in the world.
@@ -32,8 +32,10 @@ public class World {
 		r2.start();
 		tiles = new Tile[WORLD_SIZE][WORLD_SIZE];
 		TileType[][] typelist = WorldGenerator.generateWorldMap(WORLD_SIZE);
-		for (int i = 0; i < WORLD_SIZE; i++) {
-			for (int j = 0; j < WORLD_SIZE; j++) {
+
+		// Iterate in reverse so that tiles that are higher will be rendered before tiles that are lower. That way tiles that stick out will be rendered properly.
+		for (int i = WORLD_SIZE - 1; i > 0; i--) {
+			for (int j = WORLD_SIZE - 1; j > 0; j--) {
 				tiles[i][j] = new Tile(i, j, typelist[i][j]);
 			}
 		}

@@ -36,8 +36,8 @@ public final class WindowManager {
 	private static final float ZOOM_IN = 1.1F;
 	private static final float ZOOM_OUT = 0.9F;
 
-	private static final int ZOOM_MIN = 2;
-	private static final int ZOOM_MAX = 10;
+	private static final float ZOOM_MIN = 0.5F;
+	private static final float ZOOM_MAX = 10;
 
 	private static final ArrayList<Renderable> renderables = new ArrayList<>();
 	
@@ -215,7 +215,15 @@ public final class WindowManager {
 	 * @return the size of the world in pixels
 	 */
 	public static float getWorldSize(float zoom) {
-		return (RenderMaster.TILE_SPACING + RenderMaster.TILE_SIZE) * zoom * World.WORLD_SIZE;
+		return (RenderMaster.TILE_GAP + RenderMaster.TILE_SIZE) * zoom * World.WORLD_SIZE;
+	}
+
+	public static float getWorldHeight(float zoom) {
+		return (World.WORLD_SIZE * RenderMaster.TILE_Y_OFFSET * zoom) + (World.WORLD_SIZE * RenderMaster.TILE_Y_OFFSET * zoom);
+	}
+
+	public static float getWorldWidth(float zoom) {
+		return (World.WORLD_SIZE * RenderMaster.TILE_X_OFFSET * zoom) + (World.WORLD_SIZE * RenderMaster.TILE_X_OFFSET * zoom);
 	}
 
 	/**
@@ -227,13 +235,13 @@ public final class WindowManager {
 	private static boolean canMove(Direction direction, float zoom) {
 		switch (direction) {
 			case UP:
-				return ((size/2) + yOffset)/getWorldSize(zoom) < 1;
+				return ((size/2) + yOffset)/getWorldHeight(zoom) < 1;
 			case DOWN:
-				return ((size/2) + yOffset)/getWorldSize(zoom) > 0;
+				return ((size/2) + yOffset)/getWorldHeight(zoom) > 0;
 			case LEFT:
-				return ((size/2) + xOffset)/getWorldSize(zoom) > 0;
+				return ((size/2) + xOffset)/getWorldWidth(zoom) > -0.5;
 			case RIGHT:
-				return ((size/2) + xOffset)/getWorldSize(zoom) < 1;
+				return ((size/2) + xOffset)/getWorldWidth(zoom) < 0.5;
 			default:
 				return true;
 		}

@@ -16,13 +16,16 @@ public final class RenderMaster {
 	private RenderMaster() {}
 
 	public static float zoom = 10;
-	public static final float TILE_SIZE = 32;
+	public static final float TILE_SIZE = 64;
 
 	/**
 	 * The offset that is applied to each tile when rendering.
 	 * The gap between the tiles would be TILE_SIZE - TILE_SPACING
 	 */
-	public static final float TILE_SPACING = 0.5f;
+	public static final float TILE_GAP = 0;
+
+	public static final float TILE_X_OFFSET = 32;
+	public static final float TILE_Y_OFFSET = 15;
 
 	/**
 	 * Check if a tile is in frame
@@ -31,10 +34,10 @@ public final class RenderMaster {
 	 * @returns if the tile is in frame
 	 */
 	public static boolean isInFrame(double x, double y) {
-		double screenLeft = - 400;
+		double screenLeft = - 600;
 		double screenRight = WindowManager.getSize();
 
-		double screenBottom = - 400;
+		double screenBottom = - 600;
 		double screenTop = WindowManager.getSize();
 
 		if (x > screenLeft && x < screenRight) {
@@ -51,10 +54,8 @@ public final class RenderMaster {
 	 */
 	public static void drawTile(Tile tile) {
 
-		float tileSpacingActual = (TILE_SIZE + TILE_SPACING) * zoom;
-
-		int tileX = (int) (((tile.x) * tileSpacingActual) - WindowManager.getWindowX());
-		int tileY = (int) (((tile.y) * tileSpacingActual) - WindowManager.getWindowY());
+		int tileX = (int) ((tile.x * TILE_X_OFFSET * zoom) - (tile.y * TILE_X_OFFSET * zoom) - WindowManager.getWindowX());
+		int tileY = (int) ((tile.y * TILE_Y_OFFSET * zoom) + (tile.x * TILE_Y_OFFSET * zoom) - WindowManager.getWindowY());
 
 		if (isInFrame(tileX, tileY)) {
 			int tileSizeActual = (int) (TILE_SIZE * zoom);
@@ -94,11 +95,14 @@ public final class RenderMaster {
 			int tex
 	) {
 		glEnable(GL_TEXTURE_2D);
+		glEnable(GL_BLEND);
 		glBindTexture(GL_TEXTURE_2D, tex);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		glBegin(GL_QUADS);
 			glTexCoord2f(1, 1);
@@ -114,6 +118,7 @@ public final class RenderMaster {
 			glVertex2f(vert4X, vert4Y);
 		glEnd();
 		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_BLEND);
 	}
 
 	/**

@@ -8,5 +8,7 @@ public enum TileType {
 	MOUNTAIN,
 	HIGH_MOUNTAIN,
 	FERTILE_PLAINS,
-	DESERT
+	DESERT,
+	JUNGLE,
+	TUNDRA
 }
