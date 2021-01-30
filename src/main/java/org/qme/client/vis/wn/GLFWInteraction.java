@@ -5,7 +5,6 @@ import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.qme.client.vis.Renderable;
-import org.qme.client.vis.wn.WindowManager;
 
 import java.nio.DoubleBuffer;
 
