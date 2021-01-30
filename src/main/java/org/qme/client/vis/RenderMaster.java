@@ -51,9 +51,10 @@ public final class RenderMaster {
 	 */
 	public static void drawTile(Tile tile) {
 
-		int tileSpaceActual = (int) (TILE_SPACING * zoom);
-		int tileX = (int) (((tile.x) * tileSpaceActual) - WindowManager.getWindowX());
-		int tileY = (int) (((tile.y) * tileSpaceActual) - WindowManager.getWindowY());
+		float tileSpacingActual = TILE_SPACING * zoom;
+
+		int tileX = (int) (((tile.x) * tileSpacingActual) - WindowManager.getWindowX());
+		int tileY = (int) (((tile.y) * tileSpacingActual) - WindowManager.getWindowY());
 
 		if (isInFrame(tileX, tileY)) {
 			int tileSizeActual = (int) (TILE_SIZE * zoom);
