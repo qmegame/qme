@@ -1,6 +1,7 @@
 package org.qme.client.vis;
 
 import org.qme.client.vis.tex.TextureManager;
+import org.qme.client.vis.wn.Scrolling;
 import org.qme.world.Tile;
 import org.qme.world.TileType;
 
@@ -53,8 +54,8 @@ public final class RenderMaster {
 
 		float tileSpacingActual = (TILE_SIZE + TILE_SPACING) * zoom;
 
-		int tileX = (int) (((tile.x) * tileSpacingActual) - WindowManager.getWindowX());
-		int tileY = (int) (((tile.y) * tileSpacingActual) - WindowManager.getWindowY());
+		int tileX = (int) (((tile.x) * tileSpacingActual) - Scrolling.getXOffset());
+		int tileY = (int) (((tile.y) * tileSpacingActual) - Scrolling.getYOffset());
 
 		if (isInFrame(tileX, tileY)) {
 			int tileSizeActual = (int) (TILE_SIZE * zoom);

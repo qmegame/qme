@@ -5,6 +5,7 @@ import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.qme.client.vis.tex.TextureManager;
+import org.qme.client.vis.wn.Scrolling;
 import org.qme.utils.Direction;
 import org.qme.world.World;
 
@@ -27,10 +28,6 @@ public final class WindowManager {
 	private static long wn;
 	private static int size;
 
-	private static double xOffset = 0D;
-	private static double yOffset = 0D;
-
-	private static final int SCROLL_SPEED = 20;
 	private static final float SCREEN_SIZE = 0.75f;
 
 	private static final float ZOOM_IN = 1.1F;
@@ -161,16 +158,16 @@ public final class WindowManager {
 		switch (glfwKeyCode) {
 			// Scroll
 			case GLFW_KEY_A:
-				doScroll(Direction.LEFT);
+				Scrolling.doScroll(Direction.LEFT);
 				break;
 			case GLFW_KEY_S:
-				doScroll(Direction.DOWN);
+				Scrolling.doScroll(Direction.DOWN);
 				break;
 			case GLFW_KEY_D:
-				doScroll(Direction.RIGHT);
+				Scrolling.doScroll(Direction.RIGHT);
 				break;
 			case GLFW_KEY_W:
-				doScroll(Direction.UP);
+				Scrolling.doScroll(Direction.UP);
 				break;
 			case GLFW_KEY_I:
 				// Zoom in until limit is reached
@@ -198,13 +195,13 @@ public final class WindowManager {
 		double newWorldSize = getWorldSize(RenderMaster.zoom * zoomFactor);
 		double oldWorldSize = getWorldSize(RenderMaster.zoom);
 
-		double focusX = ((size/2) + xOffset)/oldWorldSize;
-		double focusY = ((size/2) + yOffset)/oldWorldSize;
+		double focusX = ((size/2) + Scrolling.getXOffset())/oldWorldSize;
+		double focusY = ((size/2) + Scrolling.getYOffset())/oldWorldSize;
 
 		double worldSizeChange = oldWorldSize - newWorldSize;
 
-		xOffset -= (worldSizeChange) * focusX;
-		yOffset -= (worldSizeChange) * focusY;
+		Scrolling.setXOffset(Scrolling.getXOffset() - (worldSizeChange) * focusX);
+		Scrolling.setYOffset(Scrolling.getYOffset() - (worldSizeChange) * focusY);
 
 		RenderMaster.zoom *= zoomFactor;
 	}
@@ -216,53 +213,6 @@ public final class WindowManager {
 	 */
 	public static float getWorldSize(float zoom) {
 		return (RenderMaster.TILE_SPACING + RenderMaster.TILE_SIZE) * zoom * World.WORLD_SIZE;
-	}
-
-	/**
-	 * Calculates if the camera can move any more in any direction given that the limit is the center of the screen
-	 * @param direction the direction that is being moved to
-	 * @param zoom the current zoom to calculate for
-	 * @return if the camera can move
-	 */
-	private static boolean canMove(Direction direction, float zoom) {
-		switch (direction) {
-			case UP:
-				return ((size/2) + yOffset)/getWorldSize(zoom) < 1;
-			case DOWN:
-				return ((size/2) + yOffset)/getWorldSize(zoom) > 0;
-			case LEFT:
-				return ((size/2) + xOffset)/getWorldSize(zoom) > 0;
-			case RIGHT:
-				return ((size/2) + xOffset)/getWorldSize(zoom) < 1;
-			default:
-				return true;
-		}
-	}
-	
-	/**
-	 * Scroll based on a key code
-	 * @param direction the direction of motion
-	 */
-	private static void doScroll(Direction direction) {
-
-		if (!canMove(direction, RenderMaster.zoom)) {
-			return;
-		}
-
-		switch (direction) {
-			case UP:
-				yOffset += SCROLL_SPEED;
-				break;
-			case DOWN:
-				yOffset -= SCROLL_SPEED;
-				break;
-			case RIGHT:
-				xOffset += SCROLL_SPEED;
-				break;
-			case LEFT:
-				xOffset -= SCROLL_SPEED;
-				break;
-		}
 	}
 	
 	/**
@@ -281,22 +231,6 @@ public final class WindowManager {
 	public static void getMouseLocation(
 			DoubleBuffer xWrap, DoubleBuffer yWrap) {
 		glfwGetCursorPos(wn, xWrap, yWrap);
-	}
-	
-	/**
-	 * Get the window x offset
-	 * @return the window x offset
-	 */
-	public static double getWindowX() {
-		return xOffset;
-	}
-	
-	/**
-	 * Get the window y offset
-	 * @return the window y offset
-	 */
-	public static double getWindowY() {
-		return yOffset;
 	}
 	
 	/**
