@@ -5,9 +5,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.qme.world.World;
 
-import java.awt.*;
-
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.awt.*;
 
 class WindowManagerTest {
 

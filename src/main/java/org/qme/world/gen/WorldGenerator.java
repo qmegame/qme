@@ -9,12 +9,16 @@ import java.util.Random;
 /**
  * The class that houses the generateWorldMap function
  * And also houses auxiliary functions that area called in that function
- * @author santiago
+ * @author santiago, Tom
  * @since 0.1.0
  */
 public class WorldGenerator {
 	private static final Random rand = new Random();
 	private static final String EXPANDED = "expanded ";
+
+	private WorldGenerator() {
+		throw new IllegalStateException("World Generation");
+	}
 
 	/**
 	 * The function that generates the map for a game
@@ -23,11 +27,12 @@ public class WorldGenerator {
 	 * @param side The length of a side of the map
 	 * @return The kinds of tiles on the map
 	 */
-	public static TileType[][] generateWorldMap(int side) {
-		Logger.log("function called", Severity.DEBUG);
+
+	public static TileType[][] generateWorldMap(double side) {
+		Logger.log("Generating Map", Severity.NORMAL);
 		
 		// Generate blank world
-		TileType[][] world = new TileType[side][side];
+		TileType[][] world;
 		
 		Logger.log("before ocean", Severity.DEBUG);
 		// Fill world with ocean
@@ -40,8 +45,8 @@ public class WorldGenerator {
 		
 		Logger.log("before continents", Severity.DEBUG);
 		for(int continentCount = 0; continentCount < continents; continentCount++) {
-			int i = rand.nextInt(side);
-			int j = rand.nextInt(side);
+			int i = rand.nextInt((int) side);
+			int j = rand.nextInt((int) side);
 			Logger.log("before individual continent", Severity.DEBUG);
 			world = WorldGenerator.addContinent(world, side, i, j);
 			
@@ -69,11 +74,12 @@ public class WorldGenerator {
 	 * @param parchedSide A side length of the world
 	 * @return A TileType[][] of all TileType.OCEAN
 	 */
-	private static TileType[][] ocean(int parchedSide) {
-		
+	private static TileType[][] ocean(double parchedSide) {
+
 		// Make return blank world
-		TileType[][] wet = new TileType[parchedSide][parchedSide];
+		TileType[][] wet = new TileType[(int) parchedSide][(int) parchedSide];
 		Logger.log("before each tile for loops", Severity.DEBUG);
+
 		// Fill each tile with ocean
 		for(int i = 0; i < parchedSide; i++) {
 			for(int j = 0; j < parchedSide; j++) {
@@ -91,15 +97,15 @@ public class WorldGenerator {
 	 * @since 0.1.0
 	 * @param world The array to be modified
 	 * @param side The size of the world
-	 * @param centerX The center of the contnient
+	 * @param centerX The center of the continent
 	 * @param centerY The center of the continent
 	 * @return The inputted array with a continent added
 	 */
 	private static TileType[][] addContinent(TileType[][] world,
-			int side, int centerX, int centerY) {
+			double side, int centerX, int centerY) {
 
 		// Set up return world
-		TileType[][] newWorld = new TileType[side][side];
+		TileType[][] newWorld;
 		newWorld = world;
 		
 		Logger.log("assign center tile to random", Severity.DEBUG);
@@ -111,8 +117,8 @@ public class WorldGenerator {
 		// Set up extreme points with most extreme values
 		int leftmost = 0;
 		int upmost = 0;
-		int rightmost = side - 1;
-		int downmost = side - 1;
+		int rightmost = (int) (side - 1);
+		int downmost = (int) (side - 1);
 		
 		Logger.log("before expand left", Severity.DEBUG);
 		// Expand left
@@ -292,10 +298,10 @@ public class WorldGenerator {
 	 * @return A world with a continent with a mountain range
 	 */
 	private static TileType[][] addMountain(TileType[][] world, int leftBound,
-			int upBound, int rightBound, int downBound, int side) {
+			int upBound, int rightBound, int downBound, double side) {
 		
 		// Create output
-		TileType[][] mountainWorld = new TileType[side][side];
+		TileType[][] mountainWorld;
 		mountainWorld = world;
 		
 		// Set random start for range
@@ -412,19 +418,10 @@ public class WorldGenerator {
 	 */
 	private static boolean touchesOcean(TileType[][] world, int x, int y) {
 		try {
-			if(WorldGenerator.isType(world[x - 1][y], TileType.OCEAN)) {
-				return true;
-			}
-			if(WorldGenerator.isType(world[x][y - 1], TileType.OCEAN)) {
-				return true;
-			}
-			if(WorldGenerator.isType(world[x + 1][y], TileType.OCEAN)) {
-				return true;
-			}
-			if(WorldGenerator.isType(world[x][y + 1], TileType.OCEAN)) {
-				return true;
-			}
-			
+			if(WorldGenerator.isType(world[x - 1][y], TileType.OCEAN)) { return true; }
+			if(WorldGenerator.isType(world[x][y - 1], TileType.OCEAN)) { return true; }
+			if(WorldGenerator.isType(world[x + 1][y], TileType.OCEAN)) { return true; }
+			if(WorldGenerator.isType(world[x][y + 1], TileType.OCEAN)) { return true; }
 			return false;
 		} catch(ArrayIndexOutOfBoundsException e) {
 			return true;
@@ -442,21 +439,20 @@ public class WorldGenerator {
 	 */
 	private static boolean touchesSea(TileType[][] world, int x, int y) {
 		try {
-			if(WorldGenerator.isType(world[x - 1][y], TileType.SEA)) {
+			if (WorldGenerator.isType(world[x - 1][y], TileType.SEA)) {
 				return true;
 			}
-			if(WorldGenerator.isType(world[x][y - 1], TileType.SEA)) {
+			if (WorldGenerator.isType(world[x][y - 1], TileType.SEA)) {
 				return true;
 			}
-			if(WorldGenerator.isType(world[x + 1][y], TileType.SEA)) {
+			if (WorldGenerator.isType(world[x + 1][y], TileType.SEA)) {
 				return true;
 			}
-			if(WorldGenerator.isType(world[x][y + 1], TileType.SEA)) {
+			if (WorldGenerator.isType(world[x][y + 1], TileType.SEA)) {
 				return true;
 			}
-
 			return false;
-		} catch(ArrayIndexOutOfBoundsException e) {
+		} catch (ArrayIndexOutOfBoundsException e) {
 			return true;
 		}
 	}
@@ -465,7 +461,7 @@ public class WorldGenerator {
 	 * A utility function that generates a river on a continent
 	 * @author santiago
 	 * @since 0.1.0
-	 * @param world The riverless world
+	 * @param world The river-less world
 	 * @param leftBound The left extreme of the continent
 	 * @param upBound The up extreme of the continent
 	 * @param rightBound The right extreme of the continent
@@ -473,10 +469,10 @@ public class WorldGenerator {
 	 * @return A world with a continent with a river
 	 */
 	private static TileType[][] addRiver(TileType[][] world, int leftBound,
-			int upBound, int rightBound, int downBound, int side) {
+			int upBound, int rightBound, int downBound, double side) {
 		Logger.log("create river started", Severity.DEBUG);
 		// Create output
-		TileType[][] flowingWorld = new TileType[side][side];
+		TileType[][] flowingWorld;
 		flowingWorld = world;
 		
 		// Set random start for range
@@ -565,19 +561,19 @@ public class WorldGenerator {
 	 * A utility function to turn all ocean tiles that touch land into sea tiles
 	 * @author santiago
 	 * @since 0.1.0
-	 * @param world The world in which all ocean tiles will be cheched
+	 * @param world The world in which all ocean tiles will be checked
 	 * @param side The length of the world's sides
 	 * @return The world but with sea tiles surrounding the land
 	 */
-	private static TileType[][] oceanToSea(TileType[][] world, int side) {
+	private static TileType[][] oceanToSea(TileType[][] world, double side) {
 		Logger.log("ocean to sea called", Severity.DEBUG);
 		// Set up return
-		TileType[][] shallowWorld = new TileType[side][side];
+		TileType[][] shallowWorld;
 		shallowWorld = world;
 		
 		// Check tiles
 		for(int i = 1; i < side - 1; i++) {
-			// Without starting at 1 and ending early, there'd be Out of Bounds
+			// Without starting at 1 and ending early, they'd be Out of Bounds
 			for(int j = 1; j < side - 1; j++) {
 				if(WorldGenerator.isType(shallowWorld[i][j], TileType.OCEAN) &&
 				 WorldGenerator.touchesLand(shallowWorld, i, j)) {
@@ -597,7 +593,6 @@ public class WorldGenerator {
 	 * @param world The world with no continental shelves
 	 * @param x The tile to be checked
 	 * @param y The tile to be checked
-	 * @return A world with nice continental shelves
 	 */
 	private static boolean touchesLand(TileType[][] world, int x, int y) {
 		try {
@@ -661,14 +656,13 @@ public class WorldGenerator {
 	 * @param side How long a side of the world is
 	 * @return The world but with no little "ponds"
 	 */
-	private static TileType[][] landReclaim(TileType[][] world, int side) {
+
+	private static TileType[][] landReclaim(TileType[][] world, double side) {
 		TileType[][] dubaiWorld = world;
 		for(int i = 1; i < (side - 1); i++) {
 			for(int j = 1; j < (side - 1); j++) {
-				if(!WorldGenerator.touchesOcean(dubaiWorld, i, j)) {
-					if(!WorldGenerator.touchesSea(dubaiWorld, i, j)) {
+				if(!WorldGenerator.touchesOcean(dubaiWorld, i, j) && !WorldGenerator.touchesSea(dubaiWorld, i, j)) {
 						dubaiWorld[i][j] = WorldGenerator.assignRandomFlatLand();
-					}
 				}
 			}
 		}
