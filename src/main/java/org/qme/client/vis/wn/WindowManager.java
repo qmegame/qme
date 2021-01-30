@@ -1,9 +1,11 @@
-package org.qme.client.vis;
+package org.qme.client.vis.wn;
 
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
+import org.qme.client.vis.RenderMaster;
+import org.qme.client.vis.Renderable;
 import org.qme.client.vis.tex.TextureManager;
 import org.qme.client.vis.wn.Scrolling;
 import org.qme.client.vis.wn.WindowContextManager;

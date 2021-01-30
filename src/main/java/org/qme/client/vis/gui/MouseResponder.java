@@ -1,7 +1,7 @@
 package org.qme.client.vis.gui;
 
 import org.lwjgl.BufferUtils;
-import org.qme.client.vis.WindowManager;
+import org.qme.client.vis.wn.WindowManager;
 import org.qme.client.vis.wn.WindowContextManager;
 
 import java.nio.DoubleBuffer;

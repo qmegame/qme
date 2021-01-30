@@ -3,7 +3,7 @@ package org.qme.client.vis.wn;
 import org.qme.client.vis.RenderMaster;
 import org.qme.utils.Direction;
 
-import static org.qme.client.vis.WindowManager.getWorldSize;
+import static org.qme.client.vis.wn.WindowManager.getWorldSize;
 
 /**
  * Contains all code for controlling scrollinng - moved out of WindowManager.
