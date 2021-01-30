@@ -1,24 +1,14 @@
 package org.qme.client.vis.wn;
 
-import org.lwjgl.glfw.GLFWKeyCallback;
-import org.lwjgl.glfw.GLFWVidMode;
-import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.GL11;
 import org.qme.client.vis.RenderMaster;
 import org.qme.client.vis.Renderable;
 import org.qme.client.vis.tex.TextureManager;
-import org.qme.client.vis.wn.Scrolling;
-import org.qme.client.vis.wn.WindowContextManager;
 import org.qme.utils.Direction;
 import org.qme.world.World;
 
-import java.nio.DoubleBuffer;
 import java.util.ArrayList;
 
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.glClear;
-import static org.lwjgl.opengl.GL11.glClearColor;
-import static org.lwjgl.system.MemoryUtil.NULL;
 
 /**
  * Manages the sole window handle used with GLFW / OpenGL , and provides ways to
@@ -43,9 +33,9 @@ public final class WindowManager {
 	
 	static {
 
-		WindowContextManager.glfwSetup();
+		GLFWInteraction.glfwSetup();
 		
-		WindowContextManager.createWindow();
+		GLFWInteraction.createWindow();
 
 		// Load textures
 		new TextureManager();
@@ -105,8 +95,8 @@ public final class WindowManager {
 		double newWorldSize = getWorldSize(RenderMaster.zoom * zoomFactor);
 		double oldWorldSize = getWorldSize(RenderMaster.zoom);
 
-		double focusX = ((WindowContextManager.getSize() / 2) + Scrolling.getXOffset())/oldWorldSize;
-		double focusY = ((WindowContextManager.getSize() / 2) + Scrolling.getYOffset())/oldWorldSize;
+		double focusX = ((GLFWInteraction.getSize() / 2) + Scrolling.getXOffset())/oldWorldSize;
+		double focusY = ((GLFWInteraction.getSize() / 2) + Scrolling.getYOffset())/oldWorldSize;
 
 		double worldSizeChange = oldWorldSize - newWorldSize;
 

@@ -75,7 +75,7 @@ public class Scrolling {
      * @return if the camera can move
      */
     private static boolean canMove(Direction direction, float zoom) {
-        int size = WindowContextManager.getSize();
+        int size = GLFWInteraction.getSize();
         switch (direction) {
             case UP:
                 return ((size / 2) + Scrolling.getYOffset())/getWorldSize(zoom) < 1;

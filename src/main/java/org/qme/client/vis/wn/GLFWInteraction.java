@@ -21,7 +21,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
  * @author adamhutchings
  * @since 0.3
  */
-public class WindowContextManager {
+public class GLFWInteraction {
 
     private static long wn;
 
