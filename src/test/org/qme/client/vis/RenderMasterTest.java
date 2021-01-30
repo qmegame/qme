@@ -24,7 +24,7 @@ class RenderMasterTest {
     @Test
     void isInFrame() {
 
-        double worldSize = World.WORLD_SIZE * RenderMaster.TILE_SPACING;
+        double worldSize = World.WORLD_SIZE * (RenderMaster.TILE_SPACING + RenderMaster.TILE_SIZE);
         // In bounds
         assertTrue(RenderMaster.isInFrame(0, 0));
         assertTrue(RenderMaster.isInFrame(worldSize, worldSize));
