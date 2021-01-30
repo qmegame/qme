@@ -16,13 +16,13 @@ public final class RenderMaster {
 	private RenderMaster() {}
 
 	public static float zoom = 10;
-	public static final float TILE_SIZE = 20;
+	public static final float TILE_SIZE = 32;
 
 	/**
 	 * The offset that is applied to each tile when rendering.
 	 * The gap between the tiles would be TILE_SIZE - TILE_SPACING
 	 */
-	public static final float TILE_SPACING = 22;
+	public static final float TILE_SPACING = 0.5f;
 
 	/**
 	 * Check if a tile is in frame
@@ -31,10 +31,10 @@ public final class RenderMaster {
 	 * @returns if the tile is in frame
 	 */
 	public static boolean isInFrame(double x, double y) {
-		double screenLeft = - 200;
+		double screenLeft = - 400;
 		double screenRight = WindowManager.getSize();
 
-		double screenBottom = - 200;
+		double screenBottom = - 400;
 		double screenTop = WindowManager.getSize();
 
 		if (x > screenLeft && x < screenRight) {
@@ -51,9 +51,10 @@ public final class RenderMaster {
 	 */
 	public static void drawTile(Tile tile) {
 
-		int tileSpaceActual = (int) (TILE_SPACING * zoom);
-		int tileX = (int) (((tile.x) * tileSpaceActual) - WindowManager.getWindowX());
-		int tileY = (int) (((tile.y) * tileSpaceActual) - WindowManager.getWindowY());
+		float tileSpacingActual = (TILE_SIZE + TILE_SPACING) * zoom;
+
+		int tileX = (int) (((tile.x) * tileSpacingActual) - WindowManager.getWindowX());
+		int tileY = (int) (((tile.y) * tileSpacingActual) - WindowManager.getWindowY());
 
 		if (isInFrame(tileX, tileY)) {
 			int tileSizeActual = (int) (TILE_SIZE * zoom);
