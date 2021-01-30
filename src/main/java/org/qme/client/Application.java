@@ -15,7 +15,7 @@ import java.awt.*;
  * this model will serve better, because request objects can be sent to a remote
  * location more easily.
  * @author adamhutchings
- * @since preA
+ * @since 0.1.0
  */
 public final class Application {
 
@@ -31,7 +31,7 @@ public final class Application {
 		QFont mono = new QFont(new Font(Font.MONOSPACED, Font.PLAIN, 16), true);
 		fpsLabel = new QLabel(mono, "...", 2, WindowManager.windowSize() - 21);
 	}
-	
+
 	/**
 	 * The global instance of application.
 	 */

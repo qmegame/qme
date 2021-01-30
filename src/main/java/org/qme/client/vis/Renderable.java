@@ -5,13 +5,13 @@ package org.qme.client.vis;
  * The client has an array of these objects that gets updated whenever something
  * gets changed.
  * @author adamhutchings
- *
+ * @since 0.1.0
  */
 public interface Renderable {
 	
 	/**
 	 * How the draw this object.
 	 */
-	public void draw();
+	void draw();
 
 }
