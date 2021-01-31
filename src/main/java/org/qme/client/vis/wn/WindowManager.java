@@ -7,6 +7,7 @@ import org.qme.utils.Direction;
 import org.qme.world.World;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -24,7 +25,7 @@ public final class WindowManager {
 	private static final float ZOOM_MIN = 0.5F;
 	private static final float ZOOM_MAX = 10;
 
-	public static final ArrayList<Renderable> renderables = new ArrayList<>();
+	protected static final List<Renderable> renderables = new ArrayList<>();
 	
 	/**
 	 * No initialization, thank you very much.
@@ -95,8 +96,8 @@ public final class WindowManager {
 		double newWorldSize = getWorldSize(RenderMaster.zoom * zoomFactor);
 		double oldWorldSize = getWorldSize(RenderMaster.zoom);
 
-		double focusX = ((GLFWInteraction.getSize() / 2) + Scrolling.getXOffset())/oldWorldSize;
-		double focusY = ((GLFWInteraction.getSize() / 2) + Scrolling.getYOffset())/oldWorldSize;
+		double focusX = (((double)GLFWInteraction.getSize() / 2) + Scrolling.getXOffset())/oldWorldSize;
+		double focusY = (((double)GLFWInteraction.getSize() / 2) + Scrolling.getYOffset())/oldWorldSize;
 
 		double worldSizeChange = oldWorldSize - newWorldSize;
 

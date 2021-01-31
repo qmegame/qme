@@ -39,9 +39,7 @@ public final class RenderMaster {
 		double screenTop = GLFWInteraction.getSize();
 
 		if (x > screenLeft && x < screenRight) {
-			if (y > screenBottom && y < screenTop) {
-				return true;
-			}
+			return y > screenBottom && y < screenTop;
 		}
 		return false;
 	}
