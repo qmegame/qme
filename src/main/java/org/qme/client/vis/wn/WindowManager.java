@@ -21,8 +21,8 @@ public final class WindowManager {
 	private static final float ZOOM_IN = 1.1F;
 	private static final float ZOOM_OUT = 0.9F;
 
-	private static final int ZOOM_MIN = 2;
-	private static final int ZOOM_MAX = 10;
+	private static final float ZOOM_MIN = 0.5F;
+	private static final float ZOOM_MAX = 10;
 
 	public static final ArrayList<Renderable> renderables = new ArrayList<>();
 	
@@ -112,7 +112,25 @@ public final class WindowManager {
 	 * @return the size of the world in pixels
 	 */
 	public static float getWorldSize(float zoom) {
-		return (RenderMaster.TILE_SPACING + RenderMaster.TILE_SIZE) * zoom * World.WORLD_SIZE;
+		return (RenderMaster.TILE_GAP + RenderMaster.TILE_SIZE) * zoom * World.WORLD_SIZE;
+	}
+
+	/**
+	 * Gets the height of the world in pixels
+	 * @param zoom the current zoom factor of the world
+	 * @return the actual height of the world
+	 */
+	public static float getWorldHeight(float zoom) {
+		return (World.WORLD_SIZE * RenderMaster.TILE_Y_OFFSET * zoom) + (World.WORLD_SIZE * RenderMaster.TILE_Y_OFFSET * zoom);
+	}
+
+	/**
+	 * Gets the width of the world in pixels
+	 * @param zoom the current zoom factor of the world
+	 * @return the actual width of the world
+	 */
+	public static float getWorldWidth(float zoom) {
+		return (World.WORLD_SIZE * RenderMaster.TILE_X_OFFSET * zoom) + (World.WORLD_SIZE * RenderMaster.TILE_X_OFFSET * zoom);
 	}
 	
 	/**

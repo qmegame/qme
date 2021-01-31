@@ -625,13 +625,15 @@ public class WorldGenerator {
 	 * @return A random non-mountain, non-water tile
 	 */
 	private static TileType assignRandomFlatLand() {
-		int type = rand.nextInt(7);
-		if(type == 0 || type == 4) {
+		int type = rand.nextInt(8);
+		if (type == 0 || type == 4) {
 			return TileType.PLAINS;
-		} else if(type == 1 || type == 5) {
+		} else if (type == 1 || type == 5) {
 			return TileType.DESERT;
-		} else if(type == 2 || type == 6) {
+		} else if (type == 2 || type == 6) {
 			return TileType.FOREST;
+		} else if (type == 7) {
+			return TileType.JUNGLE;
 		} else {
 			return TileType.FERTILE_PLAINS;
 		}
