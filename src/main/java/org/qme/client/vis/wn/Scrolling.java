@@ -13,7 +13,6 @@ import static org.qme.client.vis.wn.WindowManager.*;
 public class Scrolling {
 
     private static double xOffset = 0D;
-
     private static double yOffset = 0D;
 
     private static final int SCROLL_SPEED = 20;
@@ -41,10 +40,18 @@ public class Scrolling {
         return yOffset;
     }
 
+    /**
+     * Sets the window y offset
+     * @param yOffset the new y offset
+     */
     public static void setYOffset(double yOffset) {
         Scrolling.yOffset = yOffset;
     }
 
+    /**
+     * Sets the window y offset
+     * @param xOffset the new x offset
+     */
     public static void setXOffset(double xOffset) {
         Scrolling.xOffset = xOffset;
     }

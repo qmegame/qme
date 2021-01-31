@@ -18,14 +18,10 @@ public final class RenderMaster {
 	private RenderMaster() {}
 
 	public static float zoom = 10;
+
+	// When texture packs are added this should be changed per pack inorder to allow for different sized tiles
 	public static final float TILE_SIZE = 64;
-
-	/**
-	 * The offset that is applied to each tile when rendering.
-	 * The gap between the tiles would be TILE_SIZE - TILE_SPACING
-	 */
 	public static final float TILE_GAP = 0;
-
 	public static final float TILE_X_OFFSET = 32;
 	public static final float TILE_Y_OFFSET = 15;
 
