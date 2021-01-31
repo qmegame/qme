@@ -1,4 +1,5 @@
 bin/
+qme.iml
 doc/
 *.DS_STORE*
 qdata/

@@ -1,6 +1,8 @@
 package org.qme.client.vis;
 
 import org.qme.client.vis.tex.TextureManager;
+import org.qme.client.vis.wn.Scrolling;
+import org.qme.client.vis.wn.GLFWInteraction;
 import org.qme.world.Tile;
 import org.qme.world.TileType;
 
@@ -35,10 +37,10 @@ public final class RenderMaster {
 	 */
 	public static boolean isInFrame(double x, double y) {
 		double screenLeft = - 600;
-		double screenRight = WindowManager.getSize();
+		double screenRight = GLFWInteraction.getSize();
 
 		double screenBottom = - 600;
-		double screenTop = WindowManager.getSize();
+		double screenTop = GLFWInteraction.getSize();
 
 		if (x > screenLeft && x < screenRight) {
 			if (y > screenBottom && y < screenTop) {
@@ -54,8 +56,8 @@ public final class RenderMaster {
 	 */
 	public static void drawTile(Tile tile) {
 
-		int tileX = (int) ((tile.x * TILE_X_OFFSET * zoom) - (tile.y * TILE_X_OFFSET * zoom) - WindowManager.getWindowX());
-		int tileY = (int) ((tile.y * TILE_Y_OFFSET * zoom) + (tile.x * TILE_Y_OFFSET * zoom) - WindowManager.getWindowY());
+		int tileX = (int) ((tile.x * TILE_X_OFFSET * zoom) - (tile.y * TILE_X_OFFSET * zoom) - Scrolling.getXOffset());
+		int tileY = (int) ((tile.y * TILE_Y_OFFSET * zoom) + (tile.x * TILE_Y_OFFSET * zoom) - Scrolling.getYOffset());
 
 		if (isInFrame(tileX, tileY)) {
 			int tileSizeActual = (int) (TILE_SIZE * zoom);

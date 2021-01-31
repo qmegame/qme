@@ -1,7 +1,7 @@
 package org.qme.client.vis.gui;
 
 import org.qme.client.vis.Renderable;
-import org.qme.client.vis.WindowManager;
+import org.qme.client.vis.wn.WindowManager;
 
 /**
  * Class for creating labels
