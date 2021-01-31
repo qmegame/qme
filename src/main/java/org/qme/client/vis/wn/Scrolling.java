@@ -3,7 +3,7 @@ package org.qme.client.vis.wn;
 import org.qme.client.vis.RenderMaster;
 import org.qme.utils.Direction;
 
-import static org.qme.client.vis.wn.WindowManager.getWorldSize;
+import static org.qme.client.vis.wn.WindowManager.*;
 
 /**
  * Contains all code for controlling scrolling - moved out of WindowManager.
@@ -13,7 +13,6 @@ import static org.qme.client.vis.wn.WindowManager.getWorldSize;
 public class Scrolling {
 
     private static double xOffset = 0D;
-
     private static double yOffset = 0D;
 
     private static final int SCROLL_SPEED = 20;
@@ -41,10 +40,18 @@ public class Scrolling {
         return yOffset;
     }
 
+    /**
+     * Sets the window y offset
+     * @param yOffset the new y offset
+     */
     public static void setYOffset(double yOffset) {
         Scrolling.yOffset = yOffset;
     }
 
+    /**
+     * Sets the window y offset
+     * @param xOffset the new x offset
+     */
     public static void setXOffset(double xOffset) {
         Scrolling.xOffset = xOffset;
     }
@@ -85,13 +92,13 @@ public class Scrolling {
         int size = GLFWInteraction.getSize();
         switch (direction) {
             case UP:
-                return ((size / 2) + Scrolling.getYOffset())/getWorldSize(zoom) < 1;
+                return ((size / 2) + Scrolling.getYOffset())/getWorldHeight(zoom) < 1;
             case DOWN:
-                return ((size / 2) + Scrolling.getYOffset())/getWorldSize(zoom) > 0;
+                return ((size / 2) + Scrolling.getYOffset())/getWorldHeight(zoom) > 0;
             case LEFT:
-                return ((size / 2) + Scrolling.getXOffset())/getWorldSize(zoom) > 0;
+                return ((size / 2) + Scrolling.getXOffset())/getWorldWidth(zoom) > -0.5;
             case RIGHT:
-                return ((size / 2) + Scrolling.getXOffset())/getWorldSize(zoom) < 1;
+                return ((size / 2) + Scrolling.getXOffset())/getWorldWidth(zoom) < 0.5;
             default:
                 return true;
         }

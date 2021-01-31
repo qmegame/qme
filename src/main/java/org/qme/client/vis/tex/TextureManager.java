@@ -38,6 +38,8 @@ public class TextureManager {
         toLoad.add("sea.png");
         toLoad.add("high-mountain.png");
         toLoad.add("desert.png");
+        toLoad.add("jungle.png");
+        toLoad.add("tundra.png");
         for (String texture : toLoad) {
             registerTexture(texture, loadTextureFromImage(loadImageResource(TEXTURE_RESOURCES + texture)));
         }
