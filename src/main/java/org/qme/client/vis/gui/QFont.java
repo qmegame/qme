@@ -107,16 +107,7 @@ public class QFont {
         image.getRGB(0, 0, width, height, pixels, 0, width);
 
         ByteBuffer buffer = MemoryUtil.memAlloc(width * height * 4);
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                int pixel = pixels[i * width + j];
-                buffer.put((byte) ((pixel >> 16) & 0xFF));
-                buffer.put((byte) ((pixel >> 8) & 0xFF));
-                buffer.put((byte) (pixel & 0xFF));
-                buffer.put((byte) ((pixel >> 24) & 0xFF));
-            }
-        }
-        buffer.flip();
+        TextureManager.tryLoadTextureFromImage(height, width, pixels, buffer);
 
         if (TextureManager.getTexture(font.getFontName().replaceAll(" ", "-")) != null) {
             Logger.log("The font " + font.getFontName() + " was initialised twice under the same name.", Severity.WARNING);

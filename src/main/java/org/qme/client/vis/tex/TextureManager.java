@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * Class responsible for loading textures from files
@@ -21,7 +22,7 @@ public class TextureManager {
 
     private static final String TEXTURE_RESOURCES = "/textures/";
     private static final String MISSING_TEXTURE = "/textures/missing.png";
-    private static HashMap<String, Integer> textures = new HashMap<>();
+    private static final HashMap<String, Integer> textures = new HashMap<>();
 
     /**
      * Initialising TextureManager will load textures in the resources directory
@@ -41,7 +42,8 @@ public class TextureManager {
         toLoad.add("jungle.png");
         toLoad.add("tundra.png");
         for (String texture : toLoad) {
-            registerTexture(texture, loadTextureFromImage(loadImageResource(TEXTURE_RESOURCES + texture)));
+            registerTexture(texture, loadTextureFromImage(Objects.requireNonNull(loadImageResource
+                    (TEXTURE_RESOURCES + texture))));
         }
     }
 
@@ -86,6 +88,12 @@ public class TextureManager {
         image.getRGB(0, 0, width, height, pixelBuf, 0, width);
         ByteBuffer buf = BufferUtils.createByteBuffer(area * 4);
 
+        tryLoadTextureFromImage(height, width, pixelBuf, buf);
+
+        return loadTextureFromBuffer(buf, width, height);
+    }
+
+    public static void tryLoadTextureFromImage(int height, int width, int[] pixelBuf, ByteBuffer buf) {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
 
@@ -103,8 +111,6 @@ public class TextureManager {
         }
 
         buf.flip();
-
-        return loadTextureFromBuffer(buf, width, height);
     }
 
     /**
