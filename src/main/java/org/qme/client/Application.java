@@ -23,12 +23,13 @@ public final class Application {
 	private int fps;
 	private long lastSecond;
 
+	public static final QFont mono = new QFont(new Font(Font.MONOSPACED, Font.PLAIN, 16), true);
+
 	/**
 	 * The constructor is private. Only one instance allowed.
 	 */
 	private Application() {
 		new World();
-		QFont mono = new QFont(new Font(Font.MONOSPACED, Font.PLAIN, 16), true);
 		fpsLabel = new QLabel(mono, "...", 2, GLFWInteraction.windowSize() - 21);
 	}
 
