@@ -16,9 +16,7 @@ public abstract class UIComponent implements MouseResponder, Renderable {
 	 * For logging purposes (maybe more later)
 	 * @return the name of the component
 	 */
-	public String getName() {
-		return "component.unnamed";
-	}
+	public static final String getName = "component.unnamed";
 	
 	/**
 	 * Gets if the UIComponent is clicked

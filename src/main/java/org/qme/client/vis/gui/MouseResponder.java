@@ -164,12 +164,12 @@ public interface MouseResponder {
 		/**
 		 * Stuffed with the mouse's x location
 		 */
-		private static DoubleBuffer mouseX = BufferUtils.createDoubleBuffer(1);
+		private static final DoubleBuffer mouseX = BufferUtils.createDoubleBuffer(1);
 		
 		/**
 		 * Stuffed with the mouse's y location
 		 */
-		private static DoubleBuffer mouseY = BufferUtils.createDoubleBuffer(1);
+		private static final DoubleBuffer mouseY = BufferUtils.createDoubleBuffer(1);
 		
 	}
 

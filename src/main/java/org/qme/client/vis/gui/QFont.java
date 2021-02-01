@@ -107,23 +107,14 @@ public class QFont {
         image.getRGB(0, 0, width, height, pixels, 0, width);
 
         ByteBuffer buffer = MemoryUtil.memAlloc(width * height * 4);
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                int pixel = pixels[i * width + j];
-                buffer.put((byte) ((pixel >> 16) & 0xFF));
-                buffer.put((byte) ((pixel >> 8) & 0xFF));
-                buffer.put((byte) (pixel & 0xFF));
-                buffer.put((byte) ((pixel >> 24) & 0xFF));
-            }
-        }
-        buffer.flip();
+        TextureManager.tryLoadTextureFromImage(height, width, pixels, buffer);
 
-        if (TextureManager.getTexture(font.getFontName().replaceAll(" ", "-")) != null) {
+        if (TextureManager.getTexture(font.getFontName().replace(" ", "-")) != null) {
             Logger.log("The font " + font.getFontName() + " was initialised twice under the same name.", Severity.WARNING);
             return;
         }
 
-        TextureManager.registerTexture(font.getFontName().replaceAll(" ", "-"), TextureManager.loadTextureFromBuffer(buffer, width, height));
+        TextureManager.registerTexture(font.getFontName().replace(" ", "-"), TextureManager.loadTextureFromBuffer(buffer, width, height));
     }
 
     /**
@@ -184,7 +175,7 @@ public class QFont {
         }
 
         glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, TextureManager.getTexture(font.getFontName().replaceAll(" ", "-")));
+        glBindTexture(GL_TEXTURE_2D, TextureManager.getTexture(font.getFontName().replace(" ", "-")));
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -206,7 +197,7 @@ public class QFont {
         glDisable(GL_TEXTURE_2D);
     }
 
-    private class Glyph {
+    private static class Glyph {
         public final int width;
         public final int height;
         public final int x;
