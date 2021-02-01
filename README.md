@@ -6,7 +6,9 @@ This is the repository for the QME source code and assets.
 ![Example image](https://github.com/adamhutchings/qme5/blob/master/info/full_view_03.png?raw=true)
 
 ## Keybinds
-- wasd for movement
+![Keybinds](https://github.com/adamhutchings/qme5/blob/master/info/movement.png?raw=true)
+
+- w, a, s, and d for movement
 - i zooms the camera in
 - o zooms the camera out
 
