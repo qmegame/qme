@@ -6,7 +6,9 @@ This is the repository for the QME source code and assets.
 ![Example image](https://github.com/adamhutchings/qme5/blob/master/info/full_view_03.png?raw=true)
 
 ## Keybinds
-- wasd for movement
+![Keybinds](https://github.com/adamhutchings/qme5/blob/master/info/movement.png?raw=true)
+
+- w, a, s, and d for movement
 - i zooms the camera in
 - o zooms the camera out
 
@@ -19,4 +21,4 @@ The current version the program supports Java version `15`
 Maximum backwards compatibility with JDK version `11`
 
 
-Note: If you are using MacOS and do not have a working Maven installation, please replace all content in `.classpath` with content in `macosLib.txt`
+Note: If you are using MacOS and do not have a working Maven installation, please run the script `./scripts/classpath_manager.py` and select the `./osx_classpath`
