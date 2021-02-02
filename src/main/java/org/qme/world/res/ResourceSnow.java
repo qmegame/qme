@@ -28,4 +28,3 @@ public class ResourceSnow extends AbstractResource {
         return "Snow.png";
     }
 }
-
