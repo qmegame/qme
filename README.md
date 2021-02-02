@@ -1,4 +1,5 @@
 ![Build Status](https://github.com/adamhutchings/qme5/workflows/Run%20tests/badge.svg)
+![Version](https://img.shields.io/github/v/release/qmegame/qme-releases)
 
 This is the repository for the QME source code and assets.
 
