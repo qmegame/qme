@@ -2,17 +2,15 @@ package org.qme.world.res;
 
 import org.qme.world.TileType;
 
-public class ResourceSeaWeed extends AbstractResource {
-    ResourceSeaWeed() {
+public class ResourceSeagull extends AbstractResource {
+    ResourceSeagull() {
         super();
     }
 
     @Override
     public int getSpawnChance(TileType type) {
-        if (type == TileType.OCEAN) {
-            return 30;
-        } else if (type == TileType.SEA) {
-            return 25;
+        if (type == TileType.SEA) {
+            return 200;
         } else {
             return 0;
         }
@@ -20,11 +18,11 @@ public class ResourceSeaWeed extends AbstractResource {
 
     @Override
     public ResourceType getType() {
-        return ResourceType.BigFish;
+        return ResourceType.Seagull;
     }
 
     @Override
     public String getTexturePath() {
-        return "BigFish.png";
+        return "Seagull.png";
     }
 }
