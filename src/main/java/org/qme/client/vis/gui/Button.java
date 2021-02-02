@@ -1,6 +1,7 @@
 package org.qme.client.vis.gui;
 
 import org.qme.client.Application;
+import org.qme.client.vis.wn.WindowManager;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -55,10 +56,17 @@ public class Button extends UIComponent {
                 BUTTON_HEIGHT
         );
         this.label = new QLabel(Application.mono, text, xLoc, yLoc);
+        WindowManager.addObject(this);
     }
 
     @Override
     public void draw() {
         glColor3f(0.5f, 0.5f, 0.5f);
+        glVertex2f(rect.x, rect.y);
+        glVertex2f(rect.x + rect.width, rect.y);
+        glVertex2f(rect.x + rect.width, rect.y + rect.height);
+        glVertex2f(rect.x, rect.y + rect.height);
+        glEnd();
+        Application.mono.drawText(text, rect.x, rect.y);
     }
 }
