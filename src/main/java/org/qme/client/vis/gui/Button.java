@@ -72,6 +72,7 @@ public class Button extends UIComponent {
         glColor3f(0.0f, 0.0f, 0.0f);
         glBegin(GL_LINE_STRIP);
             buttonPerimeter();
+            glVertex2f(rect.x, rect.y);
         glEnd();
         glColor3f(0.5f, 0.5f, 0.5f);
         Application.mono.drawText(text, rect.x, rect.y);
