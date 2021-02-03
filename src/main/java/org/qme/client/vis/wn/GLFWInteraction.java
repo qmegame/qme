@@ -1,9 +1,14 @@
 package org.qme.client.vis.wn;
 
 import org.lwjgl.glfw.GLFWKeyCallback;
+import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
+import org.qme.client.Application;
 import org.qme.client.vis.Renderable;
+import org.qme.client.vis.gui.MouseResponder;
+import org.qme.client.vis.gui.UIComponent;
+import org.qme.utils.Performance;
 
 import java.nio.DoubleBuffer;
 
@@ -81,6 +86,22 @@ public class GLFWInteraction {
 
         });
 
+        glfwSetMouseButtonCallback(wn, new GLFWMouseButtonCallback() {
+
+            @Override
+            public void invoke(
+                    long window,
+                    int button,
+                    int keyAction,
+                    int modifierKeys)
+            // Sorry for having the opening bracket on its own line here.
+            {
+                MouseResponder.callMouseResponders(
+                        Application.getResponders(),
+                        new MouseResponder.MouseEvent(button, keyAction));
+            }
+        });
+
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
         glOrtho(0, size, 0, size, 1, -1);
@@ -93,17 +114,30 @@ public class GLFWInteraction {
      * application so it can close.
      */
     public static void repaint() {
+        Performance.startTiming("render");
 
         glClearColor(0.5f, 0.5f, 0.5f, 0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         for (Renderable e : WindowManager.renderables) {
+            if (e instanceof UIComponent) {
+                if (!((UIComponent) e).isVisible()) {
+                    continue;
+                }
+            }
+
             e.draw();
         }
+
+        Performance.endTiming("render");
+        Performance.startTiming("tick");
+
+        MouseResponder.callMouseResponders(Application.getResponders(), null);
 
         glfwSwapBuffers(wn);
         glfwPollEvents();
 
+        Performance.endTiming("tick");
     }
 
     /**
