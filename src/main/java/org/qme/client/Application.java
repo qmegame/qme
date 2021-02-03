@@ -55,7 +55,7 @@ public final class Application {
 		QFont font = new QFont(new Font(Font.MONOSPACED, Font.BOLD, 12), true);
 
 		// Resources GUI
-		box = new QBox(5,5, 100, 120);
+		box = new QBox(new Rectangle(5,5, 100, 120));
 		box.setVisible(false);
 
 		// Debug Label

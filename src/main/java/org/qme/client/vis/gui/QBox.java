@@ -17,41 +17,16 @@ public class QBox extends UIComponent {
     public static final int BOX_EDGE_WIDTH = 2;
     public static final int BOX_HEIGHT = 10;
 
-    public int x;
-    public int y;
-    public int x2;
-    public int y2;
+    public Rectangle rect;
 
     /**
      * Creates a new QBox object
-     * @param x the bottom left x coordinate
-     * @param y the bottom left y coordinate
-     * @param x2 the top right x coordinate
-     * @param y2 the top right y coordinate
-     */
-    public QBox(int x, int y, int x2, int y2) {
-        this.x = x;
-        this.y = y;
-        this.x2 = x2;
-        this.y2 = y2;
+     * @param rect the box location
+    */
+    public QBox(Rectangle rect) {
+        this.rect = rect;
 
         WindowManager.addObject(this);
-    }
-
-    /**
-     * Gets the width of this box
-     * @return the width of the box
-     */
-    public int getWidth() {
-        return x2 - x;
-    }
-
-    /**
-     * Gets the height of this box
-     * @return the height of the box
-     */
-    public int getHeight() {
-        return y2 - y;
     }
 
     @Override
@@ -70,8 +45,8 @@ public class QBox extends UIComponent {
         int actualCornerHeight = BOX_CORNER_HEIGHT * Application.RENDER_SCALE;
         int actualCornerWidth = BOX_CORNER_WIDTH * Application.RENDER_SCALE;
 
-        int width = getWidth() - BOX_CORNER_WIDTH * 2;
-        int height = getHeight() - BOX_CORNER_HEIGHT * 2;
+        int width = rect.width - BOX_CORNER_WIDTH * 2;
+        int height = rect.height - BOX_CORNER_HEIGHT * 2;
 
         int actualWidth = width * Application.RENDER_SCALE;
         int actualHeight = height * Application.RENDER_SCALE;
@@ -83,36 +58,36 @@ public class QBox extends UIComponent {
 
         // base for the background of the box
         RenderMaster.drawRegion(
-                new Rectangle(x + Application.RENDER_SCALE, y + Application.RENDER_SCALE, actualWidth + actualCornerWidth + Application.RENDER_SCALE + actualEdgeWidth, actualHeight + actualCornerHeight + Application.RENDER_SCALE + actualEdgeHeight),
+                new Rectangle(rect.x + Application.RENDER_SCALE, rect.y + Application.RENDER_SCALE, actualWidth + actualCornerWidth + Application.RENDER_SCALE + actualEdgeWidth, actualHeight + actualCornerHeight + Application.RENDER_SCALE + actualEdgeHeight),
                 new Rectangle(BOX_CORNER_WIDTH * 2, BOX_HEIGHT - 1, 1, 1), texture);
 
         // top right corner
         RenderMaster.drawRegion(
-                new Rectangle(x + actualCornerWidth + actualWidth, y + actualCornerHeight + actualHeight, actualCornerWidth, actualCornerHeight),
+                new Rectangle(rect.x + actualCornerWidth + actualWidth, rect.y + actualCornerHeight + actualHeight, actualCornerWidth, actualCornerHeight),
                 new Rectangle(BOX_CORNER_WIDTH, 0, BOX_CORNER_WIDTH, BOX_CORNER_HEIGHT), texture);
         // bottom right corner
         RenderMaster.drawRegion(
-                new Rectangle(x + actualCornerWidth + actualWidth, y, actualCornerWidth, actualCornerHeight),
+                new Rectangle(rect.x + actualCornerWidth + actualWidth, rect.y, actualCornerWidth, actualCornerHeight),
                 new Rectangle(BOX_CORNER_WIDTH, BOX_CORNER_HEIGHT, BOX_CORNER_WIDTH, BOX_CORNER_HEIGHT), texture);
         // bottom left corner
         RenderMaster.drawRegion(
-                new Rectangle(x, y + actualCornerHeight + actualHeight, actualCornerWidth, actualCornerHeight),
+                new Rectangle(rect.x, rect.y + actualCornerHeight + actualHeight, actualCornerWidth, actualCornerHeight),
                 new Rectangle(0, 0, BOX_CORNER_WIDTH, BOX_CORNER_HEIGHT), texture);
         // top left corner
         RenderMaster.drawRegion(
-                new Rectangle(x, y, actualCornerWidth, actualCornerHeight),
+                new Rectangle(rect.x, rect.y, actualCornerWidth, actualCornerHeight),
                 new Rectangle(0, BOX_CORNER_HEIGHT, BOX_CORNER_WIDTH, BOX_CORNER_HEIGHT), texture);
 
         for (int i = 0; i < width; i++) {
 
             // top edge
             RenderMaster.drawRegion(
-                    new Rectangle(x + (i * Application.RENDER_SCALE) + actualCornerWidth, y + (actualCornerHeight * 2) - actualEdgeHeight - Application.RENDER_SCALE + actualHeight, Application.RENDER_SCALE, actualEdgeHeight),
+                    new Rectangle(rect.x + (i * Application.RENDER_SCALE) + actualCornerWidth, rect.y + (actualCornerHeight * 2) - actualEdgeHeight - Application.RENDER_SCALE + actualHeight, Application.RENDER_SCALE, actualEdgeHeight),
                     new Rectangle(BOX_CORNER_WIDTH * 2, BOX_HEIGHT, 1, 2), texture);
 
             // bottom edge
             RenderMaster.drawRegion(
-                    new Rectangle(x + (i * Application.RENDER_SCALE) + actualCornerWidth, y + Application.RENDER_SCALE, Application.RENDER_SCALE, actualEdgeHeight),
+                    new Rectangle(rect.x + (i * Application.RENDER_SCALE) + actualCornerWidth, rect.y + Application.RENDER_SCALE, Application.RENDER_SCALE, actualEdgeHeight),
                     new Rectangle(BOX_CORNER_WIDTH * 2 + 1, BOX_HEIGHT, 1, 2), texture);
         }
 
@@ -120,12 +95,12 @@ public class QBox extends UIComponent {
 
             // left edge
             RenderMaster.drawRegion(
-                    new Rectangle(x + Application.RENDER_SCALE, y + actualCornerHeight + (Application.RENDER_SCALE * i), actualEdgeWidth, Application.RENDER_SCALE),
+                    new Rectangle(rect.x + Application.RENDER_SCALE, rect.y + actualCornerHeight + (Application.RENDER_SCALE * i), actualEdgeWidth, Application.RENDER_SCALE),
                     new Rectangle(BOX_CORNER_WIDTH * 2, BOX_HEIGHT + 3, 2, 1), texture);
 
             // right edge
             RenderMaster.drawRegion(
-                    new Rectangle(x + (actualCornerWidth * 2) - actualEdgeWidth - Application.RENDER_SCALE + actualWidth, y + actualCornerHeight + (Application.RENDER_SCALE * i), actualEdgeWidth, Application.RENDER_SCALE),
+                    new Rectangle(rect.x + (actualCornerWidth * 2) - actualEdgeWidth - Application.RENDER_SCALE + actualWidth, rect.y + actualCornerHeight + (Application.RENDER_SCALE * i), actualEdgeWidth, Application.RENDER_SCALE),
                     new Rectangle(BOX_CORNER_WIDTH * 2, BOX_HEIGHT + 2, 2, 1), texture);
 
         }
