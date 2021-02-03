@@ -44,6 +44,28 @@ public class QFont {
     }
 
     /**
+     * Gets the height of this font
+     * @return the height of this font
+     */
+    public int getHeight() {
+        return fontHeight;
+    }
+
+    /**
+     * Calculates the width of this font for a given string
+     * @param string the string to be calculated
+     * @return the width of the text
+     */
+    public int getWidth(String string) {
+        int width = 0;
+        for(int i = 0; i < string.length(); i++) {
+            char ch = string.charAt(i);
+            width += glyphs.get(ch).width;
+        }
+        return width;
+    }
+
+    /**
      * Generates a texture for the font and saves it as an ID
      * If multiple fonts are using the same name a warning will be printed and only 1 will be loaded
      */
