@@ -17,7 +17,7 @@ public class Button extends UIComponent {
     /**
      * How big buttons are.
      */
-    private static final int BUTTON_WIDTH = 400, BUTTON_HEIGHT = 200;
+    private static final int BUTTON_WIDTH = 80, BUTTON_HEIGHT = 20;
 
     /**
      * The text displayed.
@@ -35,11 +35,6 @@ public class Button extends UIComponent {
     private Rectangle rect;
 
     /**
-     * label handle
-     */
-    private final QLabel label;
-
-    /**
      * Default constructor.
      * @param text the text to display
      * @param xLoc x location
@@ -55,18 +50,30 @@ public class Button extends UIComponent {
                 BUTTON_WIDTH,
                 BUTTON_HEIGHT
         );
-        this.label = new QLabel(Application.mono, text, xLoc, yLoc);
         WindowManager.addObject(this);
     }
 
-    @Override
-    public void draw() {
-        glColor3f(0.5f, 0.5f, 0.5f);
+    /**
+     * Duplicated code for buttons
+     */
+    public void buttonPerimeter() {
         glVertex2f(rect.x, rect.y);
         glVertex2f(rect.x + rect.width, rect.y);
         glVertex2f(rect.x + rect.width, rect.y + rect.height);
         glVertex2f(rect.x, rect.y + rect.height);
+    }
+
+    @Override
+    public void draw() {
+        glColor3f(0.4f, 0.4f, 0.4f);
+        glBegin(GL_QUADS);
+            buttonPerimeter();
         glEnd();
+        glColor3f(0.0f, 0.0f, 0.0f);
+        glBegin(GL_LINE_STRIP);
+            buttonPerimeter();
+        glEnd();
+        glColor3f(0.5f, 0.5f, 0.5f);
         Application.mono.drawText(text, rect.x, rect.y);
     }
 }
