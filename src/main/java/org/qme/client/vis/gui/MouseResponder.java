@@ -82,8 +82,8 @@ public interface MouseResponder {
 		// Mouse location
 		GLFWInteraction.getMouseLocation(MouseData.mouseX, MouseData.mouseY);
 		
-		int x = (int) MouseData.mouseX.array()[0];
-		int y = (int) MouseData.mouseY.array()[0];
+		int x = (int) MouseData.mouseX.get(0);
+		int y = (int) MouseData.mouseY.get(0);
 		
 		for (MouseResponder responder : objects) {
 			
