@@ -7,8 +7,6 @@ import org.qme.io.Logger;
 import org.qme.io.Severity;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
@@ -29,7 +27,7 @@ public class QFont {
     public boolean antiAlias;
 
     private int fontHeight;
-    private Map<Character, Glyph> glyphs = new HashMap<>();
+    private final Map<Character, Glyph> glyphs = new HashMap<>();
 
     /**
      * Creates a new instance of a QFont
@@ -41,10 +39,6 @@ public class QFont {
         this.font = font;
         this.antiAlias = antiAlias;
         loadFont();
-    }
-
-    public int getHeight() {
-        return fontHeight;
     }
 
     /**
@@ -187,7 +181,7 @@ public class QFont {
      * @param string the text to be draw
      * @param x the x position of the text
      * @param y the y position of the text
-     * @param lineBreakUp if the linebreaks should offset up
+     * @param lineBreakUp if the line breaks should offset up
      */
     public void drawText(String string, int x, int y, boolean lineBreakUp) {
         int lines = 1;
