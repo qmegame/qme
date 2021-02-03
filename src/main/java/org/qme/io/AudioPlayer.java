@@ -1,8 +1,6 @@
 package org.qme.io;
-// Java program to play an Audio
-// file using Clip Object
 
-import org.qme.io.PlayerState;
+import org.qme.io.AudioPlayerState;
 import org.qme.io.Logger;
 
 import java.io.File;
@@ -21,19 +19,19 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public class AudioPlayer {
 
-    private static String filePath = "/sounds/music/QME5_Menu.ogg";
+    private static final String filePath = "src/main/resources/sounds/music/QME5_Menu.mp3";
 
     // Store current position in audio
     private long currentPosition;
     private Clip clip;
 
     // The state of the player
-    private PlayerState playerState;
+    private AudioPlayerState audioPlayerState;
 
     private AudioInputStream audioInputStream;
 
     // Initialize streams and clip
-    public AudioPlayer() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+    public AudioPlayer() {
         try {
             // Create AudioInputStream object
             audioInputStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
@@ -70,23 +68,23 @@ public class AudioPlayer {
     {
         // Start the clip
         clip.start();
-        playerState = PlayerState.PLAY;
+        audioPlayerState = AudioPlayerState.PLAY;
     }
 
     // Method to pause the audio
     public void pause() {
-        if (playerState == PlayerState.PAUSED) {
+        if (audioPlayerState == AudioPlayerState.PAUSED) {
             Logger.log("Audio is already paused", Severity.DEBUG);
             return;
         }
         this.currentPosition = this.clip.getMicrosecondPosition();
         clip.stop();
-        playerState = PlayerState.PAUSED;
+        audioPlayerState = AudioPlayerState.PAUSED;
     }
 
     // Method to resume the audio
     public void resumeAudio() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        if (playerState == PlayerState.PLAY) {
+        if (audioPlayerState == AudioPlayerState.PLAY) {
             Logger.log("Audio is already being played", Severity.DEBUG);
             return;
         }

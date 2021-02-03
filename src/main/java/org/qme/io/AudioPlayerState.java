@@ -1,6 +1,6 @@
 package org.qme.io;
 
-public enum PlayerState {
+public enum AudioPlayerState {
     PLAY,
     PAUSED,
 }

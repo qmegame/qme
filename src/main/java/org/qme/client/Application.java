@@ -4,6 +4,7 @@ import org.qme.client.vis.gui.QBox;
 import org.qme.client.vis.gui.QFont;
 import org.qme.client.vis.gui.QLabel;
 import org.qme.client.vis.wn.GLFWInteraction;
+import org.qme.io.AudioPlayer;
 import org.qme.utils.Performance;
 import org.qme.world.World;
 
@@ -66,7 +67,9 @@ public final class Application {
 	 * Run the application forever (or until an exit request is sent)
 	 */
 	public void mainloop() {
-		
+
+		AudioPlayer audioPlayer = new AudioPlayer();
+
 		while (GLFWInteraction.shouldBeOpen()) {
 
 			Performance.beginFrame();
