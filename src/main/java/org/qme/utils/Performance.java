@@ -43,8 +43,7 @@ public class Performance {
             Logger.log("Could not detect game version! The jar you are running was not compiled properly.", Severity.WARNING);
         }
 
-        SystemInfo si = new SystemInfo();
-        HardwareAbstractionLayer hal = si.getHardware();
+        HardwareAbstractionLayer hal = new SystemInfo().getHardware();
         CentralProcessor cpu = hal.getProcessor();
         GraphicsCard gpu = hal.getGraphicsCards().get(0);
 
@@ -76,7 +75,7 @@ public class Performance {
      * @param timing the name of the event
      */
     public static void endTiming(String timing) {
-        if (!timing.contains(timing)) {
+        if (!timings.containsKey(timing)) {
             throw new IllegalStateException("Timing ended before its creation");
         }
         durations.put(timing, System.nanoTime() - timings.get(timing));

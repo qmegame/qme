@@ -78,7 +78,7 @@ public final class Application {
 					"\nJVM: " + Performance.JAVA_VERSION + " (Vendor: " + Performance.JAVA_VENDOR + ")" +
 					"\nOperating System: " + Performance.OPERATING_SYSTEM + " (Arch: " + Performance.ARCH_TYPE + ") (Version: " + Performance.OPERATING_SYSTEM_VERSION + ")" +
 					"\nGraphics: " + Performance.GPU_NAME + " " + Performance.GPU_VENDOR +
-					"\nMemory: (Max: " + Runtime.getRuntime().maxMemory() / 1000000 + "mb) (Used: " + (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().freeMemory()) / 1000000 + "mb)" +
+					"\nMemory: (Max: " + Runtime.getRuntime().totalMemory() / 1000000 + "mb) (Used: " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1000000 + "mb)" +
 					"\nProcessor: " + Performance.CPU +
 					"\nFPS: " + fps + " (On: " + frameCount + ")";
 
