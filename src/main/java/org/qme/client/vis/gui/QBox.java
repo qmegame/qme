@@ -24,9 +24,8 @@ public class QBox extends UIComponent {
      * @param rect the box location
     */
     public QBox(Rectangle rect) {
+        super();
         this.rect = rect;
-
-        WindowManager.addObject(this);
     }
 
     @Override

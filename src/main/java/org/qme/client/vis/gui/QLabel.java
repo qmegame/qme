@@ -23,12 +23,11 @@ public class QLabel extends UIComponent {
      * @param y the label's y position
      */
     public QLabel(QFont font, String text, int x, int y) {
+        super();
         this.font = font;
         this.text = text;
         this.x = x;
         this.y = y;
-
-        WindowManager.addObject(this);
     }
 
     /**

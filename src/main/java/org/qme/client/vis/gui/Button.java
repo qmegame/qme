@@ -41,6 +41,7 @@ public class Button extends UIComponent {
      * @param yLoc y location
      */
     public Button(String text, int xLoc, int yLoc) {
+        super();
         this.text = text;
         this.xLoc = xLoc;
         this.yLoc = yLoc;
@@ -50,7 +51,6 @@ public class Button extends UIComponent {
                 BUTTON_WIDTH,
                 BUTTON_HEIGHT
         );
-        WindowManager.addObject(this);
     }
 
     /**
