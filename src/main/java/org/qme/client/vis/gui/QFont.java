@@ -43,6 +43,10 @@ public class QFont {
         loadFont();
     }
 
+    public int getHeight() {
+        return fontHeight;
+    }
+
     /**
      * Generates a texture for the font and saves it as an ID
      * If multiple fonts are using the same name a warning will be printed and only 1 will be loaded
@@ -92,13 +96,6 @@ public class QFont {
             x += ch.width;
             glyphs.put(c, ch);
         }
-
-        // For some reason using our current method for initialising textures didn't work
-        AffineTransform transform = AffineTransform.getScaleInstance(1f, -1f);
-        transform.translate(0, -image.getHeight());
-        AffineTransformOp operation = new AffineTransformOp(transform,
-                AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-        image = operation.filter(image, null);
 
         int width = image.getWidth();
         int height = image.getHeight();
@@ -160,6 +157,17 @@ public class QFont {
      * @param y the y position of the text
      */
     public void drawText(String string, int x, int y) {
+        drawText(string, x, y, false);
+    }
+
+    /**
+     * Draws the font at a specified location.
+     * @param string the text to be draw
+     * @param x the x position of the text
+     * @param y the y position of the text
+     * @param lineBreakUp if the linebreaks should offset up
+     */
+    public void drawText(String string, int x, int y, boolean lineBreakUp) {
         int lines = 1;
         for(int i = 0; i < string.length(); i++) {
             char ch = string.charAt(i);
@@ -167,7 +175,7 @@ public class QFont {
                 lines++;
             }
         }
-        int textHeight = lines * fontHeight;
+        int textHeight = lines * (lineBreakUp ? -1 : 1) * fontHeight;
         int drawX = x;
         int drawY = y;
         if(textHeight > fontHeight) {
@@ -175,11 +183,14 @@ public class QFont {
         }
 
         glEnable(GL_TEXTURE_2D);
+        glEnable(GL_BLEND);
         glBindTexture(GL_TEXTURE_2D, TextureManager.getTexture(font.getFontName().replace(" ", "-")));
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         for (int i = 0; i < string.length(); i++) {
             char ch = string.charAt(i);
             if (ch == '\n') {
@@ -191,9 +202,12 @@ public class QFont {
                 continue;
             }
             Glyph g = glyphs.get(ch);
-            RenderMaster.drawRegion(drawX, drawY, g.x, g.y, g.width, g.height, g.imageWidth, g.imageHeight);
+            RenderMaster.drawRegion(new Rectangle(drawX, drawY, g.width, g.height), new Rectangle(g.x, g.y, g.width, g.height), new Dimension(g.imageWidth, g.imageHeight));
+            //RenderMaster.drawRegion(drawX, drawY, g.x, g.y, g.width, g.height, g.width, g.height, g.imageWidth, g.imageHeight);
             drawX += g.width;
         }
+
+        glDisable(GL_BLEND);
         glDisable(GL_TEXTURE_2D);
     }
 

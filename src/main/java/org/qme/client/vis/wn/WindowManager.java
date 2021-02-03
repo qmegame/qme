@@ -1,5 +1,6 @@
 package org.qme.client.vis.wn;
 
+import org.qme.client.Application;
 import org.qme.client.vis.RenderMaster;
 import org.qme.client.vis.Renderable;
 import org.qme.client.vis.tex.TextureManager;
@@ -81,6 +82,12 @@ public final class WindowManager {
 				if (RenderMaster.zoom >= ZOOM_MIN) {
 					applyZoom(ZOOM_OUT);
 				}
+				break;
+			case GLFW_KEY_TAB:
+				Application.box.setVisible(!Application.box.isVisible());
+				break;
+			case GLFW_KEY_F1:
+				Application.debugLabel.setVisible(!Application.debugLabel.isVisible());
 				break;
 			default:
 				break;

@@ -11,7 +11,7 @@ import org.qme.client.vis.wn.WindowManager;
  * @author adamhutchings
  * @since 0.1.0
  */
-public class Tile implements Renderable {
+public class Tile extends Renderable {
 
 	public final int x;
 	public final int y;

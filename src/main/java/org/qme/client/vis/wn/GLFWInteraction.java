@@ -98,7 +98,9 @@ public class GLFWInteraction {
         glClear(GL_COLOR_BUFFER_BIT);
 
         for (Renderable e : WindowManager.renderables) {
-            e.draw();
+            if (e.isVisible()) {
+                e.draw();
+            }
         }
 
         glfwSwapBuffers(wn);

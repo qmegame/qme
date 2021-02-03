@@ -7,7 +7,7 @@ import org.qme.client.vis.Renderable;
  * @author adamhutchings
  * @since 0.1.0
  */
-public abstract class UIComponent implements MouseResponder, Renderable {
+public abstract class UIComponent extends Renderable implements MouseResponder {
 
 	private boolean clicked;
 	private boolean hovered;

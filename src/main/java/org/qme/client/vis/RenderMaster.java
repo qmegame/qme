@@ -6,6 +6,8 @@ import org.qme.client.vis.wn.GLFWInteraction;
 import org.qme.world.Tile;
 import org.qme.world.TileType;
 
+import java.awt.*;
+
 import static org.lwjgl.opengl.GL11.*;
 
 /**
@@ -79,7 +81,7 @@ public final class RenderMaster {
 	 * @param vert4Y y position of the fourth vertex
 	 * @param tex texture id of quad
 	 */
-	private static void drawQuad(
+	public static void drawQuad(
 			int vert1X,
 			int vert1Y,
 			int vert2X,
@@ -101,20 +103,47 @@ public final class RenderMaster {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		glBegin(GL_QUADS);
-			glTexCoord2f(1, 1);
+			glTexCoord2f(0, 1);
 			glVertex2f(vert1X, vert1Y);
 
-			glTexCoord2f(0, 1);
+			glTexCoord2f(1, 1);
 			glVertex2f(vert2X, vert2Y);
 
-			glTexCoord2f(0, 0);
+			glTexCoord2f(1, 0);
 			glVertex2f(vert3X, vert3Y);
 
-			glTexCoord2f(1, 0);
+			glTexCoord2f(0, 0);
 			glVertex2f(vert4X, vert4Y);
 		glEnd();
 		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
+	}
+
+	public static void drawRegion(Rectangle origin, Rectangle texture, Dimension textureDimensions) {
+		float x1 = origin.x;
+		float y1 = origin.y;
+		float x2 = origin.x + origin.width;
+		float y2 = origin.y + origin.height;
+
+		float s1 = texture.x / (float) textureDimensions.width;
+		float t1 = texture.y / (float) textureDimensions.height;
+		float s2 = (texture.x + texture.width) / (float) textureDimensions.width;
+		float t2 = (texture.y + texture.height) / (float) textureDimensions.height;
+
+		glBegin(GL_QUADS);
+
+			glTexCoord2f(s1, t2);
+			glVertex2f(x1, y1);
+
+			glTexCoord2f(s2, t2);
+			glVertex2f(x2, y1);
+
+			glTexCoord2f(s2, t1);
+			glVertex2f(x2, y2);
+
+			glTexCoord2f(s1, t1);
+			glVertex2f(x1, y2);
+		glEnd();
 	}
 
 	/**
@@ -125,10 +154,13 @@ public final class RenderMaster {
 	 * @param texY the bottom left y coordinate for the location on the texture
 	 * @param originWidth the width of the image to render
 	 * @param originHeight the height of the image to render
+	 * @param texRegionWidth the width of the portion of the texture to render
+	 * @param texRegionHeight the height of the portion of the texture to render
 	 * @param texWidth the width of the texture
 	 * @param texHeight the height of the texture
+	 * @deprecated Use the new method dum dum
 	 */
-	public static void drawRegion(float originX, float originY, float texX, float texY, float originWidth, float originHeight, float texWidth, float texHeight) {
+	public static void drawRegion(float originX, float originY, float texX, float texY, float originWidth, float originHeight, float texRegionWidth, float texRegionHeight, float texWidth, float texHeight) {
 		/* Vertex positions */
 		float x1 = originX;
 		float y1 = originY;
@@ -138,8 +170,8 @@ public final class RenderMaster {
 		/* Texture coordinates */
 		float s1 = texX / texWidth;
 		float t1 = texY / texHeight;
-		float s2 = (texX + originWidth) / texWidth;
-		float t2 = (texY + originHeight) / texHeight;
+		float s2 = (texX + texRegionWidth) / texWidth;
+		float t2 = (texY + texRegionHeight) / texHeight;
 
 		glBegin(GL_QUADS);
 			glTexCoord2f(s1, t1);
@@ -164,7 +196,7 @@ public final class RenderMaster {
 	private static int getTexture(TileType type) {
 		String texString =
 				// HIGH_MOUNTAIN -> high_mountain -> high-mountain -> high-mountain.png
-				type.name().toLowerCase().replace('_', '-') + ".png";
+				"tiles/" + type.name().toLowerCase().replace('_', '-') + ".png";
 		return TextureManager.getTexture(texString);
 	}
 }
