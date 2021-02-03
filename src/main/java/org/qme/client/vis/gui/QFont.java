@@ -44,7 +44,15 @@ public class QFont {
     }
 
     /**
-     * Calculates the width of a font for a given string
+     * Gets the height of this font
+     * @return the height of this font
+     */
+    public int getHeight() {
+        return fontHeight;
+    }
+
+    /**
+     * Calculates the width of this font for a given string
      * @param string the string to be calculated
      * @return the width of the text
      */
