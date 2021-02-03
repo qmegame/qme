@@ -2,7 +2,6 @@ package org.qme.client.vis.gui;
 
 import org.qme.client.Application;
 import org.qme.client.vis.RenderMaster;
-import org.qme.client.vis.Renderable;
 import org.qme.client.vis.tex.TextureManager;
 import org.qme.client.vis.wn.WindowManager;
 
@@ -10,7 +9,7 @@ import java.awt.*;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class QBox extends Renderable {
+public class QBox extends UIComponent {
 
     public static final int BOX_CORNER_HEIGHT = 5;
     public static final int BOX_CORNER_WIDTH = 5;

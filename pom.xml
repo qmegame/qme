@@ -6,7 +6,7 @@
 
     <groupId>org.qme</groupId>
     <artifactId>qme5</artifactId>
-    <version>preB</version>
+    <version>0.3.0</version>
 
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
@@ -238,6 +238,8 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                             <mainClass>org.qme.Main</mainClass>
                         </manifest>
                     </archive>

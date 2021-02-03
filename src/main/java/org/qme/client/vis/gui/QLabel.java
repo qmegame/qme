@@ -1,6 +1,5 @@
 package org.qme.client.vis.gui;
 
-import org.qme.client.vis.Renderable;
 import org.qme.client.vis.wn.WindowManager;
 
 /**
@@ -8,7 +7,7 @@ import org.qme.client.vis.wn.WindowManager;
  * @author cameron
  * @since 0.3.0
  */
-public class QLabel extends Renderable {
+public class QLabel extends UIComponent {
 
     public QFont font;
     public String text;

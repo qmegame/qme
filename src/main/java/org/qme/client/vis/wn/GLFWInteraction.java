@@ -4,6 +4,7 @@ import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.qme.client.vis.Renderable;
+import org.qme.client.vis.gui.UIComponent;
 
 import java.nio.DoubleBuffer;
 
@@ -98,9 +99,13 @@ public class GLFWInteraction {
         glClear(GL_COLOR_BUFFER_BIT);
 
         for (Renderable e : WindowManager.renderables) {
-            if (e.isVisible()) {
-                e.draw();
+            if (e instanceof UIComponent) {
+                if (!((UIComponent) e).isVisible()) {
+                    continue;
+                }
             }
+
+            e.draw();
         }
 
         glfwSwapBuffers(wn);
