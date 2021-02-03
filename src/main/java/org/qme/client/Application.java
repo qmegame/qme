@@ -89,7 +89,12 @@ public final class Application {
 	 */
 	public void mainloop() {
 
-		new Button("test", GLFWInteraction.getSize() / 2, GLFWInteraction.getSize() / 2);
+		new Button("test", GLFWInteraction.getSize() / 2, GLFWInteraction.getSize() / 2) {
+			@Override
+			protected void action() {
+				System.out.println("clicked!");
+			}
+		};
 
 		AudioPlayer audioPlayer = new AudioPlayer(AudioFiles.menu);
 
