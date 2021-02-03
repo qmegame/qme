@@ -21,7 +21,7 @@ import java.util.Objects;
 public class TextureManager {
 
     private static final String TEXTURE_RESOURCES = "/textures/";
-    private static final String MISSING_TEXTURE = "/textures/missing.png";
+    private static final String MISSING_TEXTURE = "/textures/tiles/missing.png";
     private static final HashMap<String, Integer> textures = new HashMap<>();
 
     /**
@@ -30,17 +30,18 @@ public class TextureManager {
      */
     public TextureManager() {
         ArrayList<String> toLoad = new ArrayList<>();
-        toLoad.add("missing.png");
-        toLoad.add("forest.png");
-        toLoad.add("plains.png");
-        toLoad.add("fertile-plains.png");
-        toLoad.add("mountain.png");
-        toLoad.add("ocean.png");
-        toLoad.add("sea.png");
-        toLoad.add("high-mountain.png");
-        toLoad.add("desert.png");
-        toLoad.add("jungle.png");
-        toLoad.add("tundra.png");
+        toLoad.add("tiles/missing.png");
+        toLoad.add("tiles/forest.png");
+        toLoad.add("tiles/plains.png");
+        toLoad.add("tiles/fertile-plains.png");
+        toLoad.add("tiles/mountain.png");
+        toLoad.add("tiles/ocean.png");
+        toLoad.add("tiles/sea.png");
+        toLoad.add("tiles/high-mountain.png");
+        toLoad.add("tiles/desert.png");
+        toLoad.add("tiles/jungle.png");
+        toLoad.add("tiles/tundra.png");
+        toLoad.add("misc/box.png");
         for (String texture : toLoad) {
             registerTexture(texture, loadTextureFromImage(Objects.requireNonNull(loadImageResource
                     (TEXTURE_RESOURCES + texture))));
