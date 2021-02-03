@@ -12,7 +12,7 @@ import java.awt.*;
  * @author adamhutchings
  * @since 0.3
  */
-public class Button extends UIComponent {
+public abstract class Button extends UIComponent {
 
     /**
      * How big buttons are.
@@ -78,5 +78,26 @@ public class Button extends UIComponent {
         glEnd();
         glColor3f(0.5f, 0.5f, 0.5f);
         Application.mono.drawText(text, rect.x + textOffset.width, rect.y + textOffset.height);
+    }
+
+    /**
+     * Trigger user-specified event
+     */
+    @Override
+    public void mouseClickOff() {
+        this.action();
+    }
+
+    /**
+     * What happens when the button is clicked
+     */
+    protected abstract void action();
+
+    /**
+     * Is the click in the bounds of the rectangle
+     */
+    @Override
+    public boolean contains(int xLoc, int yLoc) {
+        return this.rect.contains(xLoc, yLoc);
     }
 }
