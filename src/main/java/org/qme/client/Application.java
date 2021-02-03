@@ -1,9 +1,7 @@
 package org.qme.client;
 
+import org.qme.client.vis.gui.*;
 import org.qme.client.vis.gui.Button;
-import org.qme.client.vis.gui.QBox;
-import org.qme.client.vis.gui.QFont;
-import org.qme.client.vis.gui.QLabel;
 import org.qme.client.vis.wn.GLFWInteraction;
 import org.qme.io.AudioFiles;
 import org.qme.io.AudioPlayer;
@@ -11,6 +9,7 @@ import org.qme.utils.Performance;
 import org.qme.world.World;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -35,6 +34,26 @@ public final class Application {
 	public static QLabel profilerLabel;
 
 	public static final int RENDER_SCALE = 3;
+
+	/**
+	 * All mouse responders
+	 */
+	private static final ArrayList<MouseResponder> responders
+			= new ArrayList<>();
+
+	/**
+	 * Add an object
+	 */
+	public static void registerMouseResponder(MouseResponder r) {
+		responders.add(r);
+	}
+
+	/**
+	 * Get the responder list
+	 */
+	public static ArrayList<MouseResponder> getResponders() {
+		return responders;
+	}
 
 	/**
 	 * The constructor is private. Only one instance allowed.
