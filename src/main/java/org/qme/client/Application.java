@@ -1,12 +1,15 @@
 package org.qme.client;
 
 import org.qme.client.vis.gui.Button;
+import org.qme.client.vis.gui.QBox;
 import org.qme.client.vis.gui.QFont;
 import org.qme.client.vis.gui.QLabel;
 import org.qme.client.vis.wn.GLFWInteraction;
+import org.qme.utils.Performance;
 import org.qme.world.World;
 
 import java.awt.*;
+import java.util.HashMap;
 
 /**
  * The "controller", so to speak, of all events. It also helps to validate
@@ -20,11 +23,16 @@ import java.awt.*;
  */
 public final class Application {
 
-	private final QLabel fpsLabel;
+	private int frameCount;
 	private int fps;
 	private long lastSecond;
 
 	public static QFont mono;
+	public static QBox box;
+	public static QLabel debugLabel;
+	public static QLabel profilerLabel;
+
+	public static final int RENDER_SCALE = 3;
 
 	/**
 	 * The constructor is private. Only one instance allowed.
@@ -32,7 +40,22 @@ public final class Application {
 	private Application() {
 		new World();
 		mono = new QFont(new Font(Font.MONOSPACED, Font.PLAIN, 16), true);
-		fpsLabel = new QLabel(mono, "...", 2, GLFWInteraction.windowSize() - 21);
+
+		// Resources GUI
+		box = new QBox(new Rectangle(5,5, 100, 120));
+		box.setVisible(false);
+
+		// Debug Label
+		debugLabel = new QLabel(mono, "...", 5, GLFWInteraction.windowSize() - (mono.getHeight() + 2), true);
+		debugLabel.setVisible(false);
+
+		// Profiler Label
+		profilerLabel = new QLabel(mono, "...", 5, 5, false);
+		profilerLabel.setVisible(false);
+
+		// Update debug information
+		Performance.updateValues();
+
 	}
 
 	/**
@@ -48,16 +71,34 @@ public final class Application {
 		new Button("test", GLFWInteraction.getSize() / 2, GLFWInteraction.getSize() / 2);
 		
 		while (GLFWInteraction.shouldBeOpen()) {
-			
+
+			Performance.beginFrame();
+
 			GLFWInteraction.repaint();
 
-			// Track fps
+			// Updates debug label each frame
+			debugLabel.text = "Running game version v" + Performance.GAME_VERSION + "" +
+					"\nJVM: " + Performance.JAVA_VERSION + " (Vendor: " + Performance.JAVA_VENDOR + ")" +
+					"\nOperating System: " + Performance.OPERATING_SYSTEM + " (Arch: " + Performance.ARCH_TYPE + ") (Version: " + Performance.OPERATING_SYSTEM_VERSION + ")" +
+					"\nGraphics: " + Performance.GPU_NAME + " " + Performance.GPU_VENDOR +
+					"\nMemory: (Max: " + Runtime.getRuntime().totalMemory() / 1000000 + "mb) (Used: " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1000000 + "mb)" +
+					"\nProcessor: " + Performance.CPU +
+					"\nFPS: " + fps + " (On: " + frameCount + ")";
+
+			// Updates profiler data
+			HashMap<String, Float> timings = Performance.getTimings();
+			profilerLabel.text = "Profiler [Render] [Tick] [Other]" +
+					"\nRender: " + timings.getOrDefault("render",0F) + "ms" +
+					"\nTick: " + timings.getOrDefault("tick", 0F) + "ms" +
+					"\nTotal: " + Performance.getTotal() + "ms";
+
+			// Calculates fps
 			if (System.currentTimeMillis() - lastSecond > 1000) {
-				fpsLabel.text = "FPS: " + fps;
-				fps = 0;
+				fps = frameCount;
+				frameCount = 0;
 				lastSecond = System.currentTimeMillis();
 			} else {
-				fps++;
+				frameCount++;
 			}
 
 		
