@@ -5,7 +5,7 @@ import org.qme.client.vis.wn.WindowManager;
 
 import static org.lwjgl.opengl.GL11.*;
 
-import java.awt.Rectangle;
+import java.awt.*;
 
 /**
  * A drawable button on-screen. Responds to clicking.
@@ -25,14 +25,14 @@ public class Button extends UIComponent {
     private final String text;
 
     /**
-     * Where the button is located
-     */
-    private final int xLoc, yLoc;
-
-    /**
      * The source rectangle to draw.
      */
     private Rectangle rect;
+
+    /**
+     * Saved text size
+     */
+    private final Dimension textOffset;
 
     /**
      * Default constructor.
@@ -43,13 +43,15 @@ public class Button extends UIComponent {
     public Button(String text, int xLoc, int yLoc) {
         super();
         this.text = text;
-        this.xLoc = xLoc;
-        this.yLoc = yLoc;
         this.rect = new Rectangle(
                 xLoc - (BUTTON_WIDTH / 2),
                 yLoc - (BUTTON_HEIGHT / 2),
                 BUTTON_WIDTH,
                 BUTTON_HEIGHT
+        );
+        textOffset = new Dimension(
+                (- Application.mono.getWidth(text) + BUTTON_WIDTH) / 2,
+                (- Application.mono.getHeight() + BUTTON_HEIGHT) / 2
         );
     }
 
@@ -75,6 +77,6 @@ public class Button extends UIComponent {
             glVertex2f(rect.x, rect.y);
         glEnd();
         glColor3f(0.5f, 0.5f, 0.5f);
-        Application.mono.drawText(text, rect.x, rect.y);
+        Application.mono.drawText(text, rect.x + textOffset.width, rect.y + textOffset.height);
     }
 }
