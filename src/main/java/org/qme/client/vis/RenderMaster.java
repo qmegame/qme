@@ -119,6 +119,12 @@ public final class RenderMaster {
 		glDisable(GL_BLEND);
 	}
 
+	/**
+	 * Draws a region of a texture
+	 * @param origin the size and location of the quad
+	 * @param texture the size and location of the portion of texture to be drawn
+	 * @param textureDimensions the total size of the texture
+	 */
 	public static void drawRegion(Rectangle origin, Rectangle texture, Dimension textureDimensions) {
 		float x1 = origin.x;
 		float y1 = origin.y;
@@ -143,48 +149,6 @@ public final class RenderMaster {
 
 			glTexCoord2f(s1, t1);
 			glVertex2f(x1, y2);
-		glEnd();
-	}
-
-	/**
-	 * Draws a specific region of a texture
-	 * @param originX the bottom left x coordinate for the origin point for the texture
-	 * @param originY the bottom left y coordinate for the origin point for the texture
-	 * @param texX the bottom left x coordinate for the location on the texture
-	 * @param texY the bottom left y coordinate for the location on the texture
-	 * @param originWidth the width of the image to render
-	 * @param originHeight the height of the image to render
-	 * @param texRegionWidth the width of the portion of the texture to render
-	 * @param texRegionHeight the height of the portion of the texture to render
-	 * @param texWidth the width of the texture
-	 * @param texHeight the height of the texture
-	 * @deprecated Use the new method dum dum
-	 */
-	public static void drawRegion(float originX, float originY, float texX, float texY, float originWidth, float originHeight, float texRegionWidth, float texRegionHeight, float texWidth, float texHeight) {
-		/* Vertex positions */
-		float x1 = originX;
-		float y1 = originY;
-		float x2 = originX + originWidth;
-		float y2 = originY + originHeight;
-
-		/* Texture coordinates */
-		float s1 = texX / texWidth;
-		float t1 = texY / texHeight;
-		float s2 = (texX + texRegionWidth) / texWidth;
-		float t2 = (texY + texRegionHeight) / texHeight;
-
-		glBegin(GL_QUADS);
-			glTexCoord2f(s1, t1);
-			glVertex2f(x1, y1);
-
-			glTexCoord2f(s1, t2);
-			glVertex2f(x1, y2);
-
-			glTexCoord2f(s2, t2);
-			glVertex2f(x2, y2);
-
-			glTexCoord2f(s2, t1);
-			glVertex2f(x2, y1);
 		glEnd();
 	}
 
