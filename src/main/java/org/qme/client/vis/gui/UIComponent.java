@@ -1,6 +1,8 @@
 package org.qme.client.vis.gui;
 
+import org.qme.client.Application;
 import org.qme.client.vis.Renderable;
+import org.qme.client.vis.wn.WindowManager;
 
 /**
  * Simple class to extend both and offer default functionality.
@@ -18,6 +20,14 @@ public abstract class UIComponent implements MouseResponder, Renderable {
 	 * @return the name of the component
 	 */
 	public static final String getName = "component.unnamed";
+
+	/**
+	 * Default constructor
+	 */
+	protected UIComponent() {
+		WindowManager.addObject(this);
+		Application.registerMouseResponder(this);
+	}
 
 	/**
 	 * Checks if the object should be rendered
