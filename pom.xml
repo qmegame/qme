@@ -6,7 +6,7 @@
 
     <groupId>org.qme</groupId>
     <artifactId>qme5</artifactId>
-    <version>preB</version>
+    <version>0.3.0</version>
 
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
@@ -183,6 +183,21 @@
             <version>5.7.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.github.oshi</groupId>
+            <artifactId>oshi-core</artifactId>
+            <version>5.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.25</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -238,6 +253,8 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                             <mainClass>org.qme.Main</mainClass>
                         </manifest>
                     </archive>

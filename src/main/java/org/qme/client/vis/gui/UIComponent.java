@@ -11,12 +11,25 @@ public abstract class UIComponent implements MouseResponder, Renderable {
 
 	private boolean clicked;
 	private boolean hovered;
+	private boolean visible = true;
 	
 	/**
 	 * For logging purposes (maybe more later)
 	 * @return the name of the component
 	 */
 	public static final String getName = "component.unnamed";
+
+	/**
+	 * Checks if the object should be rendered
+	 * @return if the object is visible
+	 */
+	public boolean isVisible() { return visible; }
+
+	/**
+	 * Changes the visibility of the object
+	 * @param b the new visibility of the object
+	 */
+	public void setVisible(boolean b) { visible = b; }
 	
 	/**
 	 * Gets if the UIComponent is clicked
