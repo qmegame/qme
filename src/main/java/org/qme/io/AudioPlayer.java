@@ -27,7 +27,7 @@ public class AudioPlayer {
     private Clip clip;
 
     // The state of the player
-    private AudioPlayerState audioPlayerState;
+    public AudioPlayerState audioPlayerState;
 
     private AudioInputStream audioInputStream;
 

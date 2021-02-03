@@ -35,6 +35,11 @@ public final class Application {
 	public static final int RENDER_SCALE = 3;
 
 	/**
+	 * Make audio player
+	 */
+	public static AudioPlayer audioPlayer = new AudioPlayer(AudioFiles.menu);
+
+	/**
 	 * The constructor is private. Only one instance allowed.
 	 */
 	private Application() {
@@ -68,8 +73,6 @@ public final class Application {
 	 * Run the application forever (or until an exit request is sent)
 	 */
 	public void mainloop() {
-
-		AudioPlayer audioPlayer = new AudioPlayer(AudioFiles.menu);
 
 		while (GLFWInteraction.shouldBeOpen()) {
 
