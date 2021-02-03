@@ -43,10 +43,6 @@ public class QFont {
         loadFont();
     }
 
-    public int getHeight() {
-        return fontHeight;
-    }
-
     /**
      * Generates a texture for the font and saves it as an ID
      * If multiple fonts are using the same name a warning will be printed and only 1 will be loaded
