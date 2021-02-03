@@ -1,5 +1,6 @@
 package org.qme.client;
 
+import org.qme.client.vis.gui.Button;
 import org.qme.client.vis.gui.QFont;
 import org.qme.client.vis.gui.QLabel;
 import org.qme.client.vis.wn.GLFWInteraction;
@@ -23,13 +24,14 @@ public final class Application {
 	private int fps;
 	private long lastSecond;
 
-	public static final QFont mono = new QFont(new Font(Font.MONOSPACED, Font.PLAIN, 16), true);
+	public static QFont mono;
 
 	/**
 	 * The constructor is private. Only one instance allowed.
 	 */
 	private Application() {
 		new World();
+		mono = new QFont(new Font(Font.MONOSPACED, Font.PLAIN, 16), true);
 		fpsLabel = new QLabel(mono, "...", 2, GLFWInteraction.windowSize() - 21);
 	}
 
@@ -42,6 +44,8 @@ public final class Application {
 	 * Run the application forever (or until an exit request is sent)
 	 */
 	public void mainloop() {
+
+		new Button("test", GLFWInteraction.getSize() / 2, GLFWInteraction.getSize() / 2);
 		
 		while (GLFWInteraction.shouldBeOpen()) {
 			
