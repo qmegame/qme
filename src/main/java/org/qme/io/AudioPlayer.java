@@ -19,7 +19,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public class AudioPlayer {
 
-    private static final String filePath = "src/main/resources/sounds/music/QME5_Menu.mp3";
+    private static final String filePath = "src/main/resources/sounds/music/QME5_Menu.wav";
 
     // Store current position in audio
     private long currentPosition;
