@@ -1,6 +1,7 @@
 package org.qme.io;
 
 import org.qme.io.AudioPlayerState;
+import org.qme.io.AudioFiles;
 import org.qme.io.Logger;
 
 import java.io.File;
@@ -19,7 +20,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public class AudioPlayer {
 
-    private static final String filePath = "src/main/resources/sounds/music/QME5_Menu.wav";
+    private static String filePath = AudioFiles.menu;
 
     // Store current position in audio
     private long currentPosition;
