@@ -5,6 +5,7 @@ import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.qme.client.vis.Renderable;
 import org.qme.client.vis.gui.UIComponent;
+import org.qme.utils.Performance;
 
 import java.nio.DoubleBuffer;
 
@@ -94,6 +95,7 @@ public class GLFWInteraction {
      * application so it can close.
      */
     public static void repaint() {
+        Performance.startTiming("render");
 
         glClearColor(0.5f, 0.5f, 0.5f, 0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
@@ -108,9 +110,13 @@ public class GLFWInteraction {
             e.draw();
         }
 
+        Performance.endTiming("render");
+        Performance.startTiming("tick");
+
         glfwSwapBuffers(wn);
         glfwPollEvents();
 
+        Performance.endTiming("tick");
     }
 
     /**

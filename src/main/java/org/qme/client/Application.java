@@ -4,13 +4,11 @@ import org.qme.client.vis.gui.QBox;
 import org.qme.client.vis.gui.QFont;
 import org.qme.client.vis.gui.QLabel;
 import org.qme.client.vis.wn.GLFWInteraction;
-import org.qme.io.Logger;
-import org.qme.io.Severity;
+import org.qme.utils.Performance;
 import org.qme.world.World;
 
 import java.awt.*;
-
-import static org.lwjgl.opengl.GL11C.*;
+import java.util.HashMap;
 
 /**
  * The "controller", so to speak, of all events. It also helps to validate
@@ -28,17 +26,9 @@ public final class Application {
 	private int fps;
 	private long lastSecond;
 
-	private static final String GAME_VERSION = Application.class.getPackage().getSpecificationVersion();
-	private static final String JAVA_VERSION = System.getProperty("java.version");
-	private static final String JAVA_VENDOR = System.getProperty("java.vendor");
-	private static final String OPERATING_SYSTEM = System.getProperty("os.name");
-	private static final String OPERATING_SYSTEM_VERSION = System.getProperty("os.version");
-	private static final String ARCH_TYPE = System.getProperty("os.arch");
-	private static String GPU_VENDOR;
-	private static String GPU_RENDERER;
-
 	public static QBox box;
 	public static QLabel debugLabel;
+	public static QLabel profilerLabel;
 
 	public static final int RENDER_SCALE = 3;
 
@@ -47,10 +37,6 @@ public final class Application {
 	 */
 	private Application() {
 		new World();
-
-		if (GAME_VERSION == null) {
-			Logger.log("Could not detect game version! The jar you are running was not compiled properly.", Severity.WARNING);
-		}
 
 		QFont font = new QFont(new Font(Font.MONOSPACED, Font.BOLD, 12), true);
 
@@ -62,9 +48,13 @@ public final class Application {
 		debugLabel = new QLabel(font, "...", 5, GLFWInteraction.windowSize() - (font.getHeight() + 2), true);
 		debugLabel.setVisible(false);
 
+		// Profiler Label
+		profilerLabel = new QLabel(font, "...", 5, 5, false);
+		profilerLabel.setVisible(false);
+
 		// Update debug information
-		GPU_VENDOR = glGetString(GL_VENDOR);
-		GPU_RENDERER = glGetString(GL_RENDERER);
+		Performance.updateValues();
+
 	}
 
 	/**
@@ -78,13 +68,28 @@ public final class Application {
 	public void mainloop() {
 		
 		while (GLFWInteraction.shouldBeOpen()) {
-			
+
+			Performance.beginFrame();
+
 			GLFWInteraction.repaint();
 
 			// Updates debug label each frame
-			debugLabel.text = "Running game version v" + GAME_VERSION + "\nFPS: " + fps + " (On: " + frameCount + ")\nJava: " + JAVA_VERSION + " (Vendor: " +  JAVA_VENDOR + ")" + "\nOS: " + OPERATING_SYSTEM + " (Arch: " + ARCH_TYPE + ") (Version: " + OPERATING_SYSTEM_VERSION + ") \nGL: " + GPU_VENDOR + " " + GPU_RENDERER;
+			debugLabel.text = "Running game version v" + Performance.GAME_VERSION + "" +
+					"\nJVM: " + Performance.JAVA_VERSION + " (Vendor: " + Performance.JAVA_VENDOR + ")" +
+					"\nOperating System: " + Performance.OPERATING_SYSTEM + " (Arch: " + Performance.ARCH_TYPE + ") (Version: " + Performance.OPERATING_SYSTEM_VERSION + ")" +
+					"\nGraphics: " + Performance.GPU_NAME + " " + Performance.GPU_VENDOR +
+					"\nMemory: (Max: " + Runtime.getRuntime().maxMemory() / 1000000 + "mb) (Used: " + (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().freeMemory()) / 1000000 + "mb)" +
+					"\nProcessor: " + Performance.CPU +
+					"\nFPS: " + fps + " (On: " + frameCount + ")";
 
-			// Checks fps
+			// Updates profiler data
+			HashMap<String, Float> timings = Performance.getTimings();
+			profilerLabel.text = "Profiler [Render] [Tick] [Other]" +
+					"\nRender: " + timings.getOrDefault("render",0F) + "ms" +
+					"\nTick: " + timings.getOrDefault("tick", 0F) + "ms" +
+					"\nTotal: " + Performance.getTotal() + "ms";
+
+			// Calculates fps
 			if (System.currentTimeMillis() - lastSecond > 1000) {
 				fps = frameCount;
 				frameCount = 0;
