@@ -37,5 +37,7 @@
     <classpathentry kind="lib" path="jars/oshi-core-5.4.1.jar"/>
     <classpathentry kind="lib" path="jars/slf4j-api-1.7.25.jar"/>
     <classpathentry kind="lib" path="jars/slf4j-simple-1.7.25.jar"/>
+    <classpathentry kind="lib" path="jars/jna-5.6.0.jar"/>
+    <classpathentry kind="lib" path="jars/jna-platform-5.6.0.jar"/>
     <classpathentry kind="output" path="bin"/>
 </classpath>
