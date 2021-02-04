@@ -3,6 +3,7 @@ package org.qme.client;
 import org.qme.client.vis.gui.*;
 import org.qme.client.vis.gui.Button;
 import org.qme.client.vis.wn.GLFWInteraction;
+import org.qme.client.vis.wn.Scrolling;
 import org.qme.io.AudioFiles;
 import org.qme.io.AudioPlayer;
 import org.qme.utils.Performance;
@@ -101,6 +102,8 @@ public final class Application {
 		while (GLFWInteraction.shouldBeOpen()) {
 
 			Performance.beginFrame();
+
+			Scrolling.moveWorld();
 
 			GLFWInteraction.repaint();
 
