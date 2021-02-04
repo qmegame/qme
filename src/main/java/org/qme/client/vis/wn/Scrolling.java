@@ -3,6 +3,8 @@ package org.qme.client.vis.wn;
 import org.qme.client.vis.RenderMaster;
 import org.qme.utils.Direction;
 
+import java.util.HashMap;
+
 import static org.qme.client.vis.wn.WindowManager.*;
 
 /**
@@ -16,6 +18,19 @@ public class Scrolling {
     private static double yOffset = 0D;
 
     private static final int SCROLL_SPEED = 20;
+
+    /**
+     * Whether each button is pressed
+     */
+    private static final HashMap<Direction, Boolean> pressed
+            = new HashMap<>();
+
+    static {
+        // Initialize everything to false
+        for (int i = 0; i < Direction.values().length; i++) {
+            pressed.put(Direction.values()[i], false);
+        }
+    }
 
     /**
      * Not allowed!
@@ -59,27 +74,26 @@ public class Scrolling {
     /**
      * Scroll based on a key code
      * @param direction the direction of motion
+     * @param press whether it's pressed (true) or released (false)
      */
-    public static void doScroll(Direction direction) {
+    public static void doScroll(Direction direction, boolean press) {
 
         if (!canMove(direction, RenderMaster.zoom)) {
             return;
         }
 
-        switch (direction) {
-            case UP:
-                yOffset += SCROLL_SPEED;
-                break;
-            case DOWN:
-                yOffset -= SCROLL_SPEED;
-                break;
-            case RIGHT:
-                xOffset += SCROLL_SPEED;
-                break;
-            case LEFT:
-                xOffset -= SCROLL_SPEED;
-                break;
-        }
+        pressed.put(direction, press);
+
+    }
+
+    /**
+     * Actually move the world
+     */
+    public static void moveWorld() {
+        if (pressed.get(Direction.UP))    yOffset += 1;
+        if (pressed.get(Direction.DOWN))  yOffset -= 1;
+        if (pressed.get(Direction.LEFT))  xOffset -= 1;
+        if (pressed.get(Direction.RIGHT)) xOffset += 1;
     }
 
     /**
