@@ -39,9 +39,9 @@ public final class Application {
 	 * Make audio player
 	 */
 	public static AudioPlayer audioPlayer = new AudioPlayer(AudioFiles.menu);
-	
-  /**
-   * All mouse responders
+
+  	/**
+   	 * All mouse responders
 	 */
 	private static final ArrayList<MouseResponder> responders
 			= new ArrayList<>();
@@ -100,8 +100,6 @@ public final class Application {
 				System.out.println("clicked!");
 			}
 		};
-
-		AudioPlayer audioPlayer = new AudioPlayer(AudioFiles.menu);
 
 		while (GLFWInteraction.shouldBeOpen()) {
 
