@@ -30,7 +30,6 @@ public final class Application {
 	private long lastSecond;
 
 	public static QFont mono;
-	public static QBox box;
 	public static QLabel debugLabel;
 	public static QLabel profilerLabel;
 
@@ -68,10 +67,6 @@ public final class Application {
 		new World();
 		mono = new QFont(new Font(Font.MONOSPACED, Font.PLAIN, 16), true);
 
-		// Resources GUI
-		box = new QBox(new Rectangle(5,5, 100, 120));
-		box.setVisible(false);
-
 		// Debug Label
 		debugLabel = new QLabel(mono, "...", 5, GLFWInteraction.windowSize() - (mono.getHeight() + 2), true);
 		debugLabel.setVisible(false);
@@ -95,12 +90,7 @@ public final class Application {
 	 */
 	public void mainloop() {
 
-		new Button("test", GLFWInteraction.getSize() / 2, GLFWInteraction.getSize() / 2) {
-			@Override
-			protected void action() {
-				System.out.println("clicked!");
-			}
-		};
+
 
 		while (GLFWInteraction.shouldBeOpen()) {
 
