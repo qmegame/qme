@@ -3,6 +3,9 @@ package org.qme.client;
 import org.qme.client.vis.gui.*;
 import org.qme.client.vis.gui.QButton;
 import org.qme.client.vis.wn.GLFWInteraction;
+import org.qme.client.vis.wn.Scrolling;
+import org.qme.io.AudioFiles;
+import org.qme.io.AudioPlayer;
 import org.qme.utils.Performance;
 import org.qme.world.World;
 
@@ -33,7 +36,12 @@ public final class Application {
 	public static final int RENDER_SCALE = 3;
 
 	/**
-	 * All mouse responders
+	 * Make audio player
+	 */
+	public static AudioPlayer audioPlayer = new AudioPlayer(AudioFiles.menu);
+
+  	/**
+   	 * All mouse responders
 	 */
 	private static final ArrayList<MouseResponder> responders = new ArrayList<>();
 
@@ -97,6 +105,8 @@ public final class Application {
 		while (GLFWInteraction.shouldBeOpen()) {
 
 			Performance.beginFrame();
+
+			Scrolling.moveWorld();
 
 			GLFWInteraction.repaint();
 

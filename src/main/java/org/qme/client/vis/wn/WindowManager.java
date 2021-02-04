@@ -4,6 +4,8 @@ import org.qme.client.Application;
 import org.qme.client.vis.RenderMaster;
 import org.qme.client.vis.Renderable;
 import org.qme.client.vis.tex.TextureManager;
+import org.qme.io.AudioPlayer;
+import org.qme.io.AudioPlayerState;
 import org.qme.utils.Direction;
 import org.qme.world.World;
 
@@ -53,23 +55,25 @@ public final class WindowManager {
 	 * @param modifierKeys which keys were held (shift, ctrl, alt, caps lock)
 	 */
 	public static void onKeyPress(long window, int glfwKeyCode, int systemScancode, int keyAction, int modifierKeys) {
-		if (keyAction == GLFW_RELEASE) {
+		if ((keyAction != GLFW_RELEASE) && (keyAction != GLFW_PRESS)) {
 			return;
 		}
+
+		boolean press = keyAction == GLFW_PRESS;
 
 		switch (glfwKeyCode) {
 			// Scroll
 			case GLFW_KEY_A:
-				Scrolling.doScroll(Direction.LEFT);
+				Scrolling.doScroll(Direction.LEFT, press);
 				break;
 			case GLFW_KEY_S:
-				Scrolling.doScroll(Direction.DOWN);
+				Scrolling.doScroll(Direction.DOWN, press);
 				break;
 			case GLFW_KEY_D:
-				Scrolling.doScroll(Direction.RIGHT);
+				Scrolling.doScroll(Direction.RIGHT, press);
 				break;
 			case GLFW_KEY_W:
-				Scrolling.doScroll(Direction.UP);
+				Scrolling.doScroll(Direction.UP, press);
 				break;
 			case GLFW_KEY_I:
 				// Zoom in until limit is reached
@@ -81,6 +85,14 @@ public final class WindowManager {
 				// Zoom out until limit is reached
 				if (RenderMaster.zoom >= ZOOM_MIN) {
 					applyZoom(ZOOM_OUT);
+				}
+				break;
+			case GLFW_KEY_M:
+				// Stop audio player
+				if (Application.audioPlayer.audioPlayerState == AudioPlayerState.PAUSED) {
+					Application.audioPlayer.play();
+				} else {
+					Application.audioPlayer.pause();
 				}
 				break;
 			case GLFW_KEY_TAB:
