@@ -3,6 +3,7 @@ package org.qme.client.vis.wn;
 import org.qme.client.Application;
 import org.qme.client.vis.RenderMaster;
 import org.qme.client.vis.Renderable;
+import org.qme.client.vis.gui.GUIList;
 import org.qme.client.vis.tex.TextureManager;
 import org.qme.io.AudioPlayer;
 import org.qme.io.AudioPlayerState;
@@ -96,7 +97,7 @@ public final class WindowManager {
 				}
 				break;
 			case GLFW_KEY_TAB:
-				Application.box.setVisible(!Application.box.isVisible());
+				GUIList.RESOURCE_GUI.toggle();
 				break;
 			case GLFW_KEY_F1:
 				Application.debugLabel.setVisible(!Application.debugLabel.isVisible());
