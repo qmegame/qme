@@ -1,17 +1,24 @@
 package org.qme.client.vis.gui;
 
+import org.lwjgl.system.CallbackI;
 import org.qme.client.Application;
 import org.qme.client.vis.RenderMaster;
 import org.qme.client.vis.tex.TextureManager;
 
-import java.awt.*;
-import java.util.HashMap;
-
 import static org.lwjgl.opengl.GL11.*;
 
-public class QBox extends UIComponent {
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Locale;
 
-    private static HashMap<String, Rectangle> atlas = TextureManager.loadAtlas("/textures/misc/box.json");
+/**
+ * A drawable button on-screen. Responds to clicking.
+ * @author adamhutchings
+ * @since 0.3
+ */
+public abstract class QButton extends UIComponent {
+
+    private static HashMap<String, Rectangle> atlas = TextureManager.loadAtlas("/textures/misc/button.json");
 
     private int actualCornerHeight;
     private int actualCornerWidth;
@@ -21,17 +28,41 @@ public class QBox extends UIComponent {
     private int actualBodyHeight;
     private int actualEdgeWidth;
     private int actualEdgeHeight;
-    private Dimension texture;
 
-    public Rectangle rect;
+    private String text;
+    private QFont font;
+    private Dimension textOffset;
+    private Rectangle rect;
+    private Dimension texture;
+    private boolean clickable = true;
 
     /**
-     * Creates a new QBox object
-     * @param rect the box location
-    */
-    public QBox(Rectangle rect) {
-        super();
+     * Creates a new button
+     * @param font the font to use
+     * @param text the text to display
+     * @param x x location
+     * @param y y location
+     * @param width the width of the button
+     * @param height the height of the button
+     */
+    public QButton(QFont font, String text, int x, int y, int width, int height) {
+        this(font, text, new Rectangle(x - (width / 2), y - (height / 2), width, height));
+    }
+
+    /**
+     * Creates a new button
+     * @param font the font to use
+     * @param text the text to display
+     * @param rect the button size and location
+     */
+    public QButton(QFont font, String text, Rectangle rect) {
+        this.font = font;
+        this.text = text;
         this.rect = rect;
+        textOffset = new Dimension(
+                (rect.width - font.getWidth(text)) / 2,
+                (rect.height - font.getHeight()) / 2
+        );
         this.calculateDimensions();
     }
 
@@ -40,35 +71,59 @@ public class QBox extends UIComponent {
      * If the dimensions of the QBox have changed they will need to be recalculated.
      */
     public void calculateDimensions() {
-        this.actualCornerHeight = atlas.get("bottom-left").height * Application.RENDER_SCALE;
-        this.actualCornerWidth = atlas.get("bottom-left").width * Application.RENDER_SCALE;
-        this.bodyWidth = rect.width - atlas.get("bottom-left").width * 2;
-        this.bodyHeight = rect.height - atlas.get("bottom-left").height * 2;
+        String state = getState().name().toLowerCase() + "-";
+        this.actualCornerHeight = atlas.get(state + "bottom-left").height * Application.RENDER_SCALE;
+        this.actualCornerWidth = atlas.get(state + "bottom-left").width * Application.RENDER_SCALE;
+        this.bodyWidth = (rect.width / Application.RENDER_SCALE) - atlas.get(state + "bottom-left").width * 2;
+        this.bodyHeight = (rect.height / Application.RENDER_SCALE) - atlas.get(state + "bottom-left").height * 2;
         this.actualBodyWidth = bodyWidth * Application.RENDER_SCALE;
         this.actualBodyHeight = bodyHeight * Application.RENDER_SCALE;
-        this.actualEdgeHeight = atlas.get("edge-left").height * Application.RENDER_SCALE;
-        this.actualEdgeWidth = atlas.get("edge-left").width * Application.RENDER_SCALE;
+        this.actualEdgeHeight = atlas.get(state + "left").height * Application.RENDER_SCALE;
+        this.actualEdgeWidth = atlas.get(state + "left").width * Application.RENDER_SCALE;
         this.texture = new Dimension(atlas.get("total").width, atlas.get("total").height);
+    }
+
+    public ButtonState getState() {
+        if (!isClickable()) {
+            return ButtonState.DISABLED;
+        }
+        if (isClicked()) {
+            return ButtonState.PRESSED;
+        }
+        return ButtonState.UNPRESSED;
+    }
+
+    public boolean isClickable() {
+        return clickable;
+    }
+
+    public void setClickable(boolean b) {
+        this.clickable = b;
     }
 
     @Override
     public void draw() {
+
+        // If anyone has a better way to do this please feel free.
+
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_BLEND);
-        glBindTexture(GL_TEXTURE_2D, TextureManager.getTexture("misc/box.png"));
+        glBindTexture(GL_TEXTURE_2D, TextureManager.getTexture("misc/button.png"));
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        String state = getState().name().toLowerCase() + "-";
 
         // base for the background of the box
         RenderMaster.drawRegion(
                 new Rectangle(
                         rect.x + actualEdgeWidth,
                         rect.y + actualEdgeWidth,
-                        actualBodyWidth + actualEdgeWidth + actualCornerWidth,
-                        actualBodyHeight + actualEdgeWidth + actualCornerHeight
+                        actualBodyWidth + actualCornerWidth,
+                        actualBodyHeight + actualCornerHeight
                 ),
-                atlas.get("fill"), texture);
+                atlas.get(state + "fill"), texture);
 
         // top right corner
         RenderMaster.drawRegion(
@@ -78,7 +133,7 @@ public class QBox extends UIComponent {
                         actualCornerWidth,
                         actualCornerHeight
                 ),
-                atlas.get("bottom-right"), texture);
+                atlas.get(state + "top-right"), texture);
 
         // bottom right corner
         RenderMaster.drawRegion(
@@ -88,7 +143,7 @@ public class QBox extends UIComponent {
                         actualCornerWidth,
                         actualCornerHeight
                 ),
-                atlas.get("top-right"), texture);
+                atlas.get(state + "bottom-right"), texture);
 
         // top left corner
         RenderMaster.drawRegion(
@@ -98,7 +153,7 @@ public class QBox extends UIComponent {
                         actualCornerWidth,
                         actualCornerHeight
                 ),
-                atlas.get("bottom-left"), texture);
+                atlas.get(state + "top-left"), texture);
 
         // bottom left corner
         RenderMaster.drawRegion(
@@ -108,7 +163,7 @@ public class QBox extends UIComponent {
                         actualCornerWidth,
                         actualCornerHeight
                 ),
-                atlas.get("top-left"), texture);
+                atlas.get(state + "bottom-left"), texture);
 
         for (int i = 0; i < bodyWidth; i++) {
 
@@ -116,21 +171,21 @@ public class QBox extends UIComponent {
             RenderMaster.drawRegion(
                     new Rectangle(
                             rect.x + (i * actualEdgeHeight) + actualCornerWidth,
-                            rect.y + (actualCornerHeight * 2) - actualEdgeWidth - actualEdgeHeight + actualBodyHeight,
+                            rect.y + (actualCornerHeight * 2) - actualEdgeWidth + actualBodyHeight,
                             Application.RENDER_SCALE,
                             actualEdgeWidth
                     ),
-                    atlas.get("edge-top"), texture);
+                    atlas.get(state + "top"), texture);
 
             // bottom edge
             RenderMaster.drawRegion(
                     new Rectangle(
                             rect.x + (i * actualEdgeHeight) + actualCornerWidth,
-                            rect.y + actualEdgeHeight,
+                            rect.y,
                             actualEdgeHeight,
                             actualEdgeWidth
                     ),
-                    atlas.get("edge-bottom"), texture);
+                    atlas.get(state + "bottom"), texture);
         }
 
         for (int i = 0; i < bodyHeight; i++) {
@@ -138,26 +193,49 @@ public class QBox extends UIComponent {
             // left edge
             RenderMaster.drawRegion(
                     new Rectangle(
-                            rect.x + Application.RENDER_SCALE,
+                            rect.x,
                             rect.y + actualCornerHeight + (actualEdgeHeight * i),
                             actualEdgeWidth,
                             actualEdgeHeight
                     ),
-                    atlas.get("edge-left"), texture);
+                    atlas.get(state + "left"), texture);
 
             // right edge
             RenderMaster.drawRegion(
                     new Rectangle(
-                            rect.x + (actualCornerWidth * 2) - actualEdgeWidth - Application.RENDER_SCALE + actualBodyWidth,
+                            rect.x + (actualCornerWidth * 2) - actualEdgeWidth + actualBodyWidth,
                             rect.y + actualCornerHeight + (actualEdgeHeight * i),
                             actualEdgeWidth,
                             actualEdgeHeight
                     ),
-                    atlas.get("edge-right"), texture);
+                    atlas.get(state + "right"), texture);
 
         }
 
+        font.drawText(text, rect.x + textOffset.width, rect.y + textOffset.height);
+
         glDisable(GL_BLEND);
         glDisable(GL_TEXTURE_2D);
+    }
+
+    @Override
+    public void mouseClickOff() {
+        this.action();
+    }
+
+    /**
+     * Called when the button is clicked
+     */
+    protected abstract void action();
+
+    @Override
+    public boolean contains(int x, int y) {
+        return rect.contains(x, y);
+    }
+
+    public enum ButtonState {
+        PRESSED,
+        UNPRESSED,
+        DISABLED
     }
 }

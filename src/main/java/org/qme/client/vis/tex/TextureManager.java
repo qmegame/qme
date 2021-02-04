@@ -6,12 +6,20 @@ import org.qme.io.Logger;
 import org.qme.io.Severity;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
+
+import org.json.*;
 
 /**
  * Class responsible for loading textures from files
@@ -42,6 +50,7 @@ public class TextureManager {
         toLoad.add("tiles/jungle.png");
         toLoad.add("tiles/tundra.png");
         toLoad.add("misc/box.png");
+        toLoad.add("misc/button.png");
         for (String texture : toLoad) {
             registerTexture(texture, loadTextureFromImage(Objects.requireNonNull(loadImageResource
                     (TEXTURE_RESOURCES + texture))));
@@ -175,6 +184,36 @@ public class TextureManager {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * Loads an atlas for a texture
+     * @param resource the location of the atlas json file
+     * @return a list of regions for the texture
+     */
+    public static HashMap<String, Rectangle> loadAtlas(String resource) {
+        HashMap<String, Rectangle> toReturn = new HashMap<>();
+        JSONObject regions = null;
+
+        try {
+            Path path = Paths.get(TextureManager.class.getResource(resource).toURI());
+            regions = new JSONObject(new String(Files.readAllBytes(path)));
+        } catch (IOException | URISyntaxException e) {
+            Logger.log("Failed to load texture atlas " + resource, Severity.ERROR);
+            e.printStackTrace();
+        }
+
+        if (regions == null) {
+            return toReturn;
+        }
+
+        for (String object : regions.keySet()) {
+            JSONObject region = regions.getJSONObject(object);
+            Rectangle rectangle = new Rectangle(region.getInt("x"), region.getInt("y"), region.getInt("width"), region.getInt("height"));
+            toReturn.put(object, rectangle);
+        }
+
+        return toReturn;
     }
 
 }
