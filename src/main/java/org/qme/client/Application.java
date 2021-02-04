@@ -67,10 +67,6 @@ public final class Application {
 		QFont labelMono = new QFont(new Font(Font.MONOSPACED, Font.PLAIN, 12), true);
 		QFont buttonFont = new QFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 18), true);
 
-		// Resources GUI
-		box = new QBox(new Rectangle(5,5, 100, 120));
-		box.setVisible(false);
-
 		// Debug Label
 		debugLabel = new QLabel(labelMono, "...", 5, GLFWInteraction.windowSize() - (labelMono.getHeight() + 2), true);
 		debugLabel.setVisible(false);
@@ -102,6 +98,8 @@ public final class Application {
 	 */
 	public void mainloop() {
 
+		GUIManager.loadGUIs();
+    
 		while (GLFWInteraction.shouldBeOpen()) {
 
 			Performance.beginFrame();
