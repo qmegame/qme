@@ -97,12 +97,15 @@ public final class WindowManager {
 				}
 				break;
 			case GLFW_KEY_TAB:
+				if (keyAction != GLFW_RELEASE) break;
 				Application.box.setVisible(!Application.box.isVisible());
 				break;
 			case GLFW_KEY_F1:
+				if (keyAction != GLFW_RELEASE) break;
 				Application.debugLabel.setVisible(!Application.debugLabel.isVisible());
 				break;
 			case GLFW_KEY_F2:
+				if (keyAction != GLFW_RELEASE) break;
 				Application.profilerLabel.setVisible(!Application.profilerLabel.isVisible());
 				break;
 			default:
