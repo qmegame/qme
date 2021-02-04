@@ -43,7 +43,11 @@ public class GUI {
      * Toggle visibility by checking the first component.
      */
     public void toggle() {
-        if (components[0].isVisible()) hide(); else show();
+        if (components[0].isVisible()) {
+            hide();
+        } else {
+            show();
+        }
     }
 
 }
