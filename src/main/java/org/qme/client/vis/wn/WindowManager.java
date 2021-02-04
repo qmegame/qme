@@ -4,6 +4,8 @@ import org.qme.client.Application;
 import org.qme.client.vis.RenderMaster;
 import org.qme.client.vis.Renderable;
 import org.qme.client.vis.tex.TextureManager;
+import org.qme.io.AudioPlayer;
+import org.qme.io.AudioPlayerState;
 import org.qme.utils.Direction;
 import org.qme.world.World;
 
@@ -81,6 +83,14 @@ public final class WindowManager {
 				// Zoom out until limit is reached
 				if (RenderMaster.zoom >= ZOOM_MIN) {
 					applyZoom(ZOOM_OUT);
+				}
+				break;
+			case GLFW_KEY_M:
+				// Stop audio player
+				if (Application.audioPlayer.audioPlayerState == AudioPlayerState.PAUSED) {
+					Application.audioPlayer.play();
+				} else {
+					Application.audioPlayer.pause();
 				}
 				break;
 			case GLFW_KEY_TAB:

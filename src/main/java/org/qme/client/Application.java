@@ -36,7 +36,12 @@ public final class Application {
 	public static final int RENDER_SCALE = 3;
 
 	/**
-	 * All mouse responders
+	 * Make audio player
+	 */
+	public static AudioPlayer audioPlayer = new AudioPlayer(AudioFiles.menu);
+
+  	/**
+   	 * All mouse responders
 	 */
 	private static final ArrayList<MouseResponder> responders
 			= new ArrayList<>();
@@ -95,8 +100,6 @@ public final class Application {
 				System.out.println("clicked!");
 			}
 		};
-
-		AudioPlayer audioPlayer = new AudioPlayer(AudioFiles.menu);
 
 		while (GLFWInteraction.shouldBeOpen()) {
 
