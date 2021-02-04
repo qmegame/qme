@@ -90,10 +90,10 @@ public class Scrolling {
      * Actually move the world
      */
     public static void moveWorld() {
-        if (pressed.get(Direction.UP))    yOffset += 1;
-        if (pressed.get(Direction.DOWN))  yOffset -= 1;
-        if (pressed.get(Direction.LEFT))  xOffset -= 1;
-        if (pressed.get(Direction.RIGHT)) xOffset += 1;
+        if (pressed.get(Direction.UP))    ++yOffset;
+        if (pressed.get(Direction.DOWN))  --yOffset;
+        if (pressed.get(Direction.LEFT))  --xOffset;
+        if (pressed.get(Direction.RIGHT)) ++xOffset;
     }
 
     /**
