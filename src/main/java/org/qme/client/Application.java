@@ -90,7 +90,7 @@ public final class Application {
 	 */
 	public void mainloop() {
 
-		GUIList.loadGUIs();
+		GUIManager.loadGUIs();
 
 		while (GLFWInteraction.shouldBeOpen()) {
 
