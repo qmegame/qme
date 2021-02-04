@@ -37,7 +37,7 @@ public class QBox extends UIComponent {
 
     /**
      * Calculates values used for rendering.
-     * If the dimensions of the QBox have changed they will need to be recalculated.
+     * If the dimensions of the QBox has changed they will need to be recalculated.
      */
     public void calculateDimensions() {
         this.actualCornerHeight = atlas.get("bottom-left").height * Application.RENDER_SCALE;

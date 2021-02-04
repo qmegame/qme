@@ -1,6 +1,5 @@
 package org.qme.client.vis.gui;
 
-import org.lwjgl.system.CallbackI;
 import org.qme.client.Application;
 import org.qme.client.vis.RenderMaster;
 import org.qme.client.vis.tex.TextureManager;
@@ -9,16 +8,15 @@ import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.*;
 import java.util.HashMap;
-import java.util.Locale;
 
 /**
  * A drawable button on-screen. Responds to clicking.
  * @author adamhutchings
- * @since 0.3
+ * @since 0.3.0
  */
 public abstract class QButton extends UIComponent {
 
-    private static HashMap<String, Rectangle> atlas = TextureManager.loadAtlas("/textures/misc/button.json");
+    private static final HashMap<String, Rectangle> atlas = TextureManager.loadAtlas("/textures/misc/button.json");
 
     private int actualCornerHeight;
     private int actualCornerWidth;
@@ -68,7 +66,7 @@ public abstract class QButton extends UIComponent {
 
     /**
      * Calculates values used for rendering.
-     * If the dimensions of the QBox have changed they will need to be recalculated.
+     * If the dimensions of the QButton has changed they will need to be recalculated.
      */
     public void calculateDimensions() {
         String state = getState().name().toLowerCase() + "-";
@@ -83,27 +81,41 @@ public abstract class QButton extends UIComponent {
         this.texture = new Dimension(atlas.get("total").width, atlas.get("total").height);
     }
 
-    public ButtonState getState() {
-        if (!isClickable()) {
-            return ButtonState.DISABLED;
-        }
-        if (isClicked()) {
-            return ButtonState.PRESSED;
-        }
-        return ButtonState.UNPRESSED;
-    }
-
+    /**
+     * Gets if the button is clickable
+     * If the button is not clickable it will still call its action
+     * @return if the button is clickable
+     */
     public boolean isClickable() {
         return clickable;
     }
 
+    /**
+     * Sets if the button is clickable
+     * If the button is not clickable it will still call its action
+     * @param b if the button should be clickable
+     */
     public void setClickable(boolean b) {
         this.clickable = b;
     }
 
+    /**
+     * Called when the button is clicked
+     */
+    protected abstract void action();
+
+    @Override
+    public void mouseClickOff() {
+        this.action();
+    }
+
+    @Override
+    public boolean contains(int x, int y) {
+        return rect.contains(x, y);
+    }
+
     @Override
     public void draw() {
-
         // If anyone has a better way to do this please feel free.
 
         glEnable(GL_TEXTURE_2D);
@@ -218,21 +230,23 @@ public abstract class QButton extends UIComponent {
         glDisable(GL_TEXTURE_2D);
     }
 
-    @Override
-    public void mouseClickOff() {
-        this.action();
+    /**
+     * Gets the current state of this button used for rendering
+     * @return the state of the button
+     */
+    public ButtonState getState() {
+        if (!isClickable()) {
+            return ButtonState.DISABLED;
+        }
+        if (isClicked()) {
+            return ButtonState.PRESSED;
+        }
+        return ButtonState.UNPRESSED;
     }
 
     /**
-     * Called when the button is clicked
+     * Represents the drawable states of a button
      */
-    protected abstract void action();
-
-    @Override
-    public boolean contains(int x, int y) {
-        return rect.contains(x, y);
-    }
-
     public enum ButtonState {
         PRESSED,
         UNPRESSED,
