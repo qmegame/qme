@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * Contains all GUIs that are in the game.
  */
-public class GUIList {
+public class GUIManager {
 
     public static GUI RESOURCE_GUI;
 
