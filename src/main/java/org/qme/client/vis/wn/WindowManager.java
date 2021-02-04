@@ -89,6 +89,7 @@ public final class WindowManager {
 				}
 				break;
 			case GLFW_KEY_M:
+				if (keyAction != GLFW_RELEASE) break;
 				// Stop audio player
 				if (Application.audioPlayer.audioPlayerState == AudioPlayerState.PAUSED) {
 					Application.audioPlayer.play();
