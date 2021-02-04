@@ -5,7 +5,6 @@ import org.qme.client.vis.RenderMaster;
 import org.qme.client.vis.Renderable;
 import org.qme.client.vis.gui.GUIManager;
 import org.qme.client.vis.tex.TextureManager;
-import org.qme.io.AudioPlayer;
 import org.qme.io.AudioPlayerState;
 import org.qme.utils.Direction;
 import org.qme.world.World;
@@ -98,12 +97,15 @@ public final class WindowManager {
 				}
 				break;
 			case GLFW_KEY_TAB:
+				if (keyAction != GLFW_RELEASE) break;
 				GUIManager.RESOURCE_GUI.toggle();
 				break;
 			case GLFW_KEY_F1:
+				if (keyAction != GLFW_RELEASE) break;
 				Application.debugLabel.setVisible(!Application.debugLabel.isVisible());
 				break;
 			case GLFW_KEY_F2:
+				if (keyAction != GLFW_RELEASE) break;
 				Application.profilerLabel.setVisible(!Application.profilerLabel.isVisible());
 				break;
 			default:

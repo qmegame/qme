@@ -17,7 +17,7 @@ public class Scrolling {
     private static double xOffset = 0D;
     private static double yOffset = 0D;
 
-    private static final int SCROLL_SPEED = 20;
+    private static final int SCROLL_SPEED = 4;
 
     /**
      * Whether each button is pressed
@@ -90,10 +90,10 @@ public class Scrolling {
      * Actually move the world
      */
     public static void moveWorld() {
-        if (pressed.get(Direction.UP))    ++yOffset;
-        if (pressed.get(Direction.DOWN))  --yOffset;
-        if (pressed.get(Direction.LEFT))  --xOffset;
-        if (pressed.get(Direction.RIGHT)) ++xOffset;
+        if (pressed.get(Direction.UP))    yOffset += SCROLL_SPEED;
+        if (pressed.get(Direction.DOWN))  yOffset -= SCROLL_SPEED;
+        if (pressed.get(Direction.LEFT))  xOffset -= SCROLL_SPEED;
+        if (pressed.get(Direction.RIGHT)) xOffset += SCROLL_SPEED;
     }
 
     /**
