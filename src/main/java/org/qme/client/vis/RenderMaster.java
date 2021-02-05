@@ -5,6 +5,7 @@ import org.qme.client.vis.wn.Scrolling;
 import org.qme.client.vis.wn.GLFWInteraction;
 import org.qme.world.Tile;
 import org.qme.world.TileType;
+import org.qme.world.res.ResourceType;
 
 import java.awt.*;
 
@@ -65,6 +66,7 @@ public final class RenderMaster {
 					tileX, tileY + tileSizeActual,
 					getTexture(tile.type)
 			);
+
 		}
 	}
 	
@@ -163,4 +165,17 @@ public final class RenderMaster {
 				"tiles/" + type.name().toLowerCase().replace('_', '-') + ".png";
 		return TextureManager.getTexture(texString);
 	}
+
+	/**
+	 * Get a texture id from a tile type
+	 * @param type which resource type
+	 * @return the texture id of the resource
+	 */
+	private static int getTexture(ResourceType type) {
+		String texString =
+				// HIGH_MOUNTAIN -> high_mountain -> high-mountain -> high-mountain.png
+				"items/" + type.name().toLowerCase().replace('_', '-') + ".png";
+		return TextureManager.getTexture(texString);
+	}
+
 }
