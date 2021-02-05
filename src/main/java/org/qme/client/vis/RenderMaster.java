@@ -58,7 +58,6 @@ public final class RenderMaster {
 
 		if (isInFrame(tileX, tileY)) {
 			int tileSizeActual = (int) (TILE_SIZE * zoom);
-			// TEMP
 			drawQuad(
 					tileX, tileY,
 					tileX + tileSizeActual, tileY,
