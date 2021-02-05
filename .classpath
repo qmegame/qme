@@ -35,4 +35,4 @@
   <classpathentry kind="var" path="M2_REPO/org/junit/platform/junit-platform-launcher/1.7.0/junit-platform-launcher-1.7.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/junit/platform/junit-platform-suite-api/1.7.0/junit-platform-suite-api-1.7.0.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/junit/jupiter/junit-jupiter-params/5.7.0/junit-jupiter-params-5.7.0.jar"/>
-</classpath> 
+</classpath>
