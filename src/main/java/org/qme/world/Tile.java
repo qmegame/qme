@@ -66,6 +66,7 @@ public class Tile implements Renderable {
 		for (int i = 0; i < resourceList.length; i++) {
 			ResourceType res = resourceList[i];
 			if (roll < AbstractResource.getSpawnChance(res, this.type)) {
+				// TODO: Seagulls here
 				if ( (res != ResourceType.SALT) || (this.resources.size() == 0) )
 					this.resources.add(new AbstractResource(res));
 			}
