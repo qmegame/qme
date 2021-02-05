@@ -10,6 +10,11 @@ import org.qme.world.TileType;
 public class AbstractResource {
 
     /**
+     * Which type it is
+     */
+    public ResourceType type;
+
+    /**
      * Spawn chance is a whole number, 0-100
      * @param type which tile it spawns on
      * @return
@@ -18,6 +23,9 @@ public class AbstractResource {
         return 0;
     }
 
-    public ResourceType getType();
+    public ResourceType getType() {
+        return type;
+    }
+
     public abstract String getTexturePath();
 }
