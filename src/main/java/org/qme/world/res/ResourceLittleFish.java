@@ -3,7 +3,7 @@ package org.qme.world.res;
         import org.qme.world.TileType;
 
 public class ResourceLittleFish extends AbstractResource {
-    ResourceLittleFish() {
+    public ResourceLittleFish() {
         super();
     }
 

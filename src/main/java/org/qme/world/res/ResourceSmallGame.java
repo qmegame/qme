@@ -3,7 +3,7 @@ package org.qme.world.res;
 import org.qme.world.TileType;
 
 public class ResourceSmallGame extends AbstractResource {
-    ResourceSmallGame() {
+    public ResourceSmallGame() {
         super();
     }
 

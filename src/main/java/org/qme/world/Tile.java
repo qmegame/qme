@@ -20,7 +20,7 @@ public class Tile implements Renderable {
 	public final int y;
 	public final TileType type;
 
-	public ArrayList<AbstractResource> resources = new ArrayList<Resources>();
+	public ArrayList<AbstractResource> resources = new ArrayList<AbstractResource>();
 	
 	/**
 	 * Creates a new instance of a renderable Tile
@@ -40,7 +40,26 @@ public class Tile implements Renderable {
 		RenderMaster.drawTile(this);
 	}
 
-	public void rollResources() {
+	/**
+	 * Function that should be called for each tile when a resource renewal is needed
+	 * @since 0.3.0
+	 * @author santiago
+	 */
+	public void resetResources() {
+		// Remove old resources
+		this.resources.clear();
+
+		// Provide new resources
+		this.rollResources();
+	}
+
+	/**
+	 * Utility function that gives the tile resources
+	 * Only to be used when the tile has no resources
+	 * @since 0.3.0
+	 * @author santiago
+	 */
+	private void rollResources() {
 		Random rand = new Random();
 		final int roll = rand.nextInt(100);
 

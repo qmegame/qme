@@ -3,7 +3,7 @@ package org.qme.world.res;
 import org.qme.world.TileType;
 
 public class ResourceSeaweed extends AbstractResource {
-    ResourceSeaweed() {
+    public ResourceSeaweed() {
         super();
     }
 
