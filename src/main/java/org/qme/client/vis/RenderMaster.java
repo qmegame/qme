@@ -65,7 +65,14 @@ public final class RenderMaster {
 					tileX, tileY + tileSizeActual,
 					getTexture(tile.type)
 			);
-
+			if (tile.resources.size() > 0)
+			drawQuad(
+					tileX, tileY,
+					tileX + tileSizeActual, tileY,
+					tileX + tileSizeActual, tileY + tileSizeActual,
+					tileX, tileY + tileSizeActual,
+					getTexture(tile.resources.get(0).type)
+			);
 		}
 	}
 	
