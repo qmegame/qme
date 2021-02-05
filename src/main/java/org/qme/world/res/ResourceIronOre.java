@@ -3,7 +3,7 @@ package org.qme.world.res;
 import org.qme.world.TileType;
 
 public class ResourceIronOre extends AbstractResource {
-    ResourceIronOre() {
+    public ResourceIronOre() {
         super();
     }
 
