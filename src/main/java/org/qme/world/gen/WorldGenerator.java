@@ -61,6 +61,11 @@ public class WorldGenerator {
 
 		world = WorldGenerator.landReclaim(world, side);
 
+		Logger.log("before grid fixing", Severity.DEBUG);
+
+		for (int i = 0; i < GRID_FIXES; ++i)
+			world = removeGridding(world);
+
 		// Return generated (not yet) world
 		Logger.log("done", Severity.DEBUG);
 		return world;
@@ -670,4 +675,48 @@ public class WorldGenerator {
 		}
 		return dubaiWorld;
 	}
+
+	/**
+	 * If the given tile is an ocean.
+	 */
+	private static boolean isOcean(TileType type) {
+		return type == TileType.OCEAN || type == TileType.SEA;
+	}
+
+	/**
+	 * How many oceans are surrounding this tile.
+	 */
+	public static int oceanSurroundCount(TileType[][] world, int x, int y) {
+		int startX = Math.max(0, x - 1);
+		int endX = Math.min(world[0].length - 1, x + 1);
+		int startY = Math.max(0, y - 1);
+		int endY = Math.min(world.length - 1, y + 1);
+		int total = 0;
+		for (int i = startX; i <= endX; i++) {
+			for (int j = startY; j <= endY; j++) {
+				if (isOcean(world[i][j])) total++;
+			}
+		}
+		return total;
+	}
+
+	private static final int GRID_FIXES = 2 ;
+
+	private static final int GRIDDING_LIMIT = 4;
+
+	/**
+	 * Fix up a world by removing the weird gridding stuff.
+	 */
+	public static TileType[][] removeGridding(TileType[][] worldIn) {
+		TileType[][] world = worldIn;
+		for (int i = 0; i < world.length; i++) {
+			for (int j = 0; j < world[0].length; j++) {
+				if (oceanSurroundCount(world, i, j) > GRIDDING_LIMIT) {
+					world[i][j] = TileType.OCEAN;
+				}
+			}
+		}
+		return world;
+	}
+
 }
