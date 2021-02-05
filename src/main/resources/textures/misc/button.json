@@ -1,0 +1,170 @@
+{
+  "unpressed-bottom-left": {
+    "x": 0,
+    "y": 3,
+    "width": 3,
+    "height": 3
+  },
+  "unpressed-top-left": {
+    "x": 0,
+    "y": 0,
+    "width": 3,
+    "height": 3
+  },
+  "unpressed-bottom-right": {
+    "x": 3,
+    "y": 3,
+    "width": 3,
+    "height": 3
+  },
+  "unpressed-top-right": {
+    "x": 3,
+    "y": 0,
+    "width": 3,
+    "height": 3
+  },
+  "unpressed-top": {
+    "x": 2,
+    "y": 0,
+    "width": 1,
+    "height": 2
+  },
+  "unpressed-bottom": {
+    "x": 2,
+    "y": 4,
+    "width": 1,
+    "height": 2
+  },
+  "unpressed-left": {
+    "x": 0,
+    "y": 3,
+    "width": 2,
+    "height": 1
+  },
+  "unpressed-right": {
+    "x": 4,
+    "y": 3,
+    "width": 2,
+    "height": 1
+  },
+  "pressed-bottom-left": {
+    "x": 6,
+    "y": 3,
+    "width": 3,
+    "height": 3
+  },
+  "pressed-top-left": {
+    "x": 6,
+    "y": 0,
+    "width": 3,
+    "height": 3
+  },
+  "pressed-bottom-right": {
+    "x": 9,
+    "y": 3,
+    "width": 3,
+    "height": 3
+  },
+  "pressed-top-right": {
+    "x": 9,
+    "y": 0,
+    "width": 3,
+    "height": 3
+  },
+  "pressed-top": {
+    "x": 8,
+    "y": 0,
+    "width": 1,
+    "height": 2
+  },
+  "pressed-bottom": {
+    "x": 8,
+    "y": 4,
+    "width": 1,
+    "height": 2
+  },
+  "pressed-left": {
+    "x": 6,
+    "y": 3,
+    "width": 2,
+    "height": 1
+  },
+  "pressed-right": {
+    "x": 10,
+    "y": 3,
+    "width": 2,
+    "height": 1
+  },
+  "disabled-bottom-left": {
+    "x": 12,
+    "y": 3,
+    "width": 3,
+    "height": 3
+  },
+  "disabled-top-left": {
+    "x": 12,
+    "y": 0,
+    "width": 3,
+    "height": 3
+  },
+  "disabled-bottom-right": {
+    "x": 15,
+    "y": 3,
+    "width": 3,
+    "height": 3
+  },
+  "disabled-top-right": {
+    "x": 15,
+    "y": 0,
+    "width": 3,
+    "height": 3
+  },
+  "disabled-top": {
+    "x": 15,
+    "y": 0,
+    "width": 1,
+    "height": 2
+  },
+  "disabled-bottom": {
+    "x": 15,
+    "y": 4,
+    "width": 1,
+    "height": 2
+  },
+  "disabled-left": {
+    "x": 12,
+    "y": 3,
+    "width": 2,
+    "height": 1
+  },
+  "disabled-right": {
+    "x": 16,
+    "y": 3,
+    "width": 2,
+    "height": 1
+  },
+  "unpressed-fill": {
+    "x": 18,
+    "y": 0,
+    "width": 1,
+    "height": 1
+  },
+  "pressed-fill": {
+    "x": 18,
+    "y": 0,
+    "width": 1,
+    "height": 1
+  },
+  "disabled-fill": {
+    "x": 18,
+    "y": 1,
+    "width": 1,
+    "height": 1
+  },
+  "total": {
+    "x": 0,
+    "y": 0,
+    "width": 19,
+    "height": 6
+  }
+}

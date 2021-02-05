@@ -1,7 +1,7 @@
 package org.qme.client;
 
 import org.qme.client.vis.gui.*;
-import org.qme.client.vis.gui.Button;
+import org.qme.client.vis.gui.QButton;
 import org.qme.client.vis.wn.GLFWInteraction;
 import org.qme.client.vis.wn.Scrolling;
 import org.qme.io.AudioFiles;
@@ -29,7 +29,7 @@ public final class Application {
 	private int fps;
 	private long lastSecond;
 
-	public static QFont mono;
+	public static QBox box;
 	public static QLabel debugLabel;
 	public static QLabel profilerLabel;
 
@@ -43,8 +43,7 @@ public final class Application {
   	/**
    	 * All mouse responders
 	 */
-	private static final ArrayList<MouseResponder> responders
-			= new ArrayList<>();
+	private static final ArrayList<MouseResponder> responders = new ArrayList<>();
 
 	/**
 	 * Add an object
@@ -65,18 +64,27 @@ public final class Application {
 	 */
 	private Application() {
 		new World();
-		mono = new QFont(new Font(Font.MONOSPACED, Font.PLAIN, 16), true);
+		QFont labelMono = new QFont(new Font(Font.MONOSPACED, Font.PLAIN, 12), true);
+		QFont buttonFont = new QFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 18), true);
 
 		// Debug Label
-		debugLabel = new QLabel(mono, "...", 5, GLFWInteraction.windowSize() - (mono.getHeight() + 2), true);
+		debugLabel = new QLabel(labelMono, "...", 5, GLFWInteraction.windowSize() - (labelMono.getHeight() + 2), true);
 		debugLabel.setVisible(false);
 
 		// Profiler Label
-		profilerLabel = new QLabel(mono, "...", 5, 5, false);
+		profilerLabel = new QLabel(labelMono, "...", 5, 5, false);
 		profilerLabel.setVisible(false);
 
 		// Update debug information
 		Performance.updateValues();
+
+		// Create test button
+		QButton button = new QButton(buttonFont, "Le Test Button", GLFWInteraction.getSize() / 2, GLFWInteraction.getSize() / 2, 180, 70) {
+			@Override
+			protected void action() {
+				this.setClickable(false);
+			}
+		};
 
 	}
 
@@ -91,7 +99,7 @@ public final class Application {
 	public void mainloop() {
 
 		GUIManager.loadGUIs();
-
+    
 		while (GLFWInteraction.shouldBeOpen()) {
 
 			Performance.beginFrame();
