@@ -14,6 +14,10 @@ public class AbstractResource {
      */
     public ResourceType type;
 
+    public AbstractResource(ResourceType type) {
+        this.type = type;
+    }
+
     /**
      * Spawn chance is a whole number, 0-100
      * @param type which tile it spawns on
@@ -27,5 +31,7 @@ public class AbstractResource {
         return type;
     }
 
-    public abstract String getTexturePath();
+    public String getTexturePath() {
+        return "items/" + (type.name().toLowerCase()) + ".png";
+    }
 }
