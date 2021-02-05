@@ -20,11 +20,10 @@ public class AbstractResource {
 
     /**
      * Spawn chance is a whole number, 0-100
-     * @param tileType which tile it spawns on
      * @return
      */
-    public int getSpawnChance(TileType tileType) {
-        return switch (this.type) {
+    public static int getSpawnChance(ResourceType type, TileType tileType) {
+        return switch (type) {
             case COAL ->
                     switch (tileType) {
                         case MOUNTAIN -> 50;
