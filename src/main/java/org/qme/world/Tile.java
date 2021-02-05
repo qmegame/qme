@@ -62,10 +62,12 @@ public class Tile implements Renderable {
 	private void rollResources() {
 		Random rand = new Random();
 		final int roll = rand.nextInt(100);
-		ResourceType[] resources = (ResourceType.values());
-		for (int i = 0; i < resources.length; i++) {
-			if (roll < AbstractResource.getSpawnChance(resources[i], this.type)) {
-				this.resources.add(new AbstractResource(resources[i]));
+		ResourceType[] resourceList = (ResourceType.values());
+		for (int i = 0; i < resourceList.length; i++) {
+			ResourceType res = resourceList[i];
+			if (roll < AbstractResource.getSpawnChance(res, this.type)) {
+				if ( (res != ResourceType.SALT) || (this.resources.size() == 0) )
+					this.resources.add(new AbstractResource(res));
 			}
 		}
 	}
