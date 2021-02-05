@@ -49,10 +49,6 @@ public class WorldGenerator {
 			int j = rand.nextInt((int) side);
 			Logger.log("before individual continent", Severity.DEBUG);
 			world = WorldGenerator.addContinent(world, side, i, j);
-			
-			// Make coastal oceans into seas
-			Logger.log("before ocean to sea", Severity.DEBUG);
-			world = WorldGenerator.oceanToSea(world, side);
 		}
 		
 		// Make coastal oceans into seas
@@ -65,6 +61,10 @@ public class WorldGenerator {
 
 		for (int i = 0; i < GRID_FIXES; ++i)
 			world = removeGridding(world);
+
+		// Make coastal oceans into seas
+		Logger.log("before ocean to sea", Severity.DEBUG);
+		world = WorldGenerator.oceanToSea(world, side);
 
 		// Return generated (not yet) world
 		Logger.log("done", Severity.DEBUG);
