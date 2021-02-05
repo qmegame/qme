@@ -55,7 +55,7 @@ public class TextureManager {
         toLoad.add("items/grape.png");
         toLoad.add("items/grass.png");
         toLoad.add("items/leaf.png");
-        toLoad.add("items/salt.png");w
+        toLoad.add("items/salt.png");
         toLoad.add("items/sea_weed.png");
         toLoad.add("items/tall_grass.png");
         toLoad.add("misc/button.png");
