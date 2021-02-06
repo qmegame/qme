@@ -41,7 +41,7 @@ public class WorldGenerator {
 		
 		Logger.log("before ocean", Severity.DEBUG);
 		// Fill world with ocean
-		world = WorldGenerator.ocean(side);
+		ocean(side);
 		Logger.log("after ocean", Severity.DEBUG);
 		
 		final int continents = 5 * (1 + (int) Math.ceil(side / 11));
@@ -53,28 +53,28 @@ public class WorldGenerator {
 			int i = rand.nextInt((int) side);
 			int j = rand.nextInt((int) side);
 			Logger.log("before individual continent", Severity.DEBUG);
-			world = WorldGenerator.addContinent(world, side, i, j);
+			WorldGenerator.addContinent(side, i, j);
 		}
 		
 		// Make coastal oceans into seas
 		Logger.log("before final ocean to sea", Severity.DEBUG);
-		world = WorldGenerator.oceanToSea(world, side);
+		WorldGenerator.oceanToSea(side);
 
-		world = WorldGenerator.landReclaim(world, side);
+		WorldGenerator.landReclaim(side);
 
 		Logger.log("before grid fixing", Severity.DEBUG);
 
 		for (int i = 0; i < GRID_FIXES; ++i)
-			world = removeGridding(world);
+			removeGridding();
 
 		// Make mountain ranges
 		for (int j = 0; j < (int) (side * side / 30); j++) {
-			world = WorldGenerator.addMountainFinal(world, (int) side);
+			WorldGenerator.addMountainFinal((int) side);
 		}
 
 		// Make coastal oceans into seas
 		Logger.log("before ocean to sea", Severity.DEBUG);
-		world = WorldGenerator.oceanToSea(world, side);
+		WorldGenerator.oceanToSea(side);
 
 		// Return generated (not yet) world
 		Logger.log("done", Severity.DEBUG);
@@ -87,45 +87,32 @@ public class WorldGenerator {
 	 * @author santiago
 	 * @since 0.1.0
 	 * @param parchedSide A side length of the world
-	 * @return A TileType[][] of all TileType.OCEAN
 	 */
-	private static TileType[][] ocean(double parchedSide) {
+	private static void ocean(double parchedSide) {
 
-		// Make return blank world
-		TileType[][] wet = new TileType[(int) parchedSide][(int) parchedSide];
 		Logger.log("before each tile for loops", Severity.DEBUG);
 
 		// Fill each tile with ocean
 		for(int i = 0; i < parchedSide; i++) {
 			for(int j = 0; j < parchedSide; j++) {
-				wet[i][j] = TileType.OCEAN;
+				world[i][j] = TileType.OCEAN;
 			}
 		}
-		
-		// Return the ocean-world
-		return wet;
 	}
 	
 	/**
 	 * A utility function to generate and add a continent
 	 * @author santiago
 	 * @since 0.1.0
-	 * @param world The array to be modified
 	 * @param side The size of the world
 	 * @param centerX The center of the continent
 	 * @param centerY The center of the continent
-	 * @return The inputted array with a continent added
 	 */
-	private static TileType[][] addContinent(TileType[][] world,
-			double side, int centerX, int centerY) {
-
-		// Set up return world
-		TileType[][] newWorld;
-		newWorld = world;
+	private static void addContinent(double side, int centerX, int centerY) {
 		
 		Logger.log("assign center tile to random", Severity.DEBUG);
 		// Assign center tile to a random non-mountain land type
-		newWorld[centerX][centerY] = WorldGenerator.assignRandomFlatLand();
+		world[centerX][centerY] = WorldGenerator.assignRandomFlatLand();
 		Logger.log("centerX is: " + Integer.toString(centerX), Severity.DEBUG);
 		Logger.log("centerY is: " + Integer.toString(centerY), Severity.DEBUG);
 		
@@ -139,7 +126,7 @@ public class WorldGenerator {
 		// Expand left
 		for(int i = 1 /* helps with math*/ ; i <= centerX; i++) {
 			try {
-				if(newWorld[centerX - i][centerY] == TileType.OCEAN) {
+				if(world[centerX - i][centerY] == TileType.OCEAN) {
 					
 					// Set chance that tile is land
 					double chance = Math.pow(0.95, i) / 0.95;
@@ -148,7 +135,7 @@ public class WorldGenerator {
 					}
 					
 					if(rand.nextInt(10000) < Math.floor(10000 * chance)) {
-						newWorld[centerX - i][centerY] =
+						world[centerX - i][centerY] =
 								WorldGenerator.assignRandomFlatLand();
 					} else {
 						i--;
@@ -170,7 +157,7 @@ public class WorldGenerator {
 		// Expand up
 		for(int j = 1 /* helps with math*/ ; j <= centerY; j++) {
 			try {
-				if(newWorld[centerX][centerY - j] == TileType.OCEAN) {
+				if(world[centerX][centerY - j] == TileType.OCEAN) {
 					
 					// Set chance that tile is land
 					double chance = Math.pow(0.95, j) / 0.95;
@@ -180,7 +167,7 @@ public class WorldGenerator {
 					
 					// Determine if tile is land
 					if(rand.nextInt(10000) < Math.floor(10000 * chance)) {
-						newWorld[centerX][centerY - j] =
+						world[centerX][centerY - j] =
 								WorldGenerator.assignRandomFlatLand();
 					} else {
 						j--;
@@ -202,7 +189,7 @@ public class WorldGenerator {
 		// Expand right
 		for(int ii = 1 /* helps with math*/ ; ii < side; ii++) {
 			try {
-				if(newWorld[centerX + ii][centerY] == TileType.OCEAN) {
+				if(world[centerX + ii][centerY] == TileType.OCEAN) {
 					
 					// Set chance that tile is land
 					double chance = Math.pow(0.95, ii) / 0.95;
@@ -211,7 +198,7 @@ public class WorldGenerator {
 					}
 					
 					if(rand.nextInt(10000) < Math.floor(10000 * chance)) {
-						newWorld[centerX + ii][centerY] =
+						world[centerX + ii][centerY] =
 								WorldGenerator.assignRandomFlatLand();
 					} else {
 						ii--;
@@ -233,7 +220,7 @@ public class WorldGenerator {
 		// Expand down
 		for(int jj = 1 /* helps with math*/ ; jj < side; jj++) {
 			try {
-				if(newWorld[centerX][centerY + jj] == TileType.OCEAN) {
+				if(world[centerX][centerY + jj] == TileType.OCEAN) {
 					
 					// Set chance that tile is land
 					double chance = Math.pow(0.95, jj) / 0.95;
@@ -242,7 +229,7 @@ public class WorldGenerator {
 					}
 					
 					if(rand.nextInt(10000) < Math.floor(10000 * chance)) {
-						newWorld[centerX][centerY + jj] =
+						world[centerX][centerY + jj] =
 								WorldGenerator.assignRandomFlatLand();
 					} else {
 						jj--;
@@ -264,7 +251,7 @@ public class WorldGenerator {
 		// Expand continents into "squares"
 		for(int k = leftmost; k <= rightmost; k++) {
 			for(int l = upmost; l <= downmost; l++) {
-				if(newWorld[k][l] == TileType.OCEAN) {
+				if(world[k][l] == TileType.OCEAN) {
 					final double distance = Math.pow(Math.pow(Math.abs(centerX - k),
 							16 / 15) + Math.pow(Math.abs(centerY - l), 16 / 15), 7 / 4);
 					
@@ -275,7 +262,7 @@ public class WorldGenerator {
 					}
 					
 					if(rand.nextInt(10000) < Math.floor(10000 * chance)) {
-						newWorld[k][l] = WorldGenerator.assignRandomFlatLand();
+						world[k][l] = WorldGenerator.assignRandomFlatLand();
 					}
 				}
 			}
@@ -284,39 +271,32 @@ public class WorldGenerator {
 		Logger.log("before mountain", Severity.DEBUG);
 		// Add the continent's mountain range(s)
 		if(rand.nextInt(100) < 75) {
-			newWorld = WorldGenerator.addMountain(newWorld, leftmost, upmost,
+			WorldGenerator.addMountain(leftmost, upmost,
 					rightmost, downmost, side);
 		}
 		
 		Logger.log("before river", Severity.DEBUG);
 		// Add the continent's river(s)
 		if(rand.nextInt(100) < 75) {
-			newWorld = WorldGenerator.addRiver(newWorld, leftmost, upmost,
+			WorldGenerator.addRiver(leftmost, upmost,
 					rightmost, downmost, side);
 		}
 		
 		Logger.log("done with individual continent", Severity.DEBUG);
-		// Return the world plus continent
-		return newWorld;
+
 	}
 	
 	/**
 	 * A utility function to generate a mountain range on a continent
 	 * @author santiago
 	 * @since 0.1.0
-	 * @param world A non-mountainous, flat expanse
 	 * @param leftBound The left extreme of the continent
 	 * @param upBound The up extreme of the continent
 	 * @param rightBound The right extreme of the continent
 	 * @param downBound The down extreme of the continent
-	 * @return A world with a continent with a mountain range
 	 */
-	private static TileType[][] addMountain(TileType[][] world, int leftBound,
+	private static void addMountain(int leftBound,
 			int upBound, int rightBound, int downBound, double side) {
-		
-		// Create output
-		TileType[][] mountainWorld;
-		mountainWorld = world;
 		
 		// Set random start for range
 		final int startX = rand.nextInt(rightBound - leftBound + 1) + leftBound;
@@ -325,9 +305,9 @@ public class WorldGenerator {
 		Logger.log("random start generated", Severity.DEBUG);
 		// Make starting tile mountainous
 		if(rand.nextInt(3) < 2) {
-			mountainWorld[startX][startY] = TileType.MOUNTAIN;
+			world[startX][startY] = TileType.MOUNTAIN;
 		} else {
-			mountainWorld[startX][startY] = TileType.HIGH_MOUNTAIN;
+			world[startX][startY] = TileType.HIGH_MOUNTAIN;
 		}
 		
 		// Detect lead of mountain
@@ -340,7 +320,7 @@ public class WorldGenerator {
 		Logger.log("before while loop", Severity.DEBUG);
 		// Extend to the sea
 		int infiniteLoopAvoid = 0;
-		while(!WorldGenerator.touchesOcean(mountainWorld, headX, headY) &&
+		while(!WorldGenerator.touchesOcean(world, headX, headY) &&
 				infiniteLoopAvoid < 1000) {
 			
 			// Get direction to extend
@@ -357,46 +337,46 @@ public class WorldGenerator {
 			Logger.log("expanding range", Severity.DEBUG);
 			// Extend mountain range
 			if(nextDirection == 0) {
-				if(isMountain(mountainWorld[headX - 1][headY])) {
+				if(isMountain(world[headX - 1][headY])) {
 					break;
 				} else {
 					if(rand.nextInt(3) < 2) {
-						mountainWorld[headX - 1][headY] = TileType.MOUNTAIN;
+						world[headX - 1][headY] = TileType.MOUNTAIN;
 					} else {
-						mountainWorld[headX - 1][headY] = TileType.HIGH_MOUNTAIN;
+						world[headX - 1][headY] = TileType.HIGH_MOUNTAIN;
 					}
 					headX--;
 				}
 			} else if(nextDirection == 1) {
-				if(isMountain(mountainWorld[headX][headY - 1])) {
+				if(isMountain(world[headX][headY - 1])) {
 					break;
 				} else {
 					if(rand.nextInt(3) < 2) {
-						mountainWorld[headX][headY - 1] = TileType.MOUNTAIN;
+						world[headX][headY - 1] = TileType.MOUNTAIN;
 					} else {
-						mountainWorld[headX][headY - 1] = TileType.HIGH_MOUNTAIN;
+						world[headX][headY - 1] = TileType.HIGH_MOUNTAIN;
 					}
 					headY--;
 				}
 			} else if(nextDirection == 2) {
-				if(isMountain(mountainWorld[headX + 1][headY])) {
+				if(isMountain(world[headX + 1][headY])) {
 					break;
 				} else {
 					if(rand.nextInt(3) < 2) {
-						mountainWorld[headX + 1][headY] = TileType.MOUNTAIN;
+						world[headX + 1][headY] = TileType.MOUNTAIN;
 					} else {
-						mountainWorld[headX + 1][headY] = TileType.HIGH_MOUNTAIN;
+						world[headX + 1][headY] = TileType.HIGH_MOUNTAIN;
 					}
 					headX++;
 				}
 			} else {
-				if(isMountain(mountainWorld[headX][headY + 1])) {
+				if(isMountain(world[headX][headY + 1])) {
 					break;
 				} else {
 					if(rand.nextInt(3) < 2) {
-						mountainWorld[headX][headY + 1] = TileType.MOUNTAIN;
+						world[headX][headY + 1] = TileType.MOUNTAIN;
 					} else {
-						mountainWorld[headX][headY + 1] = TileType.HIGH_MOUNTAIN;
+						world[headX][headY + 1] = TileType.HIGH_MOUNTAIN;
 					}
 					headY++;
 				}
@@ -408,9 +388,6 @@ public class WorldGenerator {
 			// Give correct previousDirection
 			previousDirection = nextDirection;
 		}
-		
-		// Return
-		return mountainWorld;
 	}
 	
 	/**
@@ -467,26 +444,21 @@ public class WorldGenerator {
 	 * A utility function that generates a river on a continent
 	 * @author santiago
 	 * @since 0.1.0
-	 * @param world The river-less world
 	 * @param leftBound The left extreme of the continent
 	 * @param upBound The up extreme of the continent
 	 * @param rightBound The right extreme of the continent
 	 * @param downBound The down extreme of the continent
-	 * @return A world with a continent with a river
 	 */
-	private static TileType[][] addRiver(TileType[][] world, int leftBound,
+	private static void addRiver(int leftBound,
 			int upBound, int rightBound, int downBound, double side) {
 		Logger.log("create river started", Severity.DEBUG);
-		// Create output
-		TileType[][] flowingWorld;
-		flowingWorld = world;
 		
 		// Set random start for range
 		final int startX = rand.nextInt(rightBound - leftBound + 1) + leftBound;
 		final int startY = rand.nextInt(downBound - upBound + 1) + upBound;
 		
 		// Set starting tile
-		flowingWorld[startX][startY] = TileType.OCEAN;
+		world[startX][startY] = TileType.OCEAN;
 		
 		// Detect river's downstream
 		int headX = startX;
@@ -494,7 +466,7 @@ public class WorldGenerator {
 		Logger.log("starting tile set, before while loop", Severity.DEBUG);
 		// Extend to the ocean (or theoretically a looping river (but that's cool))
 		int infiniteLoopAvoid = 0;
-		while(!WorldGenerator.touchesTwoOceans(flowingWorld, headX, headY) &&
+		while(!WorldGenerator.touchesTwoOceans(world, headX, headY) &&
 				infiniteLoopAvoid < 1000) {
 			
 			// Get extend direction
@@ -503,28 +475,25 @@ public class WorldGenerator {
 			// Extend river
 			try {
 				if(nextDirection == 0) {
-					flowingWorld[headX - 1][headY] = TileType.OCEAN;
+					world[headX - 1][headY] = TileType.OCEAN;
 					headX--;
 				} else if(nextDirection == 1) {
-					flowingWorld[headX][headY - 1] = TileType.OCEAN;
+					world[headX][headY - 1] = TileType.OCEAN;
 					headY--;
 				} else if(nextDirection == 2) {
-					flowingWorld[headX + 1][headY] = TileType.OCEAN;
+					world[headX + 1][headY] = TileType.OCEAN;
 					headX++;
 				} else {
-					flowingWorld[headX][headY + 1] = TileType.OCEAN;
+					world[headX][headY + 1] = TileType.OCEAN;
 					headY++;
 				}
 			} catch(ArrayIndexOutOfBoundsException e) {
-				return flowingWorld;
 			}
 			
 			// Break infinite loops
 			infiniteLoopAvoid++;
 		}
 		Logger.log("river loop exited", Severity.DEBUG);
-		// Return
-		return flowingWorld;
 	}
 	
 	/**
@@ -567,29 +536,23 @@ public class WorldGenerator {
 	 * A utility function to turn all ocean tiles that touch land into sea tiles
 	 * @author santiago
 	 * @since 0.1.0
-	 * @param world The world in which all ocean tiles will be checked
 	 * @param side The length of the world's sides
 	 * @return The world but with sea tiles surrounding the land
 	 */
-	private static TileType[][] oceanToSea(TileType[][] world, double side) {
+	private static void oceanToSea(double side) {
 		Logger.log("ocean to sea called", Severity.DEBUG);
-		// Set up return
-		TileType[][] shallowWorld;
-		shallowWorld = world;
 		
 		// Check tiles
 		for(int i = 1; i < side - 1; i++) {
 			// Without starting at 1 and ending early, they'd be Out of Bounds
 			for(int j = 1; j < side - 1; j++) {
-				if(shallowWorld[i][j] == TileType.OCEAN &&
-				 WorldGenerator.touchesLand(shallowWorld, i, j)) {
-					shallowWorld[i][j] = TileType.SEA;
+				if(world[i][j] == TileType.OCEAN &&
+				 WorldGenerator.touchesLand(world, i, j)) {
+					world[i][j] = TileType.SEA;
 				}
 			}
 		}
 		Logger.log("Ocean to sea for loop finished", Severity.DEBUG);
-		// Return
-		return shallowWorld;
 	}
 	
 	/**
@@ -644,21 +607,18 @@ public class WorldGenerator {
 	/**
 	 * @author santiago
 	 * @since 0.2.0
-	 * @param world The world
 	 * @param side How long a side of the world is
 	 * @return The world but with no little "ponds"
 	 */
 
-	private static TileType[][] landReclaim(TileType[][] world, double side) {
-		TileType[][] dubaiWorld = world;
+	private static void landReclaim(double side) {
 		for(int i = 1; i < (side - 1); i++) {
 			for(int j = 1; j < (side - 1); j++) {
-				if(!WorldGenerator.touchesOcean(dubaiWorld, i, j) && !WorldGenerator.touchesSea(dubaiWorld, i, j)) {
-						dubaiWorld[i][j] = WorldGenerator.assignRandomFlatLand();
+				if(!WorldGenerator.touchesOcean(world, i, j) && !WorldGenerator.touchesSea(world, i, j)) {
+					world[i][j] = WorldGenerator.assignRandomFlatLand();
 				}
 			}
 		}
-		return dubaiWorld;
 	}
 
 	/**
@@ -692,8 +652,7 @@ public class WorldGenerator {
 	/**
 	 * Fix up a world by removing the weird gridding stuff.
 	 */
-	public static TileType[][] removeGridding(TileType[][] worldIn) {
-		TileType[][] world = worldIn;
+	public static void removeGridding() {
 		for (int i = 0; i < world.length; i++) {
 			for (int j = 0; j < world[0].length; j++) {
 				if (oceanSurroundCount(world, i, j) > GRIDDING_LIMIT) {
@@ -701,16 +660,13 @@ public class WorldGenerator {
 				}
 			}
 		}
-		return world;
 	}
 
 	/**
 	 * The final mountain addition (after continents)
-	 * @param world The world
 	 * @param side The side length
 	 */
-	private static TileType[][] addMountainFinal(TileType[][] world, int side) {
-		TileType[][] mountainWorld = world;
+	private static void addMountainFinal(int side) {
 		// Get range direction and length
 		final int rangeLength = 7 + (rand.nextInt(5) - 2);
 		final int rangeDirection = rand.nextInt(4);
@@ -720,11 +676,11 @@ public class WorldGenerator {
 		final int startY = rand.nextInt(side);
 
 		// Generate mountains
-		mountainWorld[startX][startY] = WorldGenerator.assignRandomMountain();
+		world[startX][startY] = WorldGenerator.assignRandomMountain();
 		if(rangeDirection == 0) {
 			for(int i = 1; i < rangeLength; i++) {
 				try {
-					mountainWorld[startX + i][startY] = WorldGenerator.assignRandomMountain();
+					world[startX + i][startY] = WorldGenerator.assignRandomMountain();
 				} catch(ArrayIndexOutOfBoundsException e) {
 					break;
 				}
@@ -732,7 +688,7 @@ public class WorldGenerator {
 		} else if(rangeDirection == 1) {
 			for(int i = 1; i < rangeLength; i++) {
 				try {
-					mountainWorld[startX - i][startY] = WorldGenerator.assignRandomMountain();
+					world[startX - i][startY] = WorldGenerator.assignRandomMountain();
 				} catch(ArrayIndexOutOfBoundsException e) {
 					break;
 				}
@@ -740,7 +696,7 @@ public class WorldGenerator {
 		} else if(rangeDirection == 2) {
 			for(int i = 1; i < rangeLength; i++) {
 				try {
-					mountainWorld[startX][startY + i] = WorldGenerator.assignRandomMountain();
+					world[startX][startY + i] = WorldGenerator.assignRandomMountain();
 				} catch(ArrayIndexOutOfBoundsException e) {
 					break;
 				}
@@ -748,7 +704,7 @@ public class WorldGenerator {
 		} else {
 			for(int i = 1; i < rangeLength; i++) {
 				try {
-					mountainWorld[startX][startY - i] = WorldGenerator.assignRandomMountain();
+					world[startX][startY - i] = WorldGenerator.assignRandomMountain();
 				} catch(ArrayIndexOutOfBoundsException e) {
 					break;
 				}
@@ -756,9 +712,7 @@ public class WorldGenerator {
 		}
 
 		// Sink floating mountains
-		mountainWorld = WorldGenerator.mountainSink(mountainWorld, side);
-
-		return mountainWorld;
+		world = WorldGenerator.mountainSink(world, side);
 	}
 
 	/**
