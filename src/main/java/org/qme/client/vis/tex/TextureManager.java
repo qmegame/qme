@@ -49,6 +49,15 @@ public class TextureManager {
         toLoad.add("tiles/desert.png");
         toLoad.add("tiles/jungle.png");
         toLoad.add("tiles/tundra.png");
+        toLoad.add("items/coal.png");
+        toLoad.add("items/fruit.png");
+        toLoad.add("items/gold_ore.png");
+        toLoad.add("items/grape.png");
+        toLoad.add("items/grass.png");
+        toLoad.add("items/leaf.png");
+        toLoad.add("items/salt.png");
+        toLoad.add("items/sea_weed.png");
+        toLoad.add("items/tall_grass.png");
         toLoad.add("misc/box.png");
         toLoad.add("misc/button.png");
         for (String texture : toLoad) {
