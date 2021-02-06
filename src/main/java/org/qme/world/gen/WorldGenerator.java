@@ -17,6 +17,11 @@ public class WorldGenerator {
 	private static final Random rand = new Random();
 	private static final String EXPANDED = "expanded ";
 
+	/**
+	 * Reduce passing stuff between functions
+	 */
+	private static TileType[][] world;
+
 	private WorldGenerator() {
 		throw new IllegalStateException("World Generation");
 	}
@@ -31,9 +36,8 @@ public class WorldGenerator {
 
 	public static TileType[][] generateWorldMap(double side) {
 		Logger.log("Generating Map", Severity.NORMAL);
-		
-		// Generate blank world
-		TileType[][] world;
+
+		world = new TileType[(int) side][(int) side];
 		
 		Logger.log("before ocean", Severity.DEBUG);
 		// Fill world with ocean
