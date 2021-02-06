@@ -86,10 +86,7 @@ public class TextureManager {
      * @return the texture id or null if the texture could not be found
      */
     public static Integer getTexture(String name) {
-        Integer ret = textures.getOrDefault(name, null);
-        if (ret == null)
-            Logger.log("Texture " + name + " not properly loaded", Severity.FATAL);
-        return ret;
+        return textures.getOrDefault(name, null);
     }
 
     /**
