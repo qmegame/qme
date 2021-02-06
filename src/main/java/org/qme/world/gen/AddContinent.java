@@ -7,7 +7,7 @@ import org.qme.world.TileType;
 public class AddContinent extends WorldGenerator{
     /**
      * A utility function to generate and add a continent
-     * @author santiago
+     * @author santiago, tom
      * @since 0.1.0
      * @param world The array to be modified
      * @param side The size of the world
