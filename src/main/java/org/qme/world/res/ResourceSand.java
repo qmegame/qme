@@ -2,7 +2,7 @@ package org.qme.world.res;
 
 import org.qme.world.TileType;
 
-public class ResourceSand extends AbstractResource {
+public class ResourceSand extends Resource {
     public ResourceSand() {
         super();
     }
@@ -18,7 +18,7 @@ public class ResourceSand extends AbstractResource {
 
     @Override
     public ResourceType getType() {
-        return ResourceType.Sand;
+        return ResourceType.SAND;
     }
 
     @Override

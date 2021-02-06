@@ -2,7 +2,7 @@ package org.qme.world.res;
 
 import org.qme.world.TileType;
 
-public class ResourceLumber extends AbstractResource {
+public class ResourceLumber extends Resource {
     public ResourceLumber() {
         super();
     }
@@ -18,7 +18,7 @@ public class ResourceLumber extends AbstractResource {
 
     @Override
     public ResourceType getType() {
-        return ResourceType.Lumber;
+        return ResourceType.LUMBER;
     }
 
     @Override

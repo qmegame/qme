@@ -1,8 +1,10 @@
-package org.qme.client.vis.gui;
+package org.qme.client.vis.gui.ui;
 
 import org.qme.client.Application;
 import org.qme.client.vis.RenderMaster;
+import org.qme.client.vis.gui.UIComponent;
 import org.qme.client.vis.tex.TextureManager;
+import org.qme.client.vis.wn.GLFWInteraction;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -111,7 +113,7 @@ public abstract class QButton extends UIComponent {
 
     @Override
     public boolean contains(int x, int y) {
-        return rect.contains(x, y);
+        return rect.contains(x, GLFWInteraction.windowSize() - y);
     }
 
     @Override

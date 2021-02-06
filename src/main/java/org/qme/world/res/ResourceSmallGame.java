@@ -2,7 +2,7 @@ package org.qme.world.res;
 
 import org.qme.world.TileType;
 
-public class ResourceSmallGame extends AbstractResource {
+public class ResourceSmallGame extends Resource {
     public ResourceSmallGame() {
         super();
     }
@@ -20,7 +20,7 @@ public class ResourceSmallGame extends AbstractResource {
 
     @Override
     public ResourceType getType() {
-        return ResourceType.SmallGame;
+        return ResourceType.SMALL_GAME;
     }
 
     @Override

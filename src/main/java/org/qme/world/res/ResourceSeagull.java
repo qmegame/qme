@@ -2,7 +2,7 @@ package org.qme.world.res;
 
 import org.qme.world.TileType;
 
-public class ResourceSeagull extends AbstractResource {
+public class ResourceSeagull extends Resource {
     public ResourceSeagull() {
         super();
     }
@@ -18,7 +18,7 @@ public class ResourceSeagull extends AbstractResource {
 
     @Override
     public ResourceType getType() {
-        return ResourceType.Seagull;
+        return ResourceType.SEAGULL;
     }
 
     @Override

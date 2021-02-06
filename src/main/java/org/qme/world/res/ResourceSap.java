@@ -2,7 +2,7 @@ package org.qme.world.res;
 
 import org.qme.world.TileType;
 
-public class ResourceSap extends AbstractResource {
+public class ResourceSap extends Resource {
     public ResourceSap() {
         super();
     }
@@ -20,7 +20,7 @@ public class ResourceSap extends AbstractResource {
 
     @Override
     public ResourceType getType() {
-        return ResourceType.Sap;
+        return ResourceType.SAP;
     }
 
     @Override

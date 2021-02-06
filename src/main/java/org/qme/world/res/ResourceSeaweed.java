@@ -2,7 +2,7 @@ package org.qme.world.res;
 
 import org.qme.world.TileType;
 
-public class ResourceSeaweed extends AbstractResource {
+public class ResourceSeaweed extends Resource {
     public ResourceSeaweed() {
         super();
     }
@@ -20,7 +20,7 @@ public class ResourceSeaweed extends AbstractResource {
 
     @Override
     public ResourceType getType() {
-        return ResourceType.Seaweed;
+        return ResourceType.SEAWEED;
     }
 
     @Override

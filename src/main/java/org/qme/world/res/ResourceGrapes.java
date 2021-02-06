@@ -2,7 +2,7 @@ package org.qme.world.res;
 
 import org.qme.world.TileType;
 
-public class ResourceGrapes extends AbstractResource {
+public class ResourceGrapes extends Resource {
     public ResourceGrapes() {
         super();
     }
@@ -18,7 +18,7 @@ public class ResourceGrapes extends AbstractResource {
 
     @Override
     public ResourceType getType() {
-        return ResourceType.Grapes;
+        return ResourceType.GRAPES;
     }
 
     @Override

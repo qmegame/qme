@@ -25,6 +25,7 @@ public abstract class UIComponent implements MouseResponder, Renderable {
 	 * Default constructor
 	 */
 	protected UIComponent() {
+		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
 		WindowManager.addObject(this);
 		Application.registerMouseResponder(this);
 	}

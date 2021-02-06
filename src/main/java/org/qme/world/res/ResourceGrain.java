@@ -2,7 +2,7 @@ package org.qme.world.res;
 
 import org.qme.world.TileType;
 
-public class ResourceGrain extends AbstractResource {
+public class ResourceGrain extends Resource {
     public ResourceGrain() {
         super();
     }
@@ -20,7 +20,7 @@ public class ResourceGrain extends AbstractResource {
 
     @Override
     public ResourceType getType() {
-        return ResourceType.Grain;
+        return ResourceType.GRAIN;
     }
 
     @Override

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Random;
 import org.qme.client.vis.RenderMaster;
 import org.qme.client.vis.Renderable;
+import org.qme.client.vis.gui.GUIManager;
+import org.qme.client.vis.gui.MouseResponder;
+import org.qme.client.vis.gui.UIComponent;
 import org.qme.client.vis.wn.WindowManager;
 import org.qme.world.res.*;
 
@@ -14,13 +17,13 @@ import org.qme.world.res.*;
  * @author adamhutchings, santiago
  * @since 0.1.0
  */
-public class Tile implements Renderable {
+public class Tile extends UIComponent {
 
 	public final int x;
 	public final int y;
 	public final TileType type;
 
-	public ArrayList<AbstractResource> resources = new ArrayList<AbstractResource>();
+	public ArrayList<Resource> resources = new ArrayList<Resource>();
 	
 	/**
 	 * Creates a new instance of a renderable Tile
@@ -29,6 +32,7 @@ public class Tile implements Renderable {
 	 * @param type the type of this tile
 	 */
 	public Tile(int x, int y, TileType type) {
+		super();
 		this.x = x;
 		this.y = y;
 		this.type = type;
@@ -74,8 +78,8 @@ public class Tile implements Renderable {
 			this.resources.add(seaweed);
 		}
 		final ResourceSalt salt = new ResourceSalt();
-		if(this.resources.get(0).getType() != ResourceType.BigFish
-				&& this.resources.get(0).getType() != ResourceType.Seaweed) {
+		if(this.resources.get(0).getType() != ResourceType.BIG_FISH
+				&& this.resources.get(0).getType() != ResourceType.SEAWEED) {
 			this.resources.add(salt);
 		}
 
@@ -89,9 +93,9 @@ public class Tile implements Renderable {
 			this.resources.add(smallShark);
 		}
 		final ResourceSeagull seagull = new ResourceSeagull();
-		if(this.resources.get(0).getType() != ResourceType.LittleFish
-				&& this.resources.get(0).getType() != ResourceType.SmallShark
-				&& this.resources.get(0).getType() != ResourceType.Seaweed) {
+		if(this.resources.get(0).getType() != ResourceType.SMALL_FISH
+				&& this.resources.get(0).getType() != ResourceType.SMALL_SHARK
+				&& this.resources.get(0).getType() != ResourceType.SEAWEED) {
 			this.resources.add(seagull);
 		}
 
@@ -180,5 +184,11 @@ public class Tile implements Renderable {
 		if(roll < cacti.getSpawnChance(this.type)) {
 			this.resources.add(cacti);
 		}
+	}
+
+	@Override
+	public void mouseClickOff() {
+		System.out.println("t");
+		GUIManager.resourcesUI.showFor(this);
 	}
 }

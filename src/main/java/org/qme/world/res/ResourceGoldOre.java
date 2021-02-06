@@ -2,7 +2,7 @@ package org.qme.world.res;
 
 import org.qme.world.TileType;
 
-public class ResourceGoldOre extends AbstractResource {
+public class ResourceGoldOre extends Resource {
     public ResourceGoldOre() {
         super();
     }
@@ -20,7 +20,7 @@ public class ResourceGoldOre extends AbstractResource {
 
     @Override
     public ResourceType getType() {
-        return ResourceType.GoldOre;
+        return ResourceType.GOLD_ORE;
     }
 
     @Override

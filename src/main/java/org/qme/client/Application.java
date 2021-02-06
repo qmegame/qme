@@ -1,17 +1,21 @@
 package org.qme.client;
 
 import org.qme.client.vis.gui.*;
-import org.qme.client.vis.gui.QButton;
+import org.qme.client.vis.gui.ui.QBox;
+import org.qme.client.vis.gui.ui.QFont;
+import org.qme.client.vis.gui.ui.QLabel;
 import org.qme.client.vis.wn.GLFWInteraction;
 import org.qme.client.vis.wn.Scrolling;
 import org.qme.io.AudioFiles;
 import org.qme.io.AudioPlayer;
+import org.qme.utils.Language;
 import org.qme.utils.Performance;
 import org.qme.world.World;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * The "controller", so to speak, of all events. It also helps to validate
@@ -64,6 +68,10 @@ public final class Application {
 	 */
 	private Application() {
 		new World();
+
+		Language.switchLanguage(new Locale("en", "US"));
+
+		GUIManager.loadGUIs();
 		QFont labelMono = new QFont(new Font(Font.MONOSPACED, Font.PLAIN, 12), true);
 		QFont buttonFont = new QFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 18), true);
 
@@ -79,12 +87,12 @@ public final class Application {
 		Performance.updateValues();
 
 		// Create test button
-		QButton button = new QButton(buttonFont, "Le Test Button", GLFWInteraction.getSize() / 2, GLFWInteraction.getSize() / 2, 180, 70) {
+		/*QButton button = new QButton(buttonFont, "Le Test Button", GLFWInteraction.getSize() / 2, GLFWInteraction.getSize() / 2, 180, 70) {
 			@Override
 			protected void action() {
 				this.setClickable(false);
 			}
-		};
+		};*/
 
 	}
 
@@ -97,8 +105,6 @@ public final class Application {
 	 * Run the application forever (or until an exit request is sent)
 	 */
 	public void mainloop() {
-
-		GUIManager.loadGUIs();
     
 		while (GLFWInteraction.shouldBeOpen()) {
 

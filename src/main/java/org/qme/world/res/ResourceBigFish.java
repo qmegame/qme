@@ -2,7 +2,7 @@ package org.qme.world.res;
 
 import org.qme.world.TileType;
 
-public class ResourceBigFish extends AbstractResource {
+public class ResourceBigFish extends Resource {
     public ResourceBigFish() {
         super();
     }
@@ -18,7 +18,7 @@ public class ResourceBigFish extends AbstractResource {
 
     @Override
     public ResourceType getType() {
-        return ResourceType.BigFish;
+        return ResourceType.BIG_FISH;
     }
 
     @Override

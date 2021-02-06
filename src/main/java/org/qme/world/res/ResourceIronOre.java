@@ -2,7 +2,7 @@ package org.qme.world.res;
 
 import org.qme.world.TileType;
 
-public class ResourceIronOre extends AbstractResource {
+public class ResourceIronOre extends Resource {
     public ResourceIronOre() {
         super();
     }
@@ -20,7 +20,7 @@ public class ResourceIronOre extends AbstractResource {
 
     @Override
     public ResourceType getType() {
-        return ResourceType.IronOre;
+        return ResourceType.IRON_ORE;
     }
 
     @Override

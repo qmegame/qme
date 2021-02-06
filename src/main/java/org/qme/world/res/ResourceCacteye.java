@@ -2,7 +2,7 @@ package org.qme.world.res;
 
 import org.qme.world.TileType;
 
-public class ResourceCacteye extends AbstractResource {
+public class ResourceCacteye extends Resource {
     public ResourceCacteye() {
         super();
     }
@@ -18,7 +18,7 @@ public class ResourceCacteye extends AbstractResource {
 
     @Override
     public ResourceType getType() {
-        return ResourceType.Cacteye;
+        return ResourceType.CACTUS;
     }
 
     @Override
