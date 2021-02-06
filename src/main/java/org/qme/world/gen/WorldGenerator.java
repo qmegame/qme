@@ -18,6 +18,10 @@ public class WorldGenerator {
 	private static final Random rand = new Random();
 	private static final String EXPANDED = "expanded ";
 
+	// The higher the constant, the less of that feature generates
+	private static final int MOUNTAIN_CONSTANT = 30;
+	private static final int RIVER_CONSTANT = 120;
+
 	private WorldGenerator() {
 		throw new IllegalStateException("World Generation");
 	}
@@ -65,10 +69,14 @@ public class WorldGenerator {
 			world = removeGridding(world);
 
 		// Make mountain ranges
-		for (int j = 0; j < (int) (side * side / 30); j++) {
+		for (int j = 0; j < (int) (side * side / MOUNTAIN_CONSTANT); j++) {
 			world = WorldGenerator.addMountainFinal(world, (int) side);
 		}
 
+		// Make final rivers
+		for (int k = 0; k < (int) (side * side / RIVER_CONSTANT); k++) {
+			world = addRiverFinal(world, (int) side);
+		}
 		// Make coastal oceans into seas
 		Logger.log("before ocean to sea", Severity.DEBUG);
 		world = WorldGenerator.oceanToSea(world, side);
@@ -797,5 +805,44 @@ public class WorldGenerator {
 		} else {
 			return world[x + 1][y];
 		}
+	}
+
+	private static TileType[][] addRiverFinal(TileType[][] world, int side) {
+		TileType[][] riverWorld = world;
+		// Get river direction
+		final Direction riverDirection = Direction.values()[rand.nextInt(4)];
+
+		// Get start of river
+		int startX = rand.nextInt(side);
+		int startY = rand.nextInt(side);
+		riverWorld[startX][startY] = TileType.OCEAN;
+
+		// Generate river until touches ocean
+		try {
+			while (!isOcean(getTileDirectional(riverWorld, startX, startY, riverDirection))) {
+				try {
+					if (riverDirection == Direction.UP) {
+						riverWorld[startX][startY - 1] = TileType.OCEAN;
+						startY--;
+					} else if (riverDirection == Direction.DOWN) {
+						riverWorld[startX][startY + 1] = TileType.OCEAN;
+						startY++;
+					} else if (riverDirection == Direction.LEFT) {
+						riverWorld[startX - 1][startY] = TileType.OCEAN;
+						startX--;
+					} else {
+						riverWorld[startX + 1][startY] = TileType.OCEAN;
+						startX++;
+					}
+				} catch (ArrayIndexOutOfBoundsException e) {
+					break;
+				}
+			}
+		} catch(ArrayIndexOutOfBoundsException e) {
+			return world;
+		}
+
+		// Return
+		return riverWorld;
 	}
 }
