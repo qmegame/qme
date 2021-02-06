@@ -2,6 +2,7 @@ package org.qme.world.gen;
 
 import org.qme.io.Logger;
 import org.qme.io.Severity;
+import org.qme.utils.Direction;
 import org.qme.world.TileType;
 import org.qme.world.World;
 
@@ -420,10 +421,10 @@ public class WorldGenerator {
 	 */
 	private static boolean touchesOcean(TileType[][] world, int x, int y) {
 		try {
-			if(world[x - 1][y] == TileType.OCEAN) { return true; }
-			if(world[x][y - 1] == TileType.OCEAN) { return true; }
-			if(world[x + 1][y] == TileType.OCEAN) { return true; }
-			if(world[x][y + 1] == TileType.OCEAN) { return true; }
+			if(getTileDirectional(world, x, y, Direction.UP) == TileType.OCEAN) { return true; }
+			if(getTileDirectional(world, x, y, Direction.DOWN) == TileType.OCEAN) { return true; }
+			if(getTileDirectional(world, x, y, Direction.LEFT) == TileType.OCEAN) { return true; }
+			if(getTileDirectional(world, x, y, Direction.RIGHT) == TileType.OCEAN) { return true; }
 			return false;
 		} catch(ArrayIndexOutOfBoundsException e) {
 			return true;
@@ -441,16 +442,16 @@ public class WorldGenerator {
 	 */
 	private static boolean touchesSea(TileType[][] world, int x, int y) {
 		try {
-			if (world[x - 1][y] == TileType.SEA) {
+			if (getTileDirectional(world, x, y, Direction.UP) == TileType.SEA) {
 				return true;
 			}
-			if (world[x][y - 1] == TileType.SEA) {
+			if (getTileDirectional(world, x, y, Direction.DOWN) == TileType.SEA) {
 				return true;
 			}
-			if (world[x + 1][y] == TileType.SEA) {
+			if (getTileDirectional(world, x, y, Direction.LEFT) == TileType.SEA) {
 				return true;
 			}
-			if (world[x][y + 1] == TileType.SEA) {
+			if (getTileDirectional(world, x, y, Direction.RIGHT) == TileType.SEA) {
 				return true;
 			}
 			return false;
@@ -539,16 +540,16 @@ public class WorldGenerator {
 			int oceansTouched = 0;
 			
 			// Count
-			if(world[x - 1][y] == TileType.OCEAN) {
+			if(isOcean(getTileDirectional(world, x, y, Direction.UP))) {
 				oceansTouched++;
 			}
-			if(world[x][y - 1] == TileType.OCEAN) {
+			if(isOcean(getTileDirectional(world, x, y, Direction.DOWN))) {
 				oceansTouched++;
 			}
-			if(world[x + 1][y] == TileType.OCEAN) {
+			if(isOcean(getTileDirectional(world, x, y, Direction.LEFT))) {
 				oceansTouched++;
 			}
-			if(world[x][y + 1] == TileType.OCEAN) {
+			if(isOcean(getTileDirectional(world, x, y, Direction.RIGHT))) {
 				oceansTouched++;
 			}
 			
@@ -598,16 +599,16 @@ public class WorldGenerator {
 	 */
 	private static boolean touchesLand(TileType[][] world, int x, int y) {
 		try {
-			if(!isOcean(world[x - 1][y])) {
+			if(!isOcean(getTileDirectional(world, x, y, Direction.UP))) {
 				return true;
 			}
-			if(!isOcean(world[x + 1][y])) {
+			if(!isOcean(getTileDirectional(world, x, y, Direction.DOWN))) {
 				return true;
 			}
-			if(!isOcean(world[x][y - 1])) {
+			if(!isOcean(getTileDirectional(world, x, y, Direction.LEFT))) {
 				return true;
 			}
-			if(!isOcean(world[x][y + 1])) {
+			if(!isOcean(getTileDirectional(world, x, y, Direction.RIGHT))) {
 				return true;
 			}
 			return false;
@@ -649,8 +650,9 @@ public class WorldGenerator {
 		TileType[][] dubaiWorld = world;
 		for(int i = 1; i < (side - 1); i++) {
 			for(int j = 1; j < (side - 1); j++) {
-				if(!WorldGenerator.touchesOcean(dubaiWorld, i, j) && !WorldGenerator.touchesSea(dubaiWorld, i, j)) {
-						dubaiWorld[i][j] = WorldGenerator.assignRandomFlatLand();
+				if(WorldGenerator.isOcean(dubaiWorld[i][j])
+						&& WorldGenerator.oceanSurroundCount(dubaiWorld, i, j) == 0) {
+					dubaiWorld[i][j] = WorldGenerator.assignRandomFlatLand();
 				}
 			}
 		}
@@ -709,7 +711,7 @@ public class WorldGenerator {
 		TileType[][] mountainWorld = world;
 		// Get range direction and length
 		final int rangeLength = 7 + (rand.nextInt(5) - 2);
-		final int rangeDirection = rand.nextInt(4);
+		final Direction rangeDirection = Direction.values()[rand.nextInt(4)];
 
 		// Get start of range
 		final int startX = rand.nextInt(side);
@@ -717,37 +719,19 @@ public class WorldGenerator {
 
 		// Generate mountains
 		mountainWorld[startX][startY] = WorldGenerator.assignRandomMountain();
-		if(rangeDirection == 0) {
-			for(int i = 1; i < rangeLength; i++) {
-				try {
-					mountainWorld[startX + i][startY] = WorldGenerator.assignRandomMountain();
-				} catch(ArrayIndexOutOfBoundsException e) {
-					break;
-				}
-			}
-		} else if(rangeDirection == 1) {
-			for(int i = 1; i < rangeLength; i++) {
-				try {
-					mountainWorld[startX - i][startY] = WorldGenerator.assignRandomMountain();
-				} catch(ArrayIndexOutOfBoundsException e) {
-					break;
-				}
-			}
-		} else if(rangeDirection == 2) {
-			for(int i = 1; i < rangeLength; i++) {
-				try {
-					mountainWorld[startX][startY + i] = WorldGenerator.assignRandomMountain();
-				} catch(ArrayIndexOutOfBoundsException e) {
-					break;
-				}
-			}
-		} else {
-			for(int i = 1; i < rangeLength; i++) {
-				try {
+		for(int i = 1; i < rangeLength; i++) {
+			try {
+				if(rangeDirection == Direction.UP) {
 					mountainWorld[startX][startY - i] = WorldGenerator.assignRandomMountain();
-				} catch(ArrayIndexOutOfBoundsException e) {
-					break;
+				} else if(rangeDirection == Direction.DOWN) {
+					mountainWorld[startX][startY + i] = WorldGenerator.assignRandomMountain();
+				} else if(rangeDirection == Direction.LEFT) {
+					mountainWorld[startX - 1][startY] = WorldGenerator.assignRandomMountain();
+				} else {
+					mountainWorld[startX + 1][startY] = WorldGenerator.assignRandomMountain();
 				}
+			} catch(ArrayIndexOutOfBoundsException e) {
+				break;
 			}
 		}
 
@@ -791,5 +775,27 @@ public class WorldGenerator {
 
 	private static boolean isMountain(TileType tile) {
 		return tile == TileType.MOUNTAIN || tile == TileType.HIGH_MOUNTAIN;
+	}
+
+	/**
+	 * From a reference tile, get a tile next to it, in a direction
+	 * @param world The world
+	 * @param x X of the reference tile
+	 * @param y Y of the reference tile
+	 * @param direction Which direction to get the tile
+	 * @return The tile in that direction from the reference
+	 * @throws ArrayIndexOutOfBoundsException
+	 */
+	public static TileType getTileDirectional(TileType[][] world, int x, int y, Direction direction)
+			throws ArrayIndexOutOfBoundsException{
+		if(direction == Direction.UP) {
+			return world[x][y - 1];
+		} else if(direction == Direction.DOWN) {
+			return world[x][y + 1];
+		} else if(direction == Direction.LEFT) {
+			return world[x - 1][y];
+		} else {
+			return world[x + 1][y];
+		}
 	}
 }
