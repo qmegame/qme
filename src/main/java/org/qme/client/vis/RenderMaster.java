@@ -5,6 +5,7 @@ import org.qme.client.vis.wn.Scrolling;
 import org.qme.client.vis.wn.GLFWInteraction;
 import org.qme.world.Tile;
 import org.qme.world.TileType;
+import org.qme.world.res.ResourceType;
 
 import java.awt.*;
 
@@ -57,13 +58,20 @@ public final class RenderMaster {
 
 		if (isInFrame(tileX, tileY)) {
 			int tileSizeActual = (int) (TILE_SIZE * zoom);
-			// TEMP
 			drawQuad(
 					tileX, tileY,
 					tileX + tileSizeActual, tileY,
 					tileX + tileSizeActual, tileY + tileSizeActual,
 					tileX, tileY + tileSizeActual,
 					getTexture(tile.type)
+			);
+			if (tile.resources.size() > 0)
+			drawQuad(
+					tileX + (tileSizeActual / 3), tileY + (tileSizeActual / 3),
+					tileX + (tileSizeActual * 2 / 3), tileY + (tileSizeActual / 3),
+					tileX + (tileSizeActual * 2 / 3), tileY + (tileSizeActual * 2 / 3),
+					tileX + (tileSizeActual / 3), tileY + (tileSizeActual * 2 / 3),
+					getTexture(tile.resources.get(0).type)
 			);
 		}
 	}
@@ -163,4 +171,17 @@ public final class RenderMaster {
 				"tiles/" + type.name().toLowerCase().replace('_', '-') + ".png";
 		return TextureManager.getTexture(texString);
 	}
+
+	/**
+	 * Get a texture id from a tile type
+	 * @param type which resource type
+	 * @return the texture id of the resource
+	 */
+	private static int getTexture(ResourceType type) {
+		String texString =
+				// HIGH_MOUNTAIN -> high_mountain -> high-mountain -> high-mountain.png
+				"items/" + type.name().toLowerCase() + ".png";
+		return TextureManager.getTexture(texString);
+	}
+
 }

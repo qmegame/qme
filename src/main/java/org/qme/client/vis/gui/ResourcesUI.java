@@ -34,11 +34,17 @@ public class ResourcesUI extends GUI {
 
         String resourceList = "";
 
-        for (Resource resource : tile.resources) {
-            resourceList += "\n- " + Language.getTranslation(resource.getType().toString());
+        if (tile.resources.size() > 0) {
+            for (Resource resource : tile.resources) {
+                resourceList += "\n- " + Language.getTranslation(resource.getType().toString());
+            }
+
+            resourceList = Language.getTranslation("TILE_CONTAINS") + resourceList;
+        } else {
+            resourceList = Language.getTranslation("NO_RESOURCES");
         }
 
-        this.label.text = Language.getTranslation(tile.type.toString()) + "\n\n" + Language.getTranslation("TILE_CONTAINS") + resourceList;
+        this.label.text = Language.getTranslation(tile.type.toString()) + "\n" + Language.getTranslation(tile.type.toString() + "_DESCRIPTION") + "\n\n" + resourceList;
     }
 
 }

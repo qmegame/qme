@@ -2,11 +2,13 @@ package org.qme.world;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import org.qme.client.Application;
 import org.qme.client.vis.RenderMaster;
-import org.qme.client.vis.Renderable;
 import org.qme.client.vis.gui.GUIManager;
 import org.qme.client.vis.gui.MouseResponder;
 import org.qme.client.vis.gui.UIComponent;
+import org.qme.client.vis.wn.GLFWInteraction;
 import org.qme.client.vis.wn.WindowManager;
 import org.qme.world.res.*;
 
@@ -66,129 +68,30 @@ public class Tile extends UIComponent {
 	private void rollResources() {
 		Random rand = new Random();
 		final int roll = rand.nextInt(100);
-
-		// Check each resource
-		// Ocean
-		final ResourceBigFish bigFish = new ResourceBigFish();
-		if(roll < bigFish.getSpawnChance(this.type)) {
-			this.resources.add(bigFish);
-		}
-		final ResourceSeaweed seaweed = new ResourceSeaweed();
-		if(roll < seaweed.getSpawnChance(this.type)) {
-			this.resources.add(seaweed);
-		}
-		final ResourceSalt salt = new ResourceSalt();
-		if(this.resources.get(0).getType() != ResourceType.BIG_FISH
-				&& this.resources.get(0).getType() != ResourceType.SEAWEED) {
-			this.resources.add(salt);
-		}
-
-		// Sea
-		final ResourceLittleFish littleFish = new ResourceLittleFish();
-		if(roll < littleFish.getSpawnChance(this.type)) {
-			this.resources.add(littleFish);
-		}
-		final ResourceSmallShark smallShark = new ResourceSmallShark();
-		if(roll < smallShark.getSpawnChance(this.type)) {
-			this.resources.add(smallShark);
-		}
-		final ResourceSeagull seagull = new ResourceSeagull();
-		if(this.resources.get(0).getType() != ResourceType.SMALL_FISH
-				&& this.resources.get(0).getType() != ResourceType.SMALL_SHARK
-				&& this.resources.get(0).getType() != ResourceType.SEAWEED) {
-			this.resources.add(seagull);
-		}
-
-		// Plains
-		final ResourceGrain grain = new ResourceGrain();
-		if(roll < grain.getSpawnChance(this.type)) {
-			this.resources.add(grain);
-		}
-		final ResourceGrass grass = new ResourceGrass();
-		if(roll < grass.getSpawnChance(this.type)) {
-			this.resources.add(grass);
-		}
-		final ResourceSmallGame smallGame = new ResourceSmallGame();
-		if(roll < smallGame.getSpawnChance(this.type)) {
-			this.resources.add(smallGame);
-		}
-
-		// Fertile plains
-		final ResourceMediumGame mediumGame = new ResourceMediumGame();
-		if(roll < mediumGame.getSpawnChance(this.type)) {
-			this.resources.add(mediumGame);
-		}
-		final ResourceTallGrass tallGrass = new ResourceTallGrass();
-		if(roll < tallGrass.getSpawnChance(this.type)) {
-			this.resources.add(tallGrass);
-		}
-		final ResourceGrapes grapes = new ResourceGrapes();
-		if(roll < grapes.getSpawnChance(this.type)) {
-			this.resources.add(grapes);
-		}
-
-		// Forest
-		final ResourceLumber lumber = new ResourceLumber();
-		if(roll < lumber.getSpawnChance(this.type)) {
-			this.resources.add(lumber);
-		}
-		final ResourceLeaf leaf = new ResourceLeaf();
-		if(roll < leaf.getSpawnChance(this.type)) {
-			this.resources.add(leaf);
-		}
-		final ResourceFruit fruit = new ResourceFruit();
-		if(roll < fruit.getSpawnChance(this.type)) {
-			this.resources.add(fruit);
-		}
-		final ResourceSap sap = new ResourceSap();
-		if(roll < sap.getSpawnChance(this.type)) {
-			this.resources.add(sap);
-		}
-		final ResourceLargeGame largeGame = new ResourceLargeGame();
-		if(roll < largeGame.getSpawnChance(this.type)) {
-			this.resources.add(largeGame);
-		}
-
-		// Jungle
-
-		// High Mountains
-		final ResourceRock rock = new ResourceRock();
-		if(roll < rock.getSpawnChance(this.type)) {
-			this.resources.add(rock);
-		}
-		final ResourceSnow snow = new ResourceSnow();
-		if(roll < snow.getSpawnChance(this.type)) {
-			this.resources.add(snow);
-		}
-		final ResourceCoal coal = new ResourceCoal();
-		if(roll < coal.getSpawnChance(this.type)) {
-			this.resources.add(coal);
-		}
-		final ResourceIronOre ironOre = new ResourceIronOre();
-		if(roll < ironOre.getSpawnChance(this.type)) {
-			this.resources.add(ironOre);
-		}
-		final ResourceGoldOre goldOre = new ResourceGoldOre();
-		if(roll < goldOre.getSpawnChance(this.type)) {
-			this.resources.add(goldOre);
-		}
-
-		// Mountains
-
-		// Desert
-		final ResourceSand sand = new ResourceSand();
-		if(roll < sand.getSpawnChance(this.type)) {
-			this.resources.add(sand);
-		}
-		final ResourceCacteye cacti = new ResourceCacteye();
-		if(roll < cacti.getSpawnChance(this.type)) {
-			this.resources.add(cacti);
+		ResourceType[] resourceList = (ResourceType.values());
+		for (int i = 0; i < resourceList.length; i++) {
+			ResourceType res = resourceList[i];
+			if (roll < Resource.getSpawnChance(res, this.type)) {
+				// TODO: Seagulls here
+				if ( (res != ResourceType.SALT) || (this.resources.size() == 0) )
+					this.resources.add(new Resource(res));
+			}
 		}
 	}
 
 	@Override
+	public boolean contains(int x, int y) {
+		return this.x * RenderMaster.TILE_SIZE + 50 > x && this.x * RenderMaster.TILE_SIZE < x && this.y * RenderMaster.TILE_SIZE + 50 > GLFWInteraction.windowSize() - y && this.y * RenderMaster.TILE_SIZE < GLFWInteraction.windowSize() - y;
+	}
+
+	@Override
 	public void mouseClickOff() {
-		System.out.println("t");
+		this.setVisible(true);
 		GUIManager.resourcesUI.showFor(this);
+	}
+
+	@Override
+	public void mouseClickOn() {
+		this.setVisible(false);
 	}
 }

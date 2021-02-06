@@ -37,6 +37,7 @@ public class World {
 		for (int i = WORLD_SIZE - 1; i > 0; i--) {
 			for (int j = WORLD_SIZE - 1; j > 0; j--) {
 				tiles[i][j] = new Tile(i, j, typelist[i][j]);
+				tiles[i][j].resetResources();
 			}
 		}
 	}

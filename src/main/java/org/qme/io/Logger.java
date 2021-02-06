@@ -72,7 +72,7 @@ public class Logger {
 	 * @param message information about error
 	 */
 	private static void showDialog(String message) {
-		JOptionPane.showMessageDialog(null, message, null, JOptionPane.ERROR_MESSAGE);
+		//JOptionPane.showMessageDialog(null, message, null, JOptionPane.ERROR_MESSAGE);
 	}
 
 }

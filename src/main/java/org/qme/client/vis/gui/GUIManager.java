@@ -1,14 +1,6 @@
 package org.qme.client.vis.gui;
 
-import org.qme.client.vis.gui.ui.QBox;
-import org.qme.client.vis.gui.ui.QButton;
 import org.qme.client.vis.gui.ui.QFont;
-import org.qme.client.vis.gui.ui.QLabel;
-import org.qme.world.Tile;
-import org.qme.world.TileType;
-import org.qme.world.res.Resource;
-import org.qme.world.res.ResourceBigFish;
-import org.qme.world.res.ResourceCoal;
 
 import java.awt.*;
 
