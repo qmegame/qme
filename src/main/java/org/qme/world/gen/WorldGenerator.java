@@ -3,6 +3,7 @@ package org.qme.world.gen;
 import org.qme.io.Logger;
 import org.qme.io.Severity;
 import org.qme.world.TileType;
+import org.qme.world.World;
 
 import java.util.Random;
 
@@ -61,6 +62,11 @@ public class WorldGenerator {
 
 		for (int i = 0; i < GRID_FIXES; ++i)
 			world = removeGridding(world);
+
+		// Make mountain ranges
+		for (int j = 0; j < (int) (side * side / 30); j++) {
+			world = WorldGenerator.addMountainFinal(world, (int) side);
+		}
 
 		// Make coastal oceans into seas
 		Logger.log("before ocean to sea", Severity.DEBUG);
@@ -719,4 +725,96 @@ public class WorldGenerator {
 		return world;
 	}
 
+	/**
+	 * The final mountain addition (after continents)
+	 * @param world The world
+	 * @param side The side length
+	 */
+	private static TileType[][] addMountainFinal(TileType[][] world, int side) {
+		TileType[][] mountainWorld = world;
+		// Get range direction and length
+		final int rangeLength = 7 + (rand.nextInt(5) - 2);
+		final int rangeDirection = rand.nextInt(4);
+
+		// Get start of range
+		final int startX = rand.nextInt(side);
+		final int startY = rand.nextInt(side);
+
+		// Generate mountains
+		mountainWorld[startX][startY] = WorldGenerator.assignRandomMountain();
+		if(rangeDirection == 0) {
+			for(int i = 1; i < rangeLength; i++) {
+				try {
+					mountainWorld[startX + i][startY] = WorldGenerator.assignRandomMountain();
+				} catch(ArrayIndexOutOfBoundsException e) {
+					break;
+				}
+			}
+		} else if(rangeDirection == 1) {
+			for(int i = 1; i < rangeLength; i++) {
+				try {
+					mountainWorld[startX - i][startY] = WorldGenerator.assignRandomMountain();
+				} catch(ArrayIndexOutOfBoundsException e) {
+					break;
+				}
+			}
+		} else if(rangeDirection == 2) {
+			for(int i = 1; i < rangeLength; i++) {
+				try {
+					mountainWorld[startX][startY + i] = WorldGenerator.assignRandomMountain();
+				} catch(ArrayIndexOutOfBoundsException e) {
+					break;
+				}
+			}
+		} else {
+			for(int i = 1; i < rangeLength; i++) {
+				try {
+					mountainWorld[startX][startY - i] = WorldGenerator.assignRandomMountain();
+				} catch(ArrayIndexOutOfBoundsException e) {
+					break;
+				}
+			}
+		}
+
+		// Sink floating mountains
+		mountainWorld = WorldGenerator.mountainSink(mountainWorld, side);
+
+		return mountainWorld;
+	}
+
+	/**
+	 * Returns a random mountain
+	 * @return A random mountain
+	 */
+	private static TileType assignRandomMountain() {
+		if(rand.nextInt(4) == 0) {
+			return TileType.HIGH_MOUNTAIN;
+		} else {
+			return TileType.MOUNTAIN;
+		}
+	}
+
+	/**
+	 * This runs to sink any ill-formed mountain chains
+	 * @param world The world
+	 * @param side The side length
+	 * @return A world without random mountain chains
+	 */
+	private static TileType[][] mountainSink(TileType[][] world, int side) {
+		TileType[][] sunkenWorld = world;
+
+		for(int i = 0; i < side; i++) {
+			for(int j = 0; j < side; j++) {
+				if(WorldGenerator.isMountain(sunkenWorld[i][j]) && WorldGenerator.touchesTwoOceans(sunkenWorld, i, j)) {
+					sunkenWorld[i][j] = TileType.OCEAN;
+				}
+			}
+		}
+
+		return sunkenWorld;
+	}
+
+	private static boolean isMountain(TileType tile) {
+		return WorldGenerator.isType(tile, TileType.MOUNTAIN) || WorldGenerator.isType(tile, TileType.HIGH_MOUNTAIN);
+	}
 }
