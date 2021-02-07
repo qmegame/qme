@@ -2,7 +2,6 @@ package org.qme.world;
 
 import org.qme.utils.Multithreading;
 import org.qme.world.gen.WorldGenerator;
-import org.qme.client.vis.LoadingBar;
 
 /**
  * Represents a world in the game, with tiles.
@@ -13,7 +12,6 @@ public class World {
 
 	Multithreading r1 = new Multithreading("Thread-1");
 	Multithreading r2 = new Multithreading("Thread-2");
-	LoadingBar bar = new LoadingBar();
 
 
 	/**
@@ -32,7 +30,6 @@ public class World {
 	public World() {
 		r1.start();
 		r2.start();
-		bar.newWindow();
 		tiles = new Tile[WORLD_SIZE][WORLD_SIZE];
 		TileType[][] typelist = WorldGenerator.generateWorldMap(WORLD_SIZE);
 

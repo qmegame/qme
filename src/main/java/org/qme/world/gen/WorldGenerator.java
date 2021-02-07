@@ -5,6 +5,8 @@ import org.qme.io.Severity;
 import org.qme.utils.Direction;
 import org.qme.world.TileType;
 
+import org.qme.client.vis.LoadingBar;
+
 import java.util.Random;
 
 /**
@@ -35,6 +37,8 @@ public class WorldGenerator {
 
 	public static TileType[][] generateWorldMap(double side) {
 		Logger.log("Generating Map", Severity.NORMAL);
+
+		LoadingBar.newWindow();
 		
 		// Generate blank world
 		TileType[][] world;
@@ -42,6 +46,7 @@ public class WorldGenerator {
 		Logger.log("before ocean", Severity.DEBUG);
 		// Fill world with ocean
 		world = WorldGenerator.ocean(side);
+		LoadingBar.fill(10);
 		Logger.log("after ocean", Severity.DEBUG);
 		
 		final int continents = 5 * (1 + (int) Math.ceil(side / 11));
@@ -55,12 +60,16 @@ public class WorldGenerator {
 			Logger.log("before individual continent", Severity.DEBUG);
 			world = AddContinent.addContinent(world, side, i, j);
 		}
+		LoadingBar.fill(30);
 		
 		// Make coastal oceans into seas
 		Logger.log("before final ocean to sea", Severity.DEBUG);
 		world = WorldGenerator.oceanToSea(world, side);
+		LoadingBar.fill(50);
+
 
 		world = WorldGenerator.landReclaim(world, side);
+		LoadingBar.fill(65);
 
 		Logger.log("before grid fixing", Severity.DEBUG);
 
@@ -71,17 +80,24 @@ public class WorldGenerator {
 		for (int j = 0; j < (int) (side * side / MOUNTAIN_CONSTANT); j++) {
 			world = WorldGenerator.addMountainFinal(world, (int) side);
 		}
+		LoadingBar.fill(70);
 
 		// Make final rivers
 		for (int k = 0; k < (int) (side * side / RIVER_CONSTANT); k++) {
 			world = addRiverFinal(world, (int) side);
 		}
+		LoadingBar.fill(80);
+
 		// Make coastal oceans into seas
 		Logger.log("before ocean to sea", Severity.DEBUG);
 		world = WorldGenerator.oceanToSea(world, side);
+		LoadingBar.fill(90);
 
 		// Return generated (not yet) world
 		Logger.log("done", Severity.DEBUG);
+		LoadingBar.fill(100);
+
+		LoadingBar.done();
 		return world;
 	}
 	
@@ -359,6 +375,4 @@ public class WorldGenerator {
 		// Return
 		return riverWorld;
 	}
-
-
 }

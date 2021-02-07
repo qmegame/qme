@@ -16,7 +16,7 @@ import java.awt.event.*;
 public class LoadingBar extends JFrame {
 
     // create a frame
-    static JFrame f;
+    static JFrame frame;
     static JProgressBar b;
     private static boolean done;
 
@@ -24,11 +24,11 @@ public class LoadingBar extends JFrame {
     {
 
         // create a frame
-        f = new JFrame("Generating World...");
+        frame = new JFrame("Generating World...");
 
         // create a panel
         JPanel p = new JPanel();
-        Logger.log("LoadingBar Panel Created", Severity.NORMAL);
+        Logger.log("LoadingBar Panel Created", Severity.DEBUG);
 
         // create a progressbar
         b = new JProgressBar();
@@ -40,35 +40,37 @@ public class LoadingBar extends JFrame {
 
         // add progressbar
         p.add(b);
-        Logger.log("LoadingBar  Added", Severity.NORMAL);
+        Logger.log("LoadingBar Added", Severity.DEBUG);
 
         // add panel
-        f.add(p);
-        Logger.log("LoadingBar Panel Added", Severity.NORMAL);
+        frame.add(p);
+        Logger.log("LoadingBar Panel Added", Severity.DEBUG);
 
         // set the size of the frame
-        f.setSize(150, 100);
-        f.setVisible(true);
+        frame.setSize(200, 100);
+        frame.setVisible(true);
     }
 
     // function to increase progress
-    public static void fill() {
+    public static void fill(int progress) {
         try {
             if (!done) {
-                int progress = task.getProgress();
                 b.setValue(progress);
             }
         } catch (Exception e) {
-            // Exception
+            // exception
             Logger.log("Error: LoadingBar Cannot Fill", Severity.FATAL);
         }
     }
-    public void done() {
-        //Tell progress listener to stop updating progress bar.
+    public static void done() {
+        // tell progress listener to stop updating progress bar.
         done = true;
         Toolkit.getDefaultToolkit().beep();
-        setCursor(null); //turn off the wait cursor
-        b.setValue(b.getMinimum());
-        Logger.log("LoadingBar Done", Severity.FATAL);
+        Logger.log("LoadingBar Done", Severity.NORMAL);
+
+        // close window
+        frame.setVisible(false);
+        frame.dispose();
+        Logger.log("LoadingBar Windows Closed", Severity.DEBUG);
     }
 }
