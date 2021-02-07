@@ -65,33 +65,35 @@ public class WorldGenerator {
 		// Make coastal oceans into seas
 		Logger.log("before final ocean to sea", Severity.DEBUG);
 		world = WorldGenerator.oceanToSea(world, side);
-		LoadingBar.fill(50);
+		LoadingBar.fill(40);
 
 
 		world = WorldGenerator.landReclaim(world, side);
-		LoadingBar.fill(65);
+		LoadingBar.fill(60);
 
 		Logger.log("before grid fixing", Severity.DEBUG);
 
 		for (int i = 0; i < GRID_FIXES; ++i)
 			world = removeGridding(world);
 
+		LoadingBar.fill(85);
+
 		// Make mountain ranges
 		for (int j = 0; j < (int) (side * side / MOUNTAIN_CONSTANT); j++) {
 			world = WorldGenerator.addMountainFinal(world, (int) side);
 		}
-		LoadingBar.fill(70);
+		LoadingBar.fill(90);
 
 		// Make final rivers
 		for (int k = 0; k < (int) (side * side / RIVER_CONSTANT); k++) {
 			world = addRiverFinal(world, (int) side);
 		}
-		LoadingBar.fill(80);
+		LoadingBar.fill(95);
 
 		// Make coastal oceans into seas
 		Logger.log("before ocean to sea", Severity.DEBUG);
 		world = WorldGenerator.oceanToSea(world, side);
-		LoadingBar.fill(90);
+		LoadingBar.fill(97);
 
 		// Return generated (not yet) world
 		Logger.log("done", Severity.DEBUG);

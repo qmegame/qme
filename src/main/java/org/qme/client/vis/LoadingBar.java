@@ -47,7 +47,7 @@ public class LoadingBar extends JFrame {
         Logger.log("LoadingBar Panel Added", Severity.DEBUG);
 
         // set the size of the frame
-        frame.setSize(200, 100);
+        frame.setSize(200, 80);
         frame.setVisible(true);
     }
 
