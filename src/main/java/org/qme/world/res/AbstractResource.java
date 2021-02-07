@@ -23,57 +23,56 @@ public class AbstractResource {
      * @return
      */
     public static int getSpawnChance(ResourceType type, TileType tileType) {
-        switch (type) {
-            case COAL:
+        return switch (type) {
+            case COAL ->
                     switch (tileType) {
-                        case MOUNTAIN: return 50;
-                        case HIGH_MOUNTAIN: return 20;
-                        default: return 0;
-                    }
-            case FRUIT:
+                        case MOUNTAIN -> 50;
+                        case HIGH_MOUNTAIN -> 20;
+                        default -> 0;
+                    };
+            case FRUIT ->
                     switch (tileType) {
-                        case FOREST: return 20;
-                        default: return 0;
-                    }
-            case GOLD_ORE:
+                        case FOREST -> 20;
+                        default -> 0;
+                    };
+            case GOLD_ORE ->
                     switch (tileType) {
-                        case MOUNTAIN: return 10;
-                        case HIGH_MOUNTAIN: return 20;
-                        default: return 0;
-                    }
-            case GRAPE:
+                        case MOUNTAIN -> 10;
+                        case HIGH_MOUNTAIN -> 20;
+                        default -> 0;
+                    };
+            case GRAPE ->
                     switch (tileType) {
-                        case FERTILE_PLAINS: return 10;
-                        default: return 0;
-                    }
-            case GRASS:
+                        case FERTILE_PLAINS -> 10;
+                        default -> 0;
+                    };
+            case GRASS ->
                     switch (tileType) {
-                        case PLAINS: return 70;
-                        default: return 0;
-                    }
-            case LEAF:
+                        case PLAINS -> 70;
+                        default -> 0;
+                    };
+            case LEAF ->
                     switch (tileType) {
-                        case FOREST: return 80;
-                        default: return 0;
-                    }
-            case SALT:
+                        case FOREST -> 80;
+                        default -> 0;
+                    };
+            case SALT ->
                     switch (tileType) {
-                        case OCEAN: return 200;
-                        default: return 0;
-                    }
-            case SEA_WEED:
+                        case OCEAN -> 200;
+                        default -> 0;
+                    };
+            case SEA_WEED ->
                     switch (tileType) {
-                        case OCEAN: return 30;
-                        case SEA: return 25;
-                        default: return 0;
-                    }
-            case TALL_GRASS:
+                        case OCEAN -> 30;
+                        case SEA -> 25;
+                        default -> 0;
+                    };
+            case TALL_GRASS ->
                     switch (tileType) {
-                        case FERTILE_PLAINS: return 50;
-                        default: return 0;
-                    }
+                        case FERTILE_PLAINS -> 50;
+                        default -> 0;
+                    };
         };
-        return 0;
     }
 
     public ResourceType getType() {

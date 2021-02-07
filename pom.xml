@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.qme</groupId>
-    <artifactId>qme</artifactId>
+    <artifactId>qme5</artifactId>
     <version>0.3.0</version>
 
     <properties>
