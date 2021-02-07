@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
@@ -205,13 +206,8 @@ public class TextureManager {
         HashMap<String, Rectangle> toReturn = new HashMap<>();
         JSONObject regions = null;
 
-        try {
-            Path path = Paths.get(TextureManager.class.getResource(resource).toURI());
-            regions = new JSONObject(new String(Files.readAllBytes(path)));
-        } catch (IOException | URISyntaxException e) {
-            Logger.log("Failed to load texture atlas " + resource, Severity.ERROR);
-            e.printStackTrace();
-        }
+        InputStream stream =TextureManager.class.getResourceAsStream(resource);
+        regions = new JSONObject(new JSONTokener(stream));
 
         if (regions == null) {
             return toReturn;
