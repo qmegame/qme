@@ -98,8 +98,6 @@ public class WorldGenerator {
 		// Return generated (not yet) world
 		Logger.log("done", Severity.DEBUG);
 		LoadingBar.fill(100);
-
-		LoadingBar.done();
 		return world;
 	}
 	

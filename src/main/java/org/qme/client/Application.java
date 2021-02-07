@@ -1,5 +1,6 @@
 package org.qme.client;
 
+import org.qme.client.vis.LoadingBar;
 import org.qme.client.vis.gui.*;
 import org.qme.client.vis.gui.QButton;
 import org.qme.client.vis.wn.GLFWInteraction;
@@ -77,6 +78,9 @@ public final class Application {
 
 		// Update debug information
 		Performance.updateValues();
+
+		// Close loading bar
+		LoadingBar.done();
 
 		// Create test button
 		QButton button = new QButton(buttonFont, "Le Test Button", GLFWInteraction.getSize() / 2, GLFWInteraction.getSize() / 2, 180, 70) {
