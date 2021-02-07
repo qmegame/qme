@@ -6,7 +6,7 @@ import org.qme.io.Severity;
 /**
  * The class that handles multithreading
  * @author Tom
- * @since 0.3.0
+ * @since preC
  */
 
 public class Multithreading implements Runnable {
