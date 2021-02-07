@@ -13,7 +13,7 @@ public class World {
 
 	Multithreading r1 = new Multithreading("Thread-1");
 	Multithreading r2 = new Multithreading("Thread-2");
-	LoadingBar Bar = new LoadingBar();
+	LoadingBar bar = new LoadingBar();
 
 
 	/**
@@ -32,7 +32,7 @@ public class World {
 	public World() {
 		r1.start();
 		r2.start();
-		Bar.newWindow();
+		bar.newWindow();
 		tiles = new Tile[WORLD_SIZE][WORLD_SIZE];
 		TileType[][] typelist = WorldGenerator.generateWorldMap(WORLD_SIZE);
 
