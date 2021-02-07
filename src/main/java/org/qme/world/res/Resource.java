@@ -7,14 +7,14 @@ import org.qme.world.TileType;
  * @author jakeroggenbuck
  * @since 0.3.0
  */
-public class AbstractResource {
+public class Resource {
 
     /**
      * Which type it is
      */
     public ResourceType type;
 
-    public AbstractResource(ResourceType type) {
+    public Resource(ResourceType type) {
         this.type = type;
     }
 

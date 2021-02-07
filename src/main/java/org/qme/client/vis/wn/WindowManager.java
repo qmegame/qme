@@ -96,10 +96,6 @@ public final class WindowManager {
 					Application.audioPlayer.pause();
 				}
 				break;
-			case GLFW_KEY_TAB:
-				if (keyAction != GLFW_RELEASE) break;
-				GUIManager.RESOURCE_GUI.toggle();
-				break;
 			case GLFW_KEY_F1:
 				if (keyAction != GLFW_RELEASE) break;
 				Application.debugLabel.setVisible(!Application.debugLabel.isVisible());

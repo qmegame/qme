@@ -20,7 +20,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
  * Contains the functionality for interfacing with GLFW code. Used to be part of
  * the massive WindowManager file.
  * @author adamhutchings
- * @since 0.3
+ * @since 0.3.0
  */
 public class GLFWInteraction {
 

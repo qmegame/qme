@@ -65,6 +65,15 @@ public final class RenderMaster {
 					tileX, tileY + tileSizeActual,
 					getTexture(tile.type)
 			);
+			if (tile.isHovered()) {
+				drawQuad(
+						tileX, tileY,
+						tileX + tileSizeActual, tileY,
+						tileX + tileSizeActual, tileY + tileSizeActual,
+						tileX, tileY + tileSizeActual,
+						TextureManager.getTexture("tiles/hover.png")
+				);
+			}
 			if (tile.resources.size() > 0)
 			drawQuad(
 					tileX + (tileSizeActual / 3), tileY + (tileSizeActual / 3),

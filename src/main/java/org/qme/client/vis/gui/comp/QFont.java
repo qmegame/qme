@@ -1,4 +1,4 @@
-package org.qme.client.vis.gui;
+package org.qme.client.vis.gui.comp;
 
 import org.lwjgl.system.MemoryUtil;
 import org.qme.client.vis.RenderMaster;

@@ -1,21 +1,19 @@
 package org.qme.client.vis.gui;
 
-import java.awt.*;
+import org.qme.client.vis.gui.ui.ResourcesUI;
 
 /**
  * Contains all GUIs that are in the game.
  */
 public class GUIManager {
 
-    public static GUI RESOURCE_GUI;
+    public static ResourcesUI resourcesUI;
 
     /**
      * Load everything.
      */
     public static void loadGUIs() {
-        RESOURCE_GUI = new GUI(new UIComponent[] {
-                new QBox(new Rectangle(5,5, 100, 120))
-        });
+        resourcesUI = new ResourcesUI();
     }
 
 }

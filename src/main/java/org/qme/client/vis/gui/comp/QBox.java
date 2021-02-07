@@ -1,8 +1,10 @@
-package org.qme.client.vis.gui;
+package org.qme.client.vis.gui.comp;
 
 import org.qme.client.Application;
 import org.qme.client.vis.RenderMaster;
+import org.qme.client.vis.gui.UIComponent;
 import org.qme.client.vis.tex.TextureManager;
+import org.qme.client.vis.wn.GLFWInteraction;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -28,7 +30,7 @@ public class QBox extends UIComponent {
     /**
      * Creates a new QBox object
      * @param rect the box location
-    */
+     */
     public QBox(Rectangle rect) {
         super();
         this.rect = rect;
@@ -42,13 +44,18 @@ public class QBox extends UIComponent {
     public void calculateDimensions() {
         this.actualCornerHeight = atlas.get("bottom-left").height * Application.RENDER_SCALE;
         this.actualCornerWidth = atlas.get("bottom-left").width * Application.RENDER_SCALE;
-        this.bodyWidth = rect.width - atlas.get("bottom-left").width * 2;
-        this.bodyHeight = rect.height - atlas.get("bottom-left").height * 2;
+        this.bodyWidth = (rect.width / Application.RENDER_SCALE) - atlas.get("bottom-left").width * 2;
+        this.bodyHeight = (rect.height / Application.RENDER_SCALE) - atlas.get("bottom-left").height * 2;
         this.actualBodyWidth = bodyWidth * Application.RENDER_SCALE;
         this.actualBodyHeight = bodyHeight * Application.RENDER_SCALE;
         this.actualEdgeHeight = atlas.get("edge-left").height * Application.RENDER_SCALE;
         this.actualEdgeWidth = atlas.get("edge-left").width * Application.RENDER_SCALE;
         this.texture = new Dimension(atlas.get("total").width, atlas.get("total").height);
+    }
+
+    @Override
+    public boolean contains(int x, int y) {
+        return rect.contains(x, GLFWInteraction.getSize() - y);
     }
 
     @Override
