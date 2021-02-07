@@ -1,6 +1,7 @@
 package org.qme.client.vis.gui.ui;
 
 import org.qme.client.vis.gui.GUI;
+import org.qme.client.vis.gui.UIComponent;
 import org.qme.client.vis.gui.comp.QBox;
 import org.qme.client.vis.gui.comp.QButton;
 import org.qme.client.vis.gui.comp.QLabel;
@@ -19,9 +20,11 @@ import java.awt.*;
  */
 public class ResourcesUI extends GUI {
 
-    private QBox box;
+    public QBox box;
     private QButton harvest;
     private QLabel label;
+    private QButton close;
+    private Tile tile;
 
     /**
      * Creates a new instance of ResourceUI
@@ -30,13 +33,27 @@ public class ResourcesUI extends GUI {
     public ResourcesUI() {
 
         box = new QBox(new Rectangle(5, 5, 250, 300));
+        close = new QButton(monospace, Language.getTranslation("CLOSE"), new Rectangle(115, 20, 60, 30)) {
+            @Override
+            protected void action() {
+                hide();
+            }
+        };
         harvest = new QButton(monospace, Language.getTranslation("HARVEST"), new Rectangle(20, 20, 90, 30)) {
             @Override
             protected void action() {
-                Logger.log("Harvest button pushed", Severity.NORMAL);
+                if (tile.resources.size() > 0) {
+                    // Remove resource and update tile
+                    tile.resources.remove(0);
+                    showFor(tile);
+                }
             }
         };
         label = new QLabel(monospace, "", 20, 278);
+
+        components = new UIComponent[] {
+                box, close, harvest, label
+        };
 
     }
 
@@ -46,6 +63,9 @@ public class ResourcesUI extends GUI {
      */
     public void showFor(Tile tile) {
 
+        show();
+
+        this.tile = tile;
         String resourceList = "";
 
         if (tile.resources.size() > 0) {

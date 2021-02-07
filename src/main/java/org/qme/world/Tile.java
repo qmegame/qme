@@ -83,6 +83,10 @@ public class Tile extends UIComponent {
 
 		// TODO: Improve this garbage
 
+		if (GUIManager.resourcesUI.box.contains(x, y)) {
+			return false;
+		}
+
 		int tileX = (int) ((this.x * RenderMaster.TILE_X_OFFSET * RenderMaster.zoom) - (this.y * RenderMaster.TILE_X_OFFSET * RenderMaster.zoom) - Scrolling.getXOffset());
 		int tileY = (int) ((this.y * RenderMaster.TILE_Y_OFFSET * RenderMaster.zoom) + (this.x * RenderMaster.TILE_Y_OFFSET * RenderMaster.zoom) - Scrolling.getYOffset());
 		int tileSizeActual = (int) (RenderMaster.TILE_SIZE * RenderMaster.zoom);

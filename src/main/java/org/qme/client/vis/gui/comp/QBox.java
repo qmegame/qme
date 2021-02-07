@@ -4,6 +4,7 @@ import org.qme.client.Application;
 import org.qme.client.vis.RenderMaster;
 import org.qme.client.vis.gui.UIComponent;
 import org.qme.client.vis.tex.TextureManager;
+import org.qme.client.vis.wn.GLFWInteraction;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -50,6 +51,11 @@ public class QBox extends UIComponent {
         this.actualEdgeHeight = atlas.get("edge-left").height * Application.RENDER_SCALE;
         this.actualEdgeWidth = atlas.get("edge-left").width * Application.RENDER_SCALE;
         this.texture = new Dimension(atlas.get("total").width, atlas.get("total").height);
+    }
+
+    @Override
+    public boolean contains(int x, int y) {
+        return rect.contains(x, GLFWInteraction.getSize() - y);
     }
 
     @Override
