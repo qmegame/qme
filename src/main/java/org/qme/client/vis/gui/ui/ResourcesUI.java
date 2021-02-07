@@ -55,6 +55,8 @@ public class ResourcesUI extends GUI {
                 box, close, harvest, label
         };
 
+        hide();
+
     }
 
     /**
