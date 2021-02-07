@@ -5,7 +5,6 @@ import org.qme.io.Severity;
 
 import java.awt.*;
 import javax.swing.*;
-import java.awt.event.*;
 
 /**
  * The class that handles the LoadingBar for the world generation
