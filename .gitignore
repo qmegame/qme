@@ -1,4 +1,6 @@
 bin/
+build/
+out/
 doc/
 *.DS_STORE*
 qdata/
@@ -7,5 +9,4 @@ target/
 /.classpath
 /.macosLib.txt
 .classpath
-/.qme.iml
-/.qme5.iml
+*.iml
