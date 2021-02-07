@@ -1,9 +1,9 @@
 package org.qme.client;
 
 import org.qme.client.vis.gui.*;
-import org.qme.client.vis.gui.ui.QBox;
-import org.qme.client.vis.gui.ui.QFont;
-import org.qme.client.vis.gui.ui.QLabel;
+import org.qme.client.vis.gui.comp.QBox;
+import org.qme.client.vis.gui.comp.QFont;
+import org.qme.client.vis.gui.comp.QLabel;
 import org.qme.client.vis.wn.GLFWInteraction;
 import org.qme.client.vis.wn.Scrolling;
 import org.qme.io.AudioFiles;
@@ -85,14 +85,6 @@ public final class Application {
 
 		// Update debug information
 		Performance.updateValues();
-
-		// Create test button
-		/*QButton button = new QButton(buttonFont, "Le Test Button", GLFWInteraction.getSize() / 2, GLFWInteraction.getSize() / 2, 180, 70) {
-			@Override
-			protected void action() {
-				this.setClickable(false);
-			}
-		};*/
 
 	}
 

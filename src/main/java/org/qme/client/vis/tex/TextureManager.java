@@ -58,6 +58,7 @@ public class TextureManager {
         toLoad.add("items/salt.png");
         toLoad.add("items/sea_weed.png");
         toLoad.add("items/tall_grass.png");
+        toLoad.add("tiles/hover.png");
         toLoad.add("misc/box.png");
         toLoad.add("misc/button.png");
         for (String texture : toLoad) {

@@ -2,7 +2,6 @@ package org.qme.utils;
 
 import org.qme.io.Logger;
 import org.qme.io.Severity;
-import org.qme.world.TileType;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,6 +19,11 @@ public class Language {
     private static Locale locale;
     private static Properties lang;
 
+    /**
+     * Switches the loaded language
+     * Logs if the language isn't supported
+     * @param locale the language to switch to
+     */
     public static void switchLanguage(Locale locale) {
         InputStream stream = Language.class.getClassLoader().getResourceAsStream("locale/" + locale.toString() + ".properties");
 
@@ -41,7 +45,15 @@ public class Language {
         Language.locale = locale;
     }
 
+    /**
+     * Gets a translation for a given key
+     * @param key the key to get the translation for
+     * @return the message in the current language
+     */
     public static String getTranslation(String key) {
+        if (!lang.containsKey(key)) {
+            return "Translation missing: " + key;
+        }
         return lang.getProperty(key);
     }
 

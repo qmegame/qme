@@ -1,4 +1,4 @@
-package org.qme.client.vis.gui.ui;
+package org.qme.client.vis.gui.comp;
 
 import org.qme.client.Application;
 import org.qme.client.vis.RenderMaster;

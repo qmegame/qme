@@ -3,12 +3,11 @@ package org.qme.world;
 import java.util.ArrayList;
 import java.util.Random;
 
-import org.qme.client.Application;
 import org.qme.client.vis.RenderMaster;
 import org.qme.client.vis.gui.GUIManager;
-import org.qme.client.vis.gui.MouseResponder;
 import org.qme.client.vis.gui.UIComponent;
 import org.qme.client.vis.wn.GLFWInteraction;
+import org.qme.client.vis.wn.Scrolling;
 import org.qme.client.vis.wn.WindowManager;
 import org.qme.world.res.*;
 
@@ -81,7 +80,18 @@ public class Tile extends UIComponent {
 
 	@Override
 	public boolean contains(int x, int y) {
-		return this.x * RenderMaster.TILE_SIZE + 50 > x && this.x * RenderMaster.TILE_SIZE < x && this.y * RenderMaster.TILE_SIZE + 50 > GLFWInteraction.windowSize() - y && this.y * RenderMaster.TILE_SIZE < GLFWInteraction.windowSize() - y;
+
+		// TODO: Improve this garbage
+
+		int tileX = (int) ((this.x * RenderMaster.TILE_X_OFFSET * RenderMaster.zoom) - (this.y * RenderMaster.TILE_X_OFFSET * RenderMaster.zoom) - Scrolling.getXOffset());
+		int tileY = (int) ((this.y * RenderMaster.TILE_Y_OFFSET * RenderMaster.zoom) + (this.x * RenderMaster.TILE_Y_OFFSET * RenderMaster.zoom) - Scrolling.getYOffset());
+		int tileSizeActual = (int) (RenderMaster.TILE_SIZE * RenderMaster.zoom);
+
+		return x > tileX + (tileSizeActual / 3) &&
+						x < tileX + (tileSizeActual * 2 / 3) &&
+						GLFWInteraction.getSize() - y > tileY + (tileSizeActual / 3) &&
+						GLFWInteraction.getSize() - y < tileY + (tileSizeActual * 2 / 3);
+
 	}
 
 	@Override

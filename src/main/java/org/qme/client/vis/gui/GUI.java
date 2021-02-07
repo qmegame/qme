@@ -1,6 +1,6 @@
 package org.qme.client.vis.gui;
 
-import org.qme.client.vis.gui.ui.QFont;
+import org.qme.client.vis.gui.comp.QFont;
 
 import java.awt.*;
 

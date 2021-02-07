@@ -1,4 +1,4 @@
-package org.qme.client.vis.gui.ui;
+package org.qme.client.vis.gui.comp;
 
 import org.qme.client.vis.gui.UIComponent;
 import org.qme.client.vis.wn.WindowManager;
