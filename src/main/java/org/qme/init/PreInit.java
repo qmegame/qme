@@ -24,7 +24,7 @@ public class PreInit {
     /**
      * Initialize log files.
      */
-    public void init() {
+    public static void init() {
 
         try {
             new File("qdata/").mkdir();
