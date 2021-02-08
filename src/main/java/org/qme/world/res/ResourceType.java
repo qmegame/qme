@@ -14,5 +14,7 @@ public enum ResourceType {
     LEAF,
     SALT,
     SEA_WEED,
-    TALL_GRASS
+    TALL_GRASS,
+    ROCK,
+    SNOW
 }
