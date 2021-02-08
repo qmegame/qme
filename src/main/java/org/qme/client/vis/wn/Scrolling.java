@@ -78,7 +78,7 @@ public class Scrolling {
      */
     public static void doScroll(Direction direction, boolean press) {
 
-        if (!canMove(direction, RenderMaster.zoom)) {
+        if (press && !canMove(direction, RenderMaster.zoom)) {
             return;
         }
 
