@@ -58,7 +58,7 @@ public class Resource {
                     };
             case SALT ->
                     switch (tileType) {
-                        case OCEAN -> 200;
+                        case OCEAN -> 20; // Settings this to 20 percent because it looks weird otherwise. This should be set back to 200% once seaweed and fish area added
                         default -> 0;
                     };
             case SEA_WEED ->
@@ -70,6 +70,18 @@ public class Resource {
             case TALL_GRASS ->
                     switch (tileType) {
                         case FERTILE_PLAINS -> 50;
+                        default -> 0;
+                    };
+            case ROCK ->
+                    switch (tileType) {
+                        case HIGH_MOUNTAIN -> 35;
+                        case MOUNTAIN -> 80;
+                        default -> 0;
+                    };
+            case SNOW ->
+                    switch (tileType) {
+                        case HIGH_MOUNTAIN -> 100;
+                        case MOUNTAIN -> 20;
                         default -> 0;
                     };
         };

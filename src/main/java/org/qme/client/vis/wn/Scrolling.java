@@ -78,7 +78,7 @@ public class Scrolling {
      */
     public static void doScroll(Direction direction, boolean press) {
 
-        if (!canMove(direction, RenderMaster.zoom)) {
+        if (press && !canMove(direction, RenderMaster.zoom)) {
             return;
         }
 
@@ -90,10 +90,18 @@ public class Scrolling {
      * Actually move the world
      */
     public static void moveWorld() {
-        if (pressed.get(Direction.UP))    yOffset += SCROLL_SPEED;
-        if (pressed.get(Direction.DOWN))  yOffset -= SCROLL_SPEED;
-        if (pressed.get(Direction.LEFT))  xOffset -= SCROLL_SPEED;
-        if (pressed.get(Direction.RIGHT)) xOffset += SCROLL_SPEED;
+        if (pressed.get(Direction.UP) && canMove(Direction.UP, RenderMaster.zoom)) {
+            yOffset += SCROLL_SPEED;
+        }
+        if (pressed.get(Direction.DOWN) && canMove(Direction.DOWN, RenderMaster.zoom)) {
+            yOffset -= SCROLL_SPEED;
+        }
+        if (pressed.get(Direction.LEFT) && canMove(Direction.LEFT, RenderMaster.zoom)) {
+            xOffset -= SCROLL_SPEED;
+        }
+        if (pressed.get(Direction.RIGHT) && canMove(Direction.RIGHT, RenderMaster.zoom)) {
+            xOffset += SCROLL_SPEED;
+        }
     }
 
     /**
