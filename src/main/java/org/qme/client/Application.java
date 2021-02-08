@@ -4,8 +4,10 @@ import org.qme.client.vis.gui.*;
 import org.qme.client.vis.gui.comp.QBox;
 import org.qme.client.vis.gui.comp.QFont;
 import org.qme.client.vis.gui.comp.QLabel;
+import org.qme.client.vis.tex.TextureManager;
 import org.qme.client.vis.wn.GLFWInteraction;
 import org.qme.client.vis.wn.Scrolling;
+import org.qme.init.GLInit;
 import org.qme.init.PreInit;
 import org.qme.io.AudioFiles;
 import org.qme.io.AudioPlayer;
@@ -70,6 +72,11 @@ public final class Application {
 	private Application() {
 
 		PreInit.init();
+
+		GLInit.init();
+
+		// Load textures
+		new TextureManager();
 
 		new World();
 
