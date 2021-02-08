@@ -189,7 +189,7 @@ public final class RenderMaster {
 	private static int getTexture(ResourceType type) {
 		String texString =
 				// HIGH_MOUNTAIN -> high_mountain -> high-mountain -> high-mountain.png
-				"items/" + type.name().toLowerCase() + ".png";
+				"items/" + type.name().toLowerCase().replace('_', '-') + ".png";
 		return TextureManager.getTexture(texString);
 	}
 
