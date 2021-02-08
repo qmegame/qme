@@ -6,6 +6,7 @@ import org.qme.client.vis.gui.comp.QFont;
 import org.qme.client.vis.gui.comp.QLabel;
 import org.qme.client.vis.wn.GLFWInteraction;
 import org.qme.client.vis.wn.Scrolling;
+import org.qme.init.PreInit;
 import org.qme.io.AudioFiles;
 import org.qme.io.AudioPlayer;
 import org.qme.utils.Language;
@@ -67,6 +68,9 @@ public final class Application {
 	 * The constructor is private. Only one instance allowed.
 	 */
 	private Application() {
+
+		PreInit.init();
+
 		new World();
 
 		Language.switchLanguage(new Locale("en", "US"));
