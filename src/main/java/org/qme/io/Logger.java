@@ -12,6 +12,11 @@ import java.time.LocalDateTime;
  * @since 0.1.0
  */
 public class Logger {
+
+	/**
+	 * Whether the logger has been initialized yet.
+	 */
+	public static boolean logsActivated = false;
 	
 	/**
 	 * Function that logs a message to "qdata/logs.txt" with the date and time,
@@ -23,12 +28,7 @@ public class Logger {
 	 */
 	public static synchronized void log(String message, Severity severity) {
 
-		// Creates directory if not already created
-		try {
-			new File("qdata/").mkdir();
-		} catch(SecurityException e) {
-			showDialog("Error creating error log folder. Fatal. Possible cause: insufficient permissions.");
-		}
+		if (!logsActivated) return;
 		
 		// Creates file if not created
 		final File logs = new File("qdata/logs.txt");

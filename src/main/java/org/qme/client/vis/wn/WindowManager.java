@@ -3,8 +3,8 @@ package org.qme.client.vis.wn;
 import org.qme.client.Application;
 import org.qme.client.vis.RenderMaster;
 import org.qme.client.vis.Renderable;
-import org.qme.client.vis.gui.GUIManager;
 import org.qme.client.vis.tex.TextureManager;
+import org.qme.init.GLInit;
 import org.qme.io.AudioPlayerState;
 import org.qme.utils.Direction;
 import org.qme.world.World;
@@ -34,17 +34,6 @@ public final class WindowManager {
 	 * No initialization, thank you very much.
 	 */
 	private WindowManager() {}
-	
-	static {
-
-		GLFWInteraction.glfwSetup();
-		
-		GLFWInteraction.createWindow();
-
-		// Load textures
-		new TextureManager();
-
-	}
 	
 	/**
 	 * The function that gets called when a key is pressed.

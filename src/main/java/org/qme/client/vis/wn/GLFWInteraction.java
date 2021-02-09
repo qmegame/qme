@@ -24,9 +24,9 @@ import static org.lwjgl.system.MemoryUtil.NULL;
  */
 public class GLFWInteraction {
 
-    private static long wn;
+    public static long wn;
 
-    private static int size;
+    public static int size;
 
     private static final float SCREEN_SIZE = 0.75f;
 
@@ -35,78 +35,6 @@ public class GLFWInteraction {
      */
     private GLFWInteraction() {
         throw new IllegalStateException("No initializing GLFWInteraction!");
-    }
-
-    /**
-     * Set up some GLFW things.
-     */
-    public static void glfwSetup() {
-        System.setProperty("java.awt.headless", "true");
-
-        // Initialize GLFW.
-        glfwInit();
-
-        glfwDefaultWindowHints();
-        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-    }
-
-    /**
-     * Create the window - called as a static initializer.
-     */
-    public static void createWindow() {
-
-        // In case something weird happens with the primary monitor, get the
-        // size of the monitor one time
-        size = windowSize();
-
-        wn = glfwCreateWindow(size, size, "QME", NULL, NULL);
-
-        // Boilerplate
-        glfwMakeContextCurrent(wn);
-        glfwShowWindow(wn);
-        GL.createCapabilities();
-
-        glfwSetKeyCallback(wn, new GLFWKeyCallback() {
-
-            @Override
-            public void invoke(
-                    long window,
-                    int glfwKeyCode,
-                    int systemScancode,
-                    int keyAction,
-                    int modifierKeys)
-            // Sorry for having the opening bracket on its own line here.
-            {
-                // Simple wrapper.
-                WindowManager.onKeyPress(
-                        window, glfwKeyCode, systemScancode, keyAction, modifierKeys
-                );
-            }
-
-        });
-
-        glfwSetMouseButtonCallback(wn, new GLFWMouseButtonCallback() {
-
-            @Override
-            public void invoke(
-                    long window,
-                    int button,
-                    int keyAction,
-                    int modifierKeys)
-            // Sorry for having the opening bracket on its own line here.
-            {
-                MouseResponder.callMouseResponders(
-                        Application.getResponders(),
-                        new MouseResponder.MouseEvent(button, keyAction));
-            }
-        });
-
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        glOrtho(0, size, 0, size, 1, -1);
-        glMatrixMode(GL_MODELVIEW);
-
     }
 
     /**
