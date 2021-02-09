@@ -7,6 +7,7 @@ import org.qme.client.vis.gui.comp.QLabel;
 import org.qme.client.vis.tex.TextureManager;
 import org.qme.client.vis.wn.GLFWInteraction;
 import org.qme.client.vis.wn.Scrolling;
+import org.qme.init.AssetInit;
 import org.qme.init.GLInit;
 import org.qme.init.PreInit;
 import org.qme.io.AudioFiles;
@@ -75,27 +76,7 @@ public final class Application {
 
 		GLInit.init();
 
-		// Load textures
-		new TextureManager();
-
-		new World();
-
-		Language.switchLanguage(new Locale("en", "US"));
-
-		GUIManager.loadGUIs();
-		QFont labelMono = new QFont(new Font(Font.MONOSPACED, Font.PLAIN, 12), true);
-		QFont buttonFont = new QFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 18), true);
-
-		// Debug Label
-		debugLabel = new QLabel(labelMono, "...", 5, GLFWInteraction.windowSize() - (labelMono.getHeight() + 2), true);
-		debugLabel.setVisible(false);
-
-		// Profiler Label
-		profilerLabel = new QLabel(labelMono, "...", 5, 5, false);
-		profilerLabel.setVisible(false);
-
-		// Update debug information
-		Performance.updateValues();
+		AssetInit.init();
 
 	}
 
