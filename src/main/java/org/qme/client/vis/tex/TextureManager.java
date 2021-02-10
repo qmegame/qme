@@ -53,7 +53,7 @@ public class TextureManager {
         toLoad.add("items/coal.png");
         toLoad.add("items/fruit.png");
         toLoad.add("items/gold-ore.png");
-        toLoad.add("items/grape.png");
+        toLoad.add("items/grape-vine.png");
         toLoad.add("items/grass.png");
         toLoad.add("items/leaf.png");
         toLoad.add("items/salt.png");
@@ -62,6 +62,11 @@ public class TextureManager {
         toLoad.add("tiles/hover.png");
         toLoad.add("items/snow.png");
         toLoad.add("items/rock.png");
+        toLoad.add("items/sand.png");
+        toLoad.add("items/sand-stone.png");
+        toLoad.add("items/grapes.png");
+        toLoad.add("items/lumber.png");
+        toLoad.add("items/cactus.png");
         toLoad.add("misc/box.png");
         toLoad.add("misc/button.png");
         for (String texture : toLoad) {
