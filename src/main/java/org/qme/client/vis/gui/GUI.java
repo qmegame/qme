@@ -11,6 +11,8 @@ import java.awt.*;
  */
 public abstract class GUI {
 
+    private boolean visible;
+
     protected final QFont monospace = new QFont(new Font(Font.DIALOG_INPUT, Font.PLAIN, 12), true);
 
     /**
@@ -25,6 +27,7 @@ public abstract class GUI {
         for (UIComponent c : components) {
             c.setVisible(true);
         }
+        this.visible = true;
     }
 
     /**
@@ -34,17 +37,22 @@ public abstract class GUI {
         for (UIComponent c : components) {
             c.setVisible(false);
         }
+        this.visible = false;
     }
 
     /**
      * Toggle visibility by checking the first component.
      */
     public void toggle() {
-        if (components[0].isVisible()) {
+        if (isVisible()) {
             hide();
         } else {
             show();
         }
+    }
+
+    public boolean isVisible() {
+        return visible;
     }
 
 }

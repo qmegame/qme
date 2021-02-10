@@ -83,7 +83,7 @@ public class Tile extends UIComponent {
 
 		// TODO: Improve this garbage
 
-		if (GUIManager.resourcesUI.box.contains(x, y)) {
+		if (GUIManager.resourcesUI.box.contains(x, y) && GUIManager.resourcesUI.isVisible()) {
 			return false;
 		}
 
