@@ -53,7 +53,7 @@ public class Resource {
                         case FERTILE_PLAINS -> 5;
                         default -> 0;
                     };
-            case WEET ->
+            case WHEAT ->
                     switch (tileType) {
                         case FERTILE_PLAINS -> 20;
                         default -> 0;
