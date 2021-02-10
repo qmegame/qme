@@ -20,13 +20,13 @@ public final class RenderMaster {
 
 	private RenderMaster() {}
 
-	public static float zoom = 10;
+	public static double zoom = 10;
 
 	// When texture packs are added this should be changed per pack inorder to allow for different sized tiles
-	public static final float TILE_SIZE = 64;
-	public static final float TILE_GAP = 0;
-	public static final float TILE_X_OFFSET = 32;
-	public static final float TILE_Y_OFFSET = 15;
+	public static final int TILE_SIZE = 128;
+	public static final int TILE_GAP = 0;
+	public static final int TILE_X_OFFSET = 62;
+	public static final int TILE_Y_OFFSET = 31;
 
 	/**
 	 * Check if a tile is in frame
@@ -35,7 +35,7 @@ public final class RenderMaster {
 	 * @returns if the tile is in frame
 	 */
 	public static boolean isInFrame(double x, double y) {
-		double screenLeft = - 600;
+		double screenLeft = - 800;
 		double screenRight = GLFWInteraction.getSize();
 
 		double screenBottom = - 600;
@@ -53,8 +53,8 @@ public final class RenderMaster {
 	 */
 	public static void drawTile(Tile tile) {
 
-		int tileX = (int) ((tile.x * TILE_X_OFFSET * zoom) - (tile.y * TILE_X_OFFSET * zoom) - Scrolling.getXOffset());
-		int tileY = (int) ((tile.y * TILE_Y_OFFSET * zoom) + (tile.x * TILE_Y_OFFSET * zoom) - Scrolling.getYOffset());
+		double tileX = ((tile.x * TILE_X_OFFSET * zoom) - (tile.y * TILE_X_OFFSET * zoom) - Scrolling.getXOffset());
+		double tileY = ((tile.y * TILE_Y_OFFSET * zoom) + (tile.x * TILE_Y_OFFSET * zoom) - Scrolling.getYOffset());
 
 		if (isInFrame(tileX, tileY)) {
 			int tileSizeActual = (int) (TILE_SIZE * zoom);
@@ -74,6 +74,7 @@ public final class RenderMaster {
 						TextureManager.getTexture("tiles/hover.png")
 				);
 			}
+
 			if (tile.resources.size() > 0)
 			drawQuad(
 					tileX + (tileSizeActual / 3), tileY + (tileSizeActual / 3),
@@ -99,14 +100,14 @@ public final class RenderMaster {
 	 * @param tex texture id of quad
 	 */
 	public static void drawQuad(
-			int vert1X,
-			int vert1Y,
-			int vert2X,
-			int vert2Y,
-			int vert3X,
-			int vert3Y,
-			int vert4X,
-			int vert4Y,
+			double vert1X,
+			double vert1Y,
+			double vert2X,
+			double vert2Y,
+			double vert3X,
+			double vert3Y,
+			double vert4X,
+			double vert4Y,
 			int tex
 	) {
 		glEnable(GL_TEXTURE_2D);
@@ -121,16 +122,16 @@ public final class RenderMaster {
 
 		glBegin(GL_QUADS);
 			glTexCoord2f(0, 1);
-			glVertex2f(vert1X, vert1Y);
+			glVertex2d(vert1X, vert1Y);
 
 			glTexCoord2f(1, 1);
-			glVertex2f(vert2X, vert2Y);
+			glVertex2d(vert2X, vert2Y);
 
 			glTexCoord2f(1, 0);
-			glVertex2f(vert3X, vert3Y);
+			glVertex2d(vert3X, vert3Y);
 
 			glTexCoord2f(0, 0);
-			glVertex2f(vert4X, vert4Y);
+			glVertex2d(vert4X, vert4Y);
 		glEnd();
 		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);

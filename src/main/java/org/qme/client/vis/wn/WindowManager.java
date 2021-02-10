@@ -22,10 +22,10 @@ import static org.lwjgl.glfw.GLFW.*;
  */
 public final class WindowManager {
 
-	private static final float ZOOM_IN = 1.1F;
-	private static final float ZOOM_OUT = 0.9F;
+	private static final double ZOOM_IN = 1.1D;
+	private static final double ZOOM_OUT = 0.9D;
 
-	private static final float ZOOM_MIN = 0.5F;
+	private static final float ZOOM_MIN = 2F;
 	private static final float ZOOM_MAX = 10;
 
 	protected static final List<Renderable> renderables = new ArrayList<>();
@@ -102,20 +102,20 @@ public final class WindowManager {
 	 * Zooms in or out and applies an offset to zoom evenly
 	 * @param zoomFactor the scale factor to be applied to the zoom
 	 */
-	private static void applyZoom(float zoomFactor) {
+	private static void applyZoom(double zoomFactor) {
 		// Works by calculating how much offset must be applied to counteract the objects increasing in size
-		double newWorldSize = getWorldSize(RenderMaster.zoom * zoomFactor);
+		double newWorldSize = getWorldSize(RenderMaster.zoom * (double) Math.round(zoomFactor * 100) / 100);
 		double oldWorldSize = getWorldSize(RenderMaster.zoom);
 
-		double focusX = (((double)GLFWInteraction.getSize() / 2) + Scrolling.getXOffset())/oldWorldSize;
-		double focusY = (((double)GLFWInteraction.getSize() / 2) + Scrolling.getYOffset())/oldWorldSize;
+		double focusX = ((GLFWInteraction.getSize() / 2) + Scrolling.getXOffset())/oldWorldSize;
+		double focusY = ((GLFWInteraction.getSize() / 2) + Scrolling.getYOffset())/oldWorldSize;
 
 		double worldSizeChange = oldWorldSize - newWorldSize;
 
 		Scrolling.setXOffset(Scrolling.getXOffset() - (worldSizeChange) * focusX);
 		Scrolling.setYOffset(Scrolling.getYOffset() - (worldSizeChange) * focusY);
 
-		RenderMaster.zoom *= zoomFactor;
+		RenderMaster.zoom *= (double) Math.round(zoomFactor * 100) / 100;
 	}
 
 	/**
@@ -123,8 +123,8 @@ public final class WindowManager {
 	 * @param zoom the current zoom factor of the world
 	 * @return the size of the world in pixels
 	 */
-	public static float getWorldSize(float zoom) {
-		return (RenderMaster.TILE_GAP + RenderMaster.TILE_SIZE) * zoom * World.WORLD_SIZE;
+	public static double getWorldSize(double zoom) {
+		return ((RenderMaster.TILE_GAP + RenderMaster.TILE_SIZE) * zoom * World.WORLD_SIZE);
 	}
 
 	/**
@@ -132,7 +132,7 @@ public final class WindowManager {
 	 * @param zoom the current zoom factor of the world
 	 * @return the actual height of the world
 	 */
-	public static float getWorldHeight(float zoom) {
+	public static double getWorldHeight(double zoom) {
 		return (World.WORLD_SIZE * RenderMaster.TILE_Y_OFFSET * zoom) + (World.WORLD_SIZE * RenderMaster.TILE_Y_OFFSET * zoom);
 	}
 
@@ -141,7 +141,7 @@ public final class WindowManager {
 	 * @param zoom the current zoom factor of the world
 	 * @return the actual width of the world
 	 */
-	public static float getWorldWidth(float zoom) {
+	public static double getWorldWidth(double zoom) {
 		return (World.WORLD_SIZE * RenderMaster.TILE_X_OFFSET * zoom) + (World.WORLD_SIZE * RenderMaster.TILE_X_OFFSET * zoom);
 	}
 	

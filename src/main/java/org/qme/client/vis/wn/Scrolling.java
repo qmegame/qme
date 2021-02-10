@@ -14,8 +14,8 @@ import static org.qme.client.vis.wn.WindowManager.*;
  */
 public class Scrolling {
 
-    private static double xOffset = 0D;
-    private static double yOffset = 0D;
+    private static double xOffset = 0;
+    private static double yOffset = 1000;
 
     private static final int SCROLL_SPEED = 4;
 
@@ -110,7 +110,7 @@ public class Scrolling {
      * @param zoom the current zoom to calculate for
      * @return if the camera can move
      */
-    private static boolean canMove(Direction direction, float zoom) {
+    private static boolean canMove(Direction direction, double zoom) {
         double size = GLFWInteraction.getSize();
         switch (direction) {
             case UP:
