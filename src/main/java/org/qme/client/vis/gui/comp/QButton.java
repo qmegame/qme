@@ -71,7 +71,7 @@ public abstract class QButton extends UIComponent {
      * If the dimensions of the QButton has changed they will need to be recalculated.
      */
     public void calculateDimensions() {
-        String state = getState().name().toLowerCase() + "-";
+        String state = getDrawState().name().toLowerCase() + "-";
         this.actualCornerHeight = atlas.get(state + "bottom-left").height * Application.RENDER_SCALE;
         this.actualCornerWidth = atlas.get(state + "bottom-left").width * Application.RENDER_SCALE;
         this.bodyWidth = (rect.width / Application.RENDER_SCALE) - atlas.get(state + "bottom-left").width * 2;
@@ -127,7 +127,7 @@ public abstract class QButton extends UIComponent {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        String state = getState().name().toLowerCase() + "-";
+        String state = getDrawState().name().toLowerCase() + "-";
 
         // base for the background of the box
         RenderMaster.drawRegion(
@@ -236,20 +236,20 @@ public abstract class QButton extends UIComponent {
      * Gets the current state of this button used for rendering
      * @return the state of the button
      */
-    public ButtonState getState() {
+    public ButtonDrawState getDrawState() {
         if (!isClickable()) {
-            return ButtonState.DISABLED;
+            return ButtonDrawState.DISABLED;
         }
         if (isClicked()) {
-            return ButtonState.PRESSED;
+            return ButtonDrawState.PRESSED;
         }
-        return ButtonState.UNPRESSED;
+        return ButtonDrawState.UNPRESSED;
     }
 
     /**
      * Represents the drawable states of a button
      */
-    public enum ButtonState {
+    public enum ButtonDrawState {
         PRESSED,
         UNPRESSED,
         DISABLED
