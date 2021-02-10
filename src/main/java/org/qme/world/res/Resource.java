@@ -53,6 +53,11 @@ public class Resource {
                         case FERTILE_PLAINS -> 5;
                         default -> 0;
                     };
+            case WEET ->
+                    switch (tileType) {
+                        case FERTILE_PLAINS -> 20;
+                        default -> 0;
+                    };
             case GRASS ->
                     switch (tileType) {
                         case PLAINS -> 70;
@@ -68,6 +73,12 @@ public class Resource {
                         case FOREST -> 65;
                         default -> 0;
                     };
+            case SEAGULL ->
+                    switch (tileType) {
+                        case OCEAN -> 2;
+                        case SEA -> 6;
+                        default -> 0;
+                    };
             case SALT ->
                     switch (tileType) {
                         case OCEAN -> 20; // Settings this to 20 percent because it looks weird otherwise. This should be set back to 200% once seaweed and fish area added
@@ -79,7 +90,7 @@ public class Resource {
                         case SEA -> 25;
                         default -> 0;
                     };
-            case TALL_GRASS ->
+           case TALL_GRASS ->
                     switch (tileType) {
                         case FERTILE_PLAINS -> 50;
                         default -> 0;

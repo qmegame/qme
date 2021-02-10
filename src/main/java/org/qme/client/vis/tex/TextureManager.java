@@ -67,6 +67,8 @@ public class TextureManager {
         toLoad.add("items/grapes.png");
         toLoad.add("items/lumber.png");
         toLoad.add("items/cactus.png");
+        toLoad.add("items/weet.png");
+        toLoad.add("items/seagull.png");
         toLoad.add("misc/box.png");
         toLoad.add("misc/button.png");
         for (String texture : toLoad) {

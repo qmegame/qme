@@ -22,4 +22,6 @@ public enum ResourceType {
     SAND,
     SAND_STONE,
     LUMBER,
+    SEAGULL,
+    WEET
 }
