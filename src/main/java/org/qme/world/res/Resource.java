@@ -1,5 +1,7 @@
 package org.qme.world.res;
 
+import org.qme.io.Logger;
+import org.qme.io.Severity;
 import org.qme.world.TileType;
 
 /**
@@ -41,9 +43,14 @@ public class Resource {
                         case HIGH_MOUNTAIN -> 20;
                         default -> 0;
                     };
-            case GRAPE ->
+            case GRAPE_VINE ->
                     switch (tileType) {
                         case FERTILE_PLAINS -> 10;
+                        default -> 0;
+                    };
+            case GRAPES ->
+                    switch (tileType) {
+                        case FERTILE_PLAINS -> 5;
                         default -> 0;
                     };
             case GRASS ->
@@ -54,6 +61,11 @@ public class Resource {
             case LEAF ->
                     switch (tileType) {
                         case FOREST -> 80;
+                        default -> 0;
+                    };
+            case LUMBER ->
+                    switch (tileType) {
+                        case FOREST -> 65;
                         default -> 0;
                     };
             case SALT ->
@@ -84,6 +96,23 @@ public class Resource {
                         case MOUNTAIN -> 20;
                         default -> 0;
                     };
+            case SAND ->
+                    switch (tileType) {
+                        case DESERT -> 60;
+                        default -> 0;
+                    };
+            case SAND_STONE ->
+                    switch (tileType) {
+                        case DESERT -> 5;
+
+                        default -> 0;
+                    };
+            case CACTUS ->
+                    switch (tileType) {
+                        case DESERT -> 20;
+                        default -> 0;
+                    };
+
         };
     }
 
