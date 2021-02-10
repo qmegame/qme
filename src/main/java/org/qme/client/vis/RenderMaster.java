@@ -35,10 +35,10 @@ public final class RenderMaster {
 	 * @returns if the tile is in frame
 	 */
 	public static boolean isInFrame(double x, double y) {
-		double screenLeft = - 800;
+		double screenLeft = - 1300;
 		double screenRight = GLFWInteraction.getSize();
 
-		double screenBottom = - 600;
+		double screenBottom = - 1000;
 		double screenTop = GLFWInteraction.getSize();
 
 		if (x > screenLeft && x < screenRight) {
