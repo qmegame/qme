@@ -1,5 +1,6 @@
 package org.qme.client.vis;
 
+import org.qme.client.Application;
 import org.qme.client.vis.tex.TextureManager;
 import org.qme.client.vis.wn.Scrolling;
 import org.qme.client.vis.wn.GLFWInteraction;
@@ -8,6 +9,7 @@ import org.qme.world.TileType;
 import org.qme.world.res.ResourceType;
 
 import java.awt.*;
+import java.util.HashMap;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -85,7 +87,126 @@ public final class RenderMaster {
 			);
 		}
 	}
-	
+
+	/**
+	 * Draws a cuboid texture atlas
+	 * @param atlas the texture atlas to be drawn
+	 * @param rect the rectangle that represents the bounds
+	 */
+	public static void drawBounds(HashMap<String, Rectangle> atlas, Rectangle rect) {
+		drawBounds(atlas, rect, "");
+	}
+
+	/**
+	 * Draws a cuboid texture atlas. The atlas must contain corners edges and a fill
+	 * @param atlas the texture atlas that should be used
+	 * @param rect the rectangle that represents the bounds
+	 * @param state the prefix for the atlas
+	 */
+	public static void drawBounds(HashMap<String, Rectangle> atlas, Rectangle rect, String state) {
+		int actualEdgeWidth = atlas.get(state + "left").width * Application.RENDER_SCALE;
+		int actualEdgeHeight = atlas.get(state + "left").height * Application.RENDER_SCALE;
+		int actualCornerWidth = atlas.get(state + "bottom-left").width * Application.RENDER_SCALE;
+		int actualCornerHeight = atlas.get(state + "bottom-left").height * Application.RENDER_SCALE;
+		Dimension textureSize = new Dimension(atlas.get("total").width, atlas.get("total").height);
+		// base for the background of the box
+		RenderMaster.drawRegion(
+				new Rectangle(
+						rect.x + actualEdgeWidth,
+						rect.y + actualEdgeWidth,
+						rect.width + actualEdgeWidth,
+						rect.height + actualCornerHeight
+				),
+				atlas.get(state + "fill"), textureSize);
+
+		// top right corner
+		RenderMaster.drawRegion(
+				new Rectangle(
+						rect.x + actualCornerWidth + rect.width,
+						rect.y + actualCornerHeight + rect.height,
+						actualCornerWidth,
+						actualCornerHeight
+				),
+				atlas.get(state + "top-right"), textureSize);
+
+			// bottom right corner
+		RenderMaster.drawRegion(
+				new Rectangle(
+						rect.x + actualCornerWidth + rect.width,
+						rect.y,
+						actualCornerWidth,
+						actualCornerHeight
+				),
+				atlas.get(state + "bottom-right"), textureSize);
+
+		// top left corner
+		RenderMaster.drawRegion(
+				new Rectangle(
+						rect.x,
+						rect.y + actualCornerHeight + rect.height,
+						actualCornerWidth,
+						actualCornerHeight
+				),
+				atlas.get(state + "top-left"), textureSize);
+
+		// bottom left corner
+		RenderMaster.drawRegion(
+				new Rectangle(
+						rect.x,
+						rect.y,
+						actualCornerWidth,
+						actualCornerHeight
+				),
+				atlas.get(state + "bottom-left"), textureSize);
+
+		for (int i = 0; i < rect.width / Application.RENDER_SCALE; i++) {
+
+			// top edge
+			RenderMaster.drawRegion(
+					new Rectangle(
+							rect.x + (i * actualEdgeHeight) + actualCornerWidth,
+							rect.y + (actualCornerHeight * 2) - actualEdgeWidth + rect.height,
+							Application.RENDER_SCALE,
+							actualEdgeWidth
+					),
+					atlas.get(state + "top"), textureSize);
+
+			// bottom edge
+			RenderMaster.drawRegion(
+					new Rectangle(
+							rect.x + (i * actualEdgeHeight) + actualCornerWidth,
+							rect.y,
+							actualEdgeHeight,
+							actualEdgeWidth
+					),
+					atlas.get(state + "bottom"), textureSize);
+		}
+
+		for (int i = 0; i < rect.height / Application.RENDER_SCALE; i++) {
+
+			// left edge
+			RenderMaster.drawRegion(
+					new Rectangle(
+							rect.x,
+							rect.y + actualCornerHeight + (actualEdgeHeight * i),
+							actualEdgeWidth,
+							actualEdgeHeight
+					),
+					atlas.get(state + "left"), textureSize);
+
+			// right edge
+			RenderMaster.drawRegion(
+					new Rectangle(
+							rect.x + (actualCornerWidth * 2) - actualEdgeWidth + rect.width,
+							rect.y + actualCornerHeight + (actualEdgeHeight * i),
+							actualEdgeWidth,
+							actualEdgeHeight
+					),
+					atlas.get(state + "right"), textureSize);
+
+		}
+	}
+
 	/**
 	 * Draw a quad with eight given positions. Position should go in
 	 * counterclockwise order!

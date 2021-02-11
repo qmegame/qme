@@ -91,10 +91,6 @@ public class AudioPlayer {
         Logger.log("Audio paused", Severity.DEBUG);
     }
 
-    public void setVolume(float volume) {
-        // TODO: Do the thing
-    }
-
     // Method to resume the audio
     public void resumeAudio() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (audioPlayerState == AudioPlayerState.PLAY) {
