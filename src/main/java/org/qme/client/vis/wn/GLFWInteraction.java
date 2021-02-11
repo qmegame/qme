@@ -45,7 +45,7 @@ public class GLFWInteraction {
     public static void repaint() {
 
         // Only render if we should
-        if (FramerateManager.refresh) {
+        if (FramerateManager.refresh || Scrolling.scrolling()) {
 
             Performance.startTiming("render");
 

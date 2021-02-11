@@ -126,4 +126,14 @@ public class Scrolling {
         }
     }
 
+    /**
+     * Whether scrolling is currently happening
+     */
+    public static boolean scrolling() {
+        for (Direction direction : pressed.keySet()) {
+            if (pressed.get(direction)) return true;
+        }
+        return false;
+    }
+
 }
