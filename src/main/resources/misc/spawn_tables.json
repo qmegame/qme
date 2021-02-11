@@ -1,0 +1,62 @@
+{
+  "coal": {
+    "mountain": 50,
+    "high_mountain": 20
+  },
+  "fruit": {
+    "forest": 20
+  },
+  "gold_ore": {
+    "mountain": 10,
+    "high_mountain": 20
+  },
+  "grape_vine": {
+    "fertile_plains": 10
+  },
+  "grapes": {
+    "fertile_plains": 5
+  },
+  "wheat": {
+    "fertile_plains": 20
+  },
+  "grass": {
+    "plains": 70
+  },
+  "leaf": {
+    "forest": 80
+  },
+  "lumber": {
+    "forest": 65
+  },
+  "seagull": {
+    "ocean": 2,
+    "sea": 6
+  },
+  "salt": {
+    "ocean": 20
+  },
+  "sea_weed": {
+    "ocean": 30,
+    "sea": 25
+  },
+  "tall_grass": {
+    "fertile_plains": 50
+  },
+  "rock": {
+    "high_mountain": 35,
+    "mountain": 80
+  },
+  "snow": {
+    "high_mountain": 100,
+    "mountain": 20
+  },
+  "sand": {
+    "desert": 60
+  },
+  "sand_stone": {
+    "desert": 5
+  },
+  "cactus": {
+    "desert": 20
+  }
+}
