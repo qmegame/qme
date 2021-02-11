@@ -61,7 +61,7 @@ public abstract class QButton extends UIComponent {
         this.rect = rect;
         textOffset = new Dimension(
                 (rect.width - font.getWidth(text)) / 2,
-                (rect.height - font.getHeight()) / 2
+                (rect.height- font.getHeight()) / 2
         );
         this.calculateDimensions();
     }
@@ -99,6 +99,18 @@ public abstract class QButton extends UIComponent {
      */
     public void setClickable(boolean b) {
         this.clickable = b;
+    }
+
+    /**
+     * Changes the button label
+     * @param string the new button label
+     */
+    public void setText(String string) {
+        this.text = string;
+        textOffset = new Dimension(
+                (rect.width - font.getWidth(text)) / 2,
+                (rect.height - font.getHeight()) / 2
+        );
     }
 
     /**

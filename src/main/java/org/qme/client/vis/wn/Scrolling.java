@@ -1,6 +1,7 @@
 package org.qme.client.vis.wn;
 
 import org.qme.client.vis.RenderMaster;
+import org.qme.client.vis.gui.GUIManager;
 import org.qme.utils.Direction;
 
 import java.util.HashMap;
@@ -78,6 +79,10 @@ public class Scrolling {
      */
     public static void doScroll(Direction direction, boolean press) {
 
+        if (press && (GUIManager.optionsUI.isVisible() || GUIManager.pauseUI.isVisible())) {
+            return;
+        }
+
         if (press && !canMove(direction, RenderMaster.zoom)) {
             return;
         }
@@ -90,6 +95,10 @@ public class Scrolling {
      * Actually move the world
      */
     public static void moveWorld() {
+        if (GUIManager.optionsUI.isVisible() || GUIManager.pauseUI.isVisible()) {
+            return;
+        }
+
         if (pressed.get(Direction.UP) && canMove(Direction.UP, RenderMaster.zoom)) {
             yOffset += SCROLL_SPEED;
         }

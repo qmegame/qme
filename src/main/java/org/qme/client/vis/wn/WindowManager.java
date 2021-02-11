@@ -3,8 +3,7 @@ package org.qme.client.vis.wn;
 import org.qme.client.Application;
 import org.qme.client.vis.RenderMaster;
 import org.qme.client.vis.Renderable;
-import org.qme.client.vis.tex.TextureManager;
-import org.qme.init.GLInit;
+import org.qme.client.vis.gui.GUIManager;
 import org.qme.io.AudioPlayerState;
 import org.qme.utils.Direction;
 import org.qme.world.World;
@@ -93,6 +92,18 @@ public final class WindowManager {
 				if (keyAction != GLFW_RELEASE) break;
 				Application.profilerLabel.setVisible(!Application.profilerLabel.isVisible());
 				break;
+			case GLFW_KEY_ESCAPE:
+				if (keyAction != GLFW_RELEASE) break;
+				if (GUIManager.pauseUI.isVisible()) {
+					Application.audioPlayer.play();
+					GUIManager.pauseUI.hide();
+				} else {
+					GUIManager.optionsUI.hide();
+					GUIManager.pauseUI.show();
+					GUIManager.resourcesUI.hide();
+					Application.audioPlayer.pause();
+				}
+				break;
 			default:
 				break;
 		}
@@ -103,6 +114,10 @@ public final class WindowManager {
 	 * @param zoomFactor the scale factor to be applied to the zoom
 	 */
 	private static void applyZoom(float zoomFactor) {
+		if (GUIManager.pauseUI.isVisible() || GUIManager.optionsUI.isVisible()) {
+			return;
+		}
+
 		// Works by calculating how much offset must be applied to counteract the objects increasing in size
 		double newWorldSize = getWorldSize(RenderMaster.zoom * zoomFactor);
 		double oldWorldSize = getWorldSize(RenderMaster.zoom);

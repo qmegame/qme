@@ -1,17 +1,9 @@
 package org.qme.io;
 
-import org.qme.io.AudioPlayerState;
-import org.qme.io.AudioFiles;
-import org.qme.io.Logger;
-
 import java.io.File;
 import java.io.IOException;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.sound.sampled.*;
 
 /**
  * An audio player for background music
@@ -71,6 +63,10 @@ public class AudioPlayer {
         clip.stop();
         audioPlayerState = AudioPlayerState.PAUSED;
         Logger.log("Audio paused", Severity.DEBUG);
+    }
+
+    public void setVolume(float volume) {
+        // TODO: Do the thing
     }
 
     // Method to resume the audio
