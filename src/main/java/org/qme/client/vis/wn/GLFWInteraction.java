@@ -8,6 +8,7 @@ import org.qme.client.Application;
 import org.qme.client.vis.Renderable;
 import org.qme.client.vis.gui.MouseResponder;
 import org.qme.client.vis.gui.UIComponent;
+import org.qme.utils.FramerateManager;
 import org.qme.utils.Performance;
 
 import java.nio.DoubleBuffer;
@@ -42,22 +43,31 @@ public class GLFWInteraction {
      * application so it can close.
      */
     public static void repaint() {
-        Performance.startTiming("render");
 
-        glClearColor(0.5f, 0.5f, 0.5f, 0.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        // Only render if we should
+        if (FramerateManager.refresh) {
 
-        for (Renderable e : WindowManager.renderables) {
-            if (e instanceof UIComponent) {
-                if (!((UIComponent) e).isVisible()) {
-                    continue;
+            Performance.startTiming("render");
+
+            glClearColor(0.5f, 0.5f, 0.5f, 0.0f);
+            glClear(GL_COLOR_BUFFER_BIT);
+
+            for (Renderable e : WindowManager.renderables) {
+                if (e instanceof UIComponent) {
+                    if (!((UIComponent) e).isVisible()) {
+                        continue;
+                    }
                 }
+
+                e.draw();
             }
 
-            e.draw();
+            Performance.endTiming("render");
+
+            FramerateManager.refresh = false;
+
         }
 
-        Performance.endTiming("render");
         Performance.startTiming("tick");
 
         MouseResponder.callMouseResponders(Application.getResponders(), null);
