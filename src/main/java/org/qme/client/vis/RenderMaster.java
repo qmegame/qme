@@ -114,7 +114,7 @@ public final class RenderMaster {
 				new Rectangle(
 						rect.x + actualEdgeWidth,
 						rect.y + actualEdgeWidth,
-						rect.width + actualEdgeWidth,
+						rect.width + actualCornerWidth,
 						rect.height + actualCornerHeight
 				),
 				atlas.get(state + "fill"), textureSize);

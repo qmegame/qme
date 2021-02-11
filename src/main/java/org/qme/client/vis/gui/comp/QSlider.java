@@ -18,7 +18,10 @@ import static org.lwjgl.opengl.GL11.*;
  */
 public abstract class QSlider extends UIComponent {
 
-    private static final HashMap<String, Rectangle> atlas = TextureManager.loadAtlas("/textures/misc/button.json");
+    /**
+     * Texture atlas that represents all sliders
+     */
+    private final HashMap<String, Rectangle> atlas = TextureManager.loadAtlas("/textures/misc/button.json");
 
     private String text;
     private QFont font;

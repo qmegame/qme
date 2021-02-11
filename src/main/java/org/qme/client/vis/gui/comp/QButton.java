@@ -18,13 +18,15 @@ import java.util.HashMap;
  */
 public abstract class QButton extends UIComponent {
 
-    private static final HashMap<String, Rectangle> atlas = TextureManager.loadAtlas("/textures/misc/button.json");
+    /**
+     * Texture atlas that represents all buttons
+     */
+    private final HashMap<String, Rectangle> atlas = TextureManager.loadAtlas("/textures/misc/button.json");
 
-    private String text;
     private QFont font;
     private Dimension textOffset;
+    private String text;
     private Rectangle rect;
-    private Dimension texture;
     private boolean clickable = true;
 
     /**
