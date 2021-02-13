@@ -72,8 +72,12 @@ public class GLFWInteraction {
 
         MouseResponder.callMouseResponders(Application.getResponders(), null);
 
-        glfwSwapBuffers(wn);
-        glfwPollEvents();
+        if (FramerateManager.refresh || Scrolling.scrolling()) {
+
+            glfwSwapBuffers(wn);
+            glfwPollEvents();
+
+        }
 
         Performance.endTiming("tick");
     }
