@@ -25,7 +25,7 @@ public final class WindowManager {
 	private static final double ZOOM_IN = 1.1D;
 	private static final double ZOOM_OUT = 0.9D;
 
-	private static final float ZOOM_MIN = 2F;
+	private static final float ZOOM_MIN = 0.85F;
 	private static final float ZOOM_MAX = 10;
 
 	protected static final List<Renderable> renderables = new ArrayList<>();
