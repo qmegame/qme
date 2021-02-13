@@ -61,6 +61,18 @@ public class ResourcesUI extends GUI {
         hide();
 
     }
+    /**
+     * Add a harvest button for each resource
+     * @author jakeroggenbuck
+     * @param tile the tile that has the resources
+     */
+    public void whatToHarvest(Tile tile) {
+        if (tile.resources.size() > 0) {
+            for (Resource resource : tile.resources) {
+                System.out.println(resource.type);
+            }
+        }
+    }
 
     /**
      * Changes the information in this UI to show for a specified tile
