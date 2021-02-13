@@ -69,7 +69,9 @@ public class ResourcesUI extends GUI {
     public void whatToHarvest(Tile tile) {
         if (tile.resources.size() > 0) {
             for (Resource resource : tile.resources) {
-                System.out.println(resource.type);
+                String resourceType = resource.type.toString();
+                String name = Language.getTranslation(resourceType);
+                System.out.println(name);
             }
         }
     }
