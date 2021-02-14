@@ -12,6 +12,9 @@ import org.qme.init.GLInit;
 import org.qme.init.PreInit;
 import org.qme.io.AudioFiles;
 import org.qme.io.AudioPlayer;
+import org.qme.io.Logger;
+import org.qme.io.Severity;
+import org.qme.utils.FramerateManager;
 import org.qme.utils.Language;
 import org.qme.utils.Performance;
 import org.qme.world.World;
@@ -32,6 +35,8 @@ import java.util.Locale;
  * @since 0.1.0
  */
 public final class Application {
+
+	public static boolean running = false;
 
 	private int frameCount;
 	private int fps;
@@ -89,8 +94,12 @@ public final class Application {
 	 * Run the application forever (or until an exit request is sent)
 	 */
 	public void mainloop() {
+
+		running = true;
+
+		FramerateManager.refreshUpdater.start();
     
-		while (GLFWInteraction.shouldBeOpen()) {
+		while (GLFWInteraction.shouldBeOpen() && running) {
 
 			Performance.beginFrame();
 
@@ -122,9 +131,10 @@ public final class Application {
 			} else {
 				frameCount++;
 			}
-
 		
 		}
+
+		running = false; // Shut down refresh thread
 		
 	}
 
