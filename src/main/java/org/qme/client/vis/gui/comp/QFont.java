@@ -160,7 +160,7 @@ public class QFont {
             g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         }
         g.setFont(font);
-        g.setPaint(Color.WHITE);
+        g.setPaint(new Color(39, 57, 101));
         g.drawString(String.valueOf(c), 0, metrics.getAscent());
         g.dispose();
         return image;
