@@ -29,6 +29,7 @@ public abstract class QButton extends UIComponent {
     private int actualEdgeWidth;
     private int actualEdgeHeight;
 
+    private Color color;
     private String text;
     private QFont font;
     private Dimension textOffset;
@@ -44,9 +45,10 @@ public abstract class QButton extends UIComponent {
      * @param y y location
      * @param width the width of the button
      * @param height the height of the button
+     * @param color the color of the button text
      */
-    public QButton(QFont font, String text, int x, int y, int width, int height) {
-        this(font, text, new Rectangle(x - (width / 2), y - (height / 2), width, height));
+    public QButton(QFont font, String text, int x, int y, int width, int height, Color color) {
+        this(font, text, new Rectangle(x - (width / 2), y - (height / 2), width, height), color);
     }
 
     /**
@@ -54,8 +56,9 @@ public abstract class QButton extends UIComponent {
      * @param font the font to use
      * @param text the text to display
      * @param rect the button size and location
+     * @param color the color of the button text
      */
-    public QButton(QFont font, String text, Rectangle rect) {
+    public QButton(QFont font, String text, Rectangle rect, Color color) {
         this.font = font;
         this.text = text;
         this.rect = rect;
@@ -63,6 +66,7 @@ public abstract class QButton extends UIComponent {
                 (rect.width - font.getWidth(text)) / 2,
                 (rect.height - font.getHeight()) / 2
         );
+        this.color = color;
         this.calculateDimensions();
     }
 
@@ -226,7 +230,7 @@ public abstract class QButton extends UIComponent {
 
         }
 
-        font.drawText(text, rect.x + textOffset.width, rect.y + textOffset.height);
+        font.drawText(text, rect.x + textOffset.width, rect.y + textOffset.height, color);
 
         glDisable(GL_BLEND);
         glDisable(GL_TEXTURE_2D);
