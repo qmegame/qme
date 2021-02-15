@@ -21,5 +21,4 @@ public class GUIManager {
         pauseUI = new PauseUI();
         optionsUI = new OptionsUI();
     }
-
 }

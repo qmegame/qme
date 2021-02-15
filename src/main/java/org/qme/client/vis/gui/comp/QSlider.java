@@ -96,7 +96,7 @@ public abstract class QSlider extends UIComponent {
         if (rect.contains(x, GLFWInteraction.windowSize() - y)) {
 
             if (isClicked() && !isLocked() && isVisible()) {
-                float fill = ((float)(x - (rect.x - 10)) / rect.width) * 100 - 5;
+                float fill = ((float)(x - (rect.x)) / rect.width) * 100;
                 setFill(fill);
                 action(fill);
             }
