@@ -58,7 +58,9 @@ public class QFont {
         int width = 0;
         for(int i = 0; i < string.length(); i++) {
             char ch = string.charAt(i);
-            width += glyphs.get(ch).width;
+            if (glyphs.containsKey(ch)) {
+                width += glyphs.get(ch).width;
+            }
         }
         return width;
     }

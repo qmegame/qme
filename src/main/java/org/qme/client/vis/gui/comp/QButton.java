@@ -18,22 +18,15 @@ import java.util.HashMap;
  */
 public abstract class QButton extends UIComponent {
 
-    private static final HashMap<String, Rectangle> atlas = TextureManager.loadAtlas("/textures/misc/button.json");
+    /**
+     * Texture atlas that represents all buttons
+     */
+    private final HashMap<String, Rectangle> atlas = TextureManager.loadAtlas("/textures/misc/button.json");
 
-    private int actualCornerHeight;
-    private int actualCornerWidth;
-    private int bodyWidth;
-    private int bodyHeight;
-    private int actualBodyWidth;
-    private int actualBodyHeight;
-    private int actualEdgeWidth;
-    private int actualEdgeHeight;
-
-    private String text;
     private QFont font;
     private Dimension textOffset;
+    private String text;
     private Rectangle rect;
-    private Dimension texture;
     private boolean clickable = true;
 
     /**
@@ -61,26 +54,8 @@ public abstract class QButton extends UIComponent {
         this.rect = rect;
         textOffset = new Dimension(
                 (rect.width - font.getWidth(text)) / 2,
-                (rect.height - font.getHeight()) / 2
+                (rect.height- font.getHeight()) / 2
         );
-        this.calculateDimensions();
-    }
-
-    /**
-     * Calculates values used for rendering.
-     * If the dimensions of the QButton has changed they will need to be recalculated.
-     */
-    public void calculateDimensions() {
-        String state = getDrawState().name().toLowerCase() + "-";
-        this.actualCornerHeight = atlas.get(state + "bottom-left").height * Application.RENDER_SCALE;
-        this.actualCornerWidth = atlas.get(state + "bottom-left").width * Application.RENDER_SCALE;
-        this.bodyWidth = (rect.width / Application.RENDER_SCALE) - atlas.get(state + "bottom-left").width * 2;
-        this.bodyHeight = (rect.height / Application.RENDER_SCALE) - atlas.get(state + "bottom-left").height * 2;
-        this.actualBodyWidth = bodyWidth * Application.RENDER_SCALE;
-        this.actualBodyHeight = bodyHeight * Application.RENDER_SCALE;
-        this.actualEdgeHeight = atlas.get(state + "left").height * Application.RENDER_SCALE;
-        this.actualEdgeWidth = atlas.get(state + "left").width * Application.RENDER_SCALE;
-        this.texture = new Dimension(atlas.get("total").width, atlas.get("total").height);
     }
 
     /**
@@ -102,13 +77,27 @@ public abstract class QButton extends UIComponent {
     }
 
     /**
+     * Changes the button label
+     * @param string the new button label
+     */
+    public void setText(String string) {
+        this.text = string;
+        textOffset = new Dimension(
+                (rect.width - font.getWidth(text)) / 2,
+                (rect.height - font.getHeight()) / 2
+        );
+    }
+
+    /**
      * Called when the button is clicked
      */
     protected abstract void action();
 
     @Override
     public void mouseClickOff() {
-        this.action();
+        if (this.isVisible()) {
+            this.action();
+        }
     }
 
     @Override
@@ -129,102 +118,7 @@ public abstract class QButton extends UIComponent {
 
         String state = getDrawState().name().toLowerCase() + "-";
 
-        // base for the background of the box
-        RenderMaster.drawRegion(
-                new Rectangle(
-                        rect.x + actualEdgeWidth,
-                        rect.y + actualEdgeWidth,
-                        actualBodyWidth + actualCornerWidth,
-                        actualBodyHeight + actualCornerHeight
-                ),
-                atlas.get(state + "fill"), texture);
-
-        // top right corner
-        RenderMaster.drawRegion(
-                new Rectangle(
-                        rect.x + actualCornerWidth + actualBodyWidth,
-                        rect.y + actualCornerHeight + actualBodyHeight,
-                        actualCornerWidth,
-                        actualCornerHeight
-                ),
-                atlas.get(state + "top-right"), texture);
-
-        // bottom right corner
-        RenderMaster.drawRegion(
-                new Rectangle(
-                        rect.x + actualCornerWidth + actualBodyWidth,
-                        rect.y,
-                        actualCornerWidth,
-                        actualCornerHeight
-                ),
-                atlas.get(state + "bottom-right"), texture);
-
-        // top left corner
-        RenderMaster.drawRegion(
-                new Rectangle(
-                        rect.x,
-                        rect.y + actualCornerHeight + actualBodyHeight,
-                        actualCornerWidth,
-                        actualCornerHeight
-                ),
-                atlas.get(state + "top-left"), texture);
-
-        // bottom left corner
-        RenderMaster.drawRegion(
-                new Rectangle(
-                        rect.x,
-                        rect.y,
-                        actualCornerWidth,
-                        actualCornerHeight
-                ),
-                atlas.get(state + "bottom-left"), texture);
-
-        for (int i = 0; i < bodyWidth; i++) {
-
-            // top edge
-            RenderMaster.drawRegion(
-                    new Rectangle(
-                            rect.x + (i * actualEdgeHeight) + actualCornerWidth,
-                            rect.y + (actualCornerHeight * 2) - actualEdgeWidth + actualBodyHeight,
-                            Application.RENDER_SCALE,
-                            actualEdgeWidth
-                    ),
-                    atlas.get(state + "top"), texture);
-
-            // bottom edge
-            RenderMaster.drawRegion(
-                    new Rectangle(
-                            rect.x + (i * actualEdgeHeight) + actualCornerWidth,
-                            rect.y,
-                            actualEdgeHeight,
-                            actualEdgeWidth
-                    ),
-                    atlas.get(state + "bottom"), texture);
-        }
-
-        for (int i = 0; i < bodyHeight; i++) {
-
-            // left edge
-            RenderMaster.drawRegion(
-                    new Rectangle(
-                            rect.x,
-                            rect.y + actualCornerHeight + (actualEdgeHeight * i),
-                            actualEdgeWidth,
-                            actualEdgeHeight
-                    ),
-                    atlas.get(state + "left"), texture);
-
-            // right edge
-            RenderMaster.drawRegion(
-                    new Rectangle(
-                            rect.x + (actualCornerWidth * 2) - actualEdgeWidth + actualBodyWidth,
-                            rect.y + actualCornerHeight + (actualEdgeHeight * i),
-                            actualEdgeWidth,
-                            actualEdgeHeight
-                    ),
-                    atlas.get(state + "right"), texture);
-
-        }
+        RenderMaster.drawBounds(atlas, new Rectangle(rect.x, rect.y, rect.width - rect.width % Application.RENDER_SCALE - ((atlas.get(state + "bottom-left").width * 2)) * Application.RENDER_SCALE, rect.height - rect.height % Application.RENDER_SCALE - ((atlas.get(state + "bottom-left").height * 2)) * Application.RENDER_SCALE), state);
 
         font.drawText(text, rect.x + textOffset.width, rect.y + textOffset.height);
 

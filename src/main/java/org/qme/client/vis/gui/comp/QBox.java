@@ -13,17 +13,10 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class QBox extends UIComponent {
 
-    private static HashMap<String, Rectangle> atlas = TextureManager.loadAtlas("/textures/misc/box.json");
-
-    private int actualCornerHeight;
-    private int actualCornerWidth;
-    private int bodyWidth;
-    private int bodyHeight;
-    private int actualBodyWidth;
-    private int actualBodyHeight;
-    private int actualEdgeWidth;
-    private int actualEdgeHeight;
-    private Dimension texture;
+    /**
+     * Texture atlas that represents all boxes
+     */
+    private final HashMap<String, Rectangle> atlas = TextureManager.loadAtlas("/textures/misc/box.json");
 
     public Rectangle rect;
 
@@ -34,23 +27,6 @@ public class QBox extends UIComponent {
     public QBox(Rectangle rect) {
         super();
         this.rect = rect;
-        this.calculateDimensions();
-    }
-
-    /**
-     * Calculates values used for rendering.
-     * If the dimensions of the QBox has changed they will need to be recalculated.
-     */
-    public void calculateDimensions() {
-        this.actualCornerHeight = atlas.get("bottom-left").height * Application.RENDER_SCALE;
-        this.actualCornerWidth = atlas.get("bottom-left").width * Application.RENDER_SCALE;
-        this.bodyWidth = (rect.width / Application.RENDER_SCALE) - atlas.get("bottom-left").width * 2;
-        this.bodyHeight = (rect.height / Application.RENDER_SCALE) - atlas.get("bottom-left").height * 2;
-        this.actualBodyWidth = bodyWidth * Application.RENDER_SCALE;
-        this.actualBodyHeight = bodyHeight * Application.RENDER_SCALE;
-        this.actualEdgeHeight = atlas.get("edge-left").height * Application.RENDER_SCALE;
-        this.actualEdgeWidth = atlas.get("edge-left").width * Application.RENDER_SCALE;
-        this.texture = new Dimension(atlas.get("total").width, atlas.get("total").height);
     }
 
     @Override
@@ -67,102 +43,10 @@ public class QBox extends UIComponent {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        // base for the background of the box
-        RenderMaster.drawRegion(
-                new Rectangle(
-                        rect.x + actualEdgeWidth,
-                        rect.y + actualEdgeWidth,
-                        actualBodyWidth + actualEdgeWidth + actualCornerWidth,
-                        actualBodyHeight + actualEdgeWidth + actualCornerHeight
-                ),
-                atlas.get("fill"), texture);
+        int bodyWidth = rect.width - rect.width % Application.RENDER_SCALE - ((atlas.get("bottom-left").width * 2)) * Application.RENDER_SCALE;
+        int bodyHeight = rect.height - rect.height % Application.RENDER_SCALE - ((atlas.get("bottom-left").height * 2)) * Application.RENDER_SCALE;
 
-        // top right corner
-        RenderMaster.drawRegion(
-                new Rectangle(
-                        rect.x + actualCornerWidth + actualBodyWidth,
-                        rect.y + actualCornerHeight + actualBodyHeight,
-                        actualCornerWidth,
-                        actualCornerHeight
-                ),
-                atlas.get("bottom-right"), texture);
-
-        // bottom right corner
-        RenderMaster.drawRegion(
-                new Rectangle(
-                        rect.x + actualCornerWidth + actualBodyWidth,
-                        rect.y,
-                        actualCornerWidth,
-                        actualCornerHeight
-                ),
-                atlas.get("top-right"), texture);
-
-        // top left corner
-        RenderMaster.drawRegion(
-                new Rectangle(
-                        rect.x,
-                        rect.y + actualCornerHeight + actualBodyHeight,
-                        actualCornerWidth,
-                        actualCornerHeight
-                ),
-                atlas.get("bottom-left"), texture);
-
-        // bottom left corner
-        RenderMaster.drawRegion(
-                new Rectangle(
-                        rect.x,
-                        rect.y,
-                        actualCornerWidth,
-                        actualCornerHeight
-                ),
-                atlas.get("top-left"), texture);
-
-        for (int i = 0; i < bodyWidth; i++) {
-
-            // top edge
-            RenderMaster.drawRegion(
-                    new Rectangle(
-                            rect.x + (i * actualEdgeHeight) + actualCornerWidth,
-                            rect.y + (actualCornerHeight * 2) - actualEdgeWidth - actualEdgeHeight + actualBodyHeight,
-                            Application.RENDER_SCALE,
-                            actualEdgeWidth
-                    ),
-                    atlas.get("edge-top"), texture);
-
-            // bottom edge
-            RenderMaster.drawRegion(
-                    new Rectangle(
-                            rect.x + (i * actualEdgeHeight) + actualCornerWidth,
-                            rect.y + actualEdgeHeight,
-                            actualEdgeHeight,
-                            actualEdgeWidth
-                    ),
-                    atlas.get("edge-bottom"), texture);
-        }
-
-        for (int i = 0; i < bodyHeight; i++) {
-
-            // left edge
-            RenderMaster.drawRegion(
-                    new Rectangle(
-                            rect.x + Application.RENDER_SCALE,
-                            rect.y + actualCornerHeight + (actualEdgeHeight * i),
-                            actualEdgeWidth,
-                            actualEdgeHeight
-                    ),
-                    atlas.get("edge-left"), texture);
-
-            // right edge
-            RenderMaster.drawRegion(
-                    new Rectangle(
-                            rect.x + (actualCornerWidth * 2) - actualEdgeWidth - Application.RENDER_SCALE + actualBodyWidth,
-                            rect.y + actualCornerHeight + (actualEdgeHeight * i),
-                            actualEdgeWidth,
-                            actualEdgeHeight
-                    ),
-                    atlas.get("edge-right"), texture);
-
-        }
+        RenderMaster.drawBounds(atlas, new Rectangle(rect.x, rect.y, bodyWidth, bodyHeight));
 
         glDisable(GL_BLEND);
         glDisable(GL_TEXTURE_2D);
