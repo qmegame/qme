@@ -1,19 +1,36 @@
 package org.qme.game.structure;
 
+import java.util.ArrayList;
+
+import org.qme.world.res.Resource;
 import org.qme.world.Tile;
 
-public class Structure {
+public abstract class Structure {
 
-    public Structure(StructureType type) {
+    public Structure(Tile tile, StructureType type) {
         this.type = type;
+        this.tile = tile;
     }
 
-    public StructureType type;
+    public final StructureType type;
+    public final Tile tile;
+
 
     /**
      *  Checks whether or not a structure can be placed there
      * @param tile The tile it's being placed on
      * @return Whether or not the structure can be placed there
      */
-    public static boolean placeable(Tile tile) {return false; /*TODO: have this do things*/}
+    public boolean placeable(Tile tile) {
+        switch(this.type) {
+            case MINESHAFT: case SAWMILL: case FARM: case VINEYARD: case ORCHARD:
+                return tile.structures.isEmpty();
+                // It won't let me place a `break;` here
+            default:
+                return true;
+        }
+    }
+
+    public abstract ArrayList<Resource> getCost();
+    public void rollResources() {} // I know, just trust me
 }

@@ -9,6 +9,7 @@ public enum ResourceType {
     COAL,
     FRUIT,
     GOLD_ORE,
+    IRON_ORE,
     GRAPE_VINE,
     GRAPES,
     GRASS,

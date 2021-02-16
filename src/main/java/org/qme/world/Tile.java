@@ -10,6 +10,7 @@ import org.qme.client.vis.wn.GLFWInteraction;
 import org.qme.client.vis.wn.Scrolling;
 import org.qme.client.vis.wn.WindowManager;
 import org.qme.game.structure.Structure;
+import org.qme.game.structure.StructureType;
 import org.qme.world.res.*;
 
 /**
@@ -65,17 +66,35 @@ public class Tile extends UIComponent {
 	 * @since 0.3.0
 	 * @author santiago
 	 */
-	private void rollResources() {
-		Random rand = new Random();
-		final int roll = rand.nextInt(100);
-		ResourceType[] resourceList = (ResourceType.values());
-		for (int i = 0; i < resourceList.length; i++) {
-			ResourceType res = resourceList[i];
-			if (roll < Resource.getSpawnChance(res, this.type)) {
-				// TODO: Seagulls here
-				if ( (res != ResourceType.SALT) || (this.resources.size() == 0) )
-					this.resources.add(new Resource(res));
+	public void rollResources() {
+		if(!this.hasCollectionBuilding()) {
+			Random rand = new Random();
+			final int roll = rand.nextInt(100);
+			ResourceType[] resourceList = (ResourceType.values());
+			for (int i = 0; i < resourceList.length; i++) {
+				ResourceType res = resourceList[i];
+				if (roll < Resource.getSpawnChance(res, this.type)) {
+					// TODO: Seagulls here
+					if ((res != ResourceType.SALT) || (this.resources.size() == 0))
+						this.resources.add(new Resource(res));
+				}
 			}
+		} else {
+			this.structures.get(0).rollResources();
+		}
+	}
+
+	/**
+	 * Utility function that checks whether it has a collection building
+	 * @return Whether or not tile has a production building
+	 */
+	private boolean hasCollectionBuilding() {
+		switch(this.structures.get(0).type) {
+			case MINESHAFT: case SAWMILL: case FARM: case VINEYARD: case ORCHARD:
+				return true;
+			// It won't let me place a `break;` here
+			default:
+				return false;
 		}
 	}
 
