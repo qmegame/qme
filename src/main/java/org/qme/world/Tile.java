@@ -9,6 +9,7 @@ import org.qme.client.vis.gui.UIComponent;
 import org.qme.client.vis.wn.GLFWInteraction;
 import org.qme.client.vis.wn.Scrolling;
 import org.qme.client.vis.wn.WindowManager;
+import org.qme.game.structure.Structure;
 import org.qme.world.res.*;
 
 /**
@@ -77,6 +78,8 @@ public class Tile extends UIComponent {
 			}
 		}
 	}
+
+	public ArrayList<Structure> structures = new ArrayList<Structure>();
 
 	@Override
 	public boolean contains(int x, int y) {
