@@ -8,6 +8,11 @@ import org.qme.world.TileType;
 import org.qme.world.res.Resource;
 import org.qme.world.res.ResourceType;
 
+/**
+ * The class for mineshafts
+ * @since pre 0.4.0
+ * @author santiago
+ */
 public class Mineshaft extends Structure {
 
     public Mineshaft(Tile tile) {

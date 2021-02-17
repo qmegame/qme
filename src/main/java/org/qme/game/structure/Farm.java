@@ -8,6 +8,10 @@ import org.qme.world.TileType;
 import org.qme.world.res.Resource;
 import org.qme.world.res.ResourceType;
 
+/**
+ * @since 0.4.0
+ * @author santiago
+ */
 public class Farm extends Structure {
 
     public Farm(Tile tile) {

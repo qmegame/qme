@@ -8,12 +8,22 @@ import org.qme.world.TileType;
 import org.qme.world.res.Resource;
 import org.qme.world.res.ResourceType;
 
+/**
+ * @since 0.4.0
+ * @author santiago
+ */
 public class Sawmill extends Structure {
 
     public Sawmill(Tile tile) {
         super(tile, StructureType.SAWMILL);
     }
 
+    /**
+     * The cost to build
+     * @return The cost
+     * @since 0.4.0
+     * @author santiago
+     */
     public ArrayList<ResourceType> getCost() {
         ArrayList<ResourceType> r = new ArrayList<ResourceType>();
         for(int i = 0; i < 5; i++) {
