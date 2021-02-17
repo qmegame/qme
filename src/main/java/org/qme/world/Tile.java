@@ -80,7 +80,21 @@ public class Tile extends UIComponent {
 				}
 			}
 		} else {
-			this.structures.get(0).rollResources();
+			try {
+				this.structures.get(0).rollResources();
+			} catch(ArrayIndexOutOfBoundsException e) {
+				Random rand = new Random();
+				final int roll = rand.nextInt(100);
+				ResourceType[] resourceList = (ResourceType.values());
+				for (int i = 0; i < resourceList.length; i++) {
+					ResourceType res = resourceList[i];
+					if (roll < Resource.getSpawnChance(res, this.type)) {
+						// TODO: Seagulls here
+						if ((res != ResourceType.SALT) || (this.resources.size() == 0))
+							this.resources.add(new Resource(res));
+					}
+				}
+			}
 		}
 	}
 
@@ -89,6 +103,10 @@ public class Tile extends UIComponent {
 	 * @return Whether or not tile has a production building
 	 */
 	private boolean hasCollectionBuilding() {
+		if(this.structures.isEmpty()) {
+			return false;
+		}
+		
 		switch(this.structures.get(0).type) {
 			case MINESHAFT: case SAWMILL: case FARM: case VINEYARD: case ORCHARD:
 				return true;
