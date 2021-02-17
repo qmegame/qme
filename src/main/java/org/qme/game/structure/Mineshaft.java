@@ -14,10 +14,10 @@ public class Mineshaft extends Structure {
         super(tile, StructureType.MINESHAFT);
     }
 
-    public ArrayList<Resource> getCost() {
-        ArrayList<Resource> r = new ArrayList<Resource>();
+    public ArrayList<ResourceType> getCost() {
+        ArrayList<ResourceType> r = new ArrayList<ResourceType>();
         for(int i = 0; i < 10; i++) {
-            r.add(new Resource(ResourceType.LUMBER));
+            r.add(ResourceType.LUMBER);
         }
         return r;
     }

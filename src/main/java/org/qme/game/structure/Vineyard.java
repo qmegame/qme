@@ -14,13 +14,13 @@ public class Vineyard extends Structure {
         super(tile, StructureType.VINEYARD);
     }
 
-    public ArrayList<Resource> getCost() {
-        ArrayList<Resource> r = new ArrayList<Resource>();
+    public ArrayList<ResourceType> getCost() {
+        ArrayList<ResourceType> r = new ArrayList<ResourceType>();
         for (int i = 0; i < 20; i++) {
-            r.add(new Resource(ResourceType.LUMBER));
+            r.add(ResourceType.LUMBER);
         }
         for (int j = 0; j < 5; j++) {
-            r.add(new Resource(ResourceType.IRON_ORE));
+            r.add(ResourceType.IRON_ORE);
         }
         return r;
     }

@@ -14,10 +14,10 @@ public class Farm extends Structure {
         super(tile, StructureType.FARM);
     }
 
-    public ArrayList<Resource> getCost() {
-        ArrayList<Resource> r = new ArrayList<Resource>();
+    public ArrayList<ResourceType> getCost() {
+        ArrayList<ResourceType> r = new ArrayList<ResourceType>();
         for (int i = 0; i < 5; i++) {
-            r.add(new Resource(ResourceType.LUMBER));
+            r.add(ResourceType.LUMBER);
         }
         return r;
     }

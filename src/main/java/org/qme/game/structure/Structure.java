@@ -2,7 +2,7 @@ package org.qme.game.structure;
 
 import java.util.ArrayList;
 
-import org.qme.world.res.Resource;
+import org.qme.world.res.ResourceType;
 import org.qme.world.Tile;
 
 public abstract class Structure {
@@ -31,6 +31,6 @@ public abstract class Structure {
         }
     }
 
-    public abstract ArrayList<Resource> getCost();
+    public abstract ArrayList<ResourceType> getCost();
     public void rollResources() {} // I know, just trust me
 }
