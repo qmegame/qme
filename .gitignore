@@ -7,5 +7,5 @@ target/
 /.classpath
 /.macosLib.txt
 .classpath
-/.qme.iml
-/.qme5.iml
+qme.iml
+qme5.iml
