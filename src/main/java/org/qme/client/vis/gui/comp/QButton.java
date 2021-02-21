@@ -27,7 +27,6 @@ public abstract class QButton extends UIComponent {
     private String text;
     private QFont font;
     private Dimension textOffset;
-    private String text;
     private Rectangle rect;
     private boolean clickable = true;
 

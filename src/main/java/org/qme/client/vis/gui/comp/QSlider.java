@@ -123,7 +123,7 @@ public abstract class QSlider extends UIComponent {
         bodyWidth = Math.max(15, fill) - Math.max(15, fill) % Application.RENDER_SCALE - (atlas.get((isClicked() ? "pressed" : "unpressed") + "-" + "bottom-left").width * 2) * Application.RENDER_SCALE;
         RenderMaster.drawBounds(atlas, new Rectangle(rect.x, rect.y, bodyWidth, bodyHeight), (isClicked() ? "pressed" : "unpressed") + "-");
 
-        font.drawText(text, rect.x + textOffset.width, rect.y + textOffset.height);
+        font.drawText(text, rect.x + textOffset.width, rect.y + textOffset.height, Color.WHITE);
 
         glDisable(GL_BLEND);
         glDisable(GL_TEXTURE_2D);
