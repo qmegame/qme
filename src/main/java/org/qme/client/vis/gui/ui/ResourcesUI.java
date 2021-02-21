@@ -32,13 +32,13 @@ public class ResourcesUI extends GUI {
     public ResourcesUI() {
 
         box = new QBox(new Rectangle(5, 5, 250, 300));
-        close = new QButton(monospace, Language.getTranslation("CLOSE"), new Rectangle(115, 20, 60, 30)) {
+        close = new QButton(monospace, Language.getTranslation("CLOSE"), new Rectangle(115, 20, 60, 30), Color.WHITE) {
             @Override
             protected void action() {
                 hide();
             }
         };
-        harvest = new QButton(monospace, Language.getTranslation("HARVEST"), new Rectangle(20, 20, 90, 30)) {
+        harvest = new QButton(monospace, Language.getTranslation("HARVEST"), new Rectangle(20, 20, 90, 30), Color.WHITE) {
             @Override
             protected void action() {
                 if (tile.resources.size() > 0) {
@@ -49,7 +49,7 @@ public class ResourcesUI extends GUI {
                 }
             }
         };
-        label = new QLabel(monospace, "", 20, 278);
+        label = new QLabel(monospace, "", 20, 278, Color.WHITE);
 
         components = new UIComponent[] {
                 box, close, harvest, label

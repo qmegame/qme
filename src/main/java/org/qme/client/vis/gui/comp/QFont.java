@@ -162,7 +162,6 @@ public class QFont {
             g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         }
         g.setFont(font);
-        g.setPaint(Color.WHITE);
         g.drawString(String.valueOf(c), 0, metrics.getAscent());
         g.dispose();
         return image;
@@ -174,8 +173,8 @@ public class QFont {
      * @param x the x position of the text
      * @param y the y position of the text
      */
-    public void drawText(String string, int x, int y) {
-        drawText(string, x, y, false);
+    public void drawText(String string, int x, int y, Color color) {
+        drawText(string, x, y, color, false);
     }
 
     /**
@@ -185,7 +184,7 @@ public class QFont {
      * @param y the y position of the text
      * @param lineBreakUp if the line breaks should offset up
      */
-    public void drawText(String string, int x, int y, boolean lineBreakUp) {
+    public void drawText(String string, int x, int y, Color color, boolean lineBreakUp) {
         int lines = 1;
         for(int i = 0; i < string.length(); i++) {
             char ch = string.charAt(i);
@@ -202,6 +201,7 @@ public class QFont {
 
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_BLEND);
+
         glBindTexture(GL_TEXTURE_2D, TextureManager.getTexture(font.getFontName().replace(" ", "-")));
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -209,6 +209,7 @@ public class QFont {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
         for (int i = 0; i < string.length(); i++) {
             char ch = string.charAt(i);
             if (ch == '\n') {
@@ -219,9 +220,17 @@ public class QFont {
             if (ch == '\r') {
                 continue;
             }
-            Glyph g = glyphs.get(ch);
-            RenderMaster.drawRegion(new Rectangle(drawX, drawY, g.width, g.height), new Rectangle(g.x, g.y, g.width, g.height), new Dimension(g.imageWidth, g.imageHeight));
-            //RenderMaster.drawRegion(drawX, drawY, g.x, g.y, g.width, g.height, g.width, g.height, g.imageWidth, g.imageHeight);
+                Glyph g = glyphs.get(ch);
+
+                if (color != null) {
+                    glColor4f(
+                            ((float) color.getRed()) / 256f,
+                            ((float) color.getGreen()) / 256f,
+                            ((float) color.getBlue()) / 256f,
+                            ((float) color.getAlpha()) / 256f
+                    );
+                }
+            RenderMaster.drawRegion(new Rectangle(drawX, drawY, g.width, g.height), new Rectangle(g.x, g.y, g.width, g.height), new Dimension(g.imageWidth, g.imageHeight), color);
             drawX += g.width;
         }
 
