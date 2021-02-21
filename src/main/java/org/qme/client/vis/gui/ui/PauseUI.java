@@ -34,8 +34,8 @@ public class PauseUI extends GUI {
         QFont main = new QFont(new Font(Font.MONOSPACED, Font.PLAIN, 16), true);
         QFont title = new QFont(new Font(Font.MONOSPACED, Font.BOLD, 32), true);
 
-        label = new QLabel(title, "Game Paused", GLFWInteraction.getSize()/2 - title.getWidth("Game Paused")/2, GLFWInteraction.getSize()/2 + 40);
-        quit = new QButton(main, "Quit Game", new Rectangle(GLFWInteraction.getSize()/2 - BUTTON_WIDTH / 2, GLFWInteraction.getSize()/2 - 20, BUTTON_WIDTH, 40)) {
+        label = new QLabel(title, "Game Paused", GLFWInteraction.getSize()/2 - title.getWidth("Game Paused")/2, GLFWInteraction.getSize()/2 + 40, Color.WHITE);
+        quit = new QButton(main, "Quit Game", new Rectangle(GLFWInteraction.getSize()/2 - BUTTON_WIDTH / 2, GLFWInteraction.getSize()/2 - 20, BUTTON_WIDTH, 40), Color.WHITE) {
             @Override
             protected void action() {
                 if (isVisible()) {
@@ -44,7 +44,7 @@ public class PauseUI extends GUI {
                 }
             }
         };
-        options = new QButton(main, "Options", new Rectangle(GLFWInteraction.getSize()/2 - BUTTON_WIDTH / 2, GLFWInteraction.getSize()/2 - 70, BUTTON_WIDTH, 40)) {
+        options = new QButton(main, "Options", new Rectangle(GLFWInteraction.getSize()/2 - BUTTON_WIDTH / 2, GLFWInteraction.getSize()/2 - 70, BUTTON_WIDTH, 40), Color.WHITE) {
             @Override
             protected void action() {
                 if (isVisible()) {
@@ -53,7 +53,7 @@ public class PauseUI extends GUI {
                 }
             }
         };
-        back = new QButton(main, "Return to Game", new Rectangle(GLFWInteraction.getSize()/2 - BUTTON_WIDTH / 2, GLFWInteraction.getSize()/2 - 120, BUTTON_WIDTH, 40)) {
+        back = new QButton(main, "Return to Game", new Rectangle(GLFWInteraction.getSize()/2 - BUTTON_WIDTH / 2, GLFWInteraction.getSize()/2 - 120, BUTTON_WIDTH, 40), Color.WHITE) {
             @Override
             protected void action() {
                 if (isVisible()) {

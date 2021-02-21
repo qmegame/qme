@@ -4,6 +4,8 @@ import org.qme.client.Application;
 import org.qme.client.vis.RenderMaster;
 import org.qme.client.vis.Renderable;
 import org.qme.client.vis.gui.GUIManager;
+import org.qme.client.vis.tex.TextureManager;
+import org.qme.init.GLInit;
 import org.qme.io.AudioPlayerState;
 import org.qme.utils.Direction;
 import org.qme.world.World;
@@ -86,11 +88,11 @@ public final class WindowManager {
 				break;
 			case GLFW_KEY_F1:
 				if (keyAction != GLFW_RELEASE) break;
-				Application.debugLabel.setVisible(!Application.debugLabel.isVisible());
+				GUIManager.debugUI.toggle();
 				break;
 			case GLFW_KEY_F2:
 				if (keyAction != GLFW_RELEASE) break;
-				Application.profilerLabel.setVisible(!Application.profilerLabel.isVisible());
+				GUIManager.profilerUI.toggle();
 				break;
 			case GLFW_KEY_ESCAPE:
 				if (keyAction != GLFW_RELEASE) break;

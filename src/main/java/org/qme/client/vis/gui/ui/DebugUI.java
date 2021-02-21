@@ -1,0 +1,41 @@
+package org.qme.client.vis.gui.ui;
+
+import org.qme.client.vis.gui.GUI;
+import org.qme.client.vis.gui.UIComponent;
+import org.qme.client.vis.gui.comp.QFont;
+import org.qme.client.vis.gui.comp.QLabel;
+import org.qme.client.vis.wn.GLFWInteraction;
+import org.qme.utils.Performance;
+
+import java.awt.*;
+
+public class DebugUI extends GUI {
+
+    public QLabel label;
+    public QLabel shadow;
+
+    public DebugUI() {
+        this.shadow = new QLabel(monospace, "?!?", 6, GLFWInteraction.windowSize() - (monospace.getHeight() + 3), Color.BLACK);
+        this.label = new QLabel(monospace, "?!?", 5, GLFWInteraction.windowSize() - (monospace.getHeight() + 2), Color.WHITE);
+
+        components = new UIComponent[] {
+                shadow,
+                label
+        };
+
+        hide();
+    }
+
+    public void update(int fps, int frameCount) {
+        String text = "Running game version v" + Performance.GAME_VERSION + "" +
+                "\nJVM: " + Performance.JAVA_VERSION + " (Vendor: " + Performance.JAVA_VENDOR + ")" +
+                "\nOperating System: " + Performance.OPERATING_SYSTEM + " (Arch: " + Performance.ARCH_TYPE + ") (Version: " + Performance.OPERATING_SYSTEM_VERSION + ")" +
+                "\nGraphics: " + Performance.GPU_NAME + " " + Performance.GPU_VENDOR +
+                "\nMemory: (Max: " + Runtime.getRuntime().totalMemory() / 1000000 + "mb) (Used: " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1000000 + "mb)" +
+                "\nProcessor: " + Performance.CPU +
+                "\nFPS: " + fps + " (On: " + frameCount + ")";
+        label.text = text;
+        shadow.text = text;
+    }
+
+}

@@ -23,9 +23,10 @@ public abstract class QButton extends UIComponent {
      */
     private final HashMap<String, Rectangle> atlas = TextureManager.loadAtlas("/textures/misc/button.json");
 
+    private Color color;
+    private String text;
     private QFont font;
     private Dimension textOffset;
-    private String text;
     private Rectangle rect;
     private boolean clickable = true;
 
@@ -37,9 +38,10 @@ public abstract class QButton extends UIComponent {
      * @param y y location
      * @param width the width of the button
      * @param height the height of the button
+     * @param color the color of the button text
      */
-    public QButton(QFont font, String text, int x, int y, int width, int height) {
-        this(font, text, new Rectangle(x - (width / 2), y - (height / 2), width, height));
+    public QButton(QFont font, String text, int x, int y, int width, int height, Color color) {
+        this(font, text, new Rectangle(x - (width / 2), y - (height / 2), width, height), color);
     }
 
     /**
@@ -47,8 +49,9 @@ public abstract class QButton extends UIComponent {
      * @param font the font to use
      * @param text the text to display
      * @param rect the button size and location
+     * @param color the color of the button text
      */
-    public QButton(QFont font, String text, Rectangle rect) {
+    public QButton(QFont font, String text, Rectangle rect, Color color) {
         this.font = font;
         this.text = text;
         this.rect = rect;
@@ -120,7 +123,7 @@ public abstract class QButton extends UIComponent {
 
         RenderMaster.drawBounds(atlas, new Rectangle(rect.x, rect.y, rect.width - rect.width % Application.RENDER_SCALE - ((atlas.get(state + "bottom-left").width * 2)) * Application.RENDER_SCALE, rect.height - rect.height % Application.RENDER_SCALE - ((atlas.get(state + "bottom-left").height * 2)) * Application.RENDER_SCALE), state);
 
-        font.drawText(text, rect.x + textOffset.width, rect.y + textOffset.height);
+        font.drawText(text, rect.x + textOffset.width, rect.y + textOffset.height, color);
 
         glDisable(GL_BLEND);
         glDisable(GL_TEXTURE_2D);

@@ -113,20 +113,11 @@ public final class Application {
 			GLFWInteraction.repaint();
 
 			// Updates debug label each frame
-			debugLabel.text = "Running game version v" + Performance.GAME_VERSION + "" +
-					"\nJVM: " + Performance.JAVA_VERSION + " (Vendor: " + Performance.JAVA_VENDOR + ")" +
-					"\nOperating System: " + Performance.OPERATING_SYSTEM + " (Arch: " + Performance.ARCH_TYPE + ") (Version: " + Performance.OPERATING_SYSTEM_VERSION + ")" +
-					"\nGraphics: " + Performance.GPU_NAME + " " + Performance.GPU_VENDOR +
-					"\nMemory: (Max: " + Runtime.getRuntime().totalMemory() / 1000000 + "mb) (Used: " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1000000 + "mb)" +
-					"\nProcessor: " + Performance.CPU +
-					"\nFPS: " + fps + " (On: " + frameCount + ")";
+			GUIManager.debugUI.update(fps, frameCount);
 
 			// Updates profiler data
 			HashMap<String, Float> timings = Performance.getTimings();
-			profilerLabel.text = "Profiler [Render] [Tick] [Other]" +
-					"\nRender: " + timings.getOrDefault("render",0F) + "ms" +
-					"\nTick: " + timings.getOrDefault("tick", 0F) + "ms" +
-					"\nTotal: " + Performance.getTotal() + "ms";
+			GUIManager.profilerUI.update(timings);
 
 			// Calculates fps
 			if (System.currentTimeMillis() - lastSecond > 1000) {

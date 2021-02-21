@@ -40,11 +40,11 @@ public class AssetInit {
         QFont buttonFont = new QFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 18), true);
 
         // Debug Label
-        Application.debugLabel = new QLabel(labelMono, "...", 5, GLFWInteraction.windowSize() - (labelMono.getHeight() + 2), true);
+        Application.debugLabel = new QLabel(labelMono, "...", 5, GLFWInteraction.windowSize() - (labelMono.getHeight() + 2), Color.WHITE, true);
         Application.debugLabel.setVisible(false);
 
         // Profiler Label
-        Application.profilerLabel = new QLabel(labelMono, "...", 5, 5, false);
+        Application.profilerLabel = new QLabel(labelMono, "...", 5, 5, Color.WHITE, false);
         Application.profilerLabel.setVisible(false);
 
         Logger.log("Finished loading miscellaneous GUIs", Severity.DEBUG);
