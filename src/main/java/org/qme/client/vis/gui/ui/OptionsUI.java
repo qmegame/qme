@@ -6,6 +6,7 @@ import org.qme.client.vis.gui.GUIManager;
 import org.qme.client.vis.gui.UIComponent;
 import org.qme.client.vis.gui.comp.*;
 import org.qme.client.vis.wn.GLFWInteraction;
+import org.qme.utils.OSType;
 import org.qme.world.Tile;
 import org.qme.world.res.Resource;
 import org.qme.world.res.ResourceType;
@@ -31,7 +32,12 @@ public class OptionsUI extends GUI {
     public OptionsUI() {
 
         QFont main = new QFont(new Font(Font.MONOSPACED, Font.PLAIN, 16), true);
-        QFont title = new QFont(new Font(Font.MONOSPACED, Font.BOLD, 32), true);
+        QFont title;
+        if (OSType.mac()) {
+            title = main; // Trash mac users break my prs :^)
+        } else {
+            title = new QFont(new Font(Font.MONOSPACED, Font.BOLD, 32), true);
+        }
 
         box = new QBox(new Rectangle(GLFWInteraction.getSize()/2 - 150, GLFWInteraction.getSize()/2 - 150, 300, 250));
         label = new QLabel(title, "Options", GLFWInteraction.getSize()/2 - title.getWidth("Options")/2, GLFWInteraction.getSize()/2 + 40, Color.WHITE);

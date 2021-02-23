@@ -9,6 +9,7 @@ import org.qme.client.vis.gui.comp.QLabel;
 import org.qme.client.vis.wn.GLFWInteraction;
 import org.qme.io.Logger;
 import org.qme.io.Severity;
+import org.qme.utils.OSType;
 
 import java.awt.*;
 
@@ -32,7 +33,12 @@ public class PauseUI extends GUI {
     public PauseUI() {
 
         QFont main = new QFont(new Font(Font.MONOSPACED, Font.PLAIN, 16), true);
-        QFont title = new QFont(new Font(Font.MONOSPACED, Font.BOLD, 32), true);
+        QFont title;
+        if (OSType.mac()) {
+            title = main; // Trash mac users break my prs :^)
+        } else {
+            title = new QFont(new Font(Font.MONOSPACED, Font.BOLD, 32), true);
+        }
 
         label = new QLabel(title, "Game Paused", GLFWInteraction.getSize()/2 - title.getWidth("Game Paused")/2, GLFWInteraction.getSize()/2 + 40, Color.WHITE);
         quit = new QButton(main, "Quit Game", new Rectangle(GLFWInteraction.getSize()/2 - BUTTON_WIDTH / 2, GLFWInteraction.getSize()/2 - 20, BUTTON_WIDTH, 40), Color.WHITE) {
