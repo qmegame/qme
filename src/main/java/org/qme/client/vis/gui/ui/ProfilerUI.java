@@ -15,9 +15,8 @@ public class ProfilerUI extends GUI {
     public QLabel shadow;
 
     public ProfilerUI() {
-        QFont font = new QFont(new Font(Font.MONOSPACED, Font.PLAIN, 12), true);
-        this.shadow = new QLabel(font, "?!?", 6, 4, Color.BLACK, false);
-        this.label = new QLabel(font, "?!?", 5, 5, Color.WHITE, false);
+        this.shadow = new QLabel(monospace, "?!?", 6, 4, Color.BLACK, false);
+        this.label = new QLabel(monospace, "?!?", 5, 5, Color.WHITE, false);
 
         components = new UIComponent[] {
                 shadow,

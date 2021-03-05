@@ -22,7 +22,7 @@ public class World {
 	/**
 	 * All tiles in the world.
 	 */
-	private final Tile[][] tiles;
+	public final Tile[][] tiles;
 
 	/**
 	 * Create the world by initializing all tiles with appropriate types.
