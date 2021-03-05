@@ -70,6 +70,8 @@ public class GLInit {
         glfwShowWindow(GLFWInteraction.wn);
         GL.createCapabilities();
 
+        glfwRequestWindowAttention(GLFWInteraction.wn);
+
         Logger.log("Window now visible, and contexts created", Severity.DEBUG);
 
         glfwSetKeyCallback(GLFWInteraction.wn, new GLFWKeyCallback() {
