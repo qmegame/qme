@@ -53,6 +53,7 @@ public class GLFWInteraction {
             glClearColor(0.5f, 0.5f, 0.5f, 0.0f);
             glClear(GL_COLOR_BUFFER_BIT);
 
+            // Iterate through each layer and render all objects in that layer
             for (int i = 0; i < Layer.values().length; ++i) {
 
                 for (Renderable e : WindowManager.renderables) {
