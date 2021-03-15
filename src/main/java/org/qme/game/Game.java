@@ -3,6 +3,11 @@ package org.qme.game;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The class representing the instance of the game.
+ * @author adamhutchings
+ * @since 0.4
+ */
 public class Game {
 
     List<Player> playerList = new ArrayList<>();
