@@ -49,6 +49,11 @@ public final class Application {
 	public static final int RENDER_SCALE = 3;
 
 	/**
+	 * This avoids concurrent modification.
+	 */
+	public static boolean worldGen = false;
+
+	/**
 	 * Make audio player
 	 */
 	public static AudioPlayer audioPlayer = new AudioPlayer(AudioFiles.menu);
@@ -121,6 +126,11 @@ public final class Application {
 				lastSecond = System.currentTimeMillis();
 			} else {
 				frameCount++;
+			}
+
+			if (worldGen) {
+				new World();
+				worldGen = false;
 			}
 		
 		}
