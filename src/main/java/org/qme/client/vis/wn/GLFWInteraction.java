@@ -5,6 +5,7 @@ import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.qme.client.Application;
+import org.qme.client.vis.Layer;
 import org.qme.client.vis.Renderable;
 import org.qme.client.vis.gui.MouseResponder;
 import org.qme.client.vis.gui.UIComponent;
@@ -52,14 +53,21 @@ public class GLFWInteraction {
             glClearColor(0.5f, 0.5f, 0.5f, 0.0f);
             glClear(GL_COLOR_BUFFER_BIT);
 
-            for (Renderable e : WindowManager.renderables) {
-                if (e instanceof UIComponent) {
-                    if (!((UIComponent) e).isVisible()) {
-                        continue;
+            for (int i = 0; i < Layer.values().length; ++i) {
+
+                for (Renderable e : WindowManager.renderables) {
+                    if (e instanceof UIComponent) {
+                        if (!((UIComponent) e).isVisible()) {
+                            continue;
+                        }
                     }
+
+                    if (e.layer() == Layer.values()[i]) {
+                        e.draw();
+                    }
+
                 }
 
-                e.draw();
             }
 
             Performance.endTiming("render");

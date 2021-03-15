@@ -3,6 +3,7 @@ package org.qme.world;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.qme.client.vis.Layer;
 import org.qme.client.vis.RenderMaster;
 import org.qme.client.vis.gui.GUIManager;
 import org.qme.client.vis.gui.UIComponent;
@@ -43,6 +44,11 @@ public class Tile extends UIComponent {
 	@Override
 	public void draw() {
 		RenderMaster.drawTile(this);
+	}
+
+	@Override
+	public Layer layer() {
+		return Layer.WORLD;
 	}
 
 	/**
