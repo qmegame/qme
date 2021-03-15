@@ -34,7 +34,7 @@ public class AssetInit {
 
         Logger.log("Finished loading main GUIs", Severity.DEBUG);
 
-        QFont labelMono = new QFont(new Font(Font.MONOSPACED, Font.PLAIN, 12), true);
+        QFont labelMono = new QFont(new Font(Font.DIALOG_INPUT, Font.PLAIN, 12), true);
         QFont buttonFont = new QFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 18), true);
 
         // Debug Label

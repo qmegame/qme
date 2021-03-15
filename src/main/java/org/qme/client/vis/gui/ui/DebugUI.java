@@ -15,9 +15,8 @@ public class DebugUI extends GUI {
     public QLabel shadow;
 
     public DebugUI() {
-        QFont font = new QFont(new Font(Font.MONOSPACED, Font.PLAIN, 12), true);
-        this.shadow = new QLabel(font, "?!?", 6, GLFWInteraction.windowSize() - (font.getHeight() + 3), Color.BLACK);
-        this.label = new QLabel(font, "?!?", 5, GLFWInteraction.windowSize() - (font.getHeight() + 2), Color.WHITE);
+        this.shadow = new QLabel(monospace, "?!?", 6, GLFWInteraction.windowSize() - (monospace.getHeight() + 3), Color.BLACK);
+        this.label = new QLabel(monospace, "?!?", 5, GLFWInteraction.windowSize() - (monospace.getHeight() + 2), Color.WHITE);
 
         components = new UIComponent[] {
                 shadow,

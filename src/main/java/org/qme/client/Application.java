@@ -58,6 +58,11 @@ public final class Application {
 	 */
 	public static AudioPlayer audioPlayer = new AudioPlayer(AudioFiles.menu);
 
+	/**
+	 * World
+	 */
+	public static World world;
+
   	/**
    	 * All mouse responders
 	 */

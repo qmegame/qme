@@ -94,6 +94,18 @@ public final class WindowManager {
 				if (keyAction != GLFW_RELEASE) break;
 				GUIManager.profilerUI.toggle();
 				break;
+			case GLFW_KEY_ESCAPE:
+				if (keyAction != GLFW_RELEASE) break;
+				if (GUIManager.pauseUI.isVisible()) {
+					Application.audioPlayer.play();
+					GUIManager.pauseUI.hide();
+				} else {
+					GUIManager.optionsUI.hide();
+					GUIManager.pauseUI.show();
+					GUIManager.resourcesUI.hide();
+					Application.audioPlayer.pause();
+				}
+				break;
 			default:
 				break;
 		}
@@ -104,6 +116,10 @@ public final class WindowManager {
 	 * @param zoomFactor the scale factor to be applied to the zoom
 	 */
 	private static void applyZoom(double zoomFactor) {
+		if (GUIManager.pauseUI.isVisible() || GUIManager.optionsUI.isVisible()) {
+			return;
+		}
+
 		// Works by calculating how much offset must be applied to counteract the objects increasing in size
 		double newWorldSize = getWorldSize(RenderMaster.zoom * (double) Math.round(zoomFactor * 100) / 100);
 		double oldWorldSize = getWorldSize(RenderMaster.zoom);
