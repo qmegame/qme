@@ -11,8 +11,6 @@ import org.qme.world.res.ResourceType;
  */
 public class Player {
 
-    public static final Player player = new Player();
-
     /**
      * An array. The zero-th index is how many of the first element in the
      * ResourceType enum the player has, etc.
