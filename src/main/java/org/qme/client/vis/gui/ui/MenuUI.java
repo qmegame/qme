@@ -19,7 +19,7 @@ public class MenuUI extends GUI {
                 new QButton(
                         monospace, "New Game",
                         GLFWInteraction.windowSize() / 2,
-                        GLFWInteraction.windowSize() / 3,
+                        GLFWInteraction.windowSize() * 3 / 5,
                         100,
                         50,
                         Color.GRAY
@@ -35,7 +35,7 @@ public class MenuUI extends GUI {
                 new QButton(
                         monospace, "Exit",
                         GLFWInteraction.windowSize() / 2,
-                        GLFWInteraction.windowSize() * 2 / 3,
+                        GLFWInteraction.windowSize() * 2 / 5,
                         100,
                         50,
                         Color.GRAY
