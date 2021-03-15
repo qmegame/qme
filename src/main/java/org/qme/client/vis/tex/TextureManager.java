@@ -27,8 +27,8 @@ import org.json.*;
  */
 public class TextureManager {
 
-    private static final String TEXTURE_RESOURCES = "/textures2/";
-    private static final String MISSING_TEXTURE = "/textures2/tiles/missing.png";
+    private static final String TEXTURE_RESOURCES = "/textures/";
+    private static final String MISSING_TEXTURE = "/textures/tiles/missing.png";
     private static final HashMap<String, Integer> textures = new HashMap<>();
 
     /**

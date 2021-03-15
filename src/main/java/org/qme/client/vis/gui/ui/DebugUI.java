@@ -27,7 +27,7 @@ public class DebugUI extends GUI {
     }
 
     public void update(int fps, int frameCount) {
-        String text = "Running game version v" + Performance.GAME_VERSION + "" +
+        String text = "Running game version v" + Performance.GAME_VERSION + " (id:" + Performance.GAME_VERSION_ID + ")" +
                 "\nJVM: " + Performance.JAVA_VERSION + " (Vendor: " + Performance.JAVA_VENDOR + ")" +
                 "\nOperating System: " + Performance.OPERATING_SYSTEM + " (Arch: " + Performance.ARCH_TYPE + ") (Version: " + Performance.OPERATING_SYSTEM_VERSION + ")" +
                 "\nGraphics: " + Performance.GPU_NAME + " " + Performance.GPU_VENDOR +

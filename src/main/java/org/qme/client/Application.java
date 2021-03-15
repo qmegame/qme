@@ -10,10 +10,7 @@ import org.qme.client.vis.wn.Scrolling;
 import org.qme.init.AssetInit;
 import org.qme.init.GLInit;
 import org.qme.init.PreInit;
-import org.qme.io.AudioFiles;
-import org.qme.io.AudioPlayer;
-import org.qme.io.Logger;
-import org.qme.io.Severity;
+import org.qme.io.*;
 import org.qme.utils.FramerateManager;
 import org.qme.utils.Language;
 import org.qme.utils.Performance;
@@ -105,42 +102,48 @@ public final class Application {
 	 */
 	public void mainloop() {
 
-		running = true;
+		try {
 
-		FramerateManager.refreshUpdater.start();
-    
-		while (GLFWInteraction.shouldBeOpen() && running) {
+			running = true;
 
-			Performance.beginFrame();
+			FramerateManager.refreshUpdater.start();
 
-			Scrolling.moveWorld();
+			while (GLFWInteraction.shouldBeOpen() && running) {
 
-			GLFWInteraction.repaint();
+				Performance.beginFrame();
 
-			// Updates debug label each frame
-			GUIManager.debugUI.update(fps, frameCount);
+				Scrolling.moveWorld();
 
-			// Updates profiler data
-			HashMap<String, Float> timings = Performance.getTimings();
-			GUIManager.profilerUI.update(timings);
+				GLFWInteraction.repaint();
 
-			// Calculates fps
-			if (System.currentTimeMillis() - lastSecond > 1000) {
-				fps = frameCount;
-				frameCount = 0;
-				lastSecond = System.currentTimeMillis();
-			} else {
-				frameCount++;
+				// Updates debug label each frame
+				GUIManager.debugUI.update(fps, frameCount);
+
+				// Updates profiler data
+				HashMap<String, Float> timings = Performance.getTimings();
+				GUIManager.profilerUI.update(timings);
+
+				// Calculates fps
+				if (System.currentTimeMillis() - lastSecond > 1000) {
+					fps = frameCount;
+					frameCount = 0;
+					lastSecond = System.currentTimeMillis();
+				} else {
+					frameCount++;
+				}
+
+				if (worldGen) {
+					new World();
+					worldGen = false;
+				}
+
 			}
 
-			if (worldGen) {
-				new World();
-				worldGen = false;
-			}
-		
+			running = false; // Shut down refresh thread
+
+		} catch (Exception e) {
+			Logger.printCrashReport(new Crash(e, "Unexpected exception in main game loop", true));
 		}
-
-		running = false; // Shut down refresh thread
 		
 	}
 

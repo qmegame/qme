@@ -100,14 +100,14 @@ public class Logger {
 
 		log("The information attached to this error will now be printed.\n", Severity.RAW);
 
-		log("Running game version v" + Performance.GAME_VERSION + "" +
+		log("Running game version v" + Performance.GAME_VERSION + " (id:" + Performance.GAME_VERSION_ID + ")" +
 				"\nJVM: " + Performance.JAVA_VERSION + " (Vendor: " + Performance.JAVA_VENDOR + ")" +
 				"\nOperating System: " + Performance.OPERATING_SYSTEM + " (Arch: " + Performance.ARCH_TYPE + ") (Version: " + Performance.OPERATING_SYSTEM_VERSION + ")" +
 				"\nGraphics: " + Performance.GPU_NAME + " " + Performance.GPU_VENDOR +
 				"\nMemory: (Max: " + Runtime.getRuntime().totalMemory() / 1000000 + "mb) (Used: " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1000000 + "mb)" +
 				"\nProcessor: " + Performance.CPU + "\n", Severity.RAW);
 
-		log("Message: " + crash.exception.getMessage(), Severity.RAW);
+		log("Description: " + crash.description, Severity.RAW);
 		log(getStackTrace(crash.exception), Severity.RAW);
 
 		if (crash.isFatal) {
