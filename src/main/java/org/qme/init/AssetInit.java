@@ -26,8 +26,6 @@ public class AssetInit {
 
         Logger.log("Successfully initialized textures", Severity.DEBUG);
 
-        Application.world = new World();
-
         Language.switchLanguage(new Locale("en", "US"));
 
         Logger.log("Finished initializing languages", Severity.DEBUG);

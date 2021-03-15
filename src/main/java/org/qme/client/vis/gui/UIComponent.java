@@ -1,6 +1,7 @@
 package org.qme.client.vis.gui;
 
 import org.qme.client.Application;
+import org.qme.client.vis.Layer;
 import org.qme.client.vis.Renderable;
 import org.qme.client.vis.wn.WindowManager;
 
@@ -27,6 +28,11 @@ public abstract class UIComponent implements MouseResponder, Renderable {
 	protected UIComponent() {
 		WindowManager.addObject(this);
 		Application.registerMouseResponder(this);
+	}
+
+	@Override
+	public Layer layer() {
+		return Layer.UI;
 	}
 
 	/**
