@@ -21,6 +21,9 @@ public class AssetInit {
 
         Logger.log("Starting GUI init ...", Severity.DEBUG);
 
+        // Update debug information
+        Performance.updateValues();
+
         // Load textures
         new TextureManager();
 
@@ -46,9 +49,6 @@ public class AssetInit {
         Application.profilerLabel.setVisible(false);
 
         Logger.log("Finished loading miscellaneous GUIs", Severity.DEBUG);
-
-        // Update debug information
-        Performance.updateValues();
 
         Logger.log("Finished initialization, entering main loop", Severity.NORMAL);
 

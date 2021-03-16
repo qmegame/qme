@@ -2,22 +2,20 @@ package org.qme.client.vis.tex;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL32;
+import org.qme.io.Crash;
 import org.qme.io.Logger;
 import org.qme.io.Severity;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.MissingResourceException;
 import java.util.Objects;
 
 import org.json.*;
@@ -177,20 +175,19 @@ public class TextureManager {
 
         // If the texture doesn't exist try to load fallback texture
         if (TextureManager.class.getResource(path) == null) {
-            Logger.log("Could not find texture " + path, Severity.ERROR);
+            Logger.log("Could not find texture " + path + " attempting to load fallback texture", Severity.ERROR);
 
             // Attempt to load fallback texture so the application can at least start
 
             if (TextureManager.class.getResource(MISSING_TEXTURE) == null) {
-                Logger.log("Could not find fallback texture", Severity.FATAL);
+                Logger.printCrashReport(new Crash(new FileNotFoundException(), "Could not load fallback texture", true));
                 return null;
             }
 
             try {
                 return ImageIO.read(TextureManager.class.getResource(MISSING_TEXTURE));
             } catch (IOException e) {
-                Logger.log("Could not load fallback texture", Severity.FATAL);
-                e.printStackTrace();
+                Logger.printCrashReport(new Crash(e, "Could not load fallback texture", true));
                 return null;
             }
 
@@ -200,8 +197,7 @@ public class TextureManager {
             return ImageIO.read(TextureManager.class.getResource(path));
         } catch (IOException e) {
             // Some unforeseen error has occurred. Don't try to load fallback texture
-            Logger.log("Could not load texture " + path, Severity.FATAL);
-            e.printStackTrace();
+            Logger.printCrashReport(new Crash(e, "Could not load texture" + path, true));
             return null;
         }
     }

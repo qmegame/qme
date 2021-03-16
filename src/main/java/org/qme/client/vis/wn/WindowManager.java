@@ -7,11 +7,14 @@ import org.qme.client.vis.gui.GUIManager;
 import org.qme.client.vis.tex.TextureManager;
 import org.qme.init.GLInit;
 import org.qme.io.AudioPlayerState;
+import org.qme.io.Crash;
+import org.qme.io.Logger;
 import org.qme.utils.Direction;
 import org.qme.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -94,6 +97,9 @@ public final class WindowManager {
 				if (keyAction != GLFW_RELEASE) break;
 				GUIManager.profilerUI.toggle();
 				break;
+			case GLFW_KEY_F9:
+				if (keyAction != GLFW_RELEASE) break;
+				throw new RuntimeException("Game quit expectedly because crash button was pressed");
 			case GLFW_KEY_ESCAPE:
 				if (keyAction != GLFW_RELEASE) break;
 				if (GUIManager.pauseUI.isVisible()) {
