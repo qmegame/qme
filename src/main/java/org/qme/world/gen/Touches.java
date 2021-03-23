@@ -84,9 +84,9 @@ public class Touches extends WorldGenerator{
      */
     static boolean touchesLand(TileType[][] world, int x, int y) {
         try {
-            if(!isOcean(getTileDirectional(world, x, y, Direction.UP))) { return true; }
-            if(!isOcean(getTileDirectional(world, x, y, Direction.DOWN))) { return true; }
-            if(!isOcean(getTileDirectional(world, x, y, Direction.LEFT))) { return true; }
+            if(!isOcean(getTileDirectional(world, x, y, Direction.UP)))    { return true; }
+            if(!isOcean(getTileDirectional(world, x, y, Direction.DOWN)))  { return true; }
+            if(!isOcean(getTileDirectional(world, x, y, Direction.LEFT)))  { return true; }
             if(!isOcean(getTileDirectional(world, x, y, Direction.RIGHT))) { return true; }
             return false;
         } catch(ArrayIndexOutOfBoundsException e) {
