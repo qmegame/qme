@@ -7,7 +7,7 @@ public class Touches extends WorldGenerator{
 
     /**
      * A utility function to check if a tile touches an ocean
-     * @author santiago
+     * @author santiago, tom
      * @since 0.1.0
      * @param world The world
      * @param x The tile's x
@@ -16,9 +16,9 @@ public class Touches extends WorldGenerator{
      */
     static boolean touchesOcean(TileType[][] world, int x, int y) {
         try {
-            if(getTileDirectional(world, x, y, Direction.UP) == TileType.OCEAN) { return true; }
-            if(getTileDirectional(world, x, y, Direction.DOWN) == TileType.OCEAN) { return true; }
-            if(getTileDirectional(world, x, y, Direction.LEFT) == TileType.OCEAN) { return true; }
+            if(getTileDirectional(world, x, y, Direction.UP)    == TileType.OCEAN) { return true; }
+            if(getTileDirectional(world, x, y, Direction.DOWN)  == TileType.OCEAN) { return true; }
+            if(getTileDirectional(world, x, y, Direction.LEFT)  == TileType.OCEAN) { return true; }
             if(getTileDirectional(world, x, y, Direction.RIGHT) == TileType.OCEAN) { return true; }
             return false;
         } catch(ArrayIndexOutOfBoundsException e) {
@@ -28,7 +28,7 @@ public class Touches extends WorldGenerator{
 
     /**
      * A utility function to check if a tile touches a sea
-     * @author santiago
+     * @author santiago, tom
      * @since 0.2.0
      * @param world The world
      * @param x The tile's x
@@ -37,9 +37,9 @@ public class Touches extends WorldGenerator{
      */
     static boolean touchesSea(TileType[][] world, int x, int y) {
         try {
-            if (getTileDirectional(world, x, y, Direction.UP) == TileType.SEA) { return true; }
-            if (getTileDirectional(world, x, y, Direction.DOWN) == TileType.SEA) { return true; }
-            if (getTileDirectional(world, x, y, Direction.LEFT) == TileType.SEA) { return true; }
+            if (getTileDirectional(world, x, y, Direction.UP)    == TileType.SEA) { return true; }
+            if (getTileDirectional(world, x, y, Direction.DOWN)  == TileType.SEA) { return true; }
+            if (getTileDirectional(world, x, y, Direction.LEFT)  == TileType.SEA) { return true; }
             if (getTileDirectional(world, x, y, Direction.RIGHT) == TileType.SEA) { return true; }
             return false;
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -49,7 +49,7 @@ public class Touches extends WorldGenerator{
 
     /**
      * A utility function that checks whether a tile touches ocean on two sides
-     * @author santiago
+     * @author santiago, tom
      * @since 0.1.0
      * @param world The world with the tile
      * @param x The tile to be checked
@@ -57,15 +57,14 @@ public class Touches extends WorldGenerator{
      * @return True or false: it touches two ocean tiles
      */
     static boolean touchesTwoOceans(TileType[][] world, int x, int y) {
-
         try {
             // Set up count
             int oceansTouched = 0;
 
             // Count
-            if(isOcean(getTileDirectional(world, x, y, Direction.UP))) { oceansTouched++; }
-            if(isOcean(getTileDirectional(world, x, y, Direction.DOWN))) { oceansTouched++; }
-            if(isOcean(getTileDirectional(world, x, y, Direction.LEFT))) { oceansTouched++; }
+            if(isOcean(getTileDirectional(world, x, y, Direction.UP)))    { oceansTouched++; }
+            if(isOcean(getTileDirectional(world, x, y, Direction.DOWN)))  { oceansTouched++; }
+            if(isOcean(getTileDirectional(world, x, y, Direction.LEFT)))  { oceansTouched++; }
             if(isOcean(getTileDirectional(world, x, y, Direction.RIGHT))) { oceansTouched++; }
 
             // Return

@@ -10,7 +10,7 @@ import java.util.Random;
 /**
  * The class that houses the generateWorldMap function
  * And also houses auxiliary functions that area called in that function
- * @author santiago, Tom
+ * @author santiago, tom
  * @since 0.1.0
  */
 public class WorldGenerator {
@@ -109,7 +109,6 @@ public class WorldGenerator {
 				wet[i][j] = TileType.OCEAN;
 			}
 		}
-		
 		// Return the ocean-world
 		return wet;
 	}
@@ -240,7 +239,6 @@ public class WorldGenerator {
 	 * @return A world without random mountain chains
 	 */
 	static TileType[][] mountainSink(TileType[][] world, int side) {
-
 		for(int i = 0; i < side; i++) {
 			for(int j = 0; j < side; j++) {
 				if(WorldGenerator.isMountain(world[i][j]) && Touches.touchesTwoOceans(world, i, j)) {
@@ -248,7 +246,6 @@ public class WorldGenerator {
 				}
 			}
 		}
-
 		return world;
 	}
 

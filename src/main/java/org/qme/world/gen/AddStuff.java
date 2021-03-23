@@ -16,8 +16,7 @@ public class AddStuff extends WorldGenerator{
      * @param centerY The center of the continent
      * @return The inputted array with a continent added
      */
-    static TileType[][] addContinent(TileType[][] world,
-                                     double side, int centerX, int centerY) {
+    static TileType[][] addContinent(TileType[][] world, double side, int centerX, int centerY) {
 
         // Set up return world
         TileType[][] newWorld;
@@ -220,7 +219,7 @@ public class AddStuff extends WorldGenerator{
         }
 
         // Sink floating mountains
-        mountainWorld = WorldGenerator.mountainSink(mountainWorld, side);
+        WorldGenerator.mountainSink(mountainWorld, side);
 
         return mountainWorld;
     }
