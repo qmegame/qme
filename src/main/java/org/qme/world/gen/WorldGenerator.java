@@ -63,12 +63,13 @@ public class WorldGenerator {
 		Logger.log("before final ocean to sea", Severity.DEBUG);
 		world = WorldGenerator.oceanToSea(world, side);
 
-		world = WorldGenerator.landReclaim(world, side);
+		WorldGenerator.landReclaim(world, side);
 
 		Logger.log("before grid fixing", Severity.DEBUG);
 
-		for (int i = 0; i < GRID_FIXES; ++i)
-			world = removeGridding(world);
+		for (int i = 0; i < GRID_FIXES; ++i) {
+			removeGriding(world);
+		}
 
 		// Make mountain ranges
 		for (int j = 0; j < (int) (side * side / MOUNTAIN_CONSTANT); j++) {
@@ -171,16 +172,15 @@ public class WorldGenerator {
 	 * @return The world but with no little "ponds"
 	 */
 	private static TileType[][] landReclaim(TileType[][] world, double side) {
-		TileType[][] dubaiWorld = world;
 		for(int i = 1; i < (side - 1); i++) {
 			for(int j = 1; j < (side - 1); j++) {
-				if(WorldGenerator.isOcean(dubaiWorld[i][j])
-						&& WorldGenerator.oceanSurroundCount(dubaiWorld, i, j) == 0) {
-					dubaiWorld[i][j] = WorldGenerator.assignRandomFlatLand();
+				if(WorldGenerator.isOcean(world[i][j])
+						&& WorldGenerator.oceanSurroundCount(world, i, j) == 0) {
+					world[i][j] = WorldGenerator.assignRandomFlatLand();
 				}
 			}
 		}
-		return dubaiWorld;
+		return world;
 	}
 
 	/**
@@ -208,18 +208,17 @@ public class WorldGenerator {
 	}
 
 	/**
-	 * Fix up a world by removing the weird gridding stuff.
+	 * Fix up a world by removing the weird griding stuff.
 	 */
-	public static TileType[][] removeGridding(TileType[][] worldIn) {
-		TileType[][] world = worldIn;
-		for (int i = 0; i < world.length; i++) {
-			for (int j = 0; j < world[0].length; j++) {
-				if (oceanSurroundCount(world, i, j) > GRIDING_LIMIT) {
-					world[i][j] = TileType.OCEAN;
+	public static TileType[][] removeGriding(TileType[][] worldIn) {
+		for (int i = 0; i < worldIn.length; i++) {
+			for (int j = 0; j < worldIn[0].length; j++) {
+				if (oceanSurroundCount(worldIn, i, j) > GRIDING_LIMIT) {
+					worldIn[i][j] = TileType.OCEAN;
 				}
 			}
 		}
-		return world;
+		return worldIn;
 	}
 
 	/**
@@ -241,17 +240,16 @@ public class WorldGenerator {
 	 * @return A world without random mountain chains
 	 */
 	static TileType[][] mountainSink(TileType[][] world, int side) {
-		TileType[][] sunkenWorld = world;
 
 		for(int i = 0; i < side; i++) {
 			for(int j = 0; j < side; j++) {
-				if(WorldGenerator.isMountain(sunkenWorld[i][j]) && Touches.touchesTwoOceans(sunkenWorld, i, j)) {
-					sunkenWorld[i][j] = TileType.OCEAN;
+				if(WorldGenerator.isMountain(world[i][j]) && Touches.touchesTwoOceans(world, i, j)) {
+					world[i][j] = TileType.OCEAN;
 				}
 			}
 		}
 
-		return sunkenWorld;
+		return world;
 	}
 
 	private static boolean isMountain(TileType tile) {
