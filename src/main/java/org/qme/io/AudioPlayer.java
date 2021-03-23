@@ -34,7 +34,7 @@ public class AudioPlayer {
     public AudioPlayer(String audioFile) {
         try {
             // Create AudioInputStream object
-            audioInputStream = AudioSystem.getAudioInputStream(new File(audioFile).getAbsoluteFile());
+            audioInputStream = AudioSystem.getAudioInputStream(new File(String.valueOf(AudioFiles.class.getResource(audioFile))).getAbsoluteFile());
 
             // Create clip
             clip = AudioSystem.getClip();
