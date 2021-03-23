@@ -56,7 +56,7 @@ public class WorldGenerator {
 			int i = rand.nextInt((int) side);
 			int j = rand.nextInt((int) side);
 			Logger.log("before individual continent", Severity.DEBUG);
-			world = AddContinent.addContinent(world, side, i, j);
+			world = AddStuff.addContinent(world, side, i, j);
 		}
 		
 		// Make coastal oceans into seas
@@ -72,12 +72,12 @@ public class WorldGenerator {
 
 		// Make mountain ranges
 		for (int j = 0; j < (int) (side * side / MOUNTAIN_CONSTANT); j++) {
-			world = WorldGenerator.addMountainFinal(world, (int) side);
+			world = AddStuff.addMountainFinal(world, (int) side);
 		}
 
 		// Make final rivers
 		for (int k = 0; k < (int) (side * side / RIVER_CONSTANT); k++) {
-			world = addRiverFinal(world, (int) side);
+			world = AddStuff.addRiverFinal(world, (int) side);
 		}
 		// Make coastal oceans into seas
 		Logger.log("before ocean to sea", Severity.DEBUG);
@@ -223,49 +223,10 @@ public class WorldGenerator {
 	}
 
 	/**
-	 * The final mountain addition (after continents)
-	 * @param world The world
-	 * @param side The side length
-	 */
-	private static TileType[][] addMountainFinal(TileType[][] world, int side) {
-		TileType[][] mountainWorld = world;
-		// Get range direction and length
-		final int rangeLength = 7 + (rand.nextInt(5) - 2);
-		final Direction rangeDirection = Direction.values()[rand.nextInt(4)];
-
-		// Get start of range
-		final int startX = rand.nextInt(side);
-		final int startY = rand.nextInt(side);
-
-		// Generate mountains
-		mountainWorld[startX][startY] = WorldGenerator.assignRandomMountain();
-		for(int i = 1; i < rangeLength; i++) {
-			try {
-				if(rangeDirection == Direction.UP) {
-					mountainWorld[startX][startY - i] = WorldGenerator.assignRandomMountain();
-				} else if(rangeDirection == Direction.DOWN) {
-					mountainWorld[startX][startY + i] = WorldGenerator.assignRandomMountain();
-				} else if(rangeDirection == Direction.LEFT) {
-					mountainWorld[startX - 1][startY] = WorldGenerator.assignRandomMountain();
-				} else {
-					mountainWorld[startX + 1][startY] = WorldGenerator.assignRandomMountain();
-				}
-			} catch(ArrayIndexOutOfBoundsException e) {
-				break;
-			}
-		}
-
-		// Sink floating mountains
-		mountainWorld = WorldGenerator.mountainSink(mountainWorld, side);
-
-		return mountainWorld;
-	}
-
-	/**
 	 * Returns a random mountain
 	 * @return A random mountain
 	 */
-	private static TileType assignRandomMountain() {
+	static TileType assignRandomMountain() {
 		if(rand.nextInt(4) == 0) {
 			return TileType.HIGH_MOUNTAIN;
 		} else {
@@ -279,7 +240,7 @@ public class WorldGenerator {
 	 * @param side The side length
 	 * @return A world without random mountain chains
 	 */
-	private static TileType[][] mountainSink(TileType[][] world, int side) {
+	static TileType[][] mountainSink(TileType[][] world, int side) {
 		TileType[][] sunkenWorld = world;
 
 		for(int i = 0; i < side; i++) {
@@ -317,44 +278,5 @@ public class WorldGenerator {
 		} else {
 			return world[x + 1][y];
 		}
-	}
-
-	private static TileType[][] addRiverFinal(TileType[][] world, int side) {
-		TileType[][] riverWorld = world;
-		// Get river direction
-		final Direction riverDirection = Direction.values()[rand.nextInt(4)];
-
-		// Get start of river
-		int startX = rand.nextInt(side);
-		int startY = rand.nextInt(side);
-		riverWorld[startX][startY] = TileType.OCEAN;
-
-		// Generate river until touches ocean
-		try {
-			while (!isOcean(getTileDirectional(riverWorld, startX, startY, riverDirection))) {
-				try {
-					if (riverDirection == Direction.UP) {
-						riverWorld[startX][startY - 1] = TileType.OCEAN;
-						startY--;
-					} else if (riverDirection == Direction.DOWN) {
-						riverWorld[startX][startY + 1] = TileType.OCEAN;
-						startY++;
-					} else if (riverDirection == Direction.LEFT) {
-						riverWorld[startX - 1][startY] = TileType.OCEAN;
-						startX--;
-					} else {
-						riverWorld[startX + 1][startY] = TileType.OCEAN;
-						startX++;
-					}
-				} catch (ArrayIndexOutOfBoundsException e) {
-					break;
-				}
-			}
-		} catch(ArrayIndexOutOfBoundsException e) {
-			return world;
-		}
-
-		// Return
-		return riverWorld;
 	}
 }

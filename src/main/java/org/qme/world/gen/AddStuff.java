@@ -2,9 +2,10 @@ package org.qme.world.gen;
 
 import org.qme.io.Logger;
 import org.qme.io.Severity;
+import org.qme.utils.Direction;
 import org.qme.world.TileType;
 
-public class AddContinent extends WorldGenerator{
+public class AddStuff extends WorldGenerator{
     /**
      * A utility function to generate and add a continent
      * @author santiago, tom
@@ -183,5 +184,88 @@ public class AddContinent extends WorldGenerator{
         Logger.log("done with individual continent", Severity.DEBUG);
         // Return the world plus continent
         return newWorld;
+    }
+
+    /**
+     * The final mountain addition (after continents)
+     * @param world The world
+     * @param side The side length
+     */
+    static TileType[][] addMountainFinal(TileType[][] world, int side) {
+        TileType[][] mountainWorld = world;
+        // Get range direction and length
+        final int rangeLength = 7 + (rand.nextInt(5) - 2);
+        final Direction rangeDirection = Direction.values()[rand.nextInt(4)];
+
+        // Get start of range
+        final int startX = rand.nextInt(side);
+        final int startY = rand.nextInt(side);
+
+        // Generate mountains
+        mountainWorld[startX][startY] = WorldGenerator.assignRandomMountain();
+        for(int i = 1; i < rangeLength; i++) {
+            try {
+                if(rangeDirection == Direction.UP) {
+                    mountainWorld[startX][startY - i] = WorldGenerator.assignRandomMountain();
+                } else if(rangeDirection == Direction.DOWN) {
+                    mountainWorld[startX][startY + i] = WorldGenerator.assignRandomMountain();
+                } else if(rangeDirection == Direction.LEFT) {
+                    mountainWorld[startX - 1][startY] = WorldGenerator.assignRandomMountain();
+                } else {
+                    mountainWorld[startX + 1][startY] = WorldGenerator.assignRandomMountain();
+                }
+            } catch(ArrayIndexOutOfBoundsException e) {
+                break;
+            }
+        }
+
+        // Sink floating mountains
+        mountainWorld = WorldGenerator.mountainSink(mountainWorld, side);
+
+        return mountainWorld;
+    }
+
+    /**
+     * The final river addition (after continents)
+     * @param world The world
+     * @param side The side length
+     */
+    static TileType[][] addRiverFinal(TileType[][] world, int side) {
+        TileType[][] riverWorld = world;
+        // Get river direction
+        final Direction riverDirection = Direction.values()[rand.nextInt(4)];
+
+        // Get start of river
+        int startX = rand.nextInt(side);
+        int startY = rand.nextInt(side);
+        riverWorld[startX][startY] = TileType.OCEAN;
+
+        // Generate river until touches ocean
+        try {
+            while (!isOcean(getTileDirectional(riverWorld, startX, startY, riverDirection))) {
+                try {
+                    if (riverDirection == Direction.UP) {
+                        riverWorld[startX][startY - 1] = TileType.OCEAN;
+                        startY--;
+                    } else if (riverDirection == Direction.DOWN) {
+                        riverWorld[startX][startY + 1] = TileType.OCEAN;
+                        startY++;
+                    } else if (riverDirection == Direction.LEFT) {
+                        riverWorld[startX - 1][startY] = TileType.OCEAN;
+                        startX--;
+                    } else {
+                        riverWorld[startX + 1][startY] = TileType.OCEAN;
+                        startX++;
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    break;
+                }
+            }
+        } catch(ArrayIndexOutOfBoundsException e) {
+            return world;
+        }
+
+        // Return
+        return riverWorld;
     }
 }
