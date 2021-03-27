@@ -12,13 +12,16 @@ public class MenuUI extends GUI {
 
     public MenuUI() {
 
+        int win_size = GLFWInteraction.windowSize();
+        int half_win_size = GLFWInteraction.windowSize() / 2;
+
         this.components = new UIComponent[] {
 
                 // New game
                 new QButton(
                         monospace, "New Game",
-                        GLFWInteraction.windowSize() / 2,
-                        GLFWInteraction.windowSize() * 3 / 5,
+                        half_win_size,
+                        win_size * 3 / 5,
                         200,
                         80,
                         Color.GRAY
@@ -33,8 +36,8 @@ public class MenuUI extends GUI {
                 // Exit
                 new QButton(
                         monospace, "Exit",
-                        GLFWInteraction.windowSize() / 2,
-                        GLFWInteraction.windowSize() * 2 / 5,
+                        half_win_size,
+                        win_size * 2 / 5,
                         200,
                         80,
                         Color.GRAY
