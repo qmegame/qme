@@ -5,7 +5,6 @@ import org.qme.client.vis.gui.GUI;
 import org.qme.client.vis.gui.UIComponent;
 import org.qme.client.vis.gui.comp.QButton;
 import org.qme.client.vis.wn.GLFWInteraction;
-import org.qme.world.World;
 
 import java.awt.*;
 
@@ -20,8 +19,8 @@ public class MenuUI extends GUI {
                         monospace, "New Game",
                         GLFWInteraction.windowSize() / 2,
                         GLFWInteraction.windowSize() * 3 / 5,
-                        100,
-                        50,
+                        200,
+                        80,
                         Color.GRAY
                 ) {
                     @Override
@@ -36,8 +35,8 @@ public class MenuUI extends GUI {
                         monospace, "Exit",
                         GLFWInteraction.windowSize() / 2,
                         GLFWInteraction.windowSize() * 2 / 5,
-                        100,
-                        50,
+                        200,
+                        80,
                         Color.GRAY
                 ) {
                     @Override

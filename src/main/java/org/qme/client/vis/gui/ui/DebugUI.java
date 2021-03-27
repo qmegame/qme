@@ -2,7 +2,6 @@ package org.qme.client.vis.gui.ui;
 
 import org.qme.client.vis.gui.GUI;
 import org.qme.client.vis.gui.UIComponent;
-import org.qme.client.vis.gui.comp.QFont;
 import org.qme.client.vis.gui.comp.QLabel;
 import org.qme.client.vis.wn.GLFWInteraction;
 import org.qme.utils.Performance;
