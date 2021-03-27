@@ -35,6 +35,8 @@ public class WorldGenerator {
 	 */
 
 	public static TileType[][] generateWorldMap(double side) {
+		double side_squared = side * side;
+		int side_as_int = (int) side;
 		Logger.log("Generating Map", Severity.NORMAL);
 		
 		// Generate blank world
@@ -51,8 +53,8 @@ public class WorldGenerator {
 		
 		Logger.log("before continents", Severity.DEBUG);
 		for(int continentCount = 0; continentCount < continents; continentCount++) {
-			int i = rand.nextInt((int) side);
-			int j = rand.nextInt((int) side);
+			int i = rand.nextInt(side_as_int);
+			int j = rand.nextInt(side_as_int);
 			Logger.log("before individual continent", Severity.DEBUG);
 			world = WorldGenerator.addContinent(world, side, i, j);
 		}
@@ -69,13 +71,13 @@ public class WorldGenerator {
 			world = removeGridding(world);
 
 		// Make mountain ranges
-		for (int j = 0; j < (int) (side * side / MOUNTAIN_CONSTANT); j++) {
-			world = WorldGenerator.addMountainFinal(world, (int) side);
+		for (int j = 0; j < (int) (side_squared / MOUNTAIN_CONSTANT); j++) {
+			world = WorldGenerator.addMountainFinal(world, side_as_int);
 		}
 
 		// Make final rivers
-		for (int k = 0; k < (int) (side * side / RIVER_CONSTANT); k++) {
-			world = addRiverFinal(world, (int) side);
+		for (int k = 0; k < (int) (side_squared / RIVER_CONSTANT); k++) {
+			world = addRiverFinal(world, side_as_int);
 		}
 		// Make coastal oceans into seas
 		Logger.log("before ocean to sea", Severity.DEBUG);
@@ -95,9 +97,10 @@ public class WorldGenerator {
 	 * @return A TileType[][] of all TileType.OCEAN
 	 */
 	private static TileType[][] ocean(double parchedSide) {
+		int parched_side_as_int = (int) parchedSide;
 
 		// Make return blank world
-		TileType[][] wet = new TileType[(int) parchedSide][(int) parchedSide];
+		TileType[][] wet = new TileType[parched_side_as_int][parched_side_as_int];
 		Logger.log("before each tile for loops", Severity.DEBUG);
 
 		// Fill each tile with ocean
@@ -138,8 +141,10 @@ public class WorldGenerator {
 		int leftmost = 0;
 		int upmost = 0;
 		int rightmost = (int) (side - 1);
-		int downmost = (int) (side - 1);
-		
+		int downmost = rightmost;
+
+		double two_thirds_of_side = side * 2 / 3;
+
 		Logger.log("before expand left", Severity.DEBUG);
 		// Expand left
 		for(int i = 1 /* helps with math*/ ; i <= centerX; i++) {
@@ -148,7 +153,7 @@ public class WorldGenerator {
 					
 					// Set chance that tile is land
 					double chance = Math.pow(0.95, i) / 0.95;
-					if(i > side * 2 / 3) {
+					if(i > two_thirds_of_side) {
 						chance = 0;
 					}
 					
@@ -179,7 +184,7 @@ public class WorldGenerator {
 					
 					// Set chance that tile is land
 					double chance = Math.pow(0.95, j) / 0.95;
-					if(j > side * 2 / 3) {
+					if(j > two_thirds_of_side) {
 						chance = 0;
 					}
 					
@@ -211,7 +216,7 @@ public class WorldGenerator {
 					
 					// Set chance that tile is land
 					double chance = Math.pow(0.95, ii) / 0.95;
-					if(ii > side * 2 / 3) {
+					if(ii > two_thirds_of_side) {
 						chance = 0;
 					}
 					
@@ -242,7 +247,7 @@ public class WorldGenerator {
 					
 					// Set chance that tile is land
 					double chance = Math.pow(0.95, jj) / 0.95;
-					if(jj > side * 2 / 3) {
+					if(jj > two_thirds_of_side) {
 						chance = 0;
 					}
 					
@@ -275,7 +280,7 @@ public class WorldGenerator {
 					
 					// Set chance that tile is land
 					double chance = Math.pow(0.95, distance) / 0.95;
-					if(distance > side * 2 / 3) {
+					if(distance > two_thirds_of_side) {
 						chance = 0;
 					}
 					
