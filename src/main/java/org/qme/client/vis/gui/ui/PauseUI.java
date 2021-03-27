@@ -40,8 +40,9 @@ public class PauseUI extends GUI {
             title = new QFont(new Font(Font.MONOSPACED, Font.BOLD, 32), true);
         }
 
-        label = new QLabel(title, "Game Paused", GLFWInteraction.getSize()/2 - title.getWidth("Game Paused")/2, GLFWInteraction.getSize()/2 + 40, Color.WHITE);
-        quit = new QButton(main, "Quit Game", new Rectangle(GLFWInteraction.getSize()/2 - BUTTON_WIDTH / 2, GLFWInteraction.getSize()/2 - 20, BUTTON_WIDTH, 40), Color.WHITE) {
+        int half_win_size = GLFWInteraction.getSize() / 2;
+        label = new QLabel(title, "Game Paused", half_win_size - title.getWidth("Game Paused") / 2, half_win_size + 40, Color.WHITE);
+        quit = new QButton(main, "Quit Game", new Rectangle(half_win_size - BUTTON_WIDTH / 2, half_win_size - 20, BUTTON_WIDTH, 40), Color.WHITE) {
             @Override
             protected void action() {
                 if (isVisible()) {
@@ -50,7 +51,7 @@ public class PauseUI extends GUI {
                 }
             }
         };
-        options = new QButton(main, "Options", new Rectangle(GLFWInteraction.getSize()/2 - BUTTON_WIDTH / 2, GLFWInteraction.getSize()/2 - 70, BUTTON_WIDTH, 40), Color.WHITE) {
+        options = new QButton(main, "Options", new Rectangle(half_win_size - BUTTON_WIDTH / 2, half_win_size - 70, BUTTON_WIDTH, 40), Color.WHITE) {
             @Override
             protected void action() {
                 if (isVisible()) {
@@ -59,7 +60,7 @@ public class PauseUI extends GUI {
                 }
             }
         };
-        back = new QButton(main, "Return to Game", new Rectangle(GLFWInteraction.getSize()/2 - BUTTON_WIDTH / 2, GLFWInteraction.getSize()/2 - 120, BUTTON_WIDTH, 40), Color.WHITE) {
+        back = new QButton(main, "Return to Game", new Rectangle(half_win_size - BUTTON_WIDTH / 2, half_win_size - 120, BUTTON_WIDTH, 40), Color.WHITE) {
             @Override
             protected void action() {
                 if (isVisible()) {
