@@ -39,9 +39,12 @@ public class OptionsUI extends GUI {
             title = new QFont(new Font(Font.MONOSPACED, Font.BOLD, 32), true);
         }
 
-        box = new QBox(new Rectangle(GLFWInteraction.getSize()/2 - 150, GLFWInteraction.getSize()/2 - 150, 300, 250));
-        label = new QLabel(title, "Options", GLFWInteraction.getSize()/2 - title.getWidth("Options")/2, GLFWInteraction.getSize()/2 + 40, Color.WHITE);
-        seagull = new QButton(main, "Seagull", new Rectangle(GLFWInteraction.getSize()/2 - 100, GLFWInteraction.getSize()/2 - 20, 200, 40), Color.WHITE) {
+        int half_win_size = GLFWInteraction.getSize() / 2;
+        int half_win_size_sub_150 = half_win_size - 150;
+        int half_win_size_sub_100 = half_win_size - 100;
+        box = new QBox(new Rectangle(half_win_size_sub_150, half_win_size_sub_150, 300, 250));
+        label = new QLabel(title, "Options", half_win_size - title.getWidth("Options") / 2, half_win_size + 40, Color.WHITE);
+        seagull = new QButton(main, "Seagull", new Rectangle(half_win_size_sub_100, half_win_size - 20, 200, 40), Color.WHITE) {
             @Override
             protected void action() {
                 for (Tile[] tileList : Application.world.tiles) {
@@ -54,14 +57,14 @@ public class OptionsUI extends GUI {
                 setText("SEAGULLL!!!!!!!");
             }
         };
-        music = new QSlider(main, "Volume", new Rectangle(GLFWInteraction.getSize() / 2 - 100, GLFWInteraction.getSize() / 2 - 70, 200, 40)) {
+        music = new QSlider(main, "Volume", new Rectangle(half_win_size_sub_100, half_win_size - 70, 200, 40)) {
             @Override
             protected void action(float fill) {
                 Application.audioPlayer.setVolume(fill / 100);
             }
         };
         music.setFill(40F);
-        back = new QButton(main, "Back", new Rectangle(GLFWInteraction.getSize()/2 - 100, GLFWInteraction.getSize()/2 - 120, 200, 40), Color.WHITE) {
+        back = new QButton(main, "Back", new Rectangle(half_win_size_sub_100, half_win_size - 120, 200, 40), Color.WHITE) {
             @Override
             protected void action() {
                 if (isVisible()) {

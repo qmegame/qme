@@ -37,6 +37,8 @@ public class WorldGenerator {
 	 */
 
 	public static TileType[][] generateWorldMap(double side) {
+		double side_squared = side * side;
+		int side_as_int = (int) side;
 		Logger.log("Generating Map", Severity.NORMAL);
 		
 		// Generate blank world
@@ -53,8 +55,8 @@ public class WorldGenerator {
 		
 		Logger.log("before continents", Severity.DEBUG);
 		for(int continentCount = 0; continentCount < continents; continentCount++) {
-			int i = rand.nextInt((int) side);
-			int j = rand.nextInt((int) side);
+			int i = rand.nextInt(side_as_int);
+			int j = rand.nextInt(side_as_int);
 			Logger.log("before individual continent", Severity.DEBUG);
 			world = AddStuff.addContinent(world, side, i, j);
 		}
@@ -72,14 +74,15 @@ public class WorldGenerator {
 		}
 
 		// Make mountain ranges
-		for (int j = 0; j < (int) (side * side / MOUNTAIN_CONSTANT); j++) {
-			world = AddStuff.addMountainFinal(world, (int) side);
+		for (int j = 0; j < (int) (side_squared / MOUNTAIN_CONSTANT); j++) {
+			world = AddStuff.addMountainFinal(world, side_as_int);
 		}
 
 		// Make final rivers
-		for (int k = 0; k < (int) (side * side / RIVER_CONSTANT); k++) {
-			world = AddStuff.addRiverFinal(world, (int) side);
+		for (int k = 0; k < (int) (side_squared / RIVER_CONSTANT); k++) {
+			world = AddStuff.addRiverFinal(world, side_as_int);
 		}
+    
 		// Make coastal oceans into seas
 		Logger.log("before ocean to sea", Severity.DEBUG);
 		world = WorldGenerator.oceanToSea(world, side);
@@ -98,9 +101,10 @@ public class WorldGenerator {
 	 * @return A TileType[][] of all TileType.OCEAN
 	 */
 	private static TileType[][] ocean(double parchedSide) {
+		int parched_side_as_int = (int) parchedSide;
 
 		// Make return blank world
-		TileType[][] wet = new TileType[(int) parchedSide][(int) parchedSide];
+		TileType[][] wet = new TileType[parched_side_as_int][parched_side_as_int];
 		Logger.log("before each tile for loops", Severity.DEBUG);
 
 		// Fill each tile with ocean
