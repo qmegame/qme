@@ -79,7 +79,7 @@ public class WorldGenerator {
 		}
 
 		// Make final rivers
-		for (int k = 0; k < (int) (side_squarede / RIVER_CONSTANT); k++) {
+		for (int k = 0; k < (int) (side_squared / RIVER_CONSTANT); k++) {
 			world = AddStuff.addRiverFinal(world, side_as_int);
 		}
     
