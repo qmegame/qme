@@ -133,7 +133,7 @@ public final class Application {
 				}
 
 				if (worldGen) {
-					new World();
+					this.world = new World();
 					worldGen = false;
 				}
 

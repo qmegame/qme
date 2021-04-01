@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.qme</groupId>
-    <artifactId>qme5</artifactId>
-    <version>0.3.0</version>
+    <artifactId>qme</artifactId>
+    <version>0.4.0</version>
 
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
