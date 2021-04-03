@@ -2,6 +2,8 @@ package org.qme.io;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -33,8 +35,12 @@ public class AudioPlayer {
     // Initialize streams and clip
     public AudioPlayer(String audioFile) {
         try {
+            // Audio File URL
+            URL path = getClass().getResource(audioFile);
+            Logger.log(path.toString(), Severity.DEBUG);
+
             // Create AudioInputStream object
-            audioInputStream = AudioSystem.getAudioInputStream(new File(audioFile).getAbsoluteFile());
+            audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource(audioFile));
 
             // Create clip
             clip = AudioSystem.getClip();
