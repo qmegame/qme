@@ -6,7 +6,6 @@ import org.qme.client.vis.gui.comp.QBox;
 import org.qme.client.vis.gui.comp.QButton;
 import org.qme.client.vis.gui.comp.QLabel;
 import org.qme.game.Game;
-import org.qme.game.Player;
 import org.qme.utils.Language;
 import org.qme.world.Tile;
 import org.qme.world.res.Resource;

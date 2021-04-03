@@ -22,7 +22,7 @@ public final class RenderMaster {
 
 	private RenderMaster() {}
 
-	public static double zoom = 10;
+	public static double zoom = 2;
 
 	// When texture packs are added this should be changed per pack inorder to allow for different sized tiles
 	public static final int TILE_SIZE = 128;
@@ -41,7 +41,8 @@ public final class RenderMaster {
 		double screenRight = GLFWInteraction.getSize();
 
 		double screenBottom = - 1000;
-		double screenTop = GLFWInteraction.getSize();
+		// Both screenRight and screenTop are the size of the window
+		double screenTop = screenRight;
 
 		if (x > screenLeft && x < screenRight) {
 			return y > screenBottom && y < screenTop;
@@ -77,12 +78,14 @@ public final class RenderMaster {
 				);
 			}
 
+			float one_third_tile_size = tileSizeActual / 3;
+			float two_thirds_tile_size = tileSizeActual * 2 / 3;
 			if (tile.resources.size() > 0)
 			drawQuad(
-					tileX + (tileSizeActual / 3), tileY + (tileSizeActual / 3),
-					tileX + (tileSizeActual * 2 / 3), tileY + (tileSizeActual / 3),
-					tileX + (tileSizeActual * 2 / 3), tileY + (tileSizeActual * 2 / 3),
-					tileX + (tileSizeActual / 3), tileY + (tileSizeActual * 2 / 3),
+					tileX + one_third_tile_size, tileY + one_third_tile_size,
+					tileX + two_thirds_tile_size, tileY + one_third_tile_size,
+					tileX + two_thirds_tile_size, tileY + two_thirds_tile_size,
+					tileX + one_third_tile_size, tileY + two_thirds_tile_size,
 					getTexture(tile.resources.get(0).type)
 			);
 		}
