@@ -6,6 +6,6 @@ package org.qme.io;
  * @since 0.3.0
  */
 public class AudioFiles {
-    public static String menu = "src/main/resources/sounds/music/QME5_Menu.wav";
-    public static String evident = "src/main/resources/sounds/music/Evident_10520.wav";
+    public static String menu = "/sounds/music/QME5_Menu.wav";
+    public static String evident = "/sounds/music/Evident_10520.wav";
 }
