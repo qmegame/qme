@@ -8,8 +8,11 @@ import oshi.hardware.CentralProcessor;
 import oshi.hardware.GraphicsCard;
 import oshi.hardware.HardwareAbstractionLayer;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * This class is responsible for storing data about the runtime that can be accessed later for debugging
@@ -19,7 +22,8 @@ import java.util.Map;
  */
 public class Performance {
 
-    public static final String GAME_VERSION = Application.class.getPackage().getSpecificationVersion();
+    public static String GAME_VERSION = null;
+    public static String GAME_VERSION_ID = null;
     public static final String JAVA_VERSION = System.getProperty("java.version");
     public static final String JAVA_VENDOR = System.getProperty("java.vendor");
     public static final String OPERATING_SYSTEM = System.getProperty("os.name");
@@ -38,8 +42,27 @@ public class Performance {
      * This should only be called once on startup
      */
     public static void updateValues() {
+        InputStream stream = Language.class.getClassLoader().getResourceAsStream("misc/version.properties");
+
+        if (stream == null) {
+            Logger.log("Could not locate version.properties", Severity.WARNING);
+            return;
+        }
+        Properties properties = new Properties();
+
+        // Attempt to load properties
+        try {
+            properties.load(stream);
+            GAME_VERSION = properties.getProperty("version-name");
+            GAME_VERSION_ID = properties.getProperty("version-id");
+        } catch (IOException e) {
+            Logger.log("Could not load version.properties", Severity.ERROR);
+            e.printStackTrace();
+        }
+
 
         if (GAME_VERSION == null) {
+            GAME_VERSION = "Unknown Version";
             Logger.log("Could not detect game version! The jar you are running was not compiled properly.", Severity.WARNING);
         }
 

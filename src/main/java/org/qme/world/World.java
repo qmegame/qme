@@ -17,12 +17,12 @@ public class World {
 	/**
 	 * The size of the world
 	 */
-	public static final int WORLD_SIZE = 250;
+	public static final int WORLD_SIZE = 100;
 
 	/**
 	 * All tiles in the world.
 	 */
-	private final Tile[][] tiles;
+	public final Tile[][] tiles;
 
 	/**
 	 * Create the world by initializing all tiles with appropriate types.

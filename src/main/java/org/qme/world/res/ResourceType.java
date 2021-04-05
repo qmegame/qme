@@ -9,10 +9,19 @@ public enum ResourceType {
     COAL,
     FRUIT,
     GOLD_ORE,
-    GRAPE,
+    GRAPE_VINE,
+    GRAPES,
     GRASS,
     LEAF,
     SALT,
     SEA_WEED,
-    TALL_GRASS
+    TALL_GRASS,
+    ROCK,
+    SNOW,
+    CACTUS,
+    SAND,
+    SAND_STONE,
+    LUMBER,
+    SEAGULL,
+    WHEAT
 }

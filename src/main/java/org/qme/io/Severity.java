@@ -7,6 +7,7 @@ package org.qme.io;
  * @since 0.1.0
  */
 public enum Severity {
+	RAW, // Will get logged but without formatting
 	NORMAL,
 	DEBUG,
 	WARNING,

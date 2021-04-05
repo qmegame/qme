@@ -1,6 +1,9 @@
-package org.qme.client.vis.gui;
+package org.qme.client.vis.gui.comp;
 
+import org.qme.client.vis.gui.UIComponent;
 import org.qme.client.vis.wn.WindowManager;
+
+import java.awt.*;
 
 /**
  * Class for creating labels
@@ -13,7 +16,8 @@ public class QLabel extends UIComponent {
     public String text;
     public int x;
     public int y;
-    public boolean lineBreakUp = true;
+    public boolean lineBreakUp;
+    public Color color;
 
     /**
      * Creates a new label
@@ -21,13 +25,10 @@ public class QLabel extends UIComponent {
      * @param text the label text
      * @param x the label's x position
      * @param y the label's y position
+     * @param color the color to draw in
      */
-    public QLabel(QFont font, String text, int x, int y) {
-        super();
-        this.font = font;
-        this.text = text;
-        this.x = x;
-        this.y = y;
+    public QLabel(QFont font, String text, int x, int y, Color color) {
+        this(font, text, x, y, color, true);
     }
 
     /**
@@ -36,13 +37,15 @@ public class QLabel extends UIComponent {
      * @param text the label text
      * @param x the label's x position
      * @param y the label's y position
+     * @param color the color to draw in
      * @param lineBreakUp should line breaks go up
      */
-    public QLabel(QFont font, String text, int x, int y, boolean lineBreakUp) {
+    public QLabel(QFont font, String text, int x, int y, Color color, boolean lineBreakUp) {
         this.font = font;
         this.text = text;
         this.x = x;
         this.y = y;
+        this.color = color;
         this.lineBreakUp = lineBreakUp;
 
         WindowManager.addObject(this);
@@ -50,6 +53,6 @@ public class QLabel extends UIComponent {
 
     @Override
     public void draw() {
-        font.drawText(text, x, y, lineBreakUp);
+        font.drawText(text, x, y, color, lineBreakUp);
     }
 }

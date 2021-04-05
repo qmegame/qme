@@ -2,21 +2,20 @@ package org.qme.client.vis.tex;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL32;
+import org.qme.io.Crash;
 import org.qme.io.Logger;
 import org.qme.io.Severity;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.MissingResourceException;
 import java.util.Objects;
 
 import org.json.*;
@@ -51,13 +50,23 @@ public class TextureManager {
         toLoad.add("tiles/tundra.png");
         toLoad.add("items/coal.png");
         toLoad.add("items/fruit.png");
-        toLoad.add("items/gold_ore.png");
-        toLoad.add("items/grape.png");
+        toLoad.add("items/gold-ore.png");
+        toLoad.add("items/grape-vine.png");
         toLoad.add("items/grass.png");
         toLoad.add("items/leaf.png");
         toLoad.add("items/salt.png");
-        toLoad.add("items/sea_weed.png");
-        toLoad.add("items/tall_grass.png");
+        toLoad.add("items/sea-weed.png");
+        toLoad.add("items/tall-grass.png");
+        toLoad.add("tiles/hover.png");
+        toLoad.add("items/snow.png");
+        toLoad.add("items/rock.png");
+        toLoad.add("items/sand.png");
+        toLoad.add("items/sand-stone.png");
+        toLoad.add("items/grapes.png");
+        toLoad.add("items/lumber.png");
+        toLoad.add("items/cactus.png");
+        toLoad.add("items/wheat.png");
+        toLoad.add("items/seagull.png");
         toLoad.add("misc/box.png");
         toLoad.add("misc/button.png");
         for (String texture : toLoad) {
@@ -166,20 +175,19 @@ public class TextureManager {
 
         // If the texture doesn't exist try to load fallback texture
         if (TextureManager.class.getResource(path) == null) {
-            Logger.log("Could not find texture " + path, Severity.ERROR);
+            Logger.log("Could not find texture " + path + " attempting to load fallback texture", Severity.ERROR);
 
             // Attempt to load fallback texture so the application can at least start
 
             if (TextureManager.class.getResource(MISSING_TEXTURE) == null) {
-                Logger.log("Could not find fallback texture", Severity.FATAL);
+                Logger.printCrashReport(new Crash(new FileNotFoundException(), "Could not load fallback texture", true));
                 return null;
             }
 
             try {
                 return ImageIO.read(TextureManager.class.getResource(MISSING_TEXTURE));
             } catch (IOException e) {
-                Logger.log("Could not load fallback texture", Severity.FATAL);
-                e.printStackTrace();
+                Logger.printCrashReport(new Crash(e, "Could not load fallback texture", true));
                 return null;
             }
 
@@ -189,8 +197,7 @@ public class TextureManager {
             return ImageIO.read(TextureManager.class.getResource(path));
         } catch (IOException e) {
             // Some unforeseen error has occurred. Don't try to load fallback texture
-            Logger.log("Could not load texture " + path, Severity.FATAL);
-            e.printStackTrace();
+            Logger.printCrashReport(new Crash(e, "Could not load texture" + path, true));
             return null;
         }
     }
@@ -204,13 +211,8 @@ public class TextureManager {
         HashMap<String, Rectangle> toReturn = new HashMap<>();
         JSONObject regions = null;
 
-        try {
-            Path path = Paths.get(TextureManager.class.getResource(resource).toURI());
-            regions = new JSONObject(new String(Files.readAllBytes(path)));
-        } catch (IOException | URISyntaxException e) {
-            Logger.log("Failed to load texture atlas " + resource, Severity.ERROR);
-            e.printStackTrace();
-        }
+        InputStream stream =TextureManager.class.getResourceAsStream(resource);
+        regions = new JSONObject(new JSONTokener(stream));
 
         if (regions == null) {
             return toReturn;

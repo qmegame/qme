@@ -1,17 +1,16 @@
 package org.qme.io;
 
-import org.qme.io.AudioPlayerState;
-import org.qme.io.AudioFiles;
-import org.qme.io.Logger;
-
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.sound.sampled.FloatControl;
 
 /**
  * An audio player for background music
@@ -31,11 +30,17 @@ public class AudioPlayer {
 
     private AudioInputStream audioInputStream;
 
+    public static float volume;
+
     // Initialize streams and clip
     public AudioPlayer(String audioFile) {
         try {
+            // Audio File URL
+            URL path = getClass().getResource(audioFile);
+            Logger.log(path.toString(), Severity.DEBUG);
+
             // Create AudioInputStream object
-            audioInputStream = AudioSystem.getAudioInputStream(new File(audioFile).getAbsoluteFile());
+            audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource(audioFile));
 
             // Create clip
             clip = AudioSystem.getClip();
@@ -44,6 +49,11 @@ public class AudioPlayer {
             clip.open(audioInputStream);
 
             clip.loop(Clip.LOOP_CONTINUOUSLY);
+
+            audioPlayerState = AudioPlayerState.PLAY;
+
+            setVolume(-20.0f);
+
         }
 
         catch (Exception ex) {
@@ -51,13 +61,27 @@ public class AudioPlayer {
             ex.printStackTrace();
         }
     }
+    public void changeVolume(float change) {
+        setVolume(volume + change);
+    }
+
+    public void setVolume(float set) {
+        if (set > -80.0f && set < 6.0f) {
+            if (audioPlayerState == AudioPlayerState.PLAY) {
+                FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                gainControl.setValue(set);
+                clip.start();
+            }
+            volume = set;
+        }
+    }
 
     // Method to play the audio
-    public void play()
-    {
+    public void play() {
         // Start the clip
         clip.start();
         audioPlayerState = AudioPlayerState.PLAY;
+        setVolume(volume);
         Logger.log("Audio started", Severity.DEBUG);
     }
 

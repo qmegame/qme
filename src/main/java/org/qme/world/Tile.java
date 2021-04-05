@@ -2,8 +2,13 @@ package org.qme.world;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import org.qme.client.vis.Layer;
 import org.qme.client.vis.RenderMaster;
-import org.qme.client.vis.Renderable;
+import org.qme.client.vis.gui.GUIManager;
+import org.qme.client.vis.gui.UIComponent;
+import org.qme.client.vis.wn.GLFWInteraction;
+import org.qme.client.vis.wn.Scrolling;
 import org.qme.client.vis.wn.WindowManager;
 import org.qme.world.res.*;
 
@@ -14,13 +19,13 @@ import org.qme.world.res.*;
  * @author adamhutchings, santiago
  * @since 0.1.0
  */
-public class Tile implements Renderable {
+public class Tile extends UIComponent {
 
 	public final int x;
 	public final int y;
 	public final TileType type;
 
-	public ArrayList<AbstractResource> resources = new ArrayList<AbstractResource>();
+	public ArrayList<Resource> resources = new ArrayList<Resource>();
 	
 	/**
 	 * Creates a new instance of a renderable Tile
@@ -29,6 +34,7 @@ public class Tile implements Renderable {
 	 * @param type the type of this tile
 	 */
 	public Tile(int x, int y, TileType type) {
+		super();
 		this.x = x;
 		this.y = y;
 		this.type = type;
@@ -38,6 +44,11 @@ public class Tile implements Renderable {
 	@Override
 	public void draw() {
 		RenderMaster.drawTile(this);
+	}
+
+	@Override
+	public Layer layer() {
+		return Layer.WORLD;
 	}
 
 	/**
@@ -65,11 +76,46 @@ public class Tile implements Renderable {
 		ResourceType[] resourceList = (ResourceType.values());
 		for (int i = 0; i < resourceList.length; i++) {
 			ResourceType res = resourceList[i];
-			if (roll < AbstractResource.getSpawnChance(res, this.type)) {
+			if (roll < Resource.getSpawnChance(res, this.type)) {
 				// TODO: Seagulls here
 				if ( (res != ResourceType.SALT) || (this.resources.size() == 0) )
-					this.resources.add(new AbstractResource(res));
+					this.resources.add(new Resource(res));
 			}
 		}
+	}
+
+	@Override
+	public boolean contains(int x, int y) {
+
+		// TODO: Improve this garbage
+
+		if (GUIManager.resourcesUI.box.contains(x, y) && GUIManager.resourcesUI.isVisible()) {
+			return false;
+		}
+
+		if (GUIManager.optionsUI.isVisible() || GUIManager.pauseUI.isVisible()) {
+			return false;
+		}
+
+		int tileX = (int) ((this.x * RenderMaster.TILE_X_OFFSET * RenderMaster.zoom) - (this.y * RenderMaster.TILE_X_OFFSET * RenderMaster.zoom) - Scrolling.getXOffset());
+		int tileY = (int) ((this.y * RenderMaster.TILE_Y_OFFSET * RenderMaster.zoom) + (this.x * RenderMaster.TILE_Y_OFFSET * RenderMaster.zoom) - Scrolling.getYOffset());
+		int tileSizeActual = (int) (RenderMaster.TILE_SIZE * RenderMaster.zoom);
+
+		return x > tileX + (tileSizeActual / 3) &&
+						x < tileX + (tileSizeActual * 2 / 3) &&
+						GLFWInteraction.getSize() - y > tileY + (tileSizeActual / 3) &&
+						GLFWInteraction.getSize() - y < tileY + (tileSizeActual * 2 / 3);
+
+	}
+
+	@Override
+	public void mouseClickOff() {
+		this.setVisible(true);
+		GUIManager.resourcesUI.showFor(this);
+	}
+
+	@Override
+	public void mouseClickOn() {
+		this.setVisible(false);
 	}
 }

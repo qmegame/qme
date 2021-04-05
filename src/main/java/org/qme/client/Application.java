@@ -1,18 +1,25 @@
 package org.qme.client;
 
-import org.qme.client.vis.LoadingBar;
 import org.qme.client.vis.gui.*;
-import org.qme.client.vis.gui.QButton;
+import org.qme.client.vis.gui.comp.QBox;
+import org.qme.client.vis.gui.comp.QFont;
+import org.qme.client.vis.gui.comp.QLabel;
+import org.qme.client.vis.tex.TextureManager;
 import org.qme.client.vis.wn.GLFWInteraction;
 import org.qme.client.vis.wn.Scrolling;
-import org.qme.io.AudioFiles;
-import org.qme.io.AudioPlayer;
+import org.qme.init.AssetInit;
+import org.qme.init.GLInit;
+import org.qme.init.PreInit;
+import org.qme.io.*;
+import org.qme.utils.FramerateManager;
+import org.qme.utils.Language;
 import org.qme.utils.Performance;
 import org.qme.world.World;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * The "controller", so to speak, of all events. It also helps to validate
@@ -26,6 +33,8 @@ import java.util.HashMap;
  */
 public final class Application {
 
+	public static boolean running = false;
+
 	private int frameCount;
 	private int fps;
 	private long lastSecond;
@@ -37,9 +46,19 @@ public final class Application {
 	public static final int RENDER_SCALE = 3;
 
 	/**
+	 * This avoids concurrent modification.
+	 */
+	public static boolean worldGen = false;
+
+	/**
 	 * Make audio player
 	 */
 	public static AudioPlayer audioPlayer = new AudioPlayer(AudioFiles.menu);
+
+	/**
+	 * World
+	 */
+	public static World world;
 
   	/**
    	 * All mouse responders
@@ -64,31 +83,12 @@ public final class Application {
 	 * The constructor is private. Only one instance allowed.
 	 */
 	private Application() {
-		new World();
-		QFont labelMono = new QFont(new Font(Font.MONOSPACED, Font.PLAIN, 12), true);
-		QFont buttonFont = new QFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 18), true);
 
-		// Debug Label
-		debugLabel = new QLabel(labelMono, "...", 5, GLFWInteraction.windowSize() - (labelMono.getHeight() + 2), true);
-		debugLabel.setVisible(false);
+		PreInit.init();
 
-		// Profiler Label
-		profilerLabel = new QLabel(labelMono, "...", 5, 5, false);
-		profilerLabel.setVisible(false);
+		GLInit.init();
 
-		// Update debug information
-		Performance.updateValues();
-
-		// Close loading bar
-		LoadingBar.done();
-
-		// Create test button
-		QButton button = new QButton(buttonFont, "Le Test Button", GLFWInteraction.getSize() / 2, GLFWInteraction.getSize() / 2, 180, 70) {
-			@Override
-			protected void action() {
-				this.setClickable(false);
-			}
-		};
+		AssetInit.init();
 
 	}
 
@@ -102,42 +102,47 @@ public final class Application {
 	 */
 	public void mainloop() {
 
-		GUIManager.loadGUIs();
-    
-		while (GLFWInteraction.shouldBeOpen()) {
+		try {
 
-			Performance.beginFrame();
+			running = true;
 
-			Scrolling.moveWorld();
+			FramerateManager.refreshUpdater.start();
 
-			GLFWInteraction.repaint();
+			while (GLFWInteraction.shouldBeOpen() && running) {
 
-			// Updates debug label each frame
-			debugLabel.text = "Running game version v" + Performance.GAME_VERSION + "" +
-					"\nJVM: " + Performance.JAVA_VERSION + " (Vendor: " + Performance.JAVA_VENDOR + ")" +
-					"\nOperating System: " + Performance.OPERATING_SYSTEM + " (Arch: " + Performance.ARCH_TYPE + ") (Version: " + Performance.OPERATING_SYSTEM_VERSION + ")" +
-					"\nGraphics: " + Performance.GPU_NAME + " " + Performance.GPU_VENDOR +
-					"\nMemory: (Max: " + Runtime.getRuntime().totalMemory() / 1000000 + "mb) (Used: " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1000000 + "mb)" +
-					"\nProcessor: " + Performance.CPU +
-					"\nFPS: " + fps + " (On: " + frameCount + ")";
+				Performance.beginFrame();
 
-			// Updates profiler data
-			HashMap<String, Float> timings = Performance.getTimings();
-			profilerLabel.text = "Profiler [Render] [Tick] [Other]" +
-					"\nRender: " + timings.getOrDefault("render",0F) + "ms" +
-					"\nTick: " + timings.getOrDefault("tick", 0F) + "ms" +
-					"\nTotal: " + Performance.getTotal() + "ms";
+				Scrolling.moveWorld();
 
-			// Calculates fps
-			if (System.currentTimeMillis() - lastSecond > 1000) {
-				fps = frameCount;
-				frameCount = 0;
-				lastSecond = System.currentTimeMillis();
-			} else {
-				frameCount++;
+				GLFWInteraction.repaint();
+
+				// Updates debug label each frame
+				GUIManager.debugUI.update(fps, frameCount);
+
+				// Updates profiler data
+				HashMap<String, Float> timings = Performance.getTimings();
+				GUIManager.profilerUI.update(timings);
+
+				// Calculates fps
+				if (System.currentTimeMillis() - lastSecond > 1000) {
+					fps = frameCount;
+					frameCount = 0;
+					lastSecond = System.currentTimeMillis();
+				} else {
+					frameCount++;
+				}
+
+				if (worldGen) {
+					this.world = new World();
+					worldGen = false;
+				}
+
 			}
 
-		
+			running = false; // Shut down refresh thread
+
+		} catch (Exception e) {
+			Logger.printCrashReport(new Crash(e, "Unexpected exception in main game loop", true));
 		}
 		
 	}

@@ -5,9 +5,11 @@ import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.qme.client.Application;
+import org.qme.client.vis.Layer;
 import org.qme.client.vis.Renderable;
 import org.qme.client.vis.gui.MouseResponder;
 import org.qme.client.vis.gui.UIComponent;
+import org.qme.utils.FramerateManager;
 import org.qme.utils.Performance;
 
 import java.nio.DoubleBuffer;
@@ -20,13 +22,13 @@ import static org.lwjgl.system.MemoryUtil.NULL;
  * Contains the functionality for interfacing with GLFW code. Used to be part of
  * the massive WindowManager file.
  * @author adamhutchings
- * @since 0.3
+ * @since 0.3.0
  */
 public class GLFWInteraction {
 
-    private static long wn;
+    public static long wn;
 
-    private static int size;
+    public static int size;
 
     private static final float SCREEN_SIZE = 0.75f;
 
@@ -38,104 +40,53 @@ public class GLFWInteraction {
     }
 
     /**
-     * Set up some GLFW things.
-     */
-    public static void glfwSetup() {
-        System.setProperty("java.awt.headless", "true");
-
-        // Initialize GLFW.
-        glfwInit();
-
-        glfwDefaultWindowHints();
-        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-    }
-
-    /**
-     * Create the window - called as a static initializer.
-     */
-    public static void createWindow() {
-
-        // In case something weird happens with the primary monitor, get the
-        // size of the monitor one time
-        size = windowSize();
-
-        wn = glfwCreateWindow(size, size, "QME", NULL, NULL);
-
-        // Boilerplate
-        glfwMakeContextCurrent(wn);
-        glfwShowWindow(wn);
-        GL.createCapabilities();
-
-        glfwSetKeyCallback(wn, new GLFWKeyCallback() {
-
-            @Override
-            public void invoke(
-                    long window,
-                    int glfwKeyCode,
-                    int systemScancode,
-                    int keyAction,
-                    int modifierKeys)
-            // Sorry for having the opening bracket on its own line here.
-            {
-                // Simple wrapper.
-                WindowManager.onKeyPress(
-                        window, glfwKeyCode, systemScancode, keyAction, modifierKeys
-                );
-            }
-
-        });
-
-        glfwSetMouseButtonCallback(wn, new GLFWMouseButtonCallback() {
-
-            @Override
-            public void invoke(
-                    long window,
-                    int button,
-                    int keyAction,
-                    int modifierKeys)
-            // Sorry for having the opening bracket on its own line here.
-            {
-                MouseResponder.callMouseResponders(
-                        Application.getResponders(),
-                        new MouseResponder.MouseEvent(button, keyAction));
-            }
-        });
-
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        glOrtho(0, size, 0, size, 1, -1);
-        glMatrixMode(GL_MODELVIEW);
-
-    }
-
-    /**
      * Redraw the screen. If the window should close, send a request to the
      * application so it can close.
      */
     public static void repaint() {
-        Performance.startTiming("render");
 
-        glClearColor(0.5f, 0.5f, 0.5f, 0.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        // Only render if we should
+        if (FramerateManager.refresh || Scrolling.scrolling()) {
 
-        for (Renderable e : WindowManager.renderables) {
-            if (e instanceof UIComponent) {
-                if (!((UIComponent) e).isVisible()) {
-                    continue;
+            Performance.startTiming("render");
+
+            glClearColor(0.5f, 0.5f, 0.5f, 0.0f);
+            glClear(GL_COLOR_BUFFER_BIT);
+
+            // Iterate through each layer and render all objects in that layer
+            for (int i = 0; i < Layer.values().length; ++i) {
+
+                for (Renderable e : WindowManager.renderables) {
+                    if (e instanceof UIComponent) {
+                        if (!((UIComponent) e).isVisible()) {
+                            continue;
+                        }
+                    }
+
+                    if (e.layer() == Layer.values()[i]) {
+                        e.draw();
+                    }
+
                 }
+
             }
 
-            e.draw();
+            Performance.endTiming("render");
+
+            FramerateManager.refresh = false;
+
         }
 
-        Performance.endTiming("render");
         Performance.startTiming("tick");
 
         MouseResponder.callMouseResponders(Application.getResponders(), null);
 
-        glfwSwapBuffers(wn);
-        glfwPollEvents();
+        if (FramerateManager.refresh || Scrolling.scrolling()) {
+
+            glfwSwapBuffers(wn);
+            glfwPollEvents();
+
+        }
 
         Performance.endTiming("tick");
     }

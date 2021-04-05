@@ -1,7 +1,10 @@
 package org.qme.client.vis.gui;
 
 import org.lwjgl.BufferUtils;
+import org.qme.client.vis.RenderMaster;
 import org.qme.client.vis.wn.GLFWInteraction;
+import org.qme.client.vis.wn.Scrolling;
+import org.qme.world.Tile;
 
 import java.nio.DoubleBuffer;
 import java.util.ArrayList;
@@ -86,6 +89,15 @@ public interface MouseResponder {
 		int y = (int) MouseData.mouseY.get(0);
 		
 		for (MouseResponder responder : objects) {
+
+			if (responder instanceof Tile) {
+				Tile tile = (Tile) responder;
+				int tileX = (int) ((tile.x * RenderMaster.TILE_X_OFFSET * RenderMaster.zoom) - (tile.y * RenderMaster.TILE_X_OFFSET * RenderMaster.zoom) - Scrolling.getXOffset());
+				int tileY = (int) ((tile.y * RenderMaster.TILE_Y_OFFSET * RenderMaster.zoom) + (tile.x * RenderMaster.TILE_Y_OFFSET * RenderMaster.zoom) - Scrolling.getYOffset());
+				if (!RenderMaster.isInFrame(tileX, tileY)) {
+					continue;
+				}
+			}
 			
 			if (event == null) {
 				

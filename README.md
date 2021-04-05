@@ -4,7 +4,7 @@
 This is the repository for the QME source code and assets.
 
 ## QME
-![Example image](https://github.com/adamhutchings/qme5/blob/master/info/full_view_03.png?raw=true)
+![Example image](https://github.com/adamhutchings/qme5/blob/master/info/full_view_04.png?raw=true)
 
 ## Keybinds
 ![Keybinds](https://github.com/adamhutchings/qme5/blob/master/info/movement.png?raw=true)

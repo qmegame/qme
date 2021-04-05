@@ -1,9 +1,10 @@
 package org.qme.io;
 
+import org.qme.utils.Performance;
+import org.qme.utils.SplashText;
+
 import javax.swing.*;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 
 /**
@@ -12,6 +13,11 @@ import java.time.LocalDateTime;
  * @since 0.1.0
  */
 public class Logger {
+
+	/**
+	 * Whether the logger has been initialized yet.
+	 */
+	public static boolean logsActivated = false;
 	
 	/**
 	 * Function that logs a message to "qdata/logs.txt" with the date and time,
@@ -23,12 +29,7 @@ public class Logger {
 	 */
 	public static synchronized void log(String message, Severity severity) {
 
-		// Creates directory if not already created
-		try {
-			new File("qdata/").mkdir();
-		} catch(SecurityException e) {
-			showDialog("Error creating error log folder. Fatal. Possible cause: insufficient permissions.");
-		}
+		if (!logsActivated) return;
 		
 		// Creates file if not created
 		final File logs = new File("qdata/logs.txt");
@@ -38,9 +39,15 @@ public class Logger {
 			showDialog("Error writing errors to log. Fatal. Possible cause: insufficient permissions.");
 			System.exit(-1);
 		}
-		
+
+		String error;
+
 		// Error format
-		String error = "[ " + LocalDateTime.now().toString() + " ] [ " + severity.name() + " ] " + message + "\n";
+		if (severity == Severity.RAW) {
+			error = message + "\n";
+		} else {
+			error = "[ " + LocalDateTime.now().toString() + " ] [ " + severity.name() + " ] " + message + "\n";
+		}
 
 		if (severity != Severity.DEBUG) {
 			// Print to output if something is not normal
@@ -73,6 +80,48 @@ public class Logger {
 	 */
 	private static void showDialog(String message) {
 		//JOptionPane.showMessageDialog(null, message, null, JOptionPane.ERROR_MESSAGE);
+	}
+
+
+	public static void printCrashReport(Crash crash) {
+
+		log("\n\n ██████╗ ███╗   ███╗███████╗    ██╗  ██╗ █████╗ ███████╗     ██████╗██████╗  █████╗ ███████╗██╗  ██╗███████╗██████╗ \n" +
+				"██╔═══██╗████╗ ████║██╔════╝    ██║  ██║██╔══██╗██╔════╝    ██╔════╝██╔══██╗██╔══██╗██╔════╝██║  ██║██╔════╝██╔══██╗\n" +
+				"██║   ██║██╔████╔██║█████╗      ███████║███████║███████╗    ██║     ██████╔╝███████║███████╗███████║█████╗  ██║  ██║\n" +
+				"██║▄▄ ██║██║╚██╔╝██║██╔══╝      ██╔══██║██╔══██║╚════██║    ██║     ██╔══██╗██╔══██║╚════██║██╔══██║██╔══╝  ██║  ██║\n" +
+				"╚██████╔╝██║ ╚═╝ ██║███████╗    ██║  ██║██║  ██║███████║    ╚██████╗██║  ██║██║  ██║███████║██║  ██║███████╗██████╔╝\n" +
+				" ╚══▀▀═╝ ╚═╝     ╚═╝╚══════╝    ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝     ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚═════╝ \n", Severity.RAW);
+
+		try {
+			log(SplashText.grabSplash(new File(Logger.class.getResource("/misc/crash_messages.txt").getPath())), Severity.RAW);
+		} catch (FileNotFoundException e) {
+			log("Bro I couldn't find the crash_messages.txt file wtf", Severity.RAW);
+		}
+
+		log("The information attached to this error will now be printed.\n", Severity.RAW);
+
+		log("Running game version v" + Performance.GAME_VERSION + " (id:" + Performance.GAME_VERSION_ID + ")" +
+				"\nJVM: " + Performance.JAVA_VERSION + " (Vendor: " + Performance.JAVA_VENDOR + ")" +
+				"\nOperating System: " + Performance.OPERATING_SYSTEM + " (Arch: " + Performance.ARCH_TYPE + ") (Version: " + Performance.OPERATING_SYSTEM_VERSION + ")" +
+				"\nGraphics: " + Performance.GPU_NAME + " " + Performance.GPU_VENDOR +
+				"\nMemory: (Max: " + Runtime.getRuntime().totalMemory() / 1000000 + "mb) (Used: " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1000000 + "mb)" +
+				"\nProcessor: " + Performance.CPU + "\n", Severity.RAW);
+
+		log("Description: " + crash.description, Severity.RAW);
+		log(getStackTrace(crash.exception), Severity.RAW);
+
+		if (crash.isFatal) {
+			log("The process will now terminate", Severity.RAW);
+			System.exit(1);
+		}
+
+	}
+
+	private static String getStackTrace(final Throwable throwable) {
+		final StringWriter sw = new StringWriter();
+		final PrintWriter pw = new PrintWriter(sw, true);
+		throwable.printStackTrace(pw);
+		return sw.getBuffer().toString();
 	}
 
 }

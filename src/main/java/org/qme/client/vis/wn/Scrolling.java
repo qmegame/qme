@@ -1,6 +1,7 @@
 package org.qme.client.vis.wn;
 
 import org.qme.client.vis.RenderMaster;
+import org.qme.client.vis.gui.GUIManager;
 import org.qme.utils.Direction;
 
 import java.util.HashMap;
@@ -14,8 +15,8 @@ import static org.qme.client.vis.wn.WindowManager.*;
  */
 public class Scrolling {
 
-    private static double xOffset = 0D;
-    private static double yOffset = 0D;
+    private static double xOffset = 0;
+    private static double yOffset = 1000;
 
     private static final int SCROLL_SPEED = 4;
 
@@ -78,7 +79,11 @@ public class Scrolling {
      */
     public static void doScroll(Direction direction, boolean press) {
 
-        if (!canMove(direction, RenderMaster.zoom)) {
+        if (press && (GUIManager.optionsUI.isVisible() || GUIManager.pauseUI.isVisible())) {
+            return;
+        }
+
+        if (press && !canMove(direction, RenderMaster.zoom)) {
             return;
         }
 
@@ -90,10 +95,22 @@ public class Scrolling {
      * Actually move the world
      */
     public static void moveWorld() {
-        if (pressed.get(Direction.UP))    yOffset += SCROLL_SPEED;
-        if (pressed.get(Direction.DOWN))  yOffset -= SCROLL_SPEED;
-        if (pressed.get(Direction.LEFT))  xOffset -= SCROLL_SPEED;
-        if (pressed.get(Direction.RIGHT)) xOffset += SCROLL_SPEED;
+        if (GUIManager.optionsUI.isVisible() || GUIManager.pauseUI.isVisible()) {
+            return;
+        }
+
+        if (pressed.get(Direction.UP) && canMove(Direction.UP, RenderMaster.zoom)) {
+            yOffset += SCROLL_SPEED;
+        }
+        if (pressed.get(Direction.DOWN) && canMove(Direction.DOWN, RenderMaster.zoom)) {
+            yOffset -= SCROLL_SPEED;
+        }
+        if (pressed.get(Direction.LEFT) && canMove(Direction.LEFT, RenderMaster.zoom)) {
+            xOffset -= SCROLL_SPEED;
+        }
+        if (pressed.get(Direction.RIGHT) && canMove(Direction.RIGHT, RenderMaster.zoom)) {
+            xOffset += SCROLL_SPEED;
+        }
     }
 
     /**
@@ -102,7 +119,7 @@ public class Scrolling {
      * @param zoom the current zoom to calculate for
      * @return if the camera can move
      */
-    private static boolean canMove(Direction direction, float zoom) {
+    private static boolean canMove(Direction direction, double zoom) {
         double size = GLFWInteraction.getSize();
         switch (direction) {
             case UP:
@@ -116,6 +133,16 @@ public class Scrolling {
             default:
                 return true;
         }
+    }
+
+    /**
+     * Whether scrolling is currently happening
+     */
+    public static boolean scrolling() {
+        for (Direction direction : pressed.keySet()) {
+            if (pressed.get(direction)) return true;
+        }
+        return false;
     }
 
 }

@@ -5,12 +5,16 @@ import org.qme.client.vis.RenderMaster;
 import org.qme.client.vis.Renderable;
 import org.qme.client.vis.gui.GUIManager;
 import org.qme.client.vis.tex.TextureManager;
+import org.qme.init.GLInit;
 import org.qme.io.AudioPlayerState;
+import org.qme.io.Crash;
+import org.qme.io.Logger;
 import org.qme.utils.Direction;
 import org.qme.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -22,10 +26,10 @@ import static org.lwjgl.glfw.GLFW.*;
  */
 public final class WindowManager {
 
-	private static final float ZOOM_IN = 1.1F;
-	private static final float ZOOM_OUT = 0.9F;
+	private static final double ZOOM_IN = 1.1D;
+	private static final double ZOOM_OUT = 0.9D;
 
-	private static final float ZOOM_MIN = 0.5F;
+	private static final float ZOOM_MIN = 0.85F;
 	private static final float ZOOM_MAX = 10;
 
 	protected static final List<Renderable> renderables = new ArrayList<>();
@@ -34,17 +38,6 @@ public final class WindowManager {
 	 * No initialization, thank you very much.
 	 */
 	private WindowManager() {}
-	
-	static {
-
-		GLFWInteraction.glfwSetup();
-		
-		GLFWInteraction.createWindow();
-
-		// Load textures
-		new TextureManager();
-
-	}
 	
 	/**
 	 * The function that gets called when a key is pressed.
@@ -96,17 +89,28 @@ public final class WindowManager {
 					Application.audioPlayer.pause();
 				}
 				break;
-			case GLFW_KEY_TAB:
-				if (keyAction != GLFW_RELEASE) break;
-				GUIManager.RESOURCE_GUI.toggle();
-				break;
 			case GLFW_KEY_F1:
 				if (keyAction != GLFW_RELEASE) break;
-				Application.debugLabel.setVisible(!Application.debugLabel.isVisible());
+				GUIManager.debugUI.toggle();
 				break;
 			case GLFW_KEY_F2:
 				if (keyAction != GLFW_RELEASE) break;
-				Application.profilerLabel.setVisible(!Application.profilerLabel.isVisible());
+				GUIManager.profilerUI.toggle();
+				break;
+			case GLFW_KEY_F9:
+				if (keyAction != GLFW_RELEASE) break;
+				throw new RuntimeException("Game quit expectedly because crash button was pressed");
+			case GLFW_KEY_ESCAPE:
+				if (keyAction != GLFW_RELEASE) break;
+				if (GUIManager.pauseUI.isVisible()) {
+					Application.audioPlayer.play();
+					GUIManager.pauseUI.hide();
+				} else {
+					GUIManager.optionsUI.hide();
+					GUIManager.pauseUI.show();
+					GUIManager.resourcesUI.hide();
+					Application.audioPlayer.pause();
+				}
 				break;
 			default:
 				break;
@@ -117,20 +121,26 @@ public final class WindowManager {
 	 * Zooms in or out and applies an offset to zoom evenly
 	 * @param zoomFactor the scale factor to be applied to the zoom
 	 */
-	private static void applyZoom(float zoomFactor) {
+	private static void applyZoom(double zoomFactor) {
+		if (GUIManager.pauseUI.isVisible() || GUIManager.optionsUI.isVisible()) {
+			return;
+		}
+
 		// Works by calculating how much offset must be applied to counteract the objects increasing in size
-		double newWorldSize = getWorldSize(RenderMaster.zoom * zoomFactor);
+		double newWorldSize = getWorldSize(RenderMaster.zoom * (double) Math.round(zoomFactor * 100) / 100);
 		double oldWorldSize = getWorldSize(RenderMaster.zoom);
 
-		double focusX = (((double)GLFWInteraction.getSize() / 2) + Scrolling.getXOffset())/oldWorldSize;
-		double focusY = (((double)GLFWInteraction.getSize() / 2) + Scrolling.getYOffset())/oldWorldSize;
+		double half_win_size = GLFWInteraction.getSize() / 2;
+
+		double focusX = (half_win_size + Scrolling.getXOffset())/oldWorldSize;
+		double focusY = (half_win_size + Scrolling.getYOffset())/oldWorldSize;
 
 		double worldSizeChange = oldWorldSize - newWorldSize;
 
 		Scrolling.setXOffset(Scrolling.getXOffset() - (worldSizeChange) * focusX);
 		Scrolling.setYOffset(Scrolling.getYOffset() - (worldSizeChange) * focusY);
 
-		RenderMaster.zoom *= zoomFactor;
+		RenderMaster.zoom *= (double) Math.round(zoomFactor * 100) / 100;
 	}
 
 	/**
@@ -138,8 +148,8 @@ public final class WindowManager {
 	 * @param zoom the current zoom factor of the world
 	 * @return the size of the world in pixels
 	 */
-	public static float getWorldSize(float zoom) {
-		return (RenderMaster.TILE_GAP + RenderMaster.TILE_SIZE) * zoom * World.WORLD_SIZE;
+	public static double getWorldSize(double zoom) {
+		return ((RenderMaster.TILE_GAP + RenderMaster.TILE_SIZE) * zoom * World.WORLD_SIZE);
 	}
 
 	/**
@@ -147,7 +157,7 @@ public final class WindowManager {
 	 * @param zoom the current zoom factor of the world
 	 * @return the actual height of the world
 	 */
-	public static float getWorldHeight(float zoom) {
+	public static double getWorldHeight(double zoom) {
 		return (World.WORLD_SIZE * RenderMaster.TILE_Y_OFFSET * zoom) + (World.WORLD_SIZE * RenderMaster.TILE_Y_OFFSET * zoom);
 	}
 
@@ -156,7 +166,7 @@ public final class WindowManager {
 	 * @param zoom the current zoom factor of the world
 	 * @return the actual width of the world
 	 */
-	public static float getWorldWidth(float zoom) {
+	public static double getWorldWidth(double zoom) {
 		return (World.WORLD_SIZE * RenderMaster.TILE_X_OFFSET * zoom) + (World.WORLD_SIZE * RenderMaster.TILE_X_OFFSET * zoom);
 	}
 	

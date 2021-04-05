@@ -14,4 +14,9 @@ public interface Renderable {
 	 */
 	void draw();
 
+	/**
+	 * Which layer this object is in
+	 */
+	Layer layer();
+
 }

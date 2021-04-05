@@ -1,25 +1,24 @@
 package org.qme.client.vis.gui;
 
+import org.qme.client.vis.gui.comp.QFont;
+
+import java.awt.*;
+
 /**
  * Represents a list of UIComponents with neater ways to show / hide all of the
  * components. An instance should represent one set of related buttons, etc.,
  * like a menu.
  */
-public class GUI {
+public abstract class GUI {
+
+    private boolean visible;
+
+    protected final QFont monospace = new QFont(new Font(Font.DIALOG_INPUT, Font.PLAIN, 12), true);
 
     /**
      * All of the components.
      */
-    private final UIComponent[] components;
-
-    /**
-     * Default constructor
-     */
-    public GUI(UIComponent[] components) {
-        this.components = components;
-        // We're going to load all menus at once, so hidden by default.
-        this.hide();
-    }
+    protected UIComponent[] components;
 
     /**
      * Bring up this menu.
@@ -28,6 +27,7 @@ public class GUI {
         for (UIComponent c : components) {
             c.setVisible(true);
         }
+        this.visible = true;
     }
 
     /**
@@ -37,17 +37,22 @@ public class GUI {
         for (UIComponent c : components) {
             c.setVisible(false);
         }
+        this.visible = false;
     }
 
     /**
      * Toggle visibility by checking the first component.
      */
     public void toggle() {
-        if (components[0].isVisible()) {
+        if (isVisible()) {
             hide();
         } else {
             show();
         }
+    }
+
+    public boolean isVisible() {
+        return visible;
     }
 
 }
