@@ -27,6 +27,7 @@ public abstract class QSlider extends UIComponent {
     private QFont font;
     private Dimension textOffset;
     private Rectangle rect;
+    private boolean dragged = false;
 
     private boolean locked = false;
     private int fill = 100;
@@ -85,20 +86,52 @@ public abstract class QSlider extends UIComponent {
     }
 
     /**
+     * Changes the fill by a percentage
+     * @param fill the amount to change
+     */
+    public void changeFill(float fill) {
+        this.fill = this.fill + (int) ((fill / 100) * rect.width);
+    }
+
+    /**
      * Called when the button is clicked
      */
     protected abstract void action(float fill);
+
+    @Override
+    public void mouseClickOn(int x, int y) {
+       if (!isLocked() && isVisible()) {
+           float change = 0;
+           if (x - rect.x > fill) {
+               change += 5;
+           } else if (dragged) {
+               // Do nothing because slider is being dragged
+               return;
+           } else if (x - rect.x < fill) {
+               change -= 5;
+           }
+           //float fill = ((float)(x - (rect.x)) / rect.width) * 99;
+           changeFill(change);
+           action(this.fill);
+       }
+    }
 
     @Override
     public boolean contains(int x, int y) {
 
         // TODO: This is ugly asf needs an api method instead of putting it into contains
         if (rect.contains(x, GLFWInteraction.windowSize() - y)) {
-
             if (isClicked() && !isLocked() && isVisible()) {
-                float fill = ((float)(x - (rect.x)) / rect.width) * 100;
-                setFill(fill);
-                action(fill);
+                if (x - rect.x > fill - 20 && x - rect.x < fill + 20) {
+                    float fill = ((float)(x - (rect.x)) / rect.width) * 100;
+                    setFill(fill);
+                    action(fill);
+                    dragged = true;
+                } else {
+                   dragged = false;
+                }
+            } else {
+                dragged = false;
             }
             return true;
         }
@@ -121,7 +154,7 @@ public abstract class QSlider extends UIComponent {
         RenderMaster.drawBounds(atlas, new Rectangle(rect.x, rect.y, bodyWidth, bodyHeight), "disabled-");
 
         bodyWidth = Math.max(15, fill) - Math.max(15, fill) % Application.RENDER_SCALE - (atlas.get((isClicked() ? "pressed" : "unpressed") + "-" + "bottom-left").width * 2) * Application.RENDER_SCALE;
-        RenderMaster.drawBounds(atlas, new Rectangle(rect.x, rect.y, bodyWidth, bodyHeight), (isClicked() ? "pressed" : "unpressed") + "-");
+        RenderMaster.drawBounds(atlas, new Rectangle(rect.x, rect.y, bodyWidth, bodyHeight), (dragged ? "pressed" : "unpressed") + "-");
 
         font.drawText(text, rect.x + textOffset.width, rect.y + textOffset.height, Color.WHITE);
 
