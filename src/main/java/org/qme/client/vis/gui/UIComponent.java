@@ -92,22 +92,22 @@ public abstract class UIComponent implements MouseResponder, Renderable {
 	}
 
 	@Override
-	public void mouseHoverOn() {
+	public void mouseHoverOn(int x, int y) {
 		// Do nothing
 	}
 
 	@Override
-	public void mouseHoverOff() {
+	public void mouseHoverOff(int x, int y) {
 		// Do nothing
 	}
 
 	@Override
-	public void mouseClickOn() {
+	public void mouseClickOn(int x, int y) {
 		// Do nothing
 	}
 
 	@Override
-	public void mouseClickOff() {
+	public void mouseClickOff(int x, int y) {
 		// Do nothing
 	}
 

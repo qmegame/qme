@@ -56,22 +56,22 @@ public interface MouseResponder {
 	/**
 	 * What happens when a mouse hovers over this.
 	 */
-	void mouseHoverOn();
+	void mouseHoverOn(int x, int y);
 	
 	/**
 	 * What happens when a mouse hovers off this.
 	 */
-	void mouseHoverOff();
+	void mouseHoverOff(int x, int y);
 	
 	/**
 	 * What happens when a mouse clicks on this.
 	 */
-	void mouseClickOn();
+	void mouseClickOn(int x, int y);
 	
 	/**
 	 * What happens when a mouse clicks off this.
 	 */
-	void mouseClickOff();
+	void mouseClickOff(int x, int y);
 	
 	/**
 	 * Gets called, and dispatches all appropriate events
@@ -105,13 +105,13 @@ public interface MouseResponder {
 			
 				// If the mouse is in now but wasn't last time, hover on
 				if (responder.contains(x, y) && !responder.isHovered()) {
-					responder.mouseHoverOn();
+					responder.mouseHoverOn(x, y);
 					responder.setHovered(true);
 				}
 				
 				// If it isn't it now but was last time, hover off!
 				if (!responder.contains(x, y) && responder.isHovered()) {
-					responder.mouseHoverOff();
+					responder.mouseHoverOff(x, y);
 					responder.setHovered(false);
 				}
 				
@@ -120,14 +120,14 @@ public interface MouseResponder {
 				if (responder.contains(x, y)
 						&& event.action == GLFW_PRESS
 						&& !responder.isClicked()) {
-					responder.mouseClickOn();
+					responder.mouseClickOn(x, y);
 					responder.setClicked(true);
 				}
 				
 				// Release happens if a component was clicked, no matter if the
 				// mouse is still over it.
 				if (event.action == GLFW_RELEASE && responder.isClicked()) {
-					responder.mouseClickOff();
+					responder.mouseClickOff(x, y);
 					responder.setClicked(false);
 				}
 				

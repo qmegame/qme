@@ -109,13 +109,13 @@ public class Tile extends UIComponent {
 	}
 
 	@Override
-	public void mouseClickOff() {
+	public void mouseClickOff(int x, int y) {
 		this.setVisible(true);
 		GUIManager.resourcesUI.showFor(this);
 	}
 
 	@Override
-	public void mouseClickOn() {
+	public void mouseClickOn(int x, int y) {
 		this.setVisible(false);
 	}
 }

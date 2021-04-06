@@ -97,7 +97,7 @@ public abstract class QButton extends UIComponent {
     protected abstract void action();
 
     @Override
-    public void mouseClickOff() {
+    public void mouseClickOff(int x, int y) {
         if (this.isVisible()) {
             this.action();
         }
