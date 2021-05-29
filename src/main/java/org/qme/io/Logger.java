@@ -49,7 +49,7 @@ public class Logger {
 			error = "[ " + LocalDateTime.now().toString() + " ] [ " + severity.name() + " ] " + message + "\n";
 		}
 
-		if (severity != Severity.DEBUG) {
+		if (severity != Severity.DEBUG && severity != Severity.FATAL) {
 			// Print to output if something is not normal
 			System.out.print(error);
 		}
@@ -69,9 +69,8 @@ public class Logger {
 		}
 
 		if (severity == Severity.FATAL) {
-			showDialog("FATAL " + message);
+			showDialog(error +  message);
 		}
-
 	}
 
 	/**
@@ -79,9 +78,10 @@ public class Logger {
 	 * @param message information about error
 	 */
 	private static void showDialog(String message) {
-		//JOptionPane.showMessageDialog(null, message, null, JOptionPane.ERROR_MESSAGE);
+		System.out.print("\nFATAL: " + message);
+		// TODO: Dialog not working
+		// JOptionPane.showMessageDialog(null, message, null, JOptionPane.ERROR_MESSAGE);
 	}
-
 
 	public static void printCrashReport(Crash crash) {
 
