@@ -5,6 +5,8 @@ import org.qme.io.Severity;
 import org.qme.utils.Direction;
 import org.qme.world.TileType;
 
+
+
 public class AddStuff extends WorldGenerator{
     /**
      * A utility function to generate and add a continent
@@ -73,9 +75,7 @@ public class AddStuff extends WorldGenerator{
 
                     // Set chance that tile is land
                     double chance = Math.pow(0.95, j) / 0.95;
-                    if(j > side * 2 / 3) {
-                        chance = 0;
-                    }
+                    if(j > side * 2 / 3) { chance = 0; }
 
                     // Determine if tile is land
                     if(rand.nextInt(10000) < Math.floor(10000 * chance)) {
@@ -105,9 +105,7 @@ public class AddStuff extends WorldGenerator{
 
                     // Set chance that tile is land
                     double chance = Math.pow(0.95, ii) / 0.95;
-                    if(ii > side * 2 / 3) {
-                        chance = 0;
-                    }
+                    if(ii > side * 2 / 3) { chance = 0; }
 
                     if(rand.nextInt(10000) < Math.floor(10000 * chance)) {
                         newWorld[centerX + ii][centerY] =
@@ -136,9 +134,7 @@ public class AddStuff extends WorldGenerator{
 
                     // Set chance that tile is land
                     double chance = Math.pow(0.95, jj) / 0.95;
-                    if(jj > side * 2 / 3) {
-                        chance = 0;
-                    }
+                    if(jj > side * 2 / 3) { chance = 0; }
 
                     if(rand.nextInt(10000) < Math.floor(10000 * chance)) {
                         newWorld[centerX][centerY + jj] =
@@ -165,13 +161,11 @@ public class AddStuff extends WorldGenerator{
             for(int l = upmost; l <= downmost; l++) {
                 if(newWorld[k][l] == TileType.OCEAN) {
                     final double distance = Math.pow(Math.pow(Math.abs(centerX - k),
-                            16 / 15) + Math.pow(Math.abs(centerY - l), 16 / 15), 7 / 4);
+                            SIXTEEN_OVER_FIFTEEN) + Math.pow(Math.abs(centerY - l), SIXTEEN_OVER_FIFTEEN), 7 / 4);
 
                     // Set chance that tile is land
                     double chance = Math.pow(0.95, distance) / 0.95;
-                    if(distance > side * 2 / 3) {
-                        chance = 0;
-                    }
+                    if(distance > side * 2 / 3) { chance = 0; }
 
                     if(rand.nextInt(10000) < Math.floor(10000 * chance)) {
                         newWorld[k][l] = WorldGenerator.assignRandomFlatLand();
@@ -264,7 +258,8 @@ public class AddStuff extends WorldGenerator{
             return world;
         }
 
-        // Return
         return riverWorld;
     }
+
+    static int SIXTEEN_OVER_FIFTEEN = 16 / 15;
 }
