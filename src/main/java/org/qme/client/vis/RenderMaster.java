@@ -56,6 +56,7 @@ public final class RenderMaster {
 	 */
 	public static void drawTile(Tile tile) {
 
+
 		double tileX = ((tile.x * TILE_X_OFFSET * zoom) - (tile.y * TILE_X_OFFSET * zoom) - Scrolling.getXOffset());
 		double tileY = ((tile.y * TILE_Y_OFFSET * zoom) + (tile.x * TILE_Y_OFFSET * zoom) - Scrolling.getYOffset());
 

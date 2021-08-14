@@ -84,6 +84,16 @@ public class Tile extends UIComponent {
 		}
 	}
 
+	public int scaledTilePosX() {
+		double scaledOffsetX = RenderMaster.TILE_X_OFFSET * RenderMaster.zoom;
+		return (int) ((this.x * scaledOffsetX) - (this.y * scaledOffsetX) - Scrolling.getXOffset());
+	}
+
+	public int scaledTilePosY() {
+		double scaledOffsetY = RenderMaster.TILE_Y_OFFSET * RenderMaster.zoom;
+		return (int) ((this.y * scaledOffsetY) + (this.x * scaledOffsetY) - Scrolling.getYOffset());
+	}
+
 	@Override
 	public boolean contains(int x, int y) {
 
@@ -97,11 +107,10 @@ public class Tile extends UIComponent {
 			return false;
 		}
 
-		double scaledOffsetX = RenderMaster.TILE_X_OFFSET * RenderMaster.zoom;
-		double scaledOffsetY = RenderMaster.TILE_Y_OFFSET * RenderMaster.zoom;
 
-		int tileX = (int) ((this.x * scaledOffsetX) - (this.y * scaledOffsetX) - Scrolling.getXOffset());
-		int tileY = (int) ((this.y * scaledOffsetY) + (this.x * scaledOffsetY) - Scrolling.getYOffset());
+		int tileX = this.scaledTilePosX();
+		int tileY = this.scaledTilePosY();
+
 		int tileSizeActual = (int) (RenderMaster.TILE_SIZE * RenderMaster.zoom);
 
 		double thirdTileSizeActual = tileSizeActual / 3.0;
