@@ -97,14 +97,21 @@ public class Tile extends UIComponent {
 			return false;
 		}
 
-		int tileX = (int) ((this.x * RenderMaster.TILE_X_OFFSET * RenderMaster.zoom) - (this.y * RenderMaster.TILE_X_OFFSET * RenderMaster.zoom) - Scrolling.getXOffset());
-		int tileY = (int) ((this.y * RenderMaster.TILE_Y_OFFSET * RenderMaster.zoom) + (this.x * RenderMaster.TILE_Y_OFFSET * RenderMaster.zoom) - Scrolling.getYOffset());
+		double scaledOffsetX = RenderMaster.TILE_X_OFFSET * RenderMaster.zoom;
+		double scaledOffsetY = RenderMaster.TILE_Y_OFFSET * RenderMaster.zoom;
+
+		int tileX = (int) ((this.x * scaledOffsetX) - (this.y * scaledOffsetX) - Scrolling.getXOffset());
+		int tileY = (int) ((this.y * scaledOffsetY) + (this.x * scaledOffsetY) - Scrolling.getYOffset());
 		int tileSizeActual = (int) (RenderMaster.TILE_SIZE * RenderMaster.zoom);
 
-		return x > tileX + (tileSizeActual / 3) &&
-						x < tileX + (tileSizeActual * 2 / 3) &&
-						GLFWInteraction.getSize() - y > tileY + (tileSizeActual / 3) &&
-						GLFWInteraction.getSize() - y < tileY + (tileSizeActual * 2 / 3);
+		double thirdTileSizeActual = tileSizeActual / 3.0;
+		double twoThirdsTileSizeActual = tileSizeActual * 2.0 / 3.0;
+
+		int size = GLFWInteraction.getSize() - y;
+		return x > tileX + (thirdTileSizeActual) &&
+						x < tileX + (twoThirdsTileSizeActual) &&
+						size > tileY + (thirdTileSizeActual) &&
+						size < tileY + (twoThirdsTileSizeActual);
 
 	}
 
