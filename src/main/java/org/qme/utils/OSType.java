@@ -27,7 +27,7 @@ public final class OSType {
         INVALID = 11;
     ;
 
-    public static boolean windows() { return (OS_TYPE <= WIN_XP) && (OS_TYPE >= WIN_03); }
+    public static boolean windows() { return (OS_TYPE >= WIN_XP) && (OS_TYPE <= WIN_03); }
 
     public static boolean mac() { return OS_TYPE == MACOSX; }
 
