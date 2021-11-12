@@ -90,6 +90,8 @@ public final class Application {
 
 		AssetInit.init();
 
+		// Best feature
+		Something.Broken();
 	}
 
 	/**
