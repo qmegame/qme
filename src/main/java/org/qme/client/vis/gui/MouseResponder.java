@@ -92,8 +92,8 @@ public interface MouseResponder {
 
 			if (responder instanceof Tile) {
 				Tile tile = (Tile) responder;
-				int tileX = (int) ((tile.x * RenderMaster.TILE_X_OFFSET * RenderMaster.zoom) - (tile.y * RenderMaster.TILE_X_OFFSET * RenderMaster.zoom) - Scrolling.getXOffset());
-				int tileY = (int) ((tile.y * RenderMaster.TILE_Y_OFFSET * RenderMaster.zoom) + (tile.x * RenderMaster.TILE_Y_OFFSET * RenderMaster.zoom) - Scrolling.getYOffset());
+				int tileX = tile.scaledTilePosX();
+				int tileY = tile.scaledTilePosY();
 				if (!RenderMaster.isInFrame(tileX, tileY)) {
 					continue;
 				}

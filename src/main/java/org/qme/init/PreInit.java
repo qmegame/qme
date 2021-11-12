@@ -27,7 +27,7 @@ public class PreInit {
     public static void init() {
 
         try {
-            new File("qdata/").mkdir();
+            new File(QDATA).mkdir();
         } catch(SecurityException e) {
             System.exit(-1); // TODO
         }

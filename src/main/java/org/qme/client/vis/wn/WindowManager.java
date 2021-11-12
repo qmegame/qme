@@ -130,7 +130,7 @@ public final class WindowManager {
 		double newWorldSize = getWorldSize(RenderMaster.zoom * (double) Math.round(zoomFactor * 100) / 100);
 		double oldWorldSize = getWorldSize(RenderMaster.zoom);
 
-		double half_win_size = GLFWInteraction.getSize() / 2;
+		double half_win_size = GLFWInteraction.getSize() / 2.0;
 
 		double focusX = (half_win_size + Scrolling.getXOffset())/oldWorldSize;
 		double focusY = (half_win_size + Scrolling.getYOffset())/oldWorldSize;
