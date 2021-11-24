@@ -74,11 +74,10 @@ public class Tile extends UIComponent {
 		Random rand = new Random();
 		final int roll = rand.nextInt(100);
 		ResourceType[] resourceList = (ResourceType.values());
-		for (int i = 0; i < resourceList.length; i++) {
-			ResourceType res = resourceList[i];
+		for (ResourceType res : resourceList) {
 			if (roll < Resource.getSpawnChance(res, this.type)) {
 				// TODO: Seagulls here
-				if ( (res != ResourceType.SALT) || (this.resources.size() == 0) )
+				if ((res != ResourceType.SALT) || (this.resources.size() == 0))
 					this.resources.add(new Resource(res));
 			}
 		}
