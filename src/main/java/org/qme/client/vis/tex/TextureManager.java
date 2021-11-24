@@ -48,25 +48,27 @@ public class TextureManager {
         toLoad.add("tiles/desert.png");
         toLoad.add("tiles/jungle.png");
         toLoad.add("tiles/tundra.png");
+
+        toLoad.add("tiles/hover.png");
+
         toLoad.add("items/coal.png");
         toLoad.add("items/fruit.png");
         toLoad.add("items/gold-ore.png");
-        toLoad.add("items/grape-vine.png");
-        toLoad.add("items/grass.png");
-        toLoad.add("items/leaf.png");
+        toLoad.add("items/silver-ore.png");
+        toLoad.add("items/iron-ore.png");
         toLoad.add("items/salt.png");
         toLoad.add("items/sea-weed.png");
-        toLoad.add("items/tall-grass.png");
-        toLoad.add("tiles/hover.png");
         toLoad.add("items/snow.png");
-        toLoad.add("items/rock.png");
         toLoad.add("items/sand.png");
-        toLoad.add("items/sand-stone.png");
         toLoad.add("items/grapes.png");
-        toLoad.add("items/lumber.png");
-        toLoad.add("items/cactus.png");
         toLoad.add("items/wheat.png");
         toLoad.add("items/seagull.png");
+        toLoad.add("items/salmon.png");
+        toLoad.add("items/amethyst-shard.png");
+        toLoad.add("items/book.png");
+        toLoad.add("items/cod.png");
+        toLoad.add("items/egg.png");
+
         toLoad.add("misc/box.png");
         toLoad.add("misc/button.png");
         for (String texture : toLoad) {

@@ -6,22 +6,26 @@ package org.qme.world.res;
  * @since 0.3.0
  */
 public enum ResourceType {
+    AMETHYST_SHARD,
     COAL,
-    FRUIT,
-    GOLD_ORE,
-    GRAPE_VINE,
-    GRAPES,
-    GRASS,
-    LEAF,
-    SALT,
-    SEA_WEED,
-    TALL_GRASS,
-    ROCK,
-    SNOW,
-    CACTUS,
     SAND,
-    SAND_STONE,
-    LUMBER,
+    SNOW,
+    SALT,
+
+    BOOK,
+
+    FRUIT,
+    GRAPES,
+    WHEAT,
+    EGG,
+
+    SEA_WEED,
+
+    GOLD_ORE,
+    IRON_ORE,
+    SILVER_ORE,
+
     SEAGULL,
-    WHEAT
+    COD,
+    SALMON,
 }

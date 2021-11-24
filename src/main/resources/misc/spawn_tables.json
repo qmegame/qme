@@ -3,15 +3,32 @@
     "mountain": 50,
     "high_mountain": 20
   },
+  "amethyst_shard": {
+    "mountain": 2,
+    "high_mountain": 8
+  },
   "fruit": {
     "forest": 20
+  },
+  "egg": {
+    "desert": 20,
+    "forest": 1,
+    "fertile_plains": 5
+  },
+  "book": {
+    "forest": 1
   },
   "gold_ore": {
     "mountain": 10,
     "high_mountain": 20
   },
-  "grape_vine": {
-    "fertile_plains": 10
+  "silver_ore": {
+    "mountain": 8,
+    "high_mountain": 2
+  },
+  "iron_ore": {
+    "mountain": 20,
+    "high_mountain": 10
   },
   "grapes": {
     "fertile_plains": 5
@@ -19,32 +36,24 @@
   "wheat": {
     "fertile_plains": 20
   },
-  "grass": {
-    "plains": 70
-  },
-  "leaf": {
-    "forest": 80
-  },
-  "lumber": {
-    "forest": 65
-  },
   "seagull": {
     "ocean": 2,
     "sea": 6
   },
+  "cod": {
+    "ocean": 2,
+    "sea": 6
+  },
+  "salmon": {
+    "ocean": 2,
+    "sea": 6
+  },
   "salt": {
-    "ocean": 20
+    "ocean": 10
   },
   "sea_weed": {
     "ocean": 30,
     "sea": 25
-  },
-  "tall_grass": {
-    "fertile_plains": 50
-  },
-  "rock": {
-    "high_mountain": 35,
-    "mountain": 80
   },
   "snow": {
     "high_mountain": 100,
@@ -52,11 +61,5 @@
   },
   "sand": {
     "desert": 60
-  },
-  "sand_stone": {
-    "desert": 5
-  },
-  "cactus": {
-    "desert": 20
   }
 }
