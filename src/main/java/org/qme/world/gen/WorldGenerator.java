@@ -4,6 +4,7 @@ import org.qme.io.Logger;
 import org.qme.io.Severity;
 import org.qme.utils.Direction;
 import org.qme.world.TileType;
+import org.qme.client.vis.LoadingBar;
 
 import java.util.Random;
 
@@ -40,6 +41,8 @@ public class WorldGenerator {
 		double side_squared = side * side;
 		int side_as_int = (int) side;
 		Logger.log("Generating Map", Severity.NORMAL);
+
+		//LoadingBar.newWindow();
 		
 		// Generate blank world
 		TileType[][] world;
@@ -47,6 +50,7 @@ public class WorldGenerator {
 		Logger.log("before ocean", Severity.DEBUG);
 		// Fill world with ocean
 		world = WorldGenerator.ocean(side);
+		//LoadingBar.fill(10);
 		Logger.log("after ocean", Severity.DEBUG);
 		
 		final int continents = 5 * (1 + (int) Math.ceil(side / 11));
@@ -60,35 +64,45 @@ public class WorldGenerator {
 			Logger.log("before individual continent", Severity.DEBUG);
 			world = AddStuff.addContinent(world, side, i, j);
 		}
+		//LoadingBar.fill(30);
 		
 		// Make coastal oceans into seas
 		Logger.log("before final ocean to sea", Severity.DEBUG);
 		world = WorldGenerator.oceanToSea(world, side);
+		//LoadingBar.fill(40);
 
 		WorldGenerator.landReclaim(world, side);
-
+		//LoadingBar.fill(60);
 		Logger.log("before grid fixing", Severity.DEBUG);
 
 		for (int i = 0; i < GRID_FIXES; ++i) {
 			removeGriding(world);
 		}
+		//LoadingBar.fill(85);
 
 		// Make mountain ranges
 		for (int j = 0; j < (int) (side_squared / MOUNTAIN_CONSTANT); j++) {
 			world = AddStuff.addMountainFinal(world, side_as_int);
 		}
+		//LoadingBar.fill(90);
 
 		// Make final rivers
 		for (int k = 0; k < (int) (side_squared / RIVER_CONSTANT); k++) {
 			world = AddStuff.addRiverFinal(world, side_as_int);
 		}
+		//LoadingBar.fill(95);
     
 		// Make coastal oceans into seas
 		Logger.log("before ocean to sea", Severity.DEBUG);
 		world = WorldGenerator.oceanToSea(world, side);
+		//LoadingBar.fill(97);
 
 		// Return generated (not yet) world
 		Logger.log("done", Severity.DEBUG);
+
+		//LoadingBar.fill(100);
+		//LoadingBar.done();
+
 		return world;
 	}
 	

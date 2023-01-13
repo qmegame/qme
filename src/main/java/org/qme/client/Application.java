@@ -1,10 +1,9 @@
 package org.qme.client;
 
+import org.qme.client.vis.LoadingBar;
 import org.qme.client.vis.gui.*;
 import org.qme.client.vis.gui.comp.QBox;
-import org.qme.client.vis.gui.comp.QFont;
 import org.qme.client.vis.gui.comp.QLabel;
-import org.qme.client.vis.tex.TextureManager;
 import org.qme.client.vis.wn.GLFWInteraction;
 import org.qme.client.vis.wn.Scrolling;
 import org.qme.init.AssetInit;
@@ -12,14 +11,12 @@ import org.qme.init.GLInit;
 import org.qme.init.PreInit;
 import org.qme.io.*;
 import org.qme.utils.FramerateManager;
-import org.qme.utils.Language;
 import org.qme.utils.Performance;
 import org.qme.world.World;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 
 /**
  * The "controller", so to speak, of all events. It also helps to validate
@@ -89,6 +86,8 @@ public final class Application {
 		GLInit.init();
 
 		AssetInit.init();
+
+		//LoadingBar.done();
 
 	}
 
